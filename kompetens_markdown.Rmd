@@ -1,14 +1,17 @@
 ---
-title: "Kompetensförsörjning i Dalarnas län"
-author: "Jon Frank"
-date: '2022-10-28↕'
+title: ""
+author: ""
+date: ""
 output: 
   html_document:
     toc: yes
     toc_float: yes
     toc_depth: 6
-    fig_caption: yes
+    css: "styles.css"
 ---
+:::{#header}
+<img src="logo_liggande_platta_farg.png" height="50" width="100" margin="0 auto"/>
+:::
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -31,6 +34,9 @@ lista_figurer=c(lista_figurer,hamta_figurer(skapa_fil=Skapa_fil))
 ## 2 Bakgrund och teori
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 1"}
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2031 är prognos, övriga historisk data."
+
 knitr::include_graphics(here("Diagram","befolkning_forandring.png"))
 ```
 <br>
@@ -67,7 +73,7 @@ knitr::include_graphics(here("Diagram","utbildningsniva_85_21.png"))
 <br>
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
-knitr::include_graphics(here("Diagram","utbildningsniva_jmf.png"))
+knitr::include_graphics(here("Diagram","utbildningsniva_jmf_lan.png"))
 ```
 <br>
 <br>
