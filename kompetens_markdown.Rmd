@@ -16,28 +16,75 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(here)
-lista_figurer=list()
-# Om man vill uppdatera figurerna sätter man skapa_lista till TRUE. Skapa_fil styr om man vill skapa en png-fil, vilket normalt sett är fallet. Notera att skapa_lista bara skall användas när figurer behöver uppdateras. Tar betydligt mycket längre tid.
+# lista_figurer=list()
+# # Om man vill uppdatera figurerna sätter man skapa_lista till TRUE. Skapa_fil styr om man vill skapa en png-fil, vilket normalt sett är fallet. Notera att skapa_lista bara skall användas när figurer behöver uppdateras. Tar betydligt mycket längre tid.
+# 
+# skapa_lista=FALSE
+# Skapa_fil=FALSE
+# i=1
+# 
+# #test_lank<-here("Diagram","befolkningsforandring_20_64.png")
+# 
+# if(skapa_lista==TRUE){
+# source(here("master_kompetens.R"), encoding = "utf-8", echo = FALSE)
+# lista_figurer=c(lista_figurer,hamta_figurer(skapa_fil=Skapa_fil))
+#}
+# Nödvändiga paket
+if (!require("pacman")) install.packages("pacman")
+p_load(here,
+       tidyverse,
+       openxlsx)
 
-skapa_lista=FALSE
-Skapa_fil=FALSE
-i=1
+# Funktioner som behövs (hämtas från Git-Hub)
+source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_SkapaDiagram.R")
+source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
 
-#test_lank<-here("Diagram","befolkningsforandring_20_64.png")
+befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_prognos.xlsx",sheet = 1)
 
-if(skapa_lista==TRUE){
-source(here("master_kompetens.R"), encoding = "utf-8", echo = FALSE)
-lista_figurer=c(lista_figurer,hamta_figurer(skapa_fil=Skapa_fil))
-}
 ```
+# Kompetensförsörjning i Dalarna
+<p style = "font-size:12px">
+<i>Skapad av: Samhällsanalys, Region Dalarna<br>
+Senast uppdaterad: `r Sys.Date()`</i>
+</p>
+
 
 ## 2 Bakgrund och teori
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 1"}
 
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2031 är prognos, övriga historisk data."
+ # Det första datasettet - innehåller åldersgrupper men inte totalt för alla
+ 
+# Summerar på år och aldersgrupper
+ befolkning_forandring_df_sum <- befolkning_forandring_df %>%
+   group_by(år,aldersgrupper) %>%
+    summarize(`Folkmängd`=sum(`Folkmängd`))
 
-knitr::include_graphics(here("Diagram","befolkning_forandring.png"))
+ # Använder en faktorvariabel för att styra ordningen på åldersgrupper
+ befolkning_forandring_df_sum$aldersgrupper <- factor(befolkning_forandring_df_sum$aldersgrupper, levels = c("totalt","0-19 år","20-64 år","65-79 år","80+ år"))
+ 
+   diagram_titel <- "Dalarnas befolkning uppdelat på åldersgrupper"
+   diagram_typ <- "befolkning_forandring"
+   diagramfil <- "befolkning_forandring.png"
+
+   befolkning_for <- SkapaStapelDiagram(skickad_df = befolkning_forandring_df_sum %>%
+                                          filter(aldersgrupper!="totalt"),
+                                        skickad_x_var = "aldersgrupper",
+                                        skickad_y_var = "Folkmängd",
+                                        skickad_x_grupp = "år",
+                                        manual_x_axis_text_vjust=0.7,
+                                        manual_x_axis_text_hjust=0.3,
+                                        manual_color = diagramfarger("rus_sex"),
+                                        x_axis_lutning = 0,
+                                        diagram_titel = diagram_titel,
+                                        diagram_capt = diagram_capt,
+                                        manual_x_axis_title = "Åldersgrupper",
+                                        berakna_index = FALSE,
+                                        output_mapp = "",
+                                        filnamn_diagram = diagramfil,
+                                        skriv_till_diagramfil =FALSE)
+
 ```
 <br>
 <br>
