@@ -9,3 +9,8 @@ Output_mapp_figur <- here("Diagram","/")
 source(here("Skript","befolkning_aldersgrupp_prognos.R"), encoding="UTF-8")
 diag_befolkning(output_mapp = Output_mapp,
                 spara_data = TRUE)
+
+# Förvärvsarbetande från 1990 till senaste år
+source(here("Skript","forvarvsarbetande_90_senastear.R"), encoding="UTF-8")
+hamta_data_sysselsatta_1990(output_mapp = Output_mapp,
+                            spara_data = TRUE)

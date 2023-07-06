@@ -15,7 +15,6 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(here)
 # lista_figurer=list()
 # # Om man vill uppdatera figurerna sätter man skapa_lista till TRUE. Skapa_fil styr om man vill skapa en png-fil, vilket normalt sett är fallet. Notera att skapa_lista bara skall användas när figurer behöver uppdateras. Tar betydligt mycket längre tid.
 # 
@@ -39,7 +38,8 @@ p_load(here,
 source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_SkapaDiagram.R")
 source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
 
-befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_prognos.xlsx",sheet = 1)
+befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_prognos.xlsx")
+sysselsatta_90_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_90.xlsx")
 
 ```
 # Kompetensförsörjning i Dalarna
@@ -86,17 +86,51 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
                                         skriv_till_diagramfil =FALSE)
 
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 1"}
+   befolkning_for
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 2"}
+diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92"
+
+# Gör om år till en faktorvariabel för utbildningsnivå_balans. Detta för att kunna bestämma vilken ordning staplarna för de olika åren kommer i diagrammet
+max_ar <- max(sysselsatta_90_df$år)
+
+#sysselsatta_90_df$år <- factor(sysselsatta_90_df$år, levels = c(max_ar,"2010","2000","1990"))
+
+sysselsatta_90_df$Näringsgren <- stringr::str_to_sentence(sysselsatta_90_df$Näringsgren)
+
+sysselsatta_90_df$Näringsgren <- str_wrap(sysselsatta_90_df$Näringsgren,40)
+
+diagram_titel <- paste0("Förvärvsarbetande (16+ år) i Dalarna ")
+diagramfil <- "per_bransch_tidsserie.png"
+
+fig_forv_90 <- SkapaStapelDiagram(skickad_df = sysselsatta_90_df %>%
+                                   filter(år%in%c("1990","2000","2010",max_ar)),
+                                 skickad_x_var = "Näringsgren",
+                                 skickad_y_var = "antal",
+                                 skickad_x_grupp = "år",
+                                 manual_x_axis_text_vjust=1,
+                                 manual_x_axis_text_hjust=1,
+                                 manual_color = diagramfarger("rus_sex"),
+                                 x_axis_sort_value = TRUE,
+                                 vand_sortering = TRUE,
+                                 stodlinjer_avrunda_fem = TRUE,
+                                 x_axis_sort_grp = 4,
+                                 x_axis_lutning = 45,
+                                 diagram_titel = diagram_titel,
+                                 diagram_capt = diagram_capt,
+                                 manual_y_axis_title = "",
+                                 output_mapp = "",
+                                 filnamn_diagram = diagramfil,
+                                 skriv_till_diagramfil = FALSE)
+
 knitr::include_graphics(here("Diagram","per_bransch_tidsserie.png"))
 ```
-<br>
-<br>
-<br>
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 3"}
-knitr::include_graphics(here("Diagram","forv_bransch_97_.png"))
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 2"}
+fig_forv_90
 ```
 <br>
 <br>
