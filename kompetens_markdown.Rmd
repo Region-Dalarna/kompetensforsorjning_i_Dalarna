@@ -226,6 +226,7 @@ utb_senastear_fig
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+
 knitr::include_graphics(here("Diagram","arbetsloshet_Dalarna_tidsserie.png"))
 ```
 ## 3 Efterfrågan, nu och framledes
