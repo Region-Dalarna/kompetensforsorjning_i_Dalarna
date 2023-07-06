@@ -40,6 +40,8 @@ source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
 
 befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_prognos.xlsx")
 sysselsatta_90_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_90.xlsx")
+utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_85.xlsx")
+utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
 
 ```
 # Kompetensförsörjning i Dalarna
@@ -51,7 +53,7 @@ Senast uppdaterad: `r Sys.Date()`</i>
 
 ## 2 Bakgrund och teori
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 1"}
+```{r, echo=FALSE, fig.width=10, fig.align='Left',include=FALSE}
 
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2031 är prognos, övriga historisk data."
  # Det första datasettet - innehåller åldersgrupper men inte totalt för alla
@@ -91,7 +93,7 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
    befolkning_for
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 2"}
+```{r, echo=FALSE, fig.width=10, fig.align='Left',include=FALSE}
 diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92"
 
 # Gör om år till en faktorvariabel för utbildningsnivå_balans. Detta för att kunna bestämma vilken ordning staplarna för de olika åren kommer i diagrammet
@@ -135,37 +137,101 @@ fig_forv_90
 <br>
 <br>
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='Center',fig.cap="Figur 4"}
+```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.width=10, fig.align='Center',fig.cap="Figur 3"}
 knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2020/Branschstruktur_Dalarnas_kommuner_2020.png")
 ```
 <br>
 <br>
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='Center',fig.cap="Figur 5"}
+```{r, echo=FALSE,message = FALSE, warning = FALSE, fig.width=10, fig.align='Center',fig.cap="Figur 3"}
 knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2020/Dalarna_kon_dagbef_2020.png")
 ```
 <br>
 <br>
 <br>
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 6"}
-knitr::include_graphics(here("Diagram","utbildningsniva_85_21.png"))
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+# Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
+utbildning_85_utskrift<-utbildning_85_df %>%
+  filter(utb_niva!="Uppgift saknas") %>%
+    group_by(år,region,kön,utb_niva) %>%
+      summarize(antal=sum(Befolkning)) %>%
+        mutate(andel=(antal/sum(antal))*100)
+
+diagramtitel <- paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning i ",unique(utbildning_85_utskrift$region))
+diagramtitel <- str_wrap(diagramtitel)
+diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
+
+utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
+                              filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
+                                filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer"),
+                             skickad_x_var = "år",
+                             skickad_y_var = "andel",
+                             skickad_x_grupp = "kön",
+                             manual_color = diagramfarger("kon"),
+                             diagram_titel = diagramtitel,
+                             diagram_capt =  diagram_capt,
+                             x_axis_lutning = 0,
+                             stodlinjer_avrunda_fem = TRUE,
+                             manual_y_axis_title="procent",
+                             output_mapp = "",
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = FALSE)
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 6"}
+utb_85_fig
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
-knitr::include_graphics(here("Diagram","utbildningsniva_jmf_lan.png"))
+# Ta bort s och län i länsnamn
+utbildning_senastear_df$region <- skapa_kortnamn_lan(utbildning_senastear_df$region,byt_ut_riket_mot_sverige = TRUE)
+
+# Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning - ej uppdelat på kön
+utbildning_senastear_df<-utbildning_senastear_df %>%
+  filter(utb_niva!="Uppgift saknas") %>%
+    group_by(år,region,utb_niva) %>%
+      summarize(antal=sum(Befolkning)) %>%
+        mutate(andel=(antal/sum(antal))*100)
+
+diagramtitel <- paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning ",max(utbildning_senastear_df$år))
+diagramtitel <- str_wrap(diagramtitel)
+diagramfilnamn <- paste0("utbildningsniva_jmf_lan.png")
+
+utb_senastear_fig <- SkapaStapelDiagram(skickad_df = utbildning_senastear_df %>%
+                                         filter(år == max(år),utb_niva == "Eftergymnasial utbildning, 3 år eller mer") %>% 
+                                          mutate(fokus = ifelse(region == "Dalarna",1,
+                                                                 ifelse(region == "Sverige",2,0))),
+                                       skickad_x_var = "region",
+                                       skickad_y_var = "andel",
+                                       manual_x_axis_text_vjust=1,
+                                       manual_x_axis_text_hjust=1,
+                                       manual_color = diagramfarger("rus_tre_fokus"),
+                                       diagram_titel = diagramtitel,
+                                       diagram_capt =  diagram_capt,
+                                       x_axis_sort_value = TRUE,
+                                       x_axis_lutning = 45,
+                                       x_var_fokus = "fokus",
+                                       manual_y_axis_title="procent",
+                                       berakna_index = FALSE,
+                                       output_mapp = "",
+                                       filnamn_diagram = diagramfilnamn,
+                                       skriv_till_diagramfil =FALSE)
+
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+utb_senastear_fig
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
 knitr::include_graphics(here("Diagram","arbetsloshet_Dalarna_tidsserie.png"))
 ```
 ## 3 Efterfrågan, nu och framledes
 ### Förvärvsarbetande
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 8"}
-#lista_figurer$`_kompetenskrav_bransch`
+diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
 knitr::include_graphics(here("Diagram","Förvärvsarbetande 16+ år (dagbef)_per_bransch_kon.png"))
 ```
 <br>
