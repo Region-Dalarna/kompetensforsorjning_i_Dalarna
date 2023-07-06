@@ -1,0 +1,348 @@
+---
+title: "Kompetensförsörjning i Dalarnas län"
+author: "Jon Frank"
+date: '2022-10-28↕'
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+    toc_depth: 6
+    fig_caption: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+lista_figurer=list()
+# Om man vill uppdatera figurerna sätter man skapa_lista till TRUE. Skapa_fil styr om man vill skapa en png-fil, vilket normalt sett är fallet. Notera att skapa_lista bara skall användas när figurer behöver uppdateras. Tar betydligt mycket längre tid.
+
+skapa_lista=FALSE
+Skapa_fil=FALSE
+i=1
+
+#test_lank<-here("Diagram","befolkningsforandring_20_64.png")
+
+if(skapa_lista==TRUE){
+source(here("master_kompetens.R"), encoding = "utf-8", echo = FALSE)
+lista_figurer=c(lista_figurer,hamta_figurer(skapa_fil=Skapa_fil))
+}
+```
+
+## 2 Bakgrund och teori
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 1"}
+knitr::include_graphics(here("Diagram","befolkning_forandring.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 2"}
+knitr::include_graphics(here("Diagram","per_bransch_tidsserie.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 3"}
+knitr::include_graphics(here("Diagram","forv_bransch_97_.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Center',fig.cap="Figur 4"}
+knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2020/Branschstruktur_Dalarnas_kommuner_2020.png")
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Center',fig.cap="Figur 5"}
+knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2020/Dalarna_kon_dagbef_2020.png")
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 6"}
+knitr::include_graphics(here("Diagram","utbildningsniva_85_21.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+knitr::include_graphics(here("Diagram","utbildningsniva_jmf.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+knitr::include_graphics(here("Diagram","arbetsloshet_Dalarna_tidsserie.png"))
+```
+## 3 Efterfrågan, nu och framledes
+### Förvärvsarbetande
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 8"}
+#lista_figurer$`_kompetenskrav_bransch`
+knitr::include_graphics(here("Diagram","Förvärvsarbetande 16+ år (dagbef)_per_bransch_kon.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 9", include = FALSE}
+#lista_figurer$antal_sysselsatta_proc_min_max_ar
+knitr::include_graphics(here("Diagram","antal_sysselsatta_proc_min_max_ar.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 9"}
+#lista_figurer$antal_sysselsatta_proc_min_max_ar
+knitr::include_graphics(here("Diagram","antal_sysselsatta_proc_min_max_ar_ejsun.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 10"}
+#lista_figurer$antal_sysselsatta_proc_min_max_ar
+knitr::include_graphics(here("Diagram","antal_forvarvsarbetande_bransch_97.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 11"}
+#lista_figurer$antal_sysselsatta_proc_min_max_ar
+knitr::include_graphics(here("Diagram","prognos_branscher.png"))
+```
+
+### Kompetenskrav
+
+```{r, echo=FALSE, fig.width=10,fig.align='Left',fig.cap="Figur 12"}
+knitr::include_graphics(here("Diagram","_kompetenskrav_lan.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 13"}
+#lista_figurer$`_kompetenskrav_lan`
+knitr::include_graphics(here("Diagram","_kompetenskrav_bransch.png"))
+```
+### Utbildning och ålder
+
+```{r, echo=FALSE, fig.width=10,fig.align='Left',fig.cap="Figur 14"}
+#lista_figurer$`_utbildningsniva_bransch`
+knitr::include_graphics(here("Diagram","_utbildningsniva_bransch.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 15"}
+#lista_figurer$`_aldersniva_bransch`
+knitr::include_graphics(here("Diagram","_aldersniva_bransch.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 16"}
+#lista_figurer$`_aldersniva_bransch`
+knitr::include_graphics(here("Diagram","_aldersniva_bransch_antal.png"))
+```
+## 4 Utbud i Dalarnas län
+### Befolkning och pendling
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 17"}
+knitr::include_graphics(here("Diagram","befolkningsforandring_20_64.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 18"}
+knitr::include_graphics(here("Diagram","fodelseregion_tidsserie.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 19"}
+knitr::include_graphics(here("Diagram","pendlingsintensitet.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 20"}
+knitr::include_graphics(here("Diagram","pendlingsintensitet_kommun.png"))
+```
+### Utbildningsnivå
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 21"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","fodelseregion_utbildning.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 23", include = FALSE}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","utbildning_inriktning_kon.png"))
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 22"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","forgymnasial_alder_kon.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 23"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","tillg_eft_prognos_utbniva.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 24"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","balans_tillg_eft_utbniva_prognos.png"))
+```
+
+### Gymnasiet, högskolan och YH
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 27", include = FALSE}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","gymnasieantagning_alla.png"))
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 25"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","gymnasieantagning_alla_Peter.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 26"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","gymnasieantagning_kon_Peter.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 27"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","gymnasieantagning_fleraar_Peter.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 28"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","gymnasieantagna_prognos.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 29"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","hogskoleexamen_alla.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 30"}
+knitr::include_graphics(here("Diagram","hogskoleexamen_prognos.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 31"}
+knitr::include_graphics(here("Diagram","yh_bransch.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 32"}
+knitr::include_graphics(here("Diagram","yh_inriktning.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 36", include = FALSE}
+knitr::include_graphics(here("Diagram","yrkeshogskoleexamen_prognos.png"))
+```
+## 5 Matchning i Dalarnas län
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 33"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","Sysselsättningsgrad_lan.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 34"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","Sysselsättningsgrad_kommun.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 35"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","matchning_lan.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 36"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","matchning_bakgrund.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 37"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","kompetensbrist.png"))
+```
+
+## 6 Utbildningsområden och prognoser
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 38"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","_utbildningsgrupp_syss.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 39"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","Andel_matchade_yrken_20-64 år_Dalarna53B_53R_55A_55C_55H.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 40"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","_aldersniva_utb_grupp_bygg.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 41"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","_konsfordelning_utb_grupp_bygg.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 46", include = FALSE}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","_utbildningsgrupp_flode.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 42"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","balans_tillg_eft_prognos.png"))
+```
+<br>
+<br>
+<br>
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 43"}
+#lista_figurer$befolkningsforandring_20_64
+knitr::include_graphics(here("Diagram","tillg_eft_prognos.png"))
+```
