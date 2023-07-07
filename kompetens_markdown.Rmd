@@ -53,7 +53,7 @@ Senast uppdaterad: `r Sys.Date()`</i>
 
 ## 2 Bakgrund och teori
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',include=FALSE}
+```{r, echo=FALSE, message = FALSE, warning = FALSE,include=FALSE}
 
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2031 är prognos, övriga historisk data."
  # Det första datasettet - innehåller åldersgrupper men inte totalt för alla
@@ -93,7 +93,7 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
    befolkning_for
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',include=FALSE}
+```{r, echo=FALSE, message = FALSE, warning = FALSE, include=FALSE}
 diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92"
 
 # Gör om år till en faktorvariabel för utbildningsnivå_balans. Detta för att kunna bestämma vilken ordning staplarna för de olika åren kommer i diagrammet
@@ -149,7 +149,7 @@ knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsö
 <br>
 <br>
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 6"}
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
 
 # Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
@@ -184,7 +184,7 @@ utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
 utb_85_fig
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
 # Ta bort s och län i länsnamn
 utbildning_senastear_df$region <- skapa_kortnamn_lan(utbildning_senastear_df$region,byt_ut_riket_mot_sverige = TRUE)
 
