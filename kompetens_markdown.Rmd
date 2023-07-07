@@ -44,6 +44,7 @@ utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbil
 utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
 arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx")
 forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_bransch.xlsx")
+forvarvsarbetande_prognos <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_prognos.xlsx")
 ```
 # Kompetensförsörjning i Dalarna
 <p style = "font-size:12px">
@@ -307,7 +308,7 @@ knitr::include_graphics(here("Diagram","antal_sysselsatta_proc_min_max_ar_ejsun.
 knitr::include_graphics(here("Diagram","antal_forvarvsarbetande_bransch_97.png"))
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 10",include = FALSE}
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92"
 
 # Beräknar förändring in antalet anställda från 1990 till senaste år
@@ -342,10 +343,35 @@ forv_forandring_fig <- SkapaStapelDiagram(skickad_df = sysselsatta_df_forandring
 forv_forandring_fig
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 11"}
- diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna"
-#lista_figurer$antal_sysselsatta_proc_min_max_ar
-knitr::include_graphics(here("Diagram","prognos_branscher.png"))
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna"
+
+diagram_titel <- "Prognos för antalet förvärvsarbetande 16-74 år per bransch i Dalarnas län"
+diagramfil <- "forvarvsarbetande_prognos.png"
+
+forvarvsarbetande_prognos_fig <- SkapaStapelDiagram(skickad_df = forvarvsarbetande_prognos %>%
+                                                     filter(Ar%in%c("2018","2025","2035"),SNI2007_Grupp_namn!="Okänt"),
+                                                   skickad_x_var = "SNI2007_Grupp_namn",
+                                                   skickad_y_var = "sysselsatta",
+                                                   skickad_x_grupp = "Ar",
+                                                   manual_x_axis_text_vjust=1,
+                                                   manual_x_axis_text_hjust=1,
+                                                   manual_color = diagramfarger("rus_sex"),
+                                                   diagram_titel = diagram_titel,
+                                                   diagram_capt = diagram_capt,
+                                                   x_axis_lutning = 45,
+                                                   x_axis_sort_value = TRUE,
+                                                   legend_vand_ordning = FALSE,
+                                                   diagram_liggande = FALSE,
+                                                   berakna_index = FALSE,
+                                                   output_mapp = "",
+                                                   filnamn_diagram = diagramfil,
+                                                   skriv_till_diagramfil = FALSE)
+
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+forvarvsarbetande_prognos_fig
 ```
 
 ### Kompetenskrav
