@@ -5,10 +5,6 @@ p_load(pxweb,
        tidyverse,
        openxlsx)
 
-# source("G:/skript/func/func_SkapaDiagram.R", encoding = "utf-8", echo = FALSE)
-# source("G:/skript/func/func_API.R", encoding = "utf-8", echo = FALSE)
-# source("G:/skript/func/func_filer.R", encoding = "utf-8", echo = FALSE)
-
 # Funktioner som behövs
 source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
 
@@ -129,47 +125,5 @@ hamta_data_sysselsatta_1990 <-function(region_vekt = "20",
   if (spara_data==TRUE){
     write.xlsx(df_utskrift,paste0(output_mapp,filnamn))
   }
-  
-  
-  # max_ar=max(df_utskrift$år)
-  # 
-  # # Gör om år till en faktorvariabel för utbildningsnivå_balans. Detta för att kunna bestämma vilken ordning staplarna för de olika åren kommer i diagrammet
-  # df_utskrift$år <- factor(df_utskrift$år, levels = c(max_ar,"2010","2000","1990"))
-  # 
-  # df_utskrift$Näringsgren <- stringr::str_to_sentence(df_utskrift$Näringsgren)
-  # 
-  # if(diag_forvarvsarbetande==TRUE){
-  #   
-  #   diagram_titel <- paste0("Förvärvsarbetande 16+ år i ", ValdGeografi[1], " per bransch ")
-  #   diagram_typ <- "per_bransch_tidsserie"
-  #   diagramfil <- paste0("per_bransch_tidsserie", ".png")
-  #   objektnamn <- paste0(diagram_titel)
-  #   
-  #   gg_obj <- SkapaStapelDiagram(skickad_df = df_utskrift %>%
-  #                                  filter(år%in%c("1990","2000","2010",max_ar)), 
-  #                                skickad_x_var = "Näringsgren", 
-  #                                skickad_y_var = "antal", 
-  #                                skickad_x_grupp = "år",
-  #                                manual_x_axis_text_vjust=1,
-  #                                manual_x_axis_text_hjust=0.5,
-  #                                manual_color = diagramfarger("gron_sex")[3:6],
-  #                                x_axis_sort_value = TRUE,
-  #                                x_axis_lutning = 0,
-  #                                diagram_titel = diagram_titel,
-  #                                diagram_capt = diagram_capt,
-  #                                diagram_liggande = TRUE,
-  #                                diagram_facet = FALSE,
-  #                                facet_grp="år",
-  #                                legend_vand_ordning=TRUE,
-  #                                berakna_index = FALSE,
-  #                                output_mapp = output_mapp,
-  #                                filnamn_diagram = diagramfil,
-  #                                skriv_till_diagramfil = skapa_fil)
-  #   
-  #   gg_list[[j]] <-gg_obj
-  #   i=i+1
-  # }
-  # names(gg_list) <-c(objektnamn)
-  # return(gg_list)
-  
+
 }

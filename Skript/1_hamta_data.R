@@ -29,3 +29,13 @@ hamta_data_utbniva(output_mapp = Output_mapp,
 source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
 hamta_data_arbetsloshet(output_mapp = Output_mapp,
                         spara_data = TRUE)
+
+# Förvärvsarbetande, uppdelat på kön - Från projektet kvinnor och män
+source("C:/Users/frkjon/Projekt/kvinnor_man_i_Dalarna/Skript/forvarvsarbetande_bransch.R", encoding="UTF-8")
+data_forvarvsarbetande_bransch(spara_data = TRUE,
+                               output_mapp = Output_mapp)
+
+# Förvärvsarbetande prognos - Excel - Trender och prognoser
+source(here("Skript","forvarvsarbetande_prognos.R"), encoding="UTF-8")
+TP_Prognos_bransch(spara_data = TRUE,
+                   output_mapp = Output_mapp)

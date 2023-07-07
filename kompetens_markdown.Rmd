@@ -42,7 +42,8 @@ befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjni
 sysselsatta_90_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_90.xlsx")
 utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_85.xlsx")
 utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
-arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx") 
+arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx")
+forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_bransch.xlsx")
 ```
 # Kompetensförsörjning i Dalarna
 <p style = "font-size:12px">
@@ -254,13 +255,39 @@ arb_08_fig
 
 ## 3 Efterfrågan, nu och framledes
 ### Förvärvsarbetande
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 8"}
-diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
-knitr::include_graphics(here("Diagram","Förvärvsarbetande 16+ år (dagbef)_per_bransch_kon.png"))
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-74 år"
+
+forvarvsarbetande_bransch$andel <- (forvarvsarbetande_bransch$andel)*100
+
+diagramtitel <- paste0("Antal förvärvsarbetande per bransch i Dalarna år ",unique(forvarvsarbetande_bransch$år))
+diagramfil <- "forvarvsarbetande_bransch.png"
+
+forvarvsarbetande_kon_fig <- SkapaStapelDiagram(skickad_df <- forvarvsarbetande_bransch %>%
+                                                 filter(region == "Dalarna"), 
+                                               skickad_x_var = "naringsgren", 
+                                               skickad_y_var = "antal", 
+                                               skickad_x_grupp = "kön",
+                                               diagram_liggande=FALSE,
+                                               manual_x_axis_text_vjust=1,
+                                               manual_x_axis_text_hjust=1,
+                                               x_axis_lutning = 45,
+                                               x_axis_sort_value=TRUE,
+                                               manual_color = diagramfarger("kon"),
+                                               stodlinjer_avrunda_fem = TRUE,
+                                               diagram_titel = diagramtitel,
+                                               diagram_capt =  diagram_capt,
+                                               facet_legend_bottom=TRUE,
+                                               berakna_index = FALSE,
+                                               output_mapp = "",
+                                               filnamn_diagram = diagramfil,
+                                               skriv_till_diagramfil = FALSE)
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+forvarvsarbetande_kon_fig
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 9", include = FALSE}
 #lista_figurer$antal_sysselsatta_proc_min_max_ar
 knitr::include_graphics(here("Diagram","antal_sysselsatta_proc_min_max_ar.png"))
@@ -268,21 +295,55 @@ knitr::include_graphics(here("Diagram","antal_sysselsatta_proc_min_max_ar.png"))
 <br>
 <br>
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 9"}
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 9", include = FALSE}
 #lista_figurer$antal_sysselsatta_proc_min_max_ar
 knitr::include_graphics(here("Diagram","antal_sysselsatta_proc_min_max_ar_ejsun.png"))
 ```
 <br>
 <br>
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 10"}
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 10",include = FALSE}
 #lista_figurer$antal_sysselsatta_proc_min_max_ar
 knitr::include_graphics(here("Diagram","antal_forvarvsarbetande_bransch_97.png"))
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 10",include = FALSE}
+diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92"
+
+# Beräknar förändring in antalet anställda från 1990 till senaste år
+sysselsatta_df_forandring <- sysselsatta_90_df %>% 
+  filter(år %in% c(min(år),max(år))) %>% 
+    group_by(region,Näringsgren) %>% 
+      mutate(skillnad = last(antal)-first(antal))  
+        
+diagram_titel <- paste0("Förändring av antalet förvärvsarbetande (16-74) år från år ", min(sysselsatta_df_forandring$år), " till ", max(sysselsatta_df_forandring$år))
+diagramfil <- "forvarvsarbetande_forandring.png"
+
+forv_forandring_fig <- SkapaStapelDiagram(skickad_df = sysselsatta_df_forandring %>% 
+                                           filter(år == max(år),Näringsgren != "näringsgren okänd"), 
+                                         skickad_x_var = "Näringsgren", 
+                                         skickad_y_var = "skillnad",
+                                         manual_color = diagramfarger("rus_sex")[1],
+                                         diagram_titel = diagram_titel,
+                                         x_axis_sort_value = TRUE,
+                                         x_axis_lutning = 90,
+                                         diagram_capt = diagram_capt,
+                                         diagram_liggande = TRUE,
+                                         diagram_facet = FALSE,
+                                         geom_position_stack = TRUE,
+                                         berakna_index = FALSE,
+                                         output_mapp = "",
+                                         filnamn_diagram = diagramfil,
+                                         skriv_till_diagramfil = FALSE)
+
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+forv_forandring_fig
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 11"}
+ diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna"
 #lista_figurer$antal_sysselsatta_proc_min_max_ar
 knitr::include_graphics(here("Diagram","prognos_branscher.png"))
 ```
