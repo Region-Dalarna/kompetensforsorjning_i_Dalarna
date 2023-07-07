@@ -39,3 +39,8 @@ data_forvarvsarbetande_bransch(spara_data = TRUE,
 source(here("Skript","forvarvsarbetande_prognos.R"), encoding="UTF-8")
 TP_Prognos_bransch(spara_data = TRUE,
                    output_mapp = Output_mapp)
+
+# Kompetensnivå för län och bransch
+source(here("Skript","kompetensnivå_bransch.R"), encoding="UTF-8")
+yrken_kompetens(spara_data = TRUE,
+                   output_mapp = Output_mapp)

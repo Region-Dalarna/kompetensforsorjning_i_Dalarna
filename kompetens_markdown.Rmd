@@ -45,6 +45,7 @@ utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjnin
 arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx")
 forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_bransch.xlsx")
 forvarvsarbetande_prognos <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_prognos.xlsx")
+kompetens_yrke_lan <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/kompetens_lan_bransch.xlsx")
 ```
 # Kompetensförsörjning i Dalarna
 <p style = "font-size:12px">
@@ -376,16 +377,93 @@ forvarvsarbetande_prognos_fig
 
 ### Kompetenskrav
 
-```{r, echo=FALSE, fig.width=10,fig.align='Left',fig.cap="Figur 12"}
-knitr::include_graphics(here("Diagram","_kompetenskrav_lan.png"))
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: Yrkesregistret i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
+
+kompetens_lan <- kompetens_yrke_lan %>%
+    filter(år == max(år)) %>% 
+    group_by(år,region,kompetensniva) %>%
+      summarize(Antal=sum(`Anställda.16-64.år.(dagbef)`)) %>%
+        mutate(Andel=(Antal/sum(Antal))*100)
+
+# Skapar en faktorvariabel för att få utbildningsnivå i "rätt" ordning i figuren
+kompetens_lan$kompetensniva <- factor(kompetens_lan$kompetensniva, levels = c("Enklare yrken","Motsvarande gymnasial kompetens","Motsvarande högskolekompetens","Motsvarande fördjupad högskolekompetens","Chefsyrken","Okänt")[6:1])
+
+diagram_titel <- paste0("Kvalifikationskrav för anställda (16-64 år) ",max(kompetens_lan$år))
+diagramfil <- "kompetenskrav_lan.png"
+
+kompetens_lan_fig <- SkapaStapelDiagram(skickad_df = kompetens_lan %>% 
+                                          mutate(region = skapa_kortnamn_lan(region)),
+                                         skickad_x_var = "region",
+                                         skickad_y_var = "Andel",
+                                         skickad_x_grupp = "kompetensniva",
+                                         manual_x_axis_text_vjust=0,
+                                         manual_x_axis_text_hjust=0.3,
+                                         manual_color = c(rgb(211,211,211, maxColorValue = 255),diagramfarger("rus_sex")),
+                                         diagram_titel = diagram_titel,
+                                         x_axis_lutning = 0,
+                                         diagram_capt = diagram_capt,
+                                         legend_vand_ordning = TRUE,
+                                         diagram_liggande = TRUE,
+                                         geom_position_stack = TRUE,
+                                         manual_y_axis_title = "procent",
+                                         x_axis_sort_value = TRUE,
+                                         x_axis_sort_grp = 6,
+                                         vand_sortering = TRUE,
+                                         output_mapp = "",
+                                         filnamn_diagram = diagramfil,
+                                         skriv_till_diagramfil = FALSE)
+  
+
 ```
-<br>
-<br>
-<br>
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 13"}
-#lista_figurer$`_kompetenskrav_lan`
-knitr::include_graphics(here("Diagram","_kompetenskrav_bransch.png"))
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+kompetens_lan_fig
 ```
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: Yrkesregistret i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
+
+kompetens_bransch <- kompetens_yrke_lan %>%
+  filter(år==max(år),region=="Dalarnas län") %>%
+    group_by(region,år,Branschgrupp,kompetensniva) %>%
+      summarize(Antal=sum(`Anställda.16-64.år.(dagbef)`)) %>%
+        mutate(Andel=((Antal/sum(Antal))*100)-0.001)
+  
+# Skapar en faktorvariabel för att få utbildningsnivå i "rätt" ordning i figuren
+kompetens_bransch$kompetensniva <- factor(kompetens_bransch$kompetensniva, levels = c("Enklare yrken","Motsvarande gymnasial kompetens","Motsvarande högskolekompetens","Motsvarande fördjupad högskolekompetens","Chefsyrken","Okänt")[6:1])
+
+diagram_titel <- paste0("Kvalifikationskrav för anställda (16-64 år) i ",unique(kompetens_bransch$region)," ",unique(kompetens_bransch$år))
+diagramfil <- "kompetenskrav_bransch.png"
+
+kompetens_bransch_fig <- SkapaStapelDiagram(skickad_df = kompetens_bransch %>% 
+                                         filter(Branschgrupp != "Okänd verksamhet"), 
+                                           skickad_x_var = "Branschgrupp",
+                                           skickad_y_var = "Andel",
+                                           skickad_x_grupp = "kompetensniva",
+                                           manual_x_axis_text_vjust=0,
+                                           manual_x_axis_text_hjust=0.3,
+                                           manual_color = c(rgb(211,211,211, maxColorValue = 255),diagramfarger("rus_sex")),
+                                           diagram_titel = diagram_titel,
+                                           #x_axis_sort_value = TRUE,
+                                           legend_vand_ordning = TRUE,
+                                           diagram_capt = diagram_capt,
+                                           x_axis_lutning = 0,
+                                           diagram_liggande = TRUE,
+                                           x_axis_sort_value = TRUE,
+                                           x_axis_sort_grp = 6,
+                                           vand_sortering = TRUE,
+                                           geom_position_stack = TRUE,
+                                           manual_y_axis_title = "procent",
+                                           output_mapp = "",
+                                           filnamn_diagram = diagramfil,
+                                           skriv_till_diagramfil = FALSE)
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+kompetens_bransch_fig
+```
+
 ### Utbildning och ålder
 
 ```{r, echo=FALSE, fig.width=10,fig.align='Left',fig.cap="Figur 14"}

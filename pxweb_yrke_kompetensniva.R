@@ -46,17 +46,14 @@ diag_yrken_kompetens <-function(region_vekt = "20",
     
   px_uttag <- pxweb_get(url = url3,
                           query = varlista) 
-    
-    #filnamn <- paste0(unlist(strsplit(px_uttag$metadata[[1]][[3]], " "))[1], "_API.xlsx")
-    
     # Lägg API-uttaget i px_df, lägg på ytterligare ett uttag men med koder istället för klartext,
     # välj ut bara regionkolumnen i det andra uttaget, döp om den till regionkod och lägg den först av kolumnerna
     
   px_df <- as.data.frame(px_uttag) %>% 
     cbind(Yrke2012_kod = as.data.frame(px_uttag, column.name.type = "code", variable.value.type = "code") %>% 
-              select(Yrke2012))
-  
-  px_df <- px_df %>% rename(yrkeskod = Yrke2012) %>% relocate(yrkeskod, .before = 'Yrke (SSYK 2012)')
+              select(Yrke2012)) %>% 
+      rename(yrkeskod = Yrke2012) %>% 
+        relocate(yrkeskod, .before = 'Yrke (SSYK 2012)')
   names(px_df)[ncol(px_df)] <- "Anställda 16-64 år (dagbef)"
   
   # Ändra namn på vissa branscher
