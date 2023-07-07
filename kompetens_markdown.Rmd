@@ -42,7 +42,7 @@ befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjni
 sysselsatta_90_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_90.xlsx")
 utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_85.xlsx")
 utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
-
+arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx") 
 ```
 # Kompetensförsörjning i Dalarna
 <p style = "font-size:12px">
@@ -189,11 +189,11 @@ utb_85_fig
 utbildning_senastear_df$region <- skapa_kortnamn_lan(utbildning_senastear_df$region,byt_ut_riket_mot_sverige = TRUE)
 
 # Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning - ej uppdelat på kön
-utbildning_senastear_df<-utbildning_senastear_df %>%
+utbildning_senastear_df <- utbildning_senastear_df %>%
   filter(utb_niva!="Uppgift saknas") %>%
     group_by(år,region,utb_niva) %>%
-      summarize(antal=sum(Befolkning)) %>%
-        mutate(andel=(antal/sum(antal))*100)
+      summarize(antal = sum(Befolkning)) %>%
+        mutate(andel = (antal/sum(antal))*100)
 
 diagramtitel <- paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning ",max(utbildning_senastear_df$år))
 diagramtitel <- str_wrap(diagramtitel)
@@ -213,11 +213,11 @@ utb_senastear_fig <- SkapaStapelDiagram(skickad_df = utbildning_senastear_df %>%
                                        x_axis_sort_value = TRUE,
                                        x_axis_lutning = 45,
                                        x_var_fokus = "fokus",
-                                       manual_y_axis_title="procent",
+                                       manual_y_axis_title = "procent",
                                        berakna_index = FALSE,
                                        output_mapp = "",
                                        filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil =FALSE)
+                                       skriv_till_diagramfil = FALSE)
 
 ```
 
@@ -225,10 +225,33 @@ utb_senastear_fig <- SkapaStapelDiagram(skickad_df = utbildning_senastear_df %>%
 utb_senastear_fig
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året"
 
-knitr::include_graphics(here("Diagram","arbetsloshet_Dalarna_tidsserie.png"))
+diagramtitel <- paste0("Arbetslöshet i Dalarna och Sverige")
+diagramfilnamn <- paste0("arbetsloshet_08_senastear.png")
+
+arb_08_fig <- SkapaStapelDiagram(skickad_df =arbetslosa_08_df ,
+                                 skickad_x_var = "Ar",
+                                 skickad_y_var = "Arbetslöshet",
+                                 skickad_x_grupp = "Region",
+                                 manual_x_axis_text_vjust=1,
+                                 manual_x_axis_text_hjust=1,
+                                 manual_color = diagramfarger("rus_sex"),
+                                 diagram_titel = diagramtitel,
+                                 diagram_capt =  diagram_capt,
+                                 x_axis_lutning = 45,
+                                 manual_y_axis_title = "procent",
+                                 berakna_index = FALSE,
+                                 output_mapp = "",
+                                 filnamn_diagram = diagramfilnamn,
+                                 skriv_till_diagramfil = FALSE)
 ```
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+arb_08_fig
+```
+
 ## 3 Efterfrågan, nu och framledes
 ### Förvärvsarbetande
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 8"}

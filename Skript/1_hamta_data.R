@@ -24,3 +24,8 @@ data_utbniva_85(spara_data = TRUE,
 source(here("Skript","utbildningsniva_senastear.R"), encoding="UTF-8")
 hamta_data_utbniva(output_mapp = Output_mapp,
                    spara_data = TRUE)
+
+# Arbetslöshet 08-senaste år. Excel, Arbetsförmedlingen
+source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
+hamta_data_arbetsloshet(output_mapp = Output_mapp,
+                        spara_data = TRUE)
