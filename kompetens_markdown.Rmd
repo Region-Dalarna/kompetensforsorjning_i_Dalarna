@@ -46,6 +46,10 @@ arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbet
 forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_bransch.xlsx")
 forvarvsarbetande_prognos <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_prognos.xlsx")
 kompetens_yrke_lan <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/kompetens_lan_bransch.xlsx")
+befolkning_flytt_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkningsforandring_20_64.xlsx")
+befolkning_utr_inr_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_utr_inr.xlsx")
+pendling_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_lan.xlsx")
+pendling_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_kommun.xlsx")
 ```
 # Kompetensförsörjning i Dalarna
 <p style = "font-size:12px">
@@ -486,28 +490,150 @@ knitr::include_graphics(here("Diagram","_aldersniva_bransch_antal.png"))
 ```
 ## 4 Utbud i Dalarnas län
 ### Befolkning och pendling
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 17"}
-knitr::include_graphics(here("Diagram","befolkningsforandring_20_64.png"))
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+  diagram_capt <- "Källa: Befolkningsregistret i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Demografisk förändring är den del av befolkningsförändringen som inte kan förklaras av inrikes och utrikes flyttnetto."
+
+  # Grupperar och pivoterar data
+  utskrift_df <- befolkning_flytt_df %>%
+    rename("Inrikes flyttnetto" = `inrikes.flyttnetto`,
+           "Utrikes flyttnetto" = `utrikes.flyttnetto`,
+           "Demografisk förändring" = `Demografisk.förändring` ) %>% 
+      select(region,`Inrikes flyttnetto`,`Utrikes flyttnetto`,`Demografisk förändring`) %>% 
+        pivot_longer(!c(region),names_to="variabel",values_to="forandring")
+  
+  diagramtitel <- paste0("Befolkningsförändring i arbetsför ålder (20-64 år) per län ","2010","-",unique(befolkning_flytt_df$region))
+  diagramfilnamn <- paste0("befolkningsforandring_20_64.png")
+
+  bef_for_flytt <- SkapaStapelDiagram(skickad_df =utskrift_df,
+                                     skickad_x_var = "region",
+                                     skickad_y_var = "forandring",
+                                     skickad_x_grupp = "variabel",
+                                     manual_color = diagramfarger("rus_sex"),
+                                     diagram_titel = diagramtitel,
+                                     diagram_capt =  diagram_capt,
+                                     diagram_facet = FALSE,
+                                     x_axis_lutning = 0,
+                                     x_axis_sort_value = TRUE,
+                                     diagram_liggande = TRUE,
+                                     geom_position_stack = TRUE,
+                                     manual_y_axis_title="procent",
+                                     berakna_index = FALSE,
+                                     output_mapp = "",
+                                     filnamn_diagram = diagramfilnamn,
+                                     skriv_till_diagramfil = FALSE)
+  
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
+bef_for_flytt
+```
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: Befolkningsregistret i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+befolkning_utr_inr_df$bakgrund <- factor(befolkning_utr_inr_df$bakgrund, levels = c("Utrikes födda","Inrikes födda"))
+
+diagramtitel <- paste0("Befolkning i arbetsför ålder (20-64 år) i ",unique(befolkning_utr_inr_df$region))
+diagramfilnamn <- paste0("befolkning_utr_inr.png")
+
+bef_inr_utr <- SkapaStapelDiagram(skickad_df = befolkning_utr_inr_df, 
+                             skickad_x_var = "år", 
+                             skickad_y_var = "antal", 
+                             skickad_x_grupp = "bakgrund",
+                             manual_color = diagramfarger("rus_sex"),
+                             diagram_titel = diagramtitel,
+                             #x_axis_sort_value = TRUE,
+                             diagram_capt = diagram_capt,
+                             #procent_0_100_10intervaller = TRUE,
+                             x_axis_lutning = 0,
+                             legend_vand_ordning = TRUE,
+                             diagram_liggande = TRUE,
+                             manual_y_axis_title = "",
+                             geom_position_stack = TRUE,
+                             berakna_index = FALSE,
+                             output_mapp = "",
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = FALSE)
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 18"}
-knitr::include_graphics(here("Diagram","fodelseregion_tidsserie.png"))
+bef_inr_utr
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Inpendling i förhållande till dagbefolkning och utpendling i förhållande till nattbefolkning (i arbetsför ålder, 20-64 år). Gäller pendlare över länsgräns."
+
+# Skapar ett dataset som används för att skriva ut
+pendling_lan_df <- pendling_lan_df %>%
+  select(region,år,`Andel.inpendling`,`Andel.utpendling`) %>% 
+    pivot_longer(cols=3:4,names_to = "Typ_pendling") %>% 
+      mutate("Typ_pendling" = ifelse(Typ_pendling == "Andel.inpendling","Andel inpendling", "Andel utpendling"))
+
+diagramtitel <- paste0("Andel pendling i Sveriges regioner ",unique(pendling_lan_df$år))
+diagramfilnamn <- paste0("pendling_lan.png")
+
+pendling_lan <- SkapaStapelDiagram(skickad_df =pendling_lan_df,
+                                   skickad_x_var = "region",
+                                   skickad_y_var = "value",
+                                   skickad_x_grupp = "Typ_pendling",
+                                   manual_x_axis_text_vjust=1,
+                                   manual_x_axis_text_hjust=1,
+                                   manual_color = diagramfarger("rus_sex"),
+                                   diagram_titel = diagramtitel,
+                                   diagram_capt =  diagram_capt,
+                                   x_axis_sort_value = TRUE,
+                                   x_axis_sort_grp = 2,
+                                   vand_sortering = TRUE,
+                                   manual_y_axis_title="procent",
+                                   output_mapp = "",
+                                   filnamn_diagram = diagramfilnamn,
+                                   skriv_till_diagramfil = FALSE)
+
+
+
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 19"}
-knitr::include_graphics(here("Diagram","pendlingsintensitet.png"))
+pendling_lan
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+  diagram_capt <- "Källa: SCB (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal inpendlare (personer som förvärvsarbetar i kommunen/regionen och bor i en annan kommun/region)\ndividerat med antal förvärvsarbetande som arbetar i kommunen/regionen (dagbefolkning)\nAntal utpendlare (personer som bor i kommunen/regionen och förvärvsarbetar i en annan kommun/region)\ndividerat med antal förvärvsarbetande som bor i kommunen/regionen (nattbefolkning)" 
+
+diagram_titel <- paste0("Andel av förvärvsarbetande som pendlar över kommungräns år ",max(pendling_kommun_df$year))
+diagram_titel<-str_wrap(diagram_titel,50)
+diagramfil <- "pendling_kommun.png"
+
+pendling_kommun <- SkapaStapelDiagram(skickad_df = pendling_kommun_df %>%
+                               filter(year%in%c(max(year))) %>%
+                                filter(gender=="T") %>%
+                                  mutate(municipality=ifelse(municipality=="Riket", "Sverige",municipality)),
+                             skickad_x_var = "municipality",
+                             skickad_y_var = "Pendling_andel",
+                             skickad_x_grupp = "pendling_typ",
+                             manual_x_axis_text_vjust=1,
+                             manual_x_axis_text_hjust=1,
+                             manual_color = diagramfarger("rus_sex"),
+                             x_axis_sort_value = TRUE,
+                             x_axis_sort_grp = 2,
+                             vand_sortering=TRUE,
+                             dataetiketter = FALSE,
+                             dataetiketter_antal_dec = 0,
+                             manual_y_axis_title="procent",
+                             diagram_titel = diagram_titel,
+                             diagram_capt = diagram_capt,
+                             output_mapp = "",
+                             filnamn_diagram = diagramfil,
+                             skriv_till_diagramfil = FALSE)
+
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 20"}
-knitr::include_graphics(here("Diagram","pendlingsintensitet_kommun.png"))
+pendling_kommun
 ```
+
 ### Utbildningsnivå
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 21"}
 #lista_figurer$befolkningsforandring_20_64
 knitr::include_graphics(here("Diagram","fodelseregion_utbildning.png"))

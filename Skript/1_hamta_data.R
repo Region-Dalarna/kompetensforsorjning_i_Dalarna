@@ -44,3 +44,25 @@ TP_Prognos_bransch(spara_data = TRUE,
 source(here("Skript","kompetensnivå_bransch.R"), encoding="UTF-8")
 yrken_kompetens(spara_data = TRUE,
                    output_mapp = Output_mapp)
+
+# Befolkningsförändring uppdelat på komponent (län)
+source(here("Skript","befolkningsforandring_20_64.R"), encoding="UTF-8")
+hamta_data_bef_for(spara_data = TRUE,
+                   output_mapp = Output_mapp)
+
+# Befolkningsförändring uppdelat på komponent (län)
+source(here("Skript","befolkning_utr_inr.R"), encoding="UTF-8")
+hamta_data_bef_utr(spara_data = TRUE,
+                   output_mapp = Output_mapp)
+
+# Befolkningsförändring uppdelat på komponent (län)
+source(here("Skript","pendling_lan.R"), encoding="UTF-8")
+hamta_data_pendling_lan(spara_data = TRUE,
+                        output_mapp = Output_mapp)
+
+# Befolkningsförändring uppdelat på komponent (län)
+source(here("Skript","pendling_kommun.R"), encoding="UTF-8")
+hamta_data_pendling_kommun(spara_data = TRUE,
+                           output_mapp = Output_mapp)
+
+
