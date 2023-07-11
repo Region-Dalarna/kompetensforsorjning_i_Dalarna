@@ -46,10 +46,13 @@ arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbet
 forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_bransch.xlsx")
 forvarvsarbetande_prognos <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_prognos.xlsx")
 kompetens_yrke_lan <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/kompetens_lan_bransch.xlsx")
+#Skriptet som skapar nedanstående data finns på Mona: P1079gem/Jon/kompetensförsörjning/utbildningsniva_bransch_korrekt.R. OBS! Uppdateras inte när skriptet hämta data körs.
+bransch_utb_alder_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/11_jul_23_utdata_forvarvsarbetande_bransch.xlsx")
 befolkning_flytt_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkningsforandring_20_64.xlsx")
 befolkning_utr_inr_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_utr_inr.xlsx")
 pendling_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_lan.xlsx")
 pendling_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_kommun.xlsx")
+# Data från Mona 
 ```
 # Kompetensförsörjning i Dalarna
 <p style = "font-size:12px">
@@ -471,12 +474,58 @@ kompetens_bransch_fig
 ### Utbildning och ålder
 
 ```{r, echo=FALSE, fig.width=10,fig.align='Left',fig.cap="Figur 14"}
-#lista_figurer$`_utbildningsniva_bransch`
-knitr::include_graphics(here("Diagram","_utbildningsniva_bransch.png"))
+diagram_capt <- "Källa: NMS-databasen (SCB), databasen Stativ\nBearbetning: Samhällsanalys, Region Dalarna"
+
+diagram_titel <- paste0("Utbildningsnivå för förvärvsarbetande 16-74 år per bransch i Dalarnas län ",unique(bransch_utb_alder_df$year))
+diagramfil <-  "utbildningsniva_bransch.png"
+
+bransch_utb_alder_df[bransch_utb_alder_df == "Eftergymnasial utbildning"]<-"eftergymnasial"
+bransch_utb_alder_df[bransch_utb_alder_df == "Förgymnasial utbildning"]<-"förgymnasial"
+bransch_utb_alder_df[bransch_utb_alder_df == "grundskola"]<-"förgymnasial"
+bransch_utb_alder_df[bransch_utb_alder_df == "Gymnasial utbildning"]<-"gymnasial"
+bransch_utb_alder_df[bransch_utb_alder_df == "Uppgift saknas"]<-"Okänd"
+  
+# Grupperar på år, län, bransch och utbildning - används i diagram 1.
+#  Drar bort en obefintlig summa för att diagrammet skall gå till 100.
+bransch_utb_alder_df_sum <- bransch_utb_alder_df %>%
+  group_by(year,AstLan_namn,SNI2007_Grupp_namn,Sun2020Niva_grov_namn) %>% 
+    summarize(Antal=sum(antal)) %>% 
+      mutate(Andel=(Antal/sum(Antal)*100)-0.001)
+
+# Skapar en faktorvariabel för att få utbildningsnivå i "rätt" ordning i figuren
+bransch_utb_alder_df_sum$Sun2020Niva_grov_namn <- factor(bransch_utb_alder_df_sum$Sun2020Niva_grov_namn, levels = c("Okänd","eftergymnasial","gymnasial","förgymnasial"))
+
+# Skapar en separat färgkod, så att okänd blir ljusgrå
+farger_gra<-c(rgb(211,211,211, maxColorValue = 255),diagramfarger("rus_sex"))
+
+bransch_utb_fig <- SkapaStapelDiagram(skickad_df = bransch_utb_alder_df_sum %>% 
+                                            filter(SNI2007_Grupp_namn!="Okänt"), 
+                             skickad_x_var = "SNI2007_Grupp_namn", 
+                             skickad_y_var = "Andel", 
+                             skickad_x_grupp = "Sun2020Niva_grov_namn",
+                             manual_x_axis_text_vjust=1,
+                             manual_x_axis_text_hjust=1,
+                             manual_color = farger_gra,
+                             x_axis_lutning = 0,
+                             diagram_titel = diagram_titel,
+                             x_axis_sort_value = TRUE,
+                             x_axis_sort_grp = 4,
+                             diagram_capt = diagram_capt,
+                             #procent_0_100_10intervaller = TRUE,
+                             legend_vand_ordning = TRUE,
+                             diagram_liggande = TRUE,
+                             geom_position_stack = TRUE,
+                             manual_y_axis_title = "procent",
+                             output_mapp = "",
+                             filnamn_diagram = diagramfil,
+                             skriv_till_diagramfil = FALSE)
+
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, fig.width=10,fig.align='Left',fig.cap="Figur 14"}
+bransch_utb_fig
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 15"}
 #lista_figurer$`_aldersniva_bransch`
 knitr::include_graphics(here("Diagram","_aldersniva_bransch.png"))

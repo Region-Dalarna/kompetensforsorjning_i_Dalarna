@@ -14,7 +14,7 @@ TP_Prognos_bransch <-function(output_mapp = "G:/Samhällsanalys/Statistik/Närin
                                    filnamn = "forvarvsarbetande_prognos.xlsx"){
 
     # =====================================================================================================
-  # Läser in data från Excel (ursprung NMS)
+  # Läser in data från Excel
   prognos_df <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab5_20.csv",sep='\t')
   
   bransch_nyckel <- read.xlsx("G:/skript/jon/Nycklar/TP_bred_branch.xlsx")
