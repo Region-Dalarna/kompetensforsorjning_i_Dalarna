@@ -52,7 +52,8 @@ befolkning_flytt_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/be
 befolkning_utr_inr_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_utr_inr.xlsx")
 pendling_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_lan.xlsx")
 pendling_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_kommun.xlsx")
-# Data från Mona 
+#Skriptet som skapar nedanstående data finns på Mona: P1079gem/Jon/kompetensförsörjning/utbildningsniva_befolkning_bakgrund_korrekt.R. OBS! Uppdateras inte när skriptet hämta data körs.
+befolkning_utb_alder_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/12_jul_23_utdata_utbildningsniva_befolkning_bakgrund.xlsx")
 ```
 # Kompetensförsörjning i Dalarna
 <p style = "font-size:12px">
@@ -92,7 +93,7 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
                                         diagram_titel = diagram_titel,
                                         diagram_capt = diagram_capt,
                                         manual_x_axis_title = "Åldersgrupper",
-                                        berakna_index = FALSE,
+                                        stodlinjer_avrunda_fem = TRUE,
                                         output_mapp = "",
                                         filnamn_diagram = diagramfil,
                                         skriv_till_diagramfil =FALSE)
@@ -223,8 +224,8 @@ utb_senastear_fig <- SkapaStapelDiagram(skickad_df = utbildning_senastear_df %>%
                                        x_axis_sort_value = TRUE,
                                        x_axis_lutning = 45,
                                        x_var_fokus = "fokus",
+                                       stodlinjer_avrunda_fem = TRUE,
                                        manual_y_axis_title = "procent",
-                                       berakna_index = FALSE,
                                        output_mapp = "",
                                        filnamn_diagram = diagramfilnamn,
                                        skriv_till_diagramfil = FALSE)
@@ -252,7 +253,7 @@ arb_08_fig <- SkapaStapelDiagram(skickad_df =arbetslosa_08_df ,
                                  diagram_capt =  diagram_capt,
                                  x_axis_lutning = 45,
                                  manual_y_axis_title = "procent",
-                                 berakna_index = FALSE,
+                                 stodlinjer_avrunda_fem = TRUE,
                                  output_mapp = "",
                                  filnamn_diagram = diagramfilnamn,
                                  skriv_till_diagramfil = FALSE)
@@ -301,16 +302,12 @@ forvarvsarbetande_kon_fig
 #lista_figurer$antal_sysselsatta_proc_min_max_ar
 knitr::include_graphics(here("Diagram","antal_sysselsatta_proc_min_max_ar.png"))
 ```
-<br>
-<br>
-<br>
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 9", include = FALSE}
 #lista_figurer$antal_sysselsatta_proc_min_max_ar
 knitr::include_graphics(here("Diagram","antal_sysselsatta_proc_min_max_ar_ejsun.png"))
 ```
-<br>
-<br>
-<br>
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 10",include = FALSE}
 #lista_figurer$antal_sysselsatta_proc_min_max_ar
 knitr::include_graphics(here("Diagram","antal_forvarvsarbetande_bransch_97.png"))
@@ -339,6 +336,7 @@ forv_forandring_fig <- SkapaStapelDiagram(skickad_df = sysselsatta_df_forandring
                                          diagram_capt = diagram_capt,
                                          diagram_liggande = TRUE,
                                          diagram_facet = FALSE,
+                                         stodlinjer_avrunda_fem = TRUE,
                                          geom_position_stack = TRUE,
                                          berakna_index = FALSE,
                                          output_mapp = "",
@@ -370,6 +368,7 @@ forvarvsarbetande_prognos_fig <- SkapaStapelDiagram(skickad_df = forvarvsarbetan
                                                    x_axis_lutning = 45,
                                                    x_axis_sort_value = TRUE,
                                                    legend_vand_ordning = FALSE,
+                                                   stodlinjer_avrunda_fem = TRUE,
                                                    diagram_liggande = FALSE,
                                                    berakna_index = FALSE,
                                                    output_mapp = "",
@@ -404,8 +403,6 @@ kompetens_lan_fig <- SkapaStapelDiagram(skickad_df = kompetens_lan %>%
                                          skickad_x_var = "region",
                                          skickad_y_var = "Andel",
                                          skickad_x_grupp = "kompetensniva",
-                                         manual_x_axis_text_vjust=0,
-                                         manual_x_axis_text_hjust=0.3,
                                          manual_color = c(rgb(211,211,211, maxColorValue = 255),diagramfarger("rus_sex")),
                                          diagram_titel = diagram_titel,
                                          x_axis_lutning = 0,
@@ -414,6 +411,7 @@ kompetens_lan_fig <- SkapaStapelDiagram(skickad_df = kompetens_lan %>%
                                          diagram_liggande = TRUE,
                                          geom_position_stack = TRUE,
                                          manual_y_axis_title = "procent",
+                                         stodlinjer_avrunda_fem = TRUE,
                                          x_axis_sort_value = TRUE,
                                          x_axis_sort_grp = 6,
                                          vand_sortering = TRUE,
@@ -448,8 +446,6 @@ kompetens_bransch_fig <- SkapaStapelDiagram(skickad_df = kompetens_bransch %>%
                                            skickad_x_var = "Branschgrupp",
                                            skickad_y_var = "Andel",
                                            skickad_x_grupp = "kompetensniva",
-                                           manual_x_axis_text_vjust=0,
-                                           manual_x_axis_text_hjust=0.3,
                                            manual_color = c(rgb(211,211,211, maxColorValue = 255),diagramfarger("rus_sex")),
                                            diagram_titel = diagram_titel,
                                            #x_axis_sort_value = TRUE,
@@ -462,6 +458,7 @@ kompetens_bransch_fig <- SkapaStapelDiagram(skickad_df = kompetens_bransch %>%
                                            vand_sortering = TRUE,
                                            geom_position_stack = TRUE,
                                            manual_y_axis_title = "procent",
+                                           stodlinjer_avrunda_fem = TRUE,
                                            output_mapp = "",
                                            filnamn_diagram = diagramfil,
                                            skriv_till_diagramfil = FALSE)
@@ -503,8 +500,6 @@ bransch_utb_fig <- SkapaStapelDiagram(skickad_df = bransch_utb_df_sum %>%
                              skickad_x_var = "SNI2007_Grupp_namn", 
                              skickad_y_var = "Andel", 
                              skickad_x_grupp = "Sun2020Niva_grov_namn",
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
                              manual_color = farger_gra,
                              x_axis_lutning = 0,
                              diagram_titel = diagram_titel,
@@ -512,6 +507,7 @@ bransch_utb_fig <- SkapaStapelDiagram(skickad_df = bransch_utb_df_sum %>%
                              x_axis_sort_grp = 4,
                              diagram_capt = diagram_capt,
                              #procent_0_100_10intervaller = TRUE,
+                             stodlinjer_avrunda_fem = TRUE,
                              legend_vand_ordning = TRUE,
                              diagram_liggande = TRUE,
                              geom_position_stack = TRUE,
@@ -553,6 +549,7 @@ bransch_alder_fig <- SkapaStapelDiagram(skickad_df = bransch_alder_df_sum %>%
                                        x_axis_lutning = 0,
                                        x_axis_sort_grp = 6,
                                        diagram_capt = diagram_capt,
+                                       stodlinjer_avrunda_fem = TRUE,
                                        diagram_liggande = TRUE,
                                        legend_vand_ordning = TRUE,
                                        geom_position_stack = TRUE,
@@ -621,6 +618,7 @@ bransch_alder_antal_fig
                                      x_axis_lutning = 0,
                                      x_axis_sort_value = TRUE,
                                      diagram_liggande = TRUE,
+                                     stodlinjer_avrunda_fem = TRUE,
                                      geom_position_stack = TRUE,
                                      manual_y_axis_title="procent",
                                      berakna_index = FALSE,
@@ -656,6 +654,7 @@ bef_inr_utr <- SkapaStapelDiagram(skickad_df = befolkning_utr_inr_df,
                              diagram_liggande = TRUE,
                              manual_y_axis_title = "",
                              geom_position_stack = TRUE,
+                             stodlinjer_avrunda_fem = TRUE,
                              berakna_index = FALSE,
                              output_mapp = "",
                              filnamn_diagram = diagramfilnamn,
@@ -687,6 +686,7 @@ pendling_lan <- SkapaStapelDiagram(skickad_df =pendling_lan_df,
                                    manual_color = diagramfarger("rus_sex"),
                                    diagram_titel = diagramtitel,
                                    diagram_capt =  diagram_capt,
+                                   stodlinjer_avrunda_fem = TRUE,
                                    x_axis_sort_value = TRUE,
                                    x_axis_sort_grp = 2,
                                    vand_sortering = TRUE,
@@ -694,8 +694,6 @@ pendling_lan <- SkapaStapelDiagram(skickad_df =pendling_lan_df,
                                    output_mapp = "",
                                    filnamn_diagram = diagramfilnamn,
                                    skriv_till_diagramfil = FALSE)
-
-
 
 ```
 
@@ -726,6 +724,7 @@ pendling_kommun <- SkapaStapelDiagram(skickad_df = pendling_kommun_df %>%
                              dataetiketter = FALSE,
                              dataetiketter_antal_dec = 0,
                              manual_y_axis_title="procent",
+                             stodlinjer_avrunda_fem = TRUE,
                              diagram_titel = diagram_titel,
                              diagram_capt = diagram_capt,
                              output_mapp = "",
@@ -740,25 +739,102 @@ pendling_kommun
 
 ### Utbildningsnivå
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 21"}
-#lista_figurer$befolkningsforandring_20_64
-knitr::include_graphics(here("Diagram","fodelseregion_utbildning.png"))
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+  diagram_capt <- "Källa: NMS-databasen (SCB), databasen Stativ\nBearbetning: Samhällsanalys, Region Dalarna"
+
+  befolkning_utb_alder_df$SUN_old_namn <- case_when(
+                                          substr(befolkning_utb_alder_df$Sun2020Niva,1,2) == "10"~"Förgymnasial utbildning kortare än 9 år",
+                                          substr(befolkning_utb_alder_df$Sun2020Niva,1,2) == "20"~"Förgymnasial utbildning 9 år",
+                                          substr(befolkning_utb_alder_df$Sun2020Niva,1,2) %in% as.character(31:32)~"Gymnasial utbildning högst 2-årig",
+                                          substr(befolkning_utb_alder_df$Sun2020Niva,1,2) == "33"~"Gymnasial utbildning, 3 år",
+                                          substr(befolkning_utb_alder_df$Sun2020Niva,1,2) %in% as.character(41:52)~"Eftergymnasial utbildning kortare än 3 år",
+                                          substr(befolkning_utb_alder_df$Sun2020Niva,1,2) %in% c(as.character(53:55),as.character(60:64))~"Eftergymnasial utbildning 3 år eller längre",
+                                          befolkning_utb_alder_df$Sun2020Niva == "999"~"Okänd")
+
+  # Tittar på utbildning och bakgrund - diagram 2
+ befolkning_utb_2064_df_sum <- befolkning_utb_alder_df %>%
+   filter(SUN_old_namn != "Okänd") %>% 
+    group_by(year,Lan_namn,Kon_namn,bakgrund,SUN_old_namn) %>% 
+      summarize(antal=sum(antal)) %>%
+        mutate(andel=round((antal/sum(antal))*100,2)) 
+
+  # Skapar en faktorvariabel för att få utbildningsnivå i "rätt" ordning i figuren
+  befolkning_utb_2064_df_sum$SUN_old_namn <- factor(befolkning_utb_2064_df_sum$SUN_old_namn, levels = c("Eftergymnasial utbildning 3 år eller längre","Eftergymnasial utbildning kortare än 3 år",
+                                                                                                                            "Gymnasial utbildning, 3 år","Gymnasial utbildning högst 2-årig",
+                                                                                                                            "Förgymnasial utbildning 9 år","Förgymnasial utbildning kortare än 9 år")[6:1])
+            
+  diagram_titel <- paste0("Befolkningens (20-64 år) utbildningsnivå i Dalarnas län ", unique(befolkning_utb_2064_df_sum$year))
+  diagramfil <- "fodelseregion_utbildning.png"
+  
+  utb_bakgrund_fig <- SkapaStapelDiagram(skickad_df = befolkning_utb_2064_df_sum, 
+                               skickad_x_var = "bakgrund", 
+                               skickad_y_var = "andel", 
+                               skickad_x_grupp = "SUN_old_namn",
+                               manual_color = diagramfarger("rus_sex"),
+                               diagram_titel = diagram_titel,
+                               x_axis_sort_value = TRUE,
+                               diagram_capt = diagram_capt,
+                               dataetiketter = TRUE,
+                               dataetiketter_antal_dec = 1,
+                               diagram_facet = TRUE,
+                               facet_legend_bottom = TRUE,
+                               facet_grp = "Kon_namn",
+                               stodlinjer_avrunda_fem = TRUE,
+                               facet_scale = "fixed",
+                               manual_y_axis_title = "procent",
+                               output_mapp = "",
+                               filnamn_diagram = diagramfil,
+                               skriv_till_diagramfil = FALSE)
+
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 21"}
+utb_bakgrund_fig
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 23", include = FALSE}
 #lista_figurer$befolkningsforandring_20_64
 knitr::include_graphics(here("Diagram","utbildning_inriktning_kon.png"))
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 22"}
-#lista_figurer$befolkningsforandring_20_64
-knitr::include_graphics(here("Diagram","forgymnasial_alder_kon.png"))
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+  diagram_capt <- "Källa: NMS-databasen (SCB), databasen Stativ\nBearbetning: Samhällsanalys, Region Dalarna"
+
+  # Tittar på utbildning och bakgrund - diagram 2
+ befolkning_alder_2064_df_sum <- befolkning_utb_alder_df %>%
+   filter(SUN_old_namn %in% c("Förgymnasial utbildning kortare än 9 år","Förgymnasial utbildning 9 år")) %>% 
+    group_by(year,Lan_namn,Kon_namn,bakgrund,alder_grupper) %>% 
+      summarize(antal=sum(antal)) %>%
+        mutate(andel=round((antal/sum(antal))*100,2)) 
+
+  # Skapar en faktorvariabel för att få kön i "rätt" ordning i figuren
+ befolkning_alder_2064_df_sum$Kon_namn <- factor(befolkning_alder_2064_df_sum$Kon_namn, levels = c("man","kvinna"))
+            
+  diagram_titel <- paste0("Personer (20-64 år) med förgymnasial utbildning i Dalarnas län ", unique(befolkning_alder_2064_df_sum$year))
+  diagramfil <- "forgymnasial_alder_kon.png"
+  
+  forgym_alder_fig <- SkapaStapelDiagram(skickad_df = befolkning_alder_2064_df_sum,
+                                         skickad_x_var = "alder_grupper",
+                                         skickad_y_var = "antal",
+                                         skickad_x_grupp = "Kon_namn",
+                                         manual_color = diagramfarger("kon")[2:1],
+                                         diagram_titel = diagram_titel,
+                                         x_axis_lutning = 0,
+                                         diagram_capt = diagram_capt,
+                                         diagram_liggande = TRUE,
+                                         legend_vand_ordning = TRUE,
+                                         geom_position_stack = TRUE,
+                                         stodlinjer_avrunda_fem = TRUE,
+                                         manual_y_axis_title = "Antal personer",
+                                         output_mapp = "",
+                                         filnamn_diagram = diagramfil,
+                                         skriv_till_diagramfil = FALSE)
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 22"}
+forgym_alder_fig
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 23"}
 #lista_figurer$befolkningsforandring_20_64
 knitr::include_graphics(here("Diagram","tillg_eft_prognos_utbniva.png"))
