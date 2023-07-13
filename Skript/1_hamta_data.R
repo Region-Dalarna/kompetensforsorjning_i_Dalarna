@@ -65,4 +65,19 @@ source(here("Skript","pendling_kommun.R"), encoding="UTF-8")
 hamta_data_pendling_kommun(spara_data = TRUE,
                            output_mapp = Output_mapp)
 
+# Högskoleexamen - från NMS-databasen/MONA. Uppdateras inte automatisk.
+# Skript för att uppdatera data finns på P1079gem/Jon/kompetensförsörjning/hogskoleexamen_korrekt.R. Välj senast tillgängliga år i MONA.
+source(here("Skript","hogskoleexamen.R"), encoding="UTF-8")
+diag_hogskoleexamen(spara_data = TRUE,
+                    output_mapp = Output_mapp)
+
+# Sysselsättningsgrad, län och kommun - från projektet "Kvinnor och män i Dalarna"
+source("C:/Users/frkjon/Projekt/kvinnor_man_i_Dalarna/Skript/arbetsmarknadsstatus_senastear.R", encoding="UTF-8")
+diag_arbetsmarknadsstatus(skapa_fil = TRUE,
+                          output_mapp = Output_mapp)
+
+# Matchning på arbetsmarknaden, län och bakgrund - från projektet "Kvinnor och män i Dalarna"
+source("C:/Users/frkjon/Projekt/kvinnor_man_i_Dalarna/Skript/matchning.R", encoding="UTF-8")
+diag_matchning(spara_data = TRUE,
+               output_mapp = Output_mapp)
 

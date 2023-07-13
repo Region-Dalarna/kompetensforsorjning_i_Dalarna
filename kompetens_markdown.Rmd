@@ -54,6 +54,12 @@ pendling_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendli
 pendling_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_kommun.xlsx")
 #Skriptet som skapar nedanstående data finns på Mona: P1079gem/Jon/kompetensförsörjning/utbildningsniva_befolkning_bakgrund_korrekt.R. OBS! Uppdateras inte när skriptet hämta data körs.
 befolkning_utb_alder_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/12_jul_23_utdata_utbildningsniva_befolkning_bakgrund.xlsx")
+hogskoleexamen_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/hogskoleexamen.xlsx")
+# Skriptet som skapar nedanstående data finns på Mona: P1079gem/peter/YH_uppfoljning_bransch_yrke
+folkhogskola_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/13_okt_22_Dalarna_yrkeshogskoleexamen.xlsx", sheet =1)
+arbetsmarknadsstatus_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 1)
+arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 2)
+matchning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/matchning.xlsx")
 ```
 # Kompetensförsörjning i Dalarna
 <p style = "font-size:12px">
@@ -837,6 +843,8 @@ forgym_alder_fig
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 23"}
 #lista_figurer$befolkningsforandring_20_64
+  diagram_capt_1 <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring. Tillgång delat med efterfrågan. En siffra över 100 indikerar att tillgången överstiger efterfrågan."
+  diagram_capt_2 <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna." 
 knitr::include_graphics(here("Diagram","tillg_eft_prognos_utbniva.png"))
 ```
 <br>
@@ -881,66 +889,314 @@ knitr::include_graphics(here("Diagram","gymnasieantagna_prognos.png"))
 <br>
 <br>
 <br>
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 29"}
-#lista_figurer$befolkningsforandring_20_64
-knitr::include_graphics(here("Diagram","hogskoleexamen_alla.png"))
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: NMS-databasen (SCB), högskoleregistret\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Enbart program/områden med minst 5 examinerade"
+
+diagram_titel <- paste0("Examen från Högskolan Dalarna låsåret ",max(hogskoleexamen_df$Lar)," per program")
+diagramfil <- "hogskoleexamen_alla.png"
+
+hogskoleexamen_fig <- SkapaStapelDiagram(skickad_df = hogskoleexamen_df%>%
+                               filter(antal>4,
+                                      Lar == max(Lar)),
+                             skickad_x_var = "SUN2020Inr_2siffer_namn",
+                             skickad_y_var = "antal",
+                             #skickad_x_grupp = "SUN2020Inr_namn",
+                             # manual_x_axis_text_vjust=0,
+                             # manual_x_axis_text_hjust=0.6,
+                             manual_color = diagramfarger("rus_sex"),
+                             diagram_titel = diagram_titel,
+                             x_axis_sort_value = TRUE,
+                             diagram_capt = diagram_capt,
+                             x_axis_lutning = 0,
+                             diagram_liggande = TRUE,
+                             manual_y_axis_title = "Antal examinerade",
+                             manual_x_axis_title = "Utbildningsområde",
+                             output_mapp = "",
+                             filnamn_diagram = diagramfil,
+                             skriv_till_diagramfil = FALSE)
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 29"}
+hogskoleexamen_fig
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 30"}
 knitr::include_graphics(here("Diagram","hogskoleexamen_prognos.png"))
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: NMS-databasen (SCB), utbildningsregistret\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Examensår efter 2011."
+
+folkhogskola_df_bransch_urval <- folkhogskola_df %>% 
+group_by(AstSNI2007_namn) %>% 
+  summarize(antal=sum(antal)) %>% 
+    slice_max(antal,n=10) %>% 
+      ungroup()
+
+diagram_titel <- paste0("De tio vanligaste branscherna för förvärvsarbetande (16-74 år) i Dalarnas län för YH-utbildade ",max(folkhogskola_df$Ar))
+# Rubriken blir för lång. Använder string_wrap för skriva den i två rader
+diagram_titel <- str_wrap(diagram_titel)
+diagramfil <- "yh_bransch.png"
+
+folkhogskola_df_bransch_urval$AstSNI2007_namn <- str_wrap(folkhogskola_df_bransch_urval$AstSNI2007_namn,50)
+
+yh_bransch_fig <- SkapaStapelDiagram(skickad_df = folkhogskola_df_bransch_urval,
+                                     skickad_x_var = "AstSNI2007_namn",
+                                     skickad_y_var = "antal",
+                                     manual_x_axis_text_vjust=0,
+                                     manual_x_axis_text_hjust=0.6,
+                                     manual_color = diagramfarger("rus_sex"),
+                                     diagram_titel = diagram_titel,
+                                     x_axis_sort_value = TRUE,
+                                     diagram_capt = diagram_capt,
+                                     x_axis_lutning = 0,
+                                     diagram_liggande = TRUE,
+                                     output_mapp = "",
+                                     filnamn_diagram = diagramfil,
+                                     skriv_till_diagramfil = FALSE)
+```
+
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 31"}
-knitr::include_graphics(here("Diagram","yh_bransch.png"))
+yh_bransch_fig
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: NMS-databasen (SCB), utbildningsregistret\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Examensår efter 2011."
+
+  folkhogskola_df_inriktning_urval <- folkhogskola_df %>% 
+    group_by(Sun2000Inr_namn) %>% 
+      summarize(antal=sum(antal)) %>%
+        slice_max(antal,n=10) %>% 
+          ungroup()
+
+diagram_titel <- paste0("De tio vanligaste YH-inriktningarna för förvärvsarbetande (16-74 år) i Dalarnas län  ",max(folkhogskola_df$Ar))
+diagram_titel <- str_wrap(diagram_titel)
+diagramfil <- "yh_inriktning.png"
+
+folkhogskola_df_inriktning_urval$Sun2000Inr_namn <- str_wrap(folkhogskola_df_inriktning_urval$Sun2000Inr_namn,50)
+
+yh_inriktning_fig <- SkapaStapelDiagram(skickad_df = folkhogskola_df_inriktning_urval,
+                                     skickad_x_var = "Sun2000Inr_namn",
+                                     skickad_y_var = "antal",
+                                     # manual_x_axis_text_vjust=1,
+                                     # manual_x_axis_text_hjust=1,
+                                     manual_color = diagramfarger("rus_sex"),
+                                     diagram_titel = diagram_titel,
+                                     x_axis_sort_value = TRUE,
+                                     diagram_capt = diagram_capt,
+                                     x_axis_lutning = 0,
+                                     diagram_liggande = TRUE,
+                                     output_mapp = "",
+                                     filnamn_diagram = diagramfil,
+                                     skriv_till_diagramfil = FALSE)
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 32"}
-knitr::include_graphics(here("Diagram","yh_inriktning.png"))
+yh_inriktning_fig
 ```
-<br>
-<br>
-<br>
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 36", include = FALSE}
 knitr::include_graphics(here("Diagram","yrkeshogskoleexamen_prognos.png"))
 ```
 ## 5 Matchning i Dalarnas län
-<br>
-<br>
-<br>
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 33"}
-#lista_figurer$befolkningsforandring_20_64
-knitr::include_graphics(here("Diagram","Sysselsättningsgrad_lan.png"))
+
+Sysselsättningsgraden, det vill säga utsträckningen i vilken människor i
+arbetsför ålder (20-64 år) arbetar, skiljer sig åt mellan inrikes och
+utrikes födda. Sysselsättningsgraden bland utrikes födda är lägre än
+sysselsättningsgraden för inrikes födda i samtliga svenska län. Det
+finns även skillnader mellan kvinnor och män. För inrikes födda, det
+vänstra diagrammet nedan, är sysselsättningsgraden för båda könen
+ungefär lika hög. Variationen i sysselsättningsgrad mellan länen är även
+den ganska liten.
+
+För utrikes födda (det högra diagrammet nedan) är bilden annorlunda.
+Utrikes födda män har en högre sysselsättningsgrad än utrikes födda
+kvinnor i samtliga län förutom Norrbotten. I Dalarna var
+sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent, vilket
+är ca `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad-arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0) ` procentenheter mer än för utrikes födda kvinnor i Dalarna. 
+Något man måste ta hänsyn till när man analyserar sysselsättningsgrad och 
+arbetslöshet bland utrikes födda är hur lång tid de har varit i Sverige.
+Vistelsetid i Sverige har ett starkt samband med sysselsättningsgrad och 
+arbetslöshet och därmed kommer andelen nyanlända i gruppen utrikes födda att 
+påverka nivån på dessa variabler.  
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
+
+  diagramtitel <- paste0("Sysselsättningsgrad i åldersgruppen 20-64 år i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
+  diagramfilnamn <- paste0("sysselsättningsgrad","_lan",".png")
+
+syss_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>% 
+                                   filter(kön != "totalt",födelseregion != "totalt"), 
+                                 skickad_x_var = "region", 
+                                 skickad_y_var = "sysselsättningsgrad", 
+                                 skickad_x_grupp = "kön",
+                                 manual_y_axis_title = "procent",
+                                 manual_x_axis_text_vjust=1,
+                                 manual_x_axis_text_hjust=1,
+                                 manual_color = diagramfarger("kon"),
+                                 diagram_titel = diagramtitel,
+                                 diagram_capt =  diagram_capt,
+                                 diagram_facet = TRUE,
+                                  y_axis_100proc = TRUE,
+                                 facet_grp = "födelseregion",
+                                 facet_scale = "fixed",
+                                 facet_legend_bottom = TRUE,
+                                 x_axis_sort_value = TRUE,
+                                 x_axis_lutning = 45,
+                                 output_mapp = "",
+                                 filnamn_diagram = diagramfilnamn,
+                                 skriv_till_diagramfil = FALSE)  
 ```
-<br>
-<br>
-<br>
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 34"}
-#lista_figurer$befolkningsforandring_20_64
-knitr::include_graphics(here("Diagram","Sysselsättningsgrad_kommun.png"))
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+syss_lan_fig
 ```
-<br>
-<br>
-<br>
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 35"}
-#lista_figurer$befolkningsforandring_20_64
-knitr::include_graphics(here("Diagram","matchning_lan.png"))
+
+Vad gäller sysselsättningsgrad uppvisar kommunerna i Dalarna ett
+liknande mönster som länen på nationell nivå. Gruppen inrikes födda har
+en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med
+utrikes födda. Även här är sysselsättningsgraden för inrikes födda
+kvinnor och män ungefär lika hög. För utrikes födda är det däremot stora
+skillnader mellan kvinnor och män, men också mellan olika kommuner. I
+linje med den nationella bilden är sysselsättningsgraden högre för
+gruppen utrikes födda män än för utrikes födda kvinnor.
+Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan
+kommuner där den högsta sysselsättningsgraden finns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$region` (ca `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent) och den lägsta i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$region` (ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)`
+procent).
+
+Skillnaderna mellan utrikes födda kvinnor och män är mer synlig mellan
+kommuner i Dalarna än när länen som helhet jämförs. `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$region` har
+den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor, runt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)`
+procent, och ligger klart över genomsnittet för Dalarnas län (knappt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(region == "Dalarna") %>% .$sysselsättningsgrad,0)`
+procent). Samtidigt är sysselsättningsgraden i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$region` kommun bland
+utrikes födda kvinnor bara ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent. 
+
+Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan 
+kommunerna i Dalarna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt
+flyktingkrisen 2015. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som hade högst invandring i förhållande till folkmängd under 2015, 2016 och 2017.
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
+
+  diagramtitel <- paste0("Sysselsättningsgrad i åldersgruppen 20-64 år i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>%      filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
+  diagramfilnamn <- paste0("sysselsättningsgrad","_kommun",".png")
+
+syss_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_df %>% 
+                                       filter(kön != "totalt",födelseregion != "totalt"), 
+                                     skickad_x_var = "region", 
+                                     skickad_y_var = "sysselsättningsgrad", 
+                                     skickad_x_grupp = "kön",
+                                     manual_y_axis_title = "procent",
+                                     manual_x_axis_text_vjust=1,
+                                     manual_x_axis_text_hjust=1,
+                                     manual_color = diagramfarger("kon"),
+                                     diagram_titel = diagramtitel,
+                                     diagram_capt =  diagram_capt,
+                                     diagram_facet = TRUE,
+                                     y_axis_100proc = TRUE,
+                                     facet_grp = "födelseregion",
+                                     facet_scale = "fixed",
+                                     facet_legend_bottom = TRUE,
+                                     x_axis_sort_value = TRUE,
+                                     x_axis_lutning = 45,
+                                     output_mapp = "",
+                                     filnamn_diagram = diagramfilnamn,
+                                     skriv_till_diagramfil = FALSE) 
 ```
-<br>
-<br>
-<br>
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 36"}
-#lista_figurer$befolkningsforandring_20_64
-knitr::include_graphics(here("Diagram","matchning_bakgrund.png"))
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+syss_kommun_fig
 ```
-<br>
-<br>
-<br>
+
+Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning
+människor jobbar med vad de är utbildade till. Generellt tenderar olika
+typer av specialiserade eftergymnasiala utbildningar, exempelvis läkare
+och psykologer, ha hög matchning. Utbildar man sig till läkare är det
+väldigt hög sannolikhet att man även har det som yrke (närmare 100
+procent). På andra sidan av spektrumet finns dels olika former av
+gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis
+humaniora och konst, där runt hälften jobbar med vad de är utbildade
+till. Rent generellt ligger matchninggraden på runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent i
+Sverige, där något fler kvinnor än män jobbar med vad de är utbildade
+till. Det finns vissa skillnader mellan länen, men dessa är relativt
+små. I Dalarna är matchningsgraden ca
+`r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` procent, vilket är något sämre än riket som helhet.
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas, regionala matchningsindikatorer.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Med matchning avses matchad förvärvsgrad\ndvs. andelen anställda som har ett yrke som helt matchar deras utbildning (enligt SCB)."
+
+diagramtitel <- paste0("Matchning på arbetsmarknaden i Sveriges regioner ",max(matchning_df$år))
+diagramfilnamn <- paste0("matchning_lan.png")
+
+matchning_lan_fig <- SkapaStapelDiagram(skickad_df = matchning_df %>%
+                                         filter(kön != "samtliga anställda",
+                                                fodelseland == "totalt",
+                                                år == max(år)),
+                                       skickad_x_var = "region",
+                                       skickad_y_var = "matchningsgrad",
+                                       skickad_x_grupp = "kön",
+                                       manual_x_axis_text_vjust=1,
+                                       manual_x_axis_text_hjust=1,
+                                       manual_color = diagramfarger("kon"),
+                                       diagram_titel = diagramtitel,
+                                       diagram_capt =  diagram_capt,
+                                       x_axis_sort_value = TRUE,
+                                       x_axis_lutning = 45,
+                                       stodlinjer_avrunda_fem = TRUE,
+                                       manual_y_axis_title = "procent",
+                                       output_mapp = "",
+                                       filnamn_diagram = diagramfilnamn,
+                                       skriv_till_diagramfil = FALSE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+matchning_lan_fig
+```
+
+Matchningen på arbetsmarknaden tenderar att variera beroende på var man
+är född. I Dalarna har inrikes födda högst matchning med ungefär `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)`
+procent för både kvinnor och män. Även personer födda inom EU har hög
+matchning (runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Norden eller EU utom Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent). Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (ca `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent).
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+matchning_df <- matchning_df %>% 
+  mutate("fodelseland" = ifelse(fodelseland %in% c("födda i Europa utom Norden och EU samt Sydamerika, Nordamerika och Oceanien"),"övriga", fodelseland)) 
+
+diagramtitel <- paste0("Matchning på arbetsmarknaden i Dalarna år ",max(matchning_df$år)," per födelseregion")
+diagramfilnamn <- paste0("matchning_bakgrund.png")
+
+matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
+                                           filter(kön != "samtliga anställda",
+                                                  år == max(år),
+                                                  region == "Dalarna",
+                                                  fodelseland != "totalt"),
+                                         skickad_x_var = "fodelseland",
+                                         skickad_y_var = "matchningsgrad",
+                                         skickad_x_grupp = "kön",
+                                         # manual_x_axis_text_vjust=1,
+                                         # manual_x_axis_text_hjust=1,
+                                         manual_color = diagramfarger("kon"),
+                                         diagram_titel = diagramtitel,
+                                         diagram_capt =  diagram_capt,
+                                         diagram_facet = FALSE,
+                                         x_axis_sort_value = TRUE,
+                                         x_axis_lutning =0,
+                                         diagram_liggande = TRUE,
+                                         stodlinjer_avrunda_fem = TRUE,
+                                         manual_y_axis_title="procent",
+                                         berakna_index = FALSE,
+                                         output_mapp = "",
+                                         filnamn_diagram = diagramfilnamn,
+                                         skriv_till_diagramfil = FALSE)
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
+matchning_bakg_fig
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 37"}
 #lista_figurer$befolkningsforandring_20_64
 knitr::include_graphics(here("Diagram","kompetensbrist.png"))
