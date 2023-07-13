@@ -25,6 +25,14 @@ source(here("Skript","utbildningsniva_senastear.R"), encoding="UTF-8")
 hamta_data_utbniva(output_mapp = Output_mapp,
                    spara_data = TRUE)
 
+# Gymnasieantagning - sourcar ett skript som Peter har skapat. vet inte när data uppdateras.
+# Eftersom skriptet automatiskt skapar en dataframe så skapas denna först för att sedan tas bort (vi vill bara spara till Excel)
+source("G:/skript/hamta_data/func_gymnasieantagningen.R", encoding = "utf-8", echo = FALSE)
+temp_df <- las_in_data_gymnasieantagningen(output_mapp_excel = Output_mapp,
+                                           spara_data_excel = TRUE)
+
+rm(temp_df)
+
 # Arbetslöshet 08-senaste år. Excel, Arbetsförmedlingen
 source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
 hamta_data_arbetsloshet(output_mapp = Output_mapp,
