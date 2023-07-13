@@ -59,7 +59,12 @@ hogskoleexamen_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/hogs
 folkhogskola_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/13_okt_22_Dalarna_yrkeshogskoleexamen.xlsx", sheet =1)
 arbetsmarknadsstatus_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 1)
 arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 2)
-matchning_df <- read.xlsx("G:/skript/projekt/data/kvinnor_man/matchning.xlsx")
+matchning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/matchning.xlsx")
+# Data nedan laddas hem från: https://tillvaxtverket.se/tillvaxtverket/statistikochanalys/statistikomforetag/foretagande/hinderfortillvaxt.1718.html
+kompetensbrist_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/Tillgång till lämplig arbetskraft.xlsx",sheet=4) %>%
+  rename("Region" = Kolumn1) %>% 
+      pivot_longer(2:length(names(.)),names_to = "År",values_to = "Andel")
+
 ```
 # Kompetensförsörjning i Dalarna
 <p style = "font-size:12px">
@@ -1142,9 +1147,9 @@ matchning_lan_fig <- SkapaStapelDiagram(skickad_df = matchning_df %>%
                                        manual_color = diagramfarger("kon"),
                                        diagram_titel = diagramtitel,
                                        diagram_capt =  diagram_capt,
+                                       y_axis_100proc = TRUE,
                                        x_axis_sort_value = TRUE,
                                        x_axis_lutning = 45,
-                                       stodlinjer_avrunda_fem = TRUE,
                                        manual_y_axis_title = "procent",
                                        output_mapp = "",
                                        filnamn_diagram = diagramfilnamn,
@@ -1183,8 +1188,8 @@ matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
                                          diagram_facet = FALSE,
                                          x_axis_sort_value = TRUE,
                                          x_axis_lutning =0,
+                                         y_axis_100proc = TRUE,
                                          diagram_liggande = TRUE,
-                                         stodlinjer_avrunda_fem = TRUE,
                                          manual_y_axis_title="procent",
                                          berakna_index = FALSE,
                                          output_mapp = "",
@@ -1197,9 +1202,39 @@ matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
 matchning_bakg_fig
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 37"}
-#lista_figurer$befolkningsforandring_20_64
-knitr::include_graphics(here("Diagram","kompetensbrist.png"))
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: Tillväxtverket: Företagens villkor och verklighet.\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Andel småföretag som anser att tillgång till lämplig arbetskraft är ett stort hinder för tillväxt"
+
+diagram_titel <- paste0("Upplevd kompetensbrist i Sveriges regioner")
+diagramfil <- "kompetensbrist.png"
+
+kompetensbrist_df$Region <- skapa_kortnamn_lan(kompetensbrist_df$Region)
+
+kompetensbrist_fig <- SkapaStapelDiagram(skickad_df = kompetensbrist_df %>% 
+                                           filter(År %in% c(2020,max(År))) %>% 
+                                            mutate(Region = ifelse(Region == "Totalt","Sverige",Region)),
+                                         skickad_x_var = "Region", 
+                                         skickad_y_var = "Andel",
+                                         skickad_x_grupp = "År",
+                                         manual_x_axis_text_vjust=1,
+                                         manual_x_axis_text_hjust=1,
+                                         manual_color = diagramfarger("rus_sex"),
+                                         diagram_titel = diagram_titel,
+                                         x_axis_sort_value = TRUE,
+                                         x_axis_sort_grp = 2,
+                                         y_axis_100proc = TRUE,
+                                         diagram_capt = diagram_capt,
+                                         x_axis_lutning = 45,
+                                         manual_y_axis_title = "procent",
+                                         berakna_index = FALSE,
+                                         #x_var_fokus = "fokus",
+                                         output_mapp = "",
+                                         filnamn_diagram = diagramfil,
+                                         skriv_till_diagramfil = FALSE)
+```
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+kompetensbrist_fig
 ```
 
 ## 6 Utbildningsområden och prognoser

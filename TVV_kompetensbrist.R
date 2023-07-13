@@ -1,5 +1,7 @@
 # Data från Tillväxtverket för företag som upplever problem att rekrytera: 
-# https://tillvaxtverket.se/statistik/foretagande/hinder-for-tillvaxt.html
+# https://tillvaxtverket.se/tillvaxtverket/statistikochanalys/statistikomforetag/foretagande/hinderfortillvaxt.1718.html
+# Välj ladda ned Excelfil under den första figuren
+# Data senast nedladdad: 20230713
 pacman::p_load(tidyverse,openxlsx,here)
 
 source("G:/skript/func/func_SkapaDiagram.R", encoding = "utf-8", echo = FALSE)
