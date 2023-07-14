@@ -59,9 +59,22 @@ gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/g
       summarize(Män=sum(Ant_Män),
                 Kvinnor=sum(Ant_Kv)) %>%
         pivot_longer(.,3:4,names_to="Kon",values_to = "Antagna")
+# Data från Trender och prognoser. Måste sannolikt ändras om det kommer en ny leverans från SCB.
+gymnasium_prognos_df <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1b_20.csv",sep='\t',encoding="latin1") %>%
+    group_by(pgm_ny,ar) %>% 
+      summarize(antal=sum(ak1)) 
 hogskoleexamen_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/hogskoleexamen.xlsx")
+# Data från Trender och prognoser. Måste sannolikt ändras om det kommer en ny leverans från SCB.
+prognos_df_hogskola <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1k_20.csv",sep='\t',encoding="latin1")%>% 
+    group_by(Kortnamn_modell_alt,ar) %>% 
+      summarize(antal=sum(exgen))
 # Skriptet som skapar nedanstående data finns på Mona: P1079gem/peter/YH_uppfoljning_bransch_yrke
 folkhogskola_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/13_okt_22_Dalarna_yrkeshogskoleexamen.xlsx", sheet =1)
+# Skriptet som skapar nedanstående data finns på Mona: P1079gem/peter/YH_uppfoljning_bransch_yrke
+prognos_df_yh <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1g_20.csv",sep='\t',encoding="latin1") %>% 
+  filter(!(is.na(ex))) %>% 
+      group_by(Kortnamn_modell_alt,ar) %>% 
+        summarize(antal=sum(ex))
 arbetsmarknadsstatus_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 1)
 arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 2)
 matchning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/matchning.xlsx")
@@ -69,7 +82,6 @@ matchning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/matchning
 kompetensbrist_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/Tillgång till lämplig arbetskraft.xlsx",sheet=4) %>%
   rename("Region" = Kolumn1) %>% 
       pivot_longer(2:length(names(.)),names_to = "År",values_to = "Andel")
-
 ```
 # Kompetensförsörjning i Dalarna
 <p style = "font-size:12px">
@@ -856,6 +868,8 @@ forgym_alder_fig
 #lista_figurer$befolkningsforandring_20_64
   diagram_capt_1 <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring. Tillgång delat med efterfrågan. En siffra över 100 indikerar att tillgången överstiger efterfrågan."
   diagram_capt_2 <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna." 
+  
+  
 knitr::include_graphics(here("Diagram","tillg_eft_prognos_utbniva.png"))
 ```
 <br>
@@ -978,13 +992,42 @@ gym_fleraar_fig <- SkapaStapelDiagram(skickad_df = gymnasieantagning_df%>%
 gym_fleraar_fig
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 28"}
-#lista_figurer$befolkningsforandring_20_64
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2019 är verklig data, övriga prognoser\nEnbart program med minst 5 antagna"
+
+max_ar = max(gymnasium_prognos_df$ar)
+
+diagram_titel <- "Antagna gymnasieelever i Dalarnas län per program"
+diagramfil <- "gymnasieantagna_prognos.png"
+
+gym_prognos_fig <- SkapaStapelDiagram(skickad_df = gymnasium_prognos_df %>%
+                                      filter(ar%in%c(2019,2025,max_ar),
+                                             antal>5) %>% 
+                                        mutate(ar = factor(ar,levels = c(max_ar,"2025","2019"))), 
+                                     skickad_x_var = "pgm_ny", 
+                                     skickad_y_var = "antal",
+                                     skickad_x_grupp = "ar",
+                                     manual_x_axis_text_vjust=0,
+                                     manual_x_axis_text_hjust=0.6,
+                                     manual_color = diagramfarger("rus_sex"),
+                                     diagram_titel = diagram_titel,
+                                     diagram_capt = diagram_capt,
+                                     x_axis_lutning = 0,
+                                     x_axis_sort_value = TRUE,
+                                     legend_vand_ordning = TRUE,
+                                     diagram_liggande = TRUE,
+                                     berakna_index = FALSE,
+                                     output_mapp = "",
+                                     filnamn_diagram = diagramfil,
+                                     skriv_till_diagramfil = FALSE)
+
 knitr::include_graphics(here("Diagram","gymnasieantagna_prognos.png"))
 ```
-<br>
-<br>
-<br>
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 28"}
+gym_prognos_fig
+```
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: NMS-databasen (SCB), högskoleregistret\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Enbart program/områden med minst 5 examinerade"
 
@@ -1016,8 +1059,40 @@ hogskoleexamen_fig <- SkapaStapelDiagram(skickad_df = hogskoleexamen_df%>%
 hogskoleexamen_fig
 ```
 
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2019 är verklig data, övriga prognoser\nEnbart program med minst 5 examinerade 2019"   
+
+max_ar = max(prognos_df_hogskola$ar)
+
+diagram_titel <-"Antal examinerade från högskolan i Dalarnas län efter utbildningsgrupp"
+diagramfil <- "hogskoleexamen_prognos.png"
+
+hogskoleexamen_prognos_fig <- SkapaStapelDiagram(skickad_df = prognos_df_hogskola %>% 
+                                                   filter(Kortnamn_modell_alt %in% unique(prognos_df_hogskola %>%
+                                                                                    filter(ar == 2019, antal>5) %>%
+                                                                                      .$Kortnamn_modell_alt)) %>%  
+                                                    filter(ar %in% c(2019,2025,max_ar)) %>% 
+                                                      mutate(ar = factor(ar,levels = c(max_ar,"2025","2019"))), 
+                                                 skickad_x_var = "Kortnamn_modell_alt", 
+                                                 skickad_y_var = "antal",
+                                                 skickad_x_grupp = "ar",
+                                                 manual_x_axis_text_vjust=0,
+                                                 manual_x_axis_text_hjust=0.6,
+                                                 manual_color = diagramfarger("rus_sex"),
+                                                 diagram_capt = diagram_capt,
+                                                 x_axis_lutning = 0,
+                                                 x_axis_sort_value = TRUE,
+                                                 legend_vand_ordning = TRUE,
+                                                 diagram_liggande = TRUE,
+                                                 #manual_y_axis_title = "procent",
+                                                 berakna_index = FALSE,
+                                                 output_mapp = "",
+                                                 filnamn_diagram = diagramfil,
+                                                 skriv_till_diagramfil = FALSE)
+```
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 30"}
-knitr::include_graphics(here("Diagram","hogskoleexamen_prognos.png"))
+hogskoleexamen_prognos_fig
 ```
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
@@ -1092,9 +1167,42 @@ yh_inriktning_fig <- SkapaStapelDiagram(skickad_df = folkhogskola_df_inriktning_
 yh_inriktning_fig
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 36", include = FALSE}
-knitr::include_graphics(here("Diagram","yrkeshogskoleexamen_prognos.png"))
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+
+diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2018 är verklig data, övriga prognoser\nEnbart program med minst 5 examinerade 2018\nNotera även att data för 2019 saknas"
+
+max_ar = max(prognos_df_yh$ar)
+
+diagram_titel <- "Antal examinerade från yrkeshögskolan i Dalarnas län efter utbildningsgrupp"
+diagramfil <- "yrkeshogskoleexamen_prognos.png"
+  
+yh_prognos_fig <- SkapaStapelDiagram(skickad_df = prognos_df_yh%>% 
+                                     filter(Kortnamn_modell_alt %in% unique(prognos_df_yh %>%
+                                                                      filter(ar ==2018, antal>5) %>%
+                                                                        .$Kortnamn_modell_alt)) %>%  
+                                      filter(ar %in% c(2018,2025,max_ar)) %>% 
+                                        mutate(ar = factor(ar,levels = c(max_ar,"2025","2018"))), 
+                                   skickad_x_var = "Kortnamn_modell_alt", 
+                                   skickad_y_var = "antal",
+                                   skickad_x_grupp = "ar",
+                                   manual_x_axis_text_vjust=0,
+                                   manual_x_axis_text_hjust=0.6,
+                                   manual_color = diagramfarger("rus_sex"),
+                                   diagram_titel = diagram_titel,
+                                   diagram_capt = diagram_capt,
+                                   x_axis_lutning = 0,
+                                   x_axis_sort_value = TRUE,
+                                   legend_vand_ordning = TRUE,
+                                   diagram_liggande = TRUE,
+                                   output_mapp = "",
+                                   filnamn_diagram = diagramfil,
+                                   skriv_till_diagramfil = FALSE)
 ```
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 32"}
+yh_prognos_fig
+```
+
 ## 5 Matchning i Dalarnas län
 
 Sysselsättningsgraden, det vill säga utsträckningen i vilken människor i

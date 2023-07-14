@@ -32,7 +32,7 @@ diag_TP_Prognos <-function(region_vekt = "20",
   # =====================================================================================================
   # Läser in data från Excel (ursprung Trender och prognoser)
   # Utbildningsgrupper
-  prognos_df <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab0_20.csv",sep='\t')
+  prognos_df <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab0_20.csv",sep='\t',encoding="latin1")
   
   prognos_df_utbniva <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab0A_20.csv",sep='\t')
   
