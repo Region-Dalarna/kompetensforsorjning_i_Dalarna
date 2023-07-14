@@ -15,19 +15,6 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-# lista_figurer=list()
-# # Om man vill uppdatera figurerna sätter man skapa_lista till TRUE. Skapa_fil styr om man vill skapa en png-fil, vilket normalt sett är fallet. Notera att skapa_lista bara skall användas när figurer behöver uppdateras. Tar betydligt mycket längre tid.
-# 
-# skapa_lista=FALSE
-# Skapa_fil=FALSE
-# i=1
-# 
-# #test_lank<-here("Diagram","befolkningsforandring_20_64.png")
-# 
-# if(skapa_lista==TRUE){
-# source(here("master_kompetens.R"), encoding = "utf-8", echo = FALSE)
-# lista_figurer=c(lista_figurer,hamta_figurer(skapa_fil=Skapa_fil))
-#}
 # Nödvändiga paket
 if (!require("pacman")) install.packages("pacman")
 p_load(here,
@@ -132,7 +119,7 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 1"}
-   befolkning_for
+befolkning_for
 ```
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, include=FALSE}
@@ -1089,8 +1076,6 @@ gym_prognos_fig <- SkapaStapelDiagram(skickad_df = gymnasium_prognos_df %>%
                                      output_mapp = "",
                                      filnamn_diagram = diagramfil,
                                      skriv_till_diagramfil = FALSE)
-
-knitr::include_graphics(here("Diagram","gymnasieantagna_prognos.png"))
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 28"}
@@ -1505,10 +1490,10 @@ kompetensbrist_fig <- SkapaStapelDiagram(skickad_df = kompetensbrist_df %>%
 kompetensbrist_fig
 ```
 
-## 6 Utbildningsområden och prognoser
-<br>
-<br>
-<br>
+## 6 Utbildningsområden och prognoser {.tabset .tabset-fade .tabset-pills}
+
+### Bygg
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 38"}
 #lista_figurer$befolkningsforandring_20_64
 knitr::include_graphics(here("Diagram","_utbildningsgrupp_syss.png"))
