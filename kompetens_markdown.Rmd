@@ -54,6 +54,9 @@ pendling_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendli
 pendling_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_kommun.xlsx")
 #Skriptet som skapar nedanstående data finns på Mona: P1079gem/Jon/kompetensförsörjning/utbildningsniva_befolkning_bakgrund_korrekt.R. OBS! Uppdateras inte när skriptet hämta data körs.
 befolkning_utb_alder_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/12_jul_23_utdata_utbildningsniva_befolkning_bakgrund.xlsx")
+# Data från Trender och prognoser. Måste sannolikt ändras om det kommer en ny leverans från SCB.
+prognos_df_utbniva <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab0A_20.csv",sep='\t',encoding="latin1") %>% 
+    mutate(Ar = as.character(Ar))
 gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/gymnasieantagning.xlsx") %>% 
     group_by(ar,program) %>% 
       summarize(Män=sum(Ant_Män),
@@ -865,19 +868,85 @@ forgym_alder_fig
 ```
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-#lista_figurer$befolkningsforandring_20_64
-  diagram_capt_1 <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring. Tillgång delat med efterfrågan. En siffra över 100 indikerar att tillgången överstiger efterfrågan."
-  diagram_capt_2 <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna." 
+diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna." 
+
+prognos_df_utbniva <- prognos_df_utbniva %>%
+    filter(Aggregat!="Saknar uppgift om utbildning samt ospecificerad utbildning") %>% 
+      mutate(tillgång = ifelse(is.na(Till_Dag_Prog),Till_Dag,Till_Dag_Prog),
+             efterfrågan = ifelse(is.na(Eftr_Prog),Eftr,Eftr_Prog),
+             balans = (tillgång/efterfrågan)*100) %>% 
+        select(Aggregat,Ar,tillgång,efterfrågan,balans) %>% 
+          pivot_longer(cols=3:5,names_to = "variabel",values_to = "varde")
+
+max_ar = max(prognos_df_utbniva$Ar)
   
-  
-knitr::include_graphics(here("Diagram","tillg_eft_prognos_utbniva.png"))
+diagram_titel <- "Tillgång och efterfrågan i Dalarnas län efter utbildningsgrupp (16-74 år)"
+diagramfil <- "tillg_eft_prognos_utbniva.png"
+
+# Tillgång och efterfrågan
+
+utbgrupp_prog_fig <- SkapaStapelDiagram(skickad_df = prognos_df_utbniva %>% 
+                                         filter(Ar %in% c("2018","2025",max_ar),
+                                                variabel != "balans") %>% 
+                                          mutate(Aggregat = str_wrap(Aggregat,30)) %>% 
+                                            mutate(Aggregat <- factor(Aggregat, levels = c(str_wrap("Folk– och grundskoleutbildning",30),str_wrap("Gymnasieutbildning – högskoleförb. (inkl. teknisk utb.)",30),str_wrap("Gymnasieutbildning – yrkesförberedande",30),str_wrap("Eftergymnasialt utbildade – utan examen",30),str_wrap("Eftergymnasialt utbildade – med examen",30)[5:1]))), 
+                                       skickad_x_var = "Ar", 
+                                       skickad_y_var = "varde",
+                                       skickad_x_grupp = "variabel",
+                                       manual_x_axis_text_vjust=1,
+                                       manual_x_axis_text_hjust=1,
+                                       manual_color = diagramfarger("rus_sex"),
+                                       diagram_titel = diagram_titel,
+                                       x_axis_sort_value = FALSE,
+                                       diagram_capt = diagram_capt,
+                                       diagram_facet = TRUE,
+                                       facet_legend_bottom = TRUE,
+                                       facet_grp = "Aggregat",
+                                       facet_scale = "free",
+                                       manual_y_axis_title = "Antal",
+                                       output_mapp = "",
+                                       filnamn_diagram = diagramfil,
+                                       skriv_till_diagramfil = FALSE)
+
+# Balans mellan tillgång och efterfrågan
+diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring. Tillgång delat med efterfrågan. En siffra över 100 indikerar att tillgången överstiger efterfrågan."
+diagram_titel <- "Tillgång delat på efterfrågan i Dalarnas län efter utbildningsgrupp (16-74 år)"
+diagramfil <- "balans_tillg_eft_utbniva_prognos.png"
+
+# Skapar ett svart streck vid 100
+rektangel=list(geom = "rect", ymin=99.9, ymax=101.1, xmin=0, xmax=Inf, alpha=1, fill="grey20")
+
+utbgrupp_prog_balans_fig <- SkapaStapelDiagram(skickad_df = prognos_df_utbniva %>% 
+                               filter(variabel == "balans",
+                                      Ar %in% c("2018","2025",max_ar)) %>% 
+                                mutate(Ar = factor(Ar,levels = c(max_ar,"2025","2018"))) %>% 
+                                  mutate(Aggregat = factor(Aggregat, levels = c("Folk– och grundskoleutbildning","Gymnasieutbildning – högskoleförb. (inkl. teknisk utb.)","Gymnasieutbildning – yrkesförberedande","Eftergymnasialt utbildade – utan examen","Eftergymnasialt utbildade – med examen"))), 
+                             skickad_x_var = "Aggregat", 
+                             skickad_y_var = "varde",
+                             skickad_x_grupp = "Ar",
+                             manual_x_axis_text_vjust=0,
+                             manual_x_axis_text_hjust=0.6,
+                             manual_color = diagramfarger("rus_sex"),
+                             diagram_titel = diagram_titel,
+                             diagram_capt = diagram_capt,
+                             x_axis_lutning = 0,
+                             #x_axis_sort_value = TRUE,
+                             legend_vand_ordning = TRUE,
+                             diagram_liggande = TRUE,
+                             geom_position_stack = FALSE,
+                             fokusera_varden=rektangel,
+                             berakna_index = FALSE,
+                             output_mapp = "",
+                             filnamn_diagram = diagramfil,
+                             skriv_till_diagramfil = FALSE)
 ```
-<br>
-<br>
-<br>
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 24"}
-#lista_figurer$befolkningsforandring_20_64
-knitr::include_graphics(here("Diagram","balans_tillg_eft_utbniva_prognos.png"))
+utbgrupp_prog_fig
+```
+
+```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 24"}
+utbgrupp_prog_balans_fig
 ```
 
 ### Gymnasiet, högskolan och YH
