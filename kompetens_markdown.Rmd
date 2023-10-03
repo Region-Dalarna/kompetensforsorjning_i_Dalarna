@@ -522,7 +522,8 @@ kompetens_bransch_fig <- SkapaStapelDiagram(skickad_df = kompetens_bransch %>%
                                            skriv_till_diagramfil = FALSE)
 ```
 
-Även mellan branscher varierar kvalifikationskraven av naturliga skäl. Störst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där mer än var fjärde arbetar inom den typen av yrke. Även inom 
+Även mellan branscher varierar kvalifikationskraven av naturliga skäl. Störst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där mer än var fjärde arbetar inom den typen av yrke. Detta kan delvis förklaras med att hotell och restaurang är den bransch i Dalarna med störst andel utrikes födda. Personer som tillhör denna grupp tenderar att ha förgymnasiala utbildningar i större utsträckning än inrikes födda, se avsnitt 4. Även inom branschgruppen företagstjänster är många yrken av enklare karaktär.  Det omvända gäller inom exempelvis utbildning, där fler än hälften av de anställda arbetar inom yrken som kräver motsvarande högskolekompetens.
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
 kompetens_bransch_fig
 ```
