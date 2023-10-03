@@ -130,14 +130,21 @@ max_ar <- max(sysselsatta_90_df$år)
 
 #sysselsatta_90_df$år <- factor(sysselsatta_90_df$år, levels = c(max_ar,"2010","2000","1990"))
 
-sysselsatta_90_df$Näringsgren <- stringr::str_to_sentence(sysselsatta_90_df$Näringsgren)
+# Eftersom sysselsatta_90_df används även vid senare diagram så skapar jag en ny df som blir unik för denna chunk.
+# Annars blir det fel
 
-sysselsatta_90_df$Näringsgren <- str_wrap(sysselsatta_90_df$Näringsgren,40)
+sysselsatta_90_df_alt <- sysselsatta_90_df %>% 
+  mutate(Näringsgren = stringr::str_to_sentence(Näringsgren),
+         Näringsgren = str_wrap(Näringsgren,40))
+
+# sysselsatta_90_df$Näringsgren <- stringr::str_to_sentence(sysselsatta_90_df$Näringsgren)
+# 
+# sysselsatta_90_df$Näringsgren <- str_wrap(sysselsatta_90_df$Näringsgren,40)
 
 diagram_titel <- paste0("Förvärvsarbetande (16+ år) i Dalarna ")
 diagramfil <- "per_bransch_tidsserie.png"
 
-fig_forv_90 <- SkapaStapelDiagram(skickad_df = sysselsatta_90_df %>%
+fig_forv_90 <- SkapaStapelDiagram(skickad_df = sysselsatta_90_df_alt %>%
                                    filter(år%in%c("1990","2000","2010",max_ar)),
                                  skickad_x_var = "Näringsgren",
                                  skickad_y_var = "antal",
@@ -287,8 +294,7 @@ Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp som inte är h
 
 ### 3.1 Förvärvsarbetande
 
-I Dalarna var den klart största branschen, sett till antalet förvärvsarbetande, vård och omsorg `r forvarvsarbetande_bransch %>% group_by(region,naring`
-
+I Dalarna var den klart största branschen `r max(forvarvsarbetande_bransch$år)` , sett till antalet förvärvsarbetande, `r tolower(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal=sum(antal)) %>% filter(region == "Dalarna",antal== max(antal)) %>% .$naringsgren)` med `r format(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal=sum(antal)) %>% filter(region == "Dalarna",antal== max(antal)) %>% .$antal,big.mark = " ")` anställda. Andra branscher med många anställda är tillverkning och utvinning och utbildning, med `r format(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal = sum(antal)) %>% filter(region == "Dalarna",naringsgren == "Tillverkning och utvinning") %>% .$antal,big.mark = " ")` respektive `r format(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal = sum(antal)) %>% filter(region == "Dalarna",naringsgren == "Utbildning") %>% .$antal,big.mark = " ")` anställda. Störst andel kvinnor återfinns inom `r tolower(forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$naringsgren)` där ca `r round((forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel)*100,0)` procent av de förvärvsarbetande är kvinnor, medan störst andel män återfinns inom `r tolower(forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$naringsgren)` där ca `r round((forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel)*100,0)` procent av de förvärvsarbetande är män.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-74 år"
@@ -342,16 +348,28 @@ knitr::include_graphics(here("Diagram","antal_forvarvsarbetande_bransch_97.png")
 diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92"
 
 # Beräknar förändring in antalet anställda från 1990 till senaste år
-sysselsatta_df_forandring <- sysselsatta_90_df %>% 
+sysselsatta_df_forandring <- sysselsatta_90_df %>%
   filter(år %in% c(min(år),max(år))) %>% 
     group_by(region,Näringsgren) %>% 
-      mutate(skillnad = last(antal)-first(antal))  
-        
+      mutate(skillnad = last(antal)-first(antal)) %>% 
+        mutate(Näringsgren =case_when(
+          Näringsgren == "byggindustri" ~ "Bygg",
+          Näringsgren == "civila myndigheter, försvar; internat. organisationer" ~ "Myndigheter mm" ,
+          Näringsgren == "energi- o vattenförsörjning, avfallshantering" ~ "Energi och miljö",
+          Näringsgren == "enh för hälso- och sjukvård, socialtjänst; veterinärer" ~ "Hälso- och sjukvård mm" ,
+          Näringsgren == "forskning o utveckling; utbildning" ~ "Utbildning",
+          Näringsgren == "handel; transport, magasinering; kommunikation" ~ "Handel, transport mm" ,
+          Näringsgren == "jordbruk, skogsbruk, jakt, fiske" ~ "Jordbruk och skogsbruk",
+          Näringsgren == "kreditinstitut, fastighetsförvaltn, företagstjänster" ~ "Företagstjänster, finans mm",
+          Näringsgren == "näringsgren okänd" ~ "Okänd verksamhet" ,
+          Näringsgren == "personliga och kulturella tjänster" ~ "Kultur mm",
+          Näringsgren == "utvinning av mineral, tillverkningsindustri" ~ "Tillverkning och utvinning"))
+
 diagram_titel <- paste0("Förändring av antalet förvärvsarbetande (16-74) år från år ", min(sysselsatta_df_forandring$år), " till ", max(sysselsatta_df_forandring$år))
 diagramfil <- "forvarvsarbetande_forandring.png"
 
 forv_forandring_fig <- SkapaStapelDiagram(skickad_df = sysselsatta_df_forandring %>% 
-                                           filter(år == max(år),Näringsgren != "näringsgren okänd"), 
+                                           filter(år == max(år),Näringsgren != "Okänd verksamhet"), 
                                          skickad_x_var = "Näringsgren", 
                                          skickad_y_var = "skillnad",
                                          manual_color = diagramfarger("rus_sex")[1],
@@ -363,12 +381,16 @@ forv_forandring_fig <- SkapaStapelDiagram(skickad_df = sysselsatta_df_forandring
                                          diagram_facet = FALSE,
                                          stodlinjer_avrunda_fem = TRUE,
                                          geom_position_stack = TRUE,
-                                         berakna_index = FALSE,
                                          output_mapp = "",
                                          filnamn_diagram = diagramfil,
                                          skriv_till_diagramfil = FALSE)
 
 ```
+
+Om vi istället fokuserar på förändringen i antalet förvärvsarbetande inom olika branschgrupper mellan 1990 och `r max(sysselsatta_df_forandring$år)` ser vi en delvis annorlunda bild. Den bransch där antalet förvärvsarbetande har ökat mest är `r tolower(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$Näringsgren)` med en ökning på `r format(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$skillnad,big.mark= " ")` förvärvsarbetande. Detta beror sannolikt på att många företag idag "outsourcar" tjänster, såsom lokalvård. Om exempelvis SSAB tidigare anställde lokalvårdare direkt så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället "outsourcar" sådan verksamhet till andra företag räknas lokalvårdarna
+sannolikt istället som förvärvsarbetande inom företagstjänster, finans mm.
+
+Den branschgrupp där antalet förvärvsarbetande har minskat mest är `r tolower(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == min(.$skillnad)) %>%  .$Näringsgren)`, med `r format(abs(sysselsatta_df_forandring %>% filter(år == min(år)) %>% filter(skillnad == min(.$skillnad)) %>%  .$skillnad),big.mark= " ")` färre förvärvsarbetande `r max(sysselsatta_df_forandring$år)` än 1990. Detta beror delvis på det fenomen som diskuterades i föregående avsnitt, men en viktigare förklaring är sannolikt att företag inom tillverkning och utvinning idag är avsevärt mycket mer automatiserade än de var för 30 år sedan. Det behövs helt enkelt färre antal anställda i produktionen.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
 forv_forandring_fig
@@ -406,16 +428,24 @@ forvarvsarbetande_prognos_fig <- SkapaStapelDiagram(skickad_df = forvarvsarbetan
 forvarvsarbetande_prognos_fig
 ```
 
-### Kompetenskrav
+### 3.2 Kompetenskrav
+
+<details>
+
+  <summary>Mer information om statistiken</summary>
+
+<div>För att beskriva kompetens och kvalifikationskrav har vi i denna rapport utgått ifrån yrkesregistret i SCB:s öppna statistikdatabas. I detta register delas yrken in i nio olika grupper. Utifrån dessa grupper har vi klassificerat de kategorier som syns i diagrammen nedan. Chefsyrken och yrken som kräver olika typer av högskolekompetens har samma benämning i vår klassificering som i SCB:s kategorisering. Yrken med krav på kortare utbildning eller indtroduktion har vi klassificerat som enklare yrken. Övriga yrken klassificeras som motsvarande gymnasial kompetens. Läs mer på SCB:s hemsida^[https://www.scb.se/dokumentation/klassifikationer-och-standarder/standard-for-svensk-yrkesklassificering-ssyk/] </div>
+ 
+</details>
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Yrkesregistret i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
 
 kompetens_lan <- kompetens_yrke_lan %>%
     filter(år == max(år)) %>% 
-    group_by(år,region,kompetensniva) %>%
-      summarize(Antal=sum(`Anställda.16-64.år.(dagbef)`)) %>%
-        mutate(Andel=((Antal/sum(Antal))*100)-0.001)
+      group_by(år,region,kompetensniva) %>%
+        summarize(Antal=sum(`Anställda.16-64.år.(dagbef)`)) %>%
+          mutate(Andel=((Antal/sum(Antal))*100)-0.001)
 
 # Skapar en faktorvariabel för att få utbildningsnivå i "rätt" ordning i figuren
 kompetens_lan$kompetensniva <- factor(kompetens_lan$kompetensniva, levels = c("Enklare yrken","Motsvarande gymnasial kompetens","Motsvarande högskolekompetens","Motsvarande fördjupad högskolekompetens","Chefsyrken","Okänt")[6:1])
@@ -446,6 +476,9 @@ kompetens_lan_fig <- SkapaStapelDiagram(skickad_df = kompetens_lan %>%
   
 
 ```
+
+Hur stor andel som jobbar inom yrken med olika former av kvalifikationskrav varierar relativt mycket 
+mellan Sveriges län. `r kompetens_lan %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$region ` har störst andel som arbetar inom enklare yrken, med ungefär `r round(kompetens_lan %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0) ` procent av de förvärvsarbetande i länet. Dock jobbar generellt relativt få inom dessa yrken, oavsett region. Om vi istället fokuserar på yrken med kvalifikationskrav som motsvarar gymnasial kompetens är skillnaderna större mellan Sveriges län. Minst andel återfinns i `r kompetens_lan %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` där ungefär `r round(kompetens_lan %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande har den typen av yrken, medan störst andel återfinns i `r kompetens_lan %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kompetens_lan %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande. För yrken med högre kvalifikationskrav, exempelvis "motsvarande fördjupad högskolekompetens", är situationen mer eller mindre det omvända. Största andel har `r kompetens_lan %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kompetens_lan %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande, medan `r kompetens_lan %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` med ungefär `r round(kompetens_lan %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent har lägst andel. Kvalifikationskraven i Dalarna påminner om de i Kalmar, med relativt stor andel av de förvärvsarbetande inom yrken med motsvarande gymnasial kompetens och färre inom yrken som kräver olika former av högskolekompetens.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
 kompetens_lan_fig
@@ -489,11 +522,12 @@ kompetens_bransch_fig <- SkapaStapelDiagram(skickad_df = kompetens_bransch %>%
                                            skriv_till_diagramfil = FALSE)
 ```
 
+Även mellan branscher varierar kvalifikationskraven av naturliga skäl. Störst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där mer än var fjärde arbetar inom den typen av yrke. Även inom 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
 kompetens_bransch_fig
 ```
 
-### Utbildning och ålder
+### 3.3 Utbildning och ålder
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: NMS-databasen (SCB), databasen Stativ\nBearbetning: Samhällsanalys, Region Dalarna"
