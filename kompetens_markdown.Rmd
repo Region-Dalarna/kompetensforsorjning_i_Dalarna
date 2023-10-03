@@ -282,7 +282,14 @@ arb_08_fig
 ```
 
 ## 3 Efterfrågan, nu och framledes
-### Förvärvsarbetande
+
+Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp som inte är helt rättfram att mäta. När vi tittar på historisk data över exempelvis antal förvärvsarbetande i olika branscher observerar vi när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet, det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan. Detta är viktigt att notera.
+
+### 3.1 Förvärvsarbetande
+
+I Dalarna var den klart största branschen, sett till antalet förvärvsarbetande, vård och omsorg `r forvarvsarbetande_bransch %>% group_by(region,naring`
+
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-74 år"
 
