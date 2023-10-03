@@ -530,6 +530,8 @@ kompetens_bransch_fig
 
 ### 3.3 Utbildning och ålder
 
+ONÖDIG? SÄGER VÄL EGENTLIGEN SAMMA SAK SOM FIGUREN OVAN?
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: NMS-databasen (SCB), databasen Stativ\nBearbetning: Samhällsanalys, Region Dalarna"
 
