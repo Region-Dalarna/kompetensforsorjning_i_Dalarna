@@ -621,6 +621,8 @@ bransch_alder_fig <- SkapaStapelDiagram(skickad_df = bransch_alder_df_sum %>%
                                        skriv_till_diagramfil = FALSE)
 ```
 
+`r tolower(bransch_alder_df_sum %>% filter(alder_grupper == "16-19 år",SNI2007_Grupp_namn != "Okänt") %>%filter(Andel == max(.$Andel)) %>% .$SNI2007_Grupp_namn)` är den bransch där klart största andel yngre arbetar, drygt `r round(bransch_alder_df_sum %>% filter(alder_grupper == "16-19 år") %>%filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande är mellan 16 år och 19 år gamla. Även inom kultur, fritid och nöje samt är många av de förvärvsarbetande unga. Detta är ett kvitto på att många unga tar sitt första steg in på arbetsmarknaden inom dessa branscher. Det omvända gäller för jord och skogsbruk, där närmare 3 av 4 av de förvärvsarbetande är äldre än 50 år. Detta kan delvis förklaras med att alla som äger en skogsfastighet räknas som förvärvsarbetande och många av dessa tenderar att vara äldre.
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 15"}
 bransch_alder_fig
 ```
@@ -648,6 +650,8 @@ bransch_alder_antal_fig <- SkapaStapelDiagram(skickad_df = bransch_alder_df_sum 
                                              filnamn_diagram = diagramfil,
                                              skriv_till_diagramfil = FALSE)
 ```
+
+Om vi istället fokuserar på hur många inom olika branscher som som uppnått en viss ålder sticker den största branschen i Dalarna, vård och omsorg, ut. Ungefär `r format(plyr::round_any(as.numeric(sum(bransch_alder_df_sum %>% filter(alder_grupper %in% c("50-64 år","65-70 år","71-74 år"),SNI2007_Grupp_namn == "Vård och omsorg") %>% .$Antal)),100),big.mark = " ")` förvärvsarbetande inom branschen är minst 50 år och kommer således att gå i pension inom 15-20 år. Detta, i kombination med en befolkning som blir allt äldre och därför efterfrågar mer vård, leder till ett stort rekryteringsbehov inom vård och omsorg idag och i framtiden. Även inom tillverkning och utvinning är relativt många över 50 år, ca `r format(plyr::round_any(as.numeric(sum(bransch_alder_df_sum %>% filter(alder_grupper %in% c("50-64 år","65-70 år","71-74 år"),SNI2007_Grupp_namn == "Tillverkning och utvinning") %>% .$Antal)),100),big.mark = " ")` förvärvsarbetande.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 16"}
 bransch_alder_antal_fig
