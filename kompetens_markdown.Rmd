@@ -290,11 +290,19 @@ arb_08_fig
 
 ## 3 Efterfrågan, nu och framledes
 
-Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp som inte är helt rättfram att mäta. När vi tittar på historisk data över exempelvis antal förvärvsarbetande i olika branscher observerar vi när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet, det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan. Detta är viktigt att notera.
+Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp som inte är helt rättfram att mäta. Historisk data över exempelvis antal förvärvsarbetande i olika branscher visar när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet, det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan. Detta är viktigt att notera.
 
 ### 3.1 Förvärvsarbetande
 
-I Dalarna var den klart största branschen `r max(forvarvsarbetande_bransch$år)` , sett till antalet förvärvsarbetande, `r tolower(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal=sum(antal)) %>% filter(region == "Dalarna",antal== max(antal)) %>% .$naringsgren)` med `r format(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal=sum(antal)) %>% filter(region == "Dalarna",antal== max(antal)) %>% .$antal,big.mark = " ")` anställda. Andra branscher med många anställda är tillverkning och utvinning och utbildning, med `r format(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal = sum(antal)) %>% filter(region == "Dalarna",naringsgren == "Tillverkning och utvinning") %>% .$antal,big.mark = " ")` respektive `r format(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal = sum(antal)) %>% filter(region == "Dalarna",naringsgren == "Utbildning") %>% .$antal,big.mark = " ")` anställda. Störst andel kvinnor återfinns inom `r tolower(forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$naringsgren)` där ca `r round((forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel)*100,0)` procent av de förvärvsarbetande är kvinnor, medan störst andel män återfinns inom `r tolower(forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$naringsgren)` där ca `r round((forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel)*100,0)` procent av de förvärvsarbetande är män.
+<details>
+
+  <summary>Mer information om statistiken</summary>
+
+<div title="Källa: SCB">Förvärvsarbetande omfattar både anställda och företagare. Har personen fått en lön i november som överstiger 99 kronor klassificeras personen som förvärvsarbetande. För egenföretagare gäller, liksom tidigare, att de personer som under referensåret har deklarerat för aktiv näringsverksamhet klassificeras som förvärvsarbetande. </div>
+ 
+</details>
+
+I Dalarna var den klart största branschen `r max(forvarvsarbetande_bransch$år)` , sett till antalet förvärvsarbetande, `r tolower(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal=sum(antal)) %>% filter(region == "Dalarna",antal== max(antal)) %>% .$naringsgren)` med ungefär `r format(plyr::round_any(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal=sum(antal)) %>% filter(region == "Dalarna",antal== max(antal)) %>% .$antal,100),big.mark = " ")` anställda. Andra branscher med många anställda är tillverkning och utvinning och utbildning, med ca `r format(plyr::round_any(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal = sum(antal)) %>% filter(region == "Dalarna",naringsgren == "Tillverkning och utvinning") %>% .$antal,100),big.mark = " ")` respektive ungefär `r format(plyr::round_any(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal = sum(antal)) %>% filter(region == "Dalarna",naringsgren == "Utbildning") %>% .$antal,100),big.mark = " ")` anställda. Störst andel kvinnor återfinns inom `r tolower(forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$naringsgren)` där ca `r round((forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel)*100,0)` procent av de förvärvsarbetande är kvinnor, medan störst andel män återfinns inom `r tolower(forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$naringsgren)` där ca `r round((forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel)*100,0)` procent av de förvärvsarbetande är män.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-74 år"
@@ -387,10 +395,9 @@ forv_forandring_fig <- SkapaStapelDiagram(skickad_df = sysselsatta_df_forandring
 
 ```
 
-Om vi istället fokuserar på förändringen i antalet förvärvsarbetande inom olika branschgrupper mellan 1990 och `r max(sysselsatta_df_forandring$år)` ser vi en delvis annorlunda bild. Den bransch där antalet förvärvsarbetande har ökat mest är `r tolower(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$Näringsgren)` med en ökning på `r format(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$skillnad,big.mark= " ")` förvärvsarbetande. Detta beror sannolikt på att många företag idag "outsourcar" tjänster, såsom lokalvård. Om exempelvis SSAB tidigare anställde lokalvårdare direkt så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället "outsourcar" sådan verksamhet till andra företag räknas lokalvårdarna
-sannolikt istället som förvärvsarbetande inom företagstjänster, finans mm.
+Hur många som jobbar inom olika branscher i Dalarna har förändrats relativt mycket över åren. En tydlig förändring, mellan 1990 och `r max(sysselsatta_df_forandring$år)` är att många fler arbetar i företag som sysslar med `r tolower(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$Näringsgren)`: en ökning på ungefär `r format(plyr::round_any(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$skillnad,100),big.mark= " ")` förvärvsarbetande. Detta beror sannolikt på att många företag idag "outsourcar" tjänster, såsom lokalvård. Om exempelvis SSAB tidigare anställde lokalvårdare direkt så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället "outsourcar" sådan verksamhet till andra företag räknas lokalvårdarna istället som förvärvsarbetande inom företagstjänster, finans mm.
 
-Den branschgrupp där antalet förvärvsarbetande har minskat mest är `r tolower(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == min(.$skillnad)) %>%  .$Näringsgren)`, med `r format(abs(sysselsatta_df_forandring %>% filter(år == min(år)) %>% filter(skillnad == min(.$skillnad)) %>%  .$skillnad),big.mark= " ")` färre förvärvsarbetande `r max(sysselsatta_df_forandring$år)` än 1990. Detta beror delvis på det fenomen som diskuterades i föregående avsnitt, men en viktigare förklaring är sannolikt att företag inom tillverkning och utvinning idag är avsevärt mycket mer automatiserade än de var för 30 år sedan. Det behövs helt enkelt färre antal anställda i produktionen.
+Den bransch där antalet förvärvsarbetande har minskat mest är `r tolower(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == min(.$skillnad)) %>%  .$Näringsgren)`, med ca `r format(plyr::round_any(abs(sysselsatta_df_forandring %>% filter(år == min(år)) %>% filter(skillnad == min(.$skillnad)) %>%  .$skillnad),100),big.mark= " ")` färre förvärvsarbetande `r max(sysselsatta_df_forandring$år)` än 1990. Detta beror delvis på det som diskuterades i föregående stycke, men en viktigare förklaring är sannolikt att företag inom tillverkning och utvinning idag har en mer automatiserad produktion än de hade för 30 år sedan. Detta medför att det behövs färre antal anställda i produktionen.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
 forv_forandring_fig
@@ -658,9 +665,20 @@ bransch_alder_antal_fig
 ```
 
 ## 4 Utbud i Dalarnas län
+
+<details>
+
+  <summary>Mer information om statistiken</summary>
+
+<div>BInrikes flyttnetto är antalet som flyttar till en region från andra regioner i Sverige minus antalet som flyttar från en region till andra regioner i Sverige. Utrikes flyttnetto är invandring till en region minus utvandring/emigrering från en region. Demografisk förändring är den del av befolkningsförändringen som inte kan förklaras av inrikes och utrikes flyttnetto.</div>
+ 
+</details>
+
+Bland Sveriges regioner är de befolkningsmässigt största regionerna även de vars befolkning i arbetsför ålder (20 - 64 år) har ökat mest det senaste dryga decenniet. Noterbart för dessa regioner är även att de har ett positiv inrikes flyttnetto, dvs. människor i arbetsför ålder flyttar från andra delar av Sverige till exempelvis Stockholm eller Uppsala i större uträckning än de som flyttar därifrån. För många mindre regioner, såsom Dalarna, gäller det omvända. Härifrån flyttar många till andra regioner i Sverige. Det kan gälla såväl utrikes födda, exempelvis personer som hamnat i Dalarna när de invandrat till Sverige och flyttar för att söka jobb eller liknande på andra orter, som inrikes födda. Överlag har invandringen (utrikes flyttnetto) haft en positiv inverkan till att den arbetsföra delen av befolkningen har ökat sedan 2010. I vissa fall, exempelvis Dalarna, motverkas denna ökning dock av ett negativt inrikes flyttnetto och en negativ demografisk förändring, vilket sammantaget ger en minskande befolkning i arbetsför ålder.
+
 ### Befolkning och pendling
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-  diagram_capt <- "Källa: Befolkningsregistret i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Demografisk förändring är den del av befolkningsförändringen som inte kan förklaras av inrikes och utrikes flyttnetto."
+  diagram_capt <- "Källa: Befolkningsregistret i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
 
   # Grupperar och pivoterar data
   utskrift_df <- befolkning_flytt_df %>%
@@ -670,7 +688,7 @@ bransch_alder_antal_fig
       select(region,`Inrikes flyttnetto`,`Utrikes flyttnetto`,`Demografisk förändring`) %>% 
         pivot_longer(!c(region),names_to="variabel",values_to="forandring")
   
-  diagramtitel <- paste0("Befolkningsförändring i arbetsför ålder (20-64 år) per län ","2010","-",unique(befolkning_flytt_df$region))
+  diagramtitel <- paste0("Befolkningsförändring i arbetsför ålder (20-64 år) per län ","2010","-",max(befolkning_flytt_df$år))
   diagramfilnamn <- paste0("befolkningsforandring_20_64.png")
 
   bef_for_flytt <- SkapaStapelDiagram(skickad_df =utskrift_df,
@@ -697,6 +715,9 @@ bransch_alder_antal_fig
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
 bef_for_flytt
 ```
+
+Om vi delar upp dalarnas arbetsföra befolkning i inrikes och utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna minskade inrikes födda invånare i arbetsför ålder (20-64 år) från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`.
+
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Befolkningsregistret i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
@@ -726,6 +747,7 @@ bef_inr_utr <- SkapaStapelDiagram(skickad_df = befolkning_utr_inr_df,
                              filnamn_diagram = diagramfilnamn,
                              skriv_till_diagramfil = FALSE)
 ```
+
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 18"}
 bef_inr_utr
