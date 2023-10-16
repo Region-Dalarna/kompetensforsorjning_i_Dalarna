@@ -395,7 +395,7 @@ forv_forandring_fig <- SkapaStapelDiagram(skickad_df = sysselsatta_df_forandring
 
 ```
 
-Hur många som jobbar inom olika branscher i Dalarna har förändrats relativt mycket över åren. En tydlig förändring, mellan 1990 och `r max(sysselsatta_df_forandring$år)` är att många fler arbetar i företag som sysslar med `r tolower(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$Näringsgren)`: en ökning på ungefär `r format(plyr::round_any(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$skillnad,100),big.mark= " ")` förvärvsarbetande. Detta beror sannolikt på att många företag idag "outsourcar" tjänster, såsom lokalvård. Om exempelvis SSAB tidigare anställde lokalvårdare direkt så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället "outsourcar" sådan verksamhet till andra företag räknas lokalvårdarna istället som förvärvsarbetande inom företagstjänster, finans mm.
+Hur många som jobbar inom olika branscher i Dalarna har förändrats genom åren. En tydlig utveckling, mellan 1990 och `r max(sysselsatta_df_forandring$år)` är att många fler arbetar i företag som sysslar med `r tolower(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$Näringsgren)`: en ökning på ungefär `r format(plyr::round_any(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$skillnad,100),big.mark= " ")` förvärvsarbetande. Detta beror sannolikt på att många företag idag "outsourcar" tjänster, såsom lokalvård. Om exempelvis SSAB tidigare anställde lokalvårdare direkt så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället "outsourcar" sådan verksamhet till andra företag räknas lokalvårdarna istället som förvärvsarbetande inom företagstjänster, finans mm.
 
 Den bransch där antalet förvärvsarbetande har minskat mest är `r tolower(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == min(.$skillnad)) %>%  .$Näringsgren)`, med ca `r format(plyr::round_any(abs(sysselsatta_df_forandring %>% filter(år == min(år)) %>% filter(skillnad == min(.$skillnad)) %>%  .$skillnad),100),big.mark= " ")` färre förvärvsarbetande `r max(sysselsatta_df_forandring$år)` än 1990. Detta beror delvis på det som diskuterades i föregående stycke, men en viktigare förklaring är sannolikt att företag inom tillverkning och utvinning idag har en mer automatiserad produktion än de hade för 30 år sedan. Detta medför att det behövs färre antal anställda i produktionen.
 
@@ -529,13 +529,13 @@ kompetens_bransch_fig <- SkapaStapelDiagram(skickad_df = kompetens_bransch %>%
                                            skriv_till_diagramfil = FALSE)
 ```
 
-Även mellan branscher varierar kvalifikationskraven av naturliga skäl. Störst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där mer än var fjärde arbetar inom den typen av yrke. Detta kan delvis förklaras med att hotell och restaurang är den bransch i Dalarna med störst andel utrikes födda. Personer som tillhör denna grupp tenderar att ha förgymnasiala utbildningar i större utsträckning än inrikes födda, se avsnitt 4. Även inom branschgruppen företagstjänster är många yrken av enklare karaktär.  Det omvända gäller inom exempelvis utbildning, där fler än hälften av de anställda arbetar inom yrken som kräver motsvarande högskolekompetens.
+Även mellan branscher varierar kvalifikationskraven naturligtvis. Störst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där mer än var fjärde arbetar inom den typen av yrke. Detta kan delvis förklaras av att hotell och restaurang också är den bransch i Dalarna med störst andel utrikes födda anställda. Personer som tillhör denna grupp tenderar att ha förgymnasiala utbildningar i större utsträckning än inrikes födda, vilket illustreras i avsnitt 4 nedan.. Även inom företagstjänster är många yrken av enklare karaktär.  Det omvända gäller inom exempelvis utbildning, där fler än hälften av de anställda arbetar inom yrken som kräver motsvarande högskolekompetens.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 7"}
 kompetens_bransch_fig
 ```
 
-### 3.3 Utbildning och ålder
+### 3.3 Åldersstruktur
 
 ONÖDIG? SÄGER VÄL EGENTLIGEN SAMMA SAK SOM FIGUREN OVAN?
 
@@ -628,7 +628,7 @@ bransch_alder_fig <- SkapaStapelDiagram(skickad_df = bransch_alder_df_sum %>%
                                        skriv_till_diagramfil = FALSE)
 ```
 
-`r tolower(bransch_alder_df_sum %>% filter(alder_grupper == "16-19 år",SNI2007_Grupp_namn != "Okänt") %>%filter(Andel == max(.$Andel)) %>% .$SNI2007_Grupp_namn)` är den bransch där klart största andel yngre arbetar, drygt `r round(bransch_alder_df_sum %>% filter(alder_grupper == "16-19 år") %>%filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande är mellan 16 år och 19 år gamla. Även inom kultur, fritid och nöje samt är många av de förvärvsarbetande unga. Detta är ett kvitto på att många unga tar sitt första steg in på arbetsmarknaden inom dessa branscher. Det omvända gäller för jord och skogsbruk, där närmare 3 av 4 av de förvärvsarbetande är äldre än 50 år. Detta kan delvis förklaras med att alla som äger en skogsfastighet räknas som förvärvsarbetande och många av dessa tenderar att vara äldre.
+`r bransch_alder_df_sum %>% filter(alder_grupper == "16-19 år",SNI2007_Grupp_namn != "Okänt") %>%filter(Andel == max(.$Andel)) %>% .$SNI2007_Grupp_namn` är den bransch där klart största andel yngre arbetar, drygt `r round(bransch_alder_df_sum %>% filter(alder_grupper == "16-19 år") %>%filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande är mellan 16 år och 19 år gamla. Även inom kultur, fritid och nöje samt är många av de förvärvsarbetande unga. Detta är ett kvitto på att många unga tar sitt första steg in på arbetsmarknaden inom dessa branscher. Det omvända gäller för jord och skogsbruk, där närmare 75 procent av de förvärvsarbetande är äldre än 50 år. Detta kan delvis förklaras med att alla som äger en skogsfastighet räknas som förvärvsarbetande och många av dessa tenderar att vara äldre.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 15"}
 bransch_alder_fig
@@ -658,7 +658,7 @@ bransch_alder_antal_fig <- SkapaStapelDiagram(skickad_df = bransch_alder_df_sum 
                                              skriv_till_diagramfil = FALSE)
 ```
 
-Om vi istället fokuserar på hur många inom olika branscher som som uppnått en viss ålder sticker den största branschen i Dalarna, vård och omsorg, ut. Ungefär `r format(plyr::round_any(as.numeric(sum(bransch_alder_df_sum %>% filter(alder_grupper %in% c("50-64 år","65-70 år","71-74 år"),SNI2007_Grupp_namn == "Vård och omsorg") %>% .$Antal)),100),big.mark = " ")` förvärvsarbetande inom branschen är minst 50 år och kommer således att gå i pension inom 15-20 år. Detta, i kombination med en befolkning som blir allt äldre och därför efterfrågar mer vård, leder till ett stort rekryteringsbehov inom vård och omsorg idag och i framtiden. Även inom tillverkning och utvinning är relativt många över 50 år, ca `r format(plyr::round_any(as.numeric(sum(bransch_alder_df_sum %>% filter(alder_grupper %in% c("50-64 år","65-70 år","71-74 år"),SNI2007_Grupp_namn == "Tillverkning och utvinning") %>% .$Antal)),100),big.mark = " ")` förvärvsarbetande.
+Störst antal personer över 50 år arbetar i Dalarna inom vård och omsorg. Ungefär `r format(plyr::round_any(as.numeric(sum(bransch_alder_df_sum %>% filter(alder_grupper %in% c("50-64 år","65-70 år","71-74 år"),SNI2007_Grupp_namn == "Vård och omsorg") %>% .$Antal)),100),big.mark = " ")` förvärvsarbetande inom branschen är minst 50 år och kommer således att gå i pension inom 15-20 år. Detta, i kombination med en befolkning som blir allt äldre och därför efterfrågar mer vård, leder till ett stort rekryteringsbehov inom vård och omsorg idag och i framtiden. Även inom tillverkning och utvinning är relativt många över 50 år, ca `r format(plyr::round_any(as.numeric(sum(bransch_alder_df_sum %>% filter(alder_grupper %in% c("50-64 år","65-70 år","71-74 år"),SNI2007_Grupp_namn == "Tillverkning och utvinning") %>% .$Antal)),100),big.mark = " ")` förvärvsarbetande.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 16"}
 bransch_alder_antal_fig
@@ -666,17 +666,20 @@ bransch_alder_antal_fig
 
 ## 4 Utbud i Dalarnas län
 
+### 4.1 Befolkning i arbetsför ålder
+
 <details>
 
   <summary>Mer information om statistiken</summary>
 
-<div>BInrikes flyttnetto är antalet som flyttar till en region från andra regioner i Sverige minus antalet som flyttar från en region till andra regioner i Sverige. Utrikes flyttnetto är invandring till en region minus utvandring/emigrering från en region. Demografisk förändring är den del av befolkningsförändringen som inte kan förklaras av inrikes och utrikes flyttnetto.</div>
+<div title="Källa: SCB">Inrikes flyttnetto är antalet som flyttar till en region från andra regioner i Sverige minus antalet som flyttar från en region till andra regioner i Sverige. Utrikes flyttnetto är invandring till en region minus utvandring/emigrering från en region. Demografisk förändring är den del av befolkningsförändringen som inte kan förklaras av inrikes och utrikes flyttnetto.</div>
  
 </details>
 
-Bland Sveriges regioner är de befolkningsmässigt största regionerna även de vars befolkning i arbetsför ålder (20 - 64 år) har ökat mest det senaste dryga decenniet. Noterbart för dessa regioner är även att de har ett positiv inrikes flyttnetto, dvs. människor i arbetsför ålder flyttar från andra delar av Sverige till exempelvis Stockholm eller Uppsala i större uträckning än de som flyttar därifrån. För många mindre regioner, såsom Dalarna, gäller det omvända. Härifrån flyttar många till andra regioner i Sverige. Det kan gälla såväl utrikes födda, exempelvis personer som hamnat i Dalarna när de invandrat till Sverige och flyttar för att söka jobb eller liknande på andra orter, som inrikes födda. Överlag har invandringen (utrikes flyttnetto) haft en positiv inverkan till att den arbetsföra delen av befolkningen har ökat sedan 2010. I vissa fall, exempelvis Dalarna, motverkas denna ökning dock av ett negativt inrikes flyttnetto och en negativ demografisk förändring, vilket sammantaget ger en minskande befolkning i arbetsför ålder.
+Bland Sveriges regioner är de befolkningsmässigt största  även de vars befolkning i arbetsför ålder (20 - 64 år) har ökat mest det senaste dryga decenniet. Typiskt för dessa regioner är att de även har ett positiv inrikes flyttnetto, dvs. människor i arbetsför ålder flyttar från andra delar av Sverige till exempelvis Stockholm eller Uppsala i större utsräckning än de flyttar därifrån. För många mindre regioner, såsom Dalarna, gäller det omvända. Härifrån flyttar många till andra regioner i Sverige, såväl utrikes födda som exempelvis har hamnat i Dalarna när de invandrat till Sverige och flyttar för att söka jobb på andra orter, som inrikes födda. 
 
-### Befolkning och pendling
+I Sverige har invandringen (utrikes flyttnetto) överlag haft en positiv inverkan på den arbetsföra delen av befolkningens storlek det senaste dryga decenniet (de lila staplarna nedan). I vissa regioner, exempelvis Dalarna, motverkas denna ökning dock av ett negativt inrikes flyttnetto (gröna staplar) och en negativ demografisk förändring (blåa staplar), vilket sammantaget ger en minskande befolkning i arbetsför ålder.
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
   diagram_capt <- "Källa: Befolkningsregistret i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
 
@@ -753,8 +756,18 @@ bef_inr_utr <- SkapaStapelDiagram(skickad_df = befolkning_utr_inr_df,
 bef_inr_utr
 ```
 
+### 4.2 Hur många pendlar?
+
+<details>
+
+  <summary>Mer information om statistiken</summary>
+
+<div title="Källa: SCB">Andel inpendlare beräknas genom att dela antal inpendlare (personer som förvärvsarbetar i kommunen/regionen och bor i en annan kommun/region) med antal förvärvsarbetande som arbetar i kommunen/regionen (dagbefolkning). Andel utpendlare  beräknas genom  att dela antal utpendlare (personer som bor i kommunen/regionen och förvärvsarbetar i en annan kommun/region) med antal förvärvsarbetande som bor i kommunen/regionen (nattbefolkning).</div>
+</details>
+
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Inpendling i förhållande till dagbefolkning och utpendling i förhållande till nattbefolkning (i arbetsför ålder, 20-64 år). Gäller pendlare över länsgräns."
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Gäller pendlare över länsgräns."
 
 # Skapar ett dataset som används för att skriva ut
 pendling_lan_df <- pendling_lan_df %>%
@@ -791,7 +804,7 @@ pendling_lan
 ```
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-  diagram_capt <- "Källa: SCB (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Antal inpendlare (personer som förvärvsarbetar i kommunen/regionen och bor i en annan kommun/region)\ndividerat med antal förvärvsarbetande som arbetar i kommunen/regionen (dagbefolkning)\nAntal utpendlare (personer som bor i kommunen/regionen och förvärvsarbetar i en annan kommun/region)\ndividerat med antal förvärvsarbetande som bor i kommunen/regionen (nattbefolkning)" 
+diagram_capt <- "Källa: SCB (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Gäller pendlare över kommungräns."
 
 diagram_titel <- paste0("Andel av förvärvsarbetande som pendlar över kommungräns år ",max(pendling_kommun_df$year))
 diagram_titel<-str_wrap(diagram_titel,50)
@@ -826,7 +839,7 @@ pendling_kommun <- SkapaStapelDiagram(skickad_df = pendling_kommun_df %>%
 pendling_kommun
 ```
 
-### Utbildningsnivå
+### 4.3 Utbildningsnivå
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
   diagram_capt <- "Källa: NMS-databasen (SCB), databasen Stativ\nBearbetning: Samhällsanalys, Region Dalarna"
@@ -1006,7 +1019,7 @@ utbgrupp_prog_fig
 utbgrupp_prog_balans_fig
 ```
 
-### Gymnasiet, högskolan och YH
+### 4.4 Gymnasiet, högskolan och YH
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Källan är Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september"
