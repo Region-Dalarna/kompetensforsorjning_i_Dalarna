@@ -765,7 +765,9 @@ bef_inr_utr
 <div title="Källa: SCB">Andel inpendlare beräknas genom att dela antal inpendlare (personer som förvärvsarbetar i kommunen/regionen och bor i en annan kommun/region) med antal förvärvsarbetande som arbetar i kommunen/regionen (dagbefolkning). Andel utpendlare  beräknas genom  att dela antal utpendlare (personer som bor i kommunen/regionen och förvärvsarbetar i en annan kommun/region) med antal förvärvsarbetande som bor i kommunen/regionen (nattbefolkning).</div>
 </details>
 
-Hur stor andel av de förvärvsarbetande som pendlar in eller ut ur ett län för att arbeta påverkas mycket av närheten till större städer. Högst andel utpendlare i Sverige har Uppsala län, där närmare var fjärde boende som förvärvsarbetar gör det i ett annan län, Stockholm i stor utsträckning. Även Södermanland och Västmanland, som båda ligger relativt nära Stockholm, har stor utpendling. Störst andel inpendlare har kronobergs län. I Dalarna är andelen förvärvsarbetande som pendlar över länsgräns relativt liten.
+För att fördjupa förståelsen för utbudet av arbetskraft bör lokala arbetsmarknadsregioner inkluderas i analysen, utöver kommuner eller län som analysenhet. Lokala arbetsmarknadsregioner skapas utifrån pendlingsrelationer mellan kommuner. Om jobbskapandet i den egna kommunen är svagt, kan närhet till andra kommuners arbetsmarknader möjliggöra pendling och medföra en totalt sett starkare arbetsmarknad. 
+
+Det som i första hand påverkar pendlingsmönster är närheten till större städer. Högst andel utpendlare i Sverige har Uppsala län, där närmare var fjärde boende som förvärvsarbetar gör det i ett annat län, Stockholm i stor utsträckning. Även Södermanland och Västmanland, som båda ligger relativt nära Stockholm, har stor utpendling. Störst andel inpendlare har Kronobergs län. I Dalarna är andelen förvärvsarbetande som pendlar över länsgräns relativt liten.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Gäller pendlare över länsgräns."
@@ -804,7 +806,7 @@ pendling_lan <- SkapaStapelDiagram(skickad_df =pendling_lan_df,
 pendling_lan
 ```
 
-Pendlingen i Dalarna varierar avsevärt mellan länets kommuner. Störst andel utpendling har `r pendling_kommun_df %>% filter(year == max(year),municipality != "Riket",pendling_typ == "Andel utpendling",gender == "T") %>% filter(Pendling_andel == max(Pendling_andel)) %>% .$municipality` där ungefär `r round(pendling_kommun_df %>% filter(year == max(year),municipality != "Riket",pendling_typ == "Andel utpendling",gender == "T") %>% filter(Pendling_andel == max(Pendling_andel)) %>% .$Pendling_andel,0)` procent av de boende som förvärvsarbetar gör det i en annan kommun, i stor utsträckning Borlänge. Även Gagnef (pendling till Borlänge) och Smedjebacken (pendling till Ludvika) är kommuner där många pendlar till sitt arbete. Störst inpendling har `r pendling_kommun_df %>% filter(year == max(year),municipality != "Riket",pendling_typ == "Andel inpendling",gender == "T") %>% filter(Pendling_andel == max(Pendling_andel)) %>% .$municipality`, där ungefär `r round(pendling_kommun_df %>% filter(year == max(year),municipality != "Riket",pendling_typ == "Andel inpendling",gender == "T") %>% filter(Pendling_andel == max(Pendling_andel)) %>% .$Pendling_andel,0)` procent av de förvärvsarbetande bor i en annan kommun. I, tillytan stora, kommuner i norra Dalarna, exempelvis Malung-Sälen och Älvdalen, är situationen det omvända. Här bor och arbetar de allra flesta i samma kommun.
+Att flera av kommunerna i Dalarna tillhör större arbetsmarknadsregioner blir tydligt i diagrammet nedan. Störst andel utpendling har `r pendling_kommun_df %>% filter(year == max(year),municipality != "Riket",pendling_typ == "Andel utpendling",gender == "T") %>% filter(Pendling_andel == max(Pendling_andel)) %>% .$municipality` där ungefär `r round(pendling_kommun_df %>% filter(year == max(year),municipality != "Riket",pendling_typ == "Andel utpendling",gender == "T") %>% filter(Pendling_andel == max(Pendling_andel)) %>% .$Pendling_andel,0)` procent av de boende som förvärvsarbetar gör det i en annan kommun, i stor utsträckning Borlänge. Även Gagnef (pendling till Borlänge) och Smedjebacken (pendling till Ludvika) är kommuner där många pendlar till sitt arbete. Störst inpendling har `r pendling_kommun_df %>% filter(year == max(year),municipality != "Riket",pendling_typ == "Andel inpendling",gender == "T") %>% filter(Pendling_andel == max(Pendling_andel)) %>% .$municipality`, där ungefär `r round(pendling_kommun_df %>% filter(year == max(year),municipality != "Riket",pendling_typ == "Andel inpendling",gender == "T") %>% filter(Pendling_andel == max(Pendling_andel)) %>% .$Pendling_andel,0)` procent av de förvärvsarbetande bor i en annan kommun. I, tillytan stora, kommuner i norra Dalarna, exempelvis Malung-Sälen och Älvdalen, är situationen det omvända. Här bor och arbetar de allra flesta i samma kommun.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: SCB (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Gäller pendlare över kommungräns."
@@ -878,6 +880,8 @@ pendling_kommun
                                manual_color = diagramfarger("rus_sex"),
                                diagram_titel = diagram_titel,
                                x_axis_sort_value = TRUE,
+                               manual_x_axis_text_vjust=1,
+                               manual_x_axis_text_hjust=1,
                                diagram_capt = diagram_capt,
                                dataetiketter = TRUE,
                                dataetiketter_antal_dec = 1,
@@ -892,6 +896,9 @@ pendling_kommun
                                skriv_till_diagramfil = FALSE)
 
 ```
+
+Utbildningsnivån bland Dalarnas invånare varierar såväl mellan kvinnor och män, som mellan inrikes och utrikes födda. Kvinnor har generellt en högre utbildningsnivå än män, ungefär var fjärde kvinna (inrikes och utrikes födda) har en eftergymnasial utbildning på minst 3 år, vilket motsvarar minst kandidatexamen. För män är motsvarande siffra ungefär `r round(befolkning_utb_2064_df_sum %>% filter(SUN_old_namn == "Eftergymnasial utbildning 3 år eller längre",Kon_namn == "man",bakgrund== "Inrikes födda") %>% .$andel,0)` procent för inrikes födda och ca `r round(befolkning_utb_2064_df_sum %>% filter(SUN_old_namn == "Eftergymnasial utbildning 3 år eller längre",Kon_namn == "man",bakgrund== "Utrikes födda") %>% .$andel,0)` procent för utrikes födda. Sammantaget är alltså en större andel av de utrikes födda högutbildade. Annars finns den största skillnaden mellan grupperna bland de med lägst utbildningsnivå. Bland inrikes födda har i praktiken alla mellan 20 och 64 år åtminstone en högstadieutbildning. För utrikes födda är bilden helt annorlunda. Drygt `r round(befolkning_utb_2064_df_sum %>% filter(SUN_old_namn == "Förgymnasial utbildning kortare än 9 år",Kon_namn == "kvinna",bakgrund== "Utrikes födda") %>% .$andel,0)` procent av de utrikes födda kvinnorna och ungefär `r round(befolkning_utb_2064_df_sum %>% filter(SUN_old_namn == "Förgymnasial utbildning kortare än 9 år",Kon_namn == "man",bakgrund== "Utrikes födda") %>% .$andel,0)` procent av de utrikes födda männen har en högsta utbildning som understiger högstadiet. Detta är sannolikt en av förklaringarna till att utrikes födda har en klart lägre sysselsättningsgrad än inrikes födda; personer med lägre utbildningsnivå har svårare att hitta jobb och står därför längre ifrån arbetsmarknaden.
+<br>
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 21"}
 utb_bakgrund_fig
@@ -935,6 +942,9 @@ knitr::include_graphics(here("Diagram","utbildning_inriktning_kon.png"))
                                          filnamn_diagram = diagramfil,
                                          skriv_till_diagramfil = FALSE)
 ```
+
+Det är även  stora skillnader i utbildningsnivå mellan olika åldersgrupper. Om vi enbart fokuserar på de med en lägst utbildning, är det tydligt att äldre är överrepresenterade i Dalarna. Detta beror sannolikt på att utbildningsnivån i samhället har ökat över tid. Längre tillbaka vara det möjligt att gå ut högstadiet och sedan få ett jobb, vilket är avsevärt mycket svårare idag. Kraven på arbetsmarknaden har helt enkelt ökat. Antalet med låg utbildning minskar därefter med åldern ner till åldersgruppen runt 40 år, innan mönstret bryts. Att yngre åldersgrupper, framförallt de mellan 20 och 35 år, har relativt många med låg utbildning, beror troligtvis på att personer födda utrikes är överrepresenterade i dessa åldersgrupper. Som vi diskuterade i föregående avsnitt är det klart vanligare att utrikes födda har en förgymnasial utbildning som högsta utbildning.
+<br>
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 22"}
 forgym_alder_fig
@@ -1018,6 +1028,13 @@ utbgrupp_prog_balans_fig <- SkapaStapelDiagram(skickad_df = prognos_df_utbniva %
 utbgrupp_prog_fig
 ```
 
+<details>
+
+  <summary>Mer information om statistiken</summary>
+
+<div title="Källa: SCB">SCB har på uppdrag av Sveriges 21 regioner tagit fram regionala utbildnings- och arbetsmarknadsprognoser. I de regionala utbildnings- och arbetsmarknadsprognoserna presenteras framskrivningar över tillgång och efterfrågan på utbildade samt bedömningar av arbetsmarknadsläget år 2035 per län. Länsvisa prognoser och bedömningar görs för 22–55 utbildningsgrupper.</div>
+</details>
+
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 24"}
 utbgrupp_prog_balans_fig
 ```
@@ -1051,6 +1068,8 @@ gym_alla_fig <- SkapaStapelDiagram(skickad_df = gymnasieantagning_df %>%
                                    filnamn_diagram = diagramfil,
                                    skriv_till_diagramfil = FALSE)
 ```
+
+Vid antagningen hösten 2023 antogs flest unga i Dalarna till introduktionsprogrammet. Till detta program antas enbart personer som inte är behöriga till andra program. Bland de nationella programmen antogs flest till ekonomiprogrammet, samhällsvetenskapsprogrammet och teknikprogrammet. Högskoleförberedande program är således mest populära bland länets ungdomar. Bland yrkesförberedande program söker flest till Bygg och   
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 25"}
 gym_alla_fig
