@@ -897,7 +897,7 @@ pendling_kommun
 
 ```
 
-Utbildningsnivån bland Dalarnas invånare varierar såväl mellan kvinnor och män, som mellan inrikes och utrikes födda. Kvinnor har generellt en högre utbildningsnivå än män, ungefär var fjärde kvinna (inrikes och utrikes födda) har en eftergymnasial utbildning på minst 3 år, vilket motsvarar minst kandidatexamen. För män är motsvarande siffra ungefär `r round(befolkning_utb_2064_df_sum %>% filter(SUN_old_namn == "Eftergymnasial utbildning 3 år eller längre",Kon_namn == "man",bakgrund== "Inrikes födda") %>% .$andel,0)` procent för inrikes födda och ca `r round(befolkning_utb_2064_df_sum %>% filter(SUN_old_namn == "Eftergymnasial utbildning 3 år eller längre",Kon_namn == "man",bakgrund== "Utrikes födda") %>% .$andel,0)` procent för utrikes födda. Sammantaget är alltså en större andel av de utrikes födda högutbildade. Annars finns den största skillnaden mellan grupperna bland de med lägst utbildningsnivå. Bland inrikes födda har i praktiken alla mellan 20 och 64 år åtminstone en högstadieutbildning. För utrikes födda är bilden helt annorlunda. Drygt `r round(befolkning_utb_2064_df_sum %>% filter(SUN_old_namn == "Förgymnasial utbildning kortare än 9 år",Kon_namn == "kvinna",bakgrund== "Utrikes födda") %>% .$andel,0)` procent av de utrikes födda kvinnorna och ungefär `r round(befolkning_utb_2064_df_sum %>% filter(SUN_old_namn == "Förgymnasial utbildning kortare än 9 år",Kon_namn == "man",bakgrund== "Utrikes födda") %>% .$andel,0)` procent av de utrikes födda männen har en högsta utbildning som understiger högstadiet. Detta är sannolikt en av förklaringarna till att utrikes födda har en klart lägre sysselsättningsgrad än inrikes födda; personer med lägre utbildningsnivå har svårare att hitta jobb och står därför längre ifrån arbetsmarknaden.
+Utbildningsnivån bland Dalarnas invånare varierar såväl mellan kvinnor och män, som mellan inrikes och utrikes födda. Kvinnor har generellt en högre utbildningsnivå än män, ungefär var fjärde kvinna (inrikes och utrikes födda) har en eftergymnasial utbildning på minst 3 år, vilket motsvarar minst kandidatexamen. För män är motsvarande siffra ungefär `r round(befolkning_utb_2064_df_sum %>% filter(SUN_old_namn == "Eftergymnasial utbildning 3 år eller längre",Kon_namn == "man",bakgrund== "Inrikes födda") %>% .$andel,0)` procent för inrikes födda och ca `r round(befolkning_utb_2064_df_sum %>% filter(SUN_old_namn == "Eftergymnasial utbildning 3 år eller längre",Kon_namn == "man",bakgrund== "Utrikes födda") %>% .$andel,0)` procent för utrikes födda. Således är en större andel av de utrikes födda högutbildade. Annars är den största skillnaden mellan grupperna bland de med lägst utbildningsnivå. I gruppen inrikes födda har i praktiken alla mellan 20 och 64 år åtminstone en högstadieutbildning. För utrikes födda är bilden helt annorlunda. Drygt `r round(befolkning_utb_2064_df_sum %>% filter(SUN_old_namn == "Förgymnasial utbildning kortare än 9 år",Kon_namn == "kvinna",bakgrund== "Utrikes födda") %>% .$andel,0)` procent av de utrikes födda kvinnorna och ungefär `r round(befolkning_utb_2064_df_sum %>% filter(SUN_old_namn == "Förgymnasial utbildning kortare än 9 år",Kon_namn == "man",bakgrund== "Utrikes födda") %>% .$andel,0)` procent av de utrikes födda männen har en högsta utbildning som understiger högstadiet. Detta är sannolikt en av förklaringarna till att utrikes födda har en klart lägre sysselsättningsgrad än inrikes födda; personer med lägre utbildningsnivå har svårare att hitta jobb och står därför längre ifrån arbetsmarknaden.
 <br>
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 21"}
@@ -949,6 +949,8 @@ Det är även  stora skillnader i utbildningsnivå mellan olika åldersgrupper. 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 22"}
 forgym_alder_fig
 ```
+
+TA BORT?
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna." 
@@ -1041,8 +1043,9 @@ utbgrupp_prog_balans_fig
 
 ### 4.4 Gymnasiet, högskolan och YH
 
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: Källan är Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september"
+diagram_capt <- "Källa: Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september"
 
 diagram_titel <- paste0("Antagna gymnasieelever i Dalarna ", max(gymnasieantagning_df$ar)," per program")
 diagramfil <- "gymnasieantagning.png"
@@ -1069,11 +1072,13 @@ gym_alla_fig <- SkapaStapelDiagram(skickad_df = gymnasieantagning_df %>%
                                    skriv_till_diagramfil = FALSE)
 ```
 
-Vid antagningen hösten 2023 antogs flest unga i Dalarna till introduktionsprogrammet. Till detta program antas enbart personer som inte är behöriga till andra program. Bland de nationella programmen antogs flest till ekonomiprogrammet, samhällsvetenskapsprogrammet och teknikprogrammet. Högskoleförberedande program är således mest populära bland länets ungdomar. Bland yrkesförberedande program söker flest till Bygg och   
+Vid antagningen hösten 2023 antogs flest unga i Dalarna till introduktionsprogrammet. Till detta program antas enbart personer som inte är behöriga till andra program. Bland de nationella programmen antogs flest till ekonomiprogrammet, samhällsvetenskapsprogrammet och teknikprogrammet. Högskoleförberedande program är således mest populära bland länets ungdomar. Bland yrkesförberedande program antogs flest till Bygg- och anläggningsprogrammet och Fordons- och transportprogrammet. 
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 25"}
 gym_alla_fig
 ```
+
+Det råder stora könsmässiga skillnader mellan antagna till olika program. För högskoleförberedande program är obalansen störst på Samhällsvetenskapsprogrammet, dit klart flest tjejer antas och Teknikprogrammet, dit klart flest pojkar antas. Bland yrkesförberedande program är det en överväldigande majoritet tjejer som antas till Vård- och omsorgsprogrammet medan en överväldigande majoritet killar antas till Bygg- och anläggningsprogrammet och El- och energiprogrammet. Dessa obalanser återspeglas även senare i arbetslivet. Kvinnor är överrepresenterade inom vård och omsorg och utbildning, medan män är i klar majoritet inom byggsektorn. Om målsättningen är att skapa en mer jämställd fördelning mellan olika branscher i arbetslivet, är det således viktigt att börja arbetet redan i skolan. Det finns uppenbarligen stora skillnader mellan vilka val killar och tjejer gör redan då.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Källan är Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september"
@@ -1105,8 +1110,10 @@ gym_kon_fig <- SkapaStapelDiagram(skickad_df = gymnasieantagning_df %>%
 gym_kon_fig
 ```
 
+Det program som ökat klart mest i antalet antagna är introduktionsprogrammet. År 2011 antogs runt 90 personer till programmet, en siffra som ökat till över 500 idag. Bland studieförberedande program är ökningen störst på ekonomiprogrammet, dit mer än dubbel så många antas idag som 2011. Bland program som i första hand kan ses som yrkesförberedande har antalet antagna till naturbruksprogrammet mer än fördubblats sedan 2011, medan antalet antagna till restaurang- och livsmedelsprogrammet och hotell och turismprogrammet har minskat tydligt.
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt_fleraar<-"Källa: Källan är Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september\nEnbart program som existerat samtliga år"
+diagram_capt_fleraar<-"Källa: Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september\nEnbart program som existerat samtliga år"
 
  # Tar fram det år som ligger mellan min och max i dataset. Tar dessutom fram min och maxår
 medel_ar = as.character(round(((max(as.integer(gymnasieantagning_df$ar))-min(as.integer(gymnasieantagning_df$ar)))/2)+min(as.integer(gymnasieantagning_df$ar))))
@@ -1153,6 +1160,8 @@ gym_fleraar_fig <- SkapaStapelDiagram(skickad_df = gymnasieantagning_df%>%
 gym_fleraar_fig
 ```
 
+De som tog examen från Högskolan Dalarna läsåret 2020 gjorde det i stor utsträckning från två program, hälso- och sjukvård samt pedagogik- och lärarutbildning. Andra populär program är företagsekonomin, handel och administration samt informations- och kommunikationsteknik (IKT)
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2019 är verklig data, övriga prognoser\nEnbart program med minst 5 antagna"
 
@@ -1186,6 +1195,8 @@ gym_prognos_fig <- SkapaStapelDiagram(skickad_df = gymnasium_prognos_df %>%
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 28"}
 gym_prognos_fig
 ```
+
+TA BORT? Blir mest förvirrande när varken alla program finns, eller antal examinerade stämmer överens med figuren ovan.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: NMS-databasen (SCB), högskoleregistret\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Enbart program/områden med minst 5 examinerade"
