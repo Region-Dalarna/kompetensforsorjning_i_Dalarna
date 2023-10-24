@@ -1160,8 +1160,6 @@ gym_fleraar_fig <- SkapaStapelDiagram(skickad_df = gymnasieantagning_df%>%
 gym_fleraar_fig
 ```
 
-De som tog examen från Högskolan Dalarna läsåret 2020 gjorde det i stor utsträckning från två program, hälso- och sjukvård samt pedagogik- och lärarutbildning. Andra populär program är företagsekonomin, handel och administration samt informations- och kommunikationsteknik (IKT)
-
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2019 är verklig data, övriga prognoser\nEnbart program med minst 5 antagna"
 
@@ -1196,7 +1194,7 @@ gym_prognos_fig <- SkapaStapelDiagram(skickad_df = gymnasium_prognos_df %>%
 gym_prognos_fig
 ```
 
-TA BORT? Blir mest förvirrande när varken alla program finns, eller antal examinerade stämmer överens med figuren ovan.
+De som tog examen från Högskolan Dalarna läsåret 2020 gjorde det i stor utsträckning från två program, hälso- och sjukvård samt pedagogik- och lärarutbildning. Andra populär program är företagsekonomin, handel och administration samt informations- och kommunikationsteknik (IKT).
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: NMS-databasen (SCB), högskoleregistret\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Enbart program/områden med minst 5 examinerade"
@@ -1228,6 +1226,9 @@ hogskoleexamen_fig <- SkapaStapelDiagram(skickad_df = hogskoleexamen_df%>%
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 29"}
 hogskoleexamen_fig
 ```
+
+
+TA BORT? Blir mest förvirrande när varken alla program finns, eller antal examinerade stämmer överens med figuren ovan.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2019 är verklig data, övriga prognoser\nEnbart program med minst 5 examinerade 2019"   
@@ -1264,6 +1265,22 @@ hogskoleexamen_prognos_fig <- SkapaStapelDiagram(skickad_df = prognos_df_hogskol
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 30"}
 hogskoleexamen_prognos_fig
 ```
+
+<details>
+
+  <summary>Mer information om statistiken</summary>
+
+<div title="Källa: Wikipedia">En yrkeshögskola är en utbildningsform för yrkesinriktade studier på eftergymnasial nivå. Dess exakta roll varierar mellan olika länder. Inom yrkeshögskolan i Sverige finns två typer av examen på eftergymnasial nivå:
+
+- yrkeshögskoleexamen, vilken motsvarar minst ett års studier på eftergymnasial nivå.
+- kvalificerad yrkeshögskoleexamen, som motsvarar studier under minst två år på denna nivå.
+</div>
+
+</details>
+
+Yrkeshögskolan i Dalarna är i första hand inriktad på utbildningar inom vård och omsorg, vilket återspeglar sig på länets arbetsmarknad. Den vanligaste branschen för examinerade från yrkeshögskolan är specialiserad sluten somatisk hälso- och sjukvård på sjukhus, med drygt 150 förvärvsarbetande i Dalarna (den första figuren nedan). Det finns dock även utbildningar inom tillverkning och utvinning, då specifikt utvinning av annan malm. 
+
+Det vanligaste inriktningen för personer som tagit en examen för yrkeshögskolan och förvärvsarbetar i Dalarna är läkarsekreterarutbildning, med ungefär 130 förvärvsarbetande. Även relativt många med inriktningar mot psykiatrisk vård och tandsköterska förvärvsarbetar i Dalarna (den andra figuren nedan).
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: NMS-databasen (SCB), utbildningsregistret\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Examensår efter 2011."
@@ -1336,6 +1353,8 @@ yh_inriktning_fig <- SkapaStapelDiagram(skickad_df = folkhogskola_df_inriktning_
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 32"}
 yh_inriktning_fig
 ```
+
+Återigen oklart om det är vettigt att ta med trender och prognoser. Hur skall siffrorna tolkas?
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 
