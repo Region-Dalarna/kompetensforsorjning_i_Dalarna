@@ -38,14 +38,15 @@ h1,h2,h3{
 
 h1 { /* Header 1 */
   font-weight: bold;
-  font-size: 2.4rem;
-  color: #000000;
-}
-h2 { /* Header 2 */
-  font-weight: bold;
   font-size: 1.6rem;
   color: #000000;
 }
+h2 { /* Header 2 */
+   margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #000000;
+}
+
 h3 { /* Header 3 */
   font-size: 1.4rem;
   color: #000000;
@@ -60,18 +61,31 @@ details{
   margin-bottom: 2rem;
 }
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
-    font-size: 1rem;
-    font-weight: 500;
-    background: #db3747;
-    color: #fff;
-    padding: 16px 20px 12px 20px;
+    font-size: 1em;
+    font-weight: 800;
+    /*background: #db3747;*/
+    background: #fff;;
+    color:black;
+    /*padding: 16px 20px 12px 20px;*/
+    padding: 5px 5px 5px 5px;
     margin-bottom: 0px;
     border-radius: 3px 3px 0 0;
 }
 
+#TOC::before{
+  content: "";
+  display: block;
+  height: 40px;
+  margin: 0;
+  background: #db3747;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
 .tocify-header {
     font-size: 0.9rem;
-    font-weight: 1000;
+    font-weight: 400;
 }
 
 .tocify-subheader {

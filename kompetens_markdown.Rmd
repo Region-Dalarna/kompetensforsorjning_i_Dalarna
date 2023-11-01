@@ -8,6 +8,7 @@ output:
     toc_float: yes
     toc_depth: 6
     css: "styles.css"
+    number_sections: true
 ---
 :::{#header}
 <img src="logo_liggande_platta_farg.png" height="50" width="100" margin="0 auto"/>
@@ -73,14 +74,14 @@ kompetensbrist_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/Till
   rename("Region" = Kolumn1) %>% 
       pivot_longer(2:length(names(.)),names_to = "År",values_to = "Andel")
 ```
-# Kompetensförsörjning i Dalarna
+# Kompetensförsörjning i Dalarna{.unlisted .unnumbered}
 <p style = "font-size:12px">
 <i>Skapad av: Samhällsanalys, Region Dalarna<br>
 Senast uppdaterad: `r Sys.Date()`</i>
 </p>
 
 
-## 2 Bakgrund och teori
+# Bakgrund och teori
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE,include=FALSE}
 
@@ -288,11 +289,11 @@ arb_08_fig <- SkapaStapelDiagram(skickad_df =arbetslosa_08_df ,
 arb_08_fig
 ```
 
-## 3 Efterfrågan, nu och framledes
+# Efterfrågan, nu och framledes
 
 Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp som inte är helt rättfram att mäta. Historisk data över exempelvis antal förvärvsarbetande i olika branscher visar när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet, det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan. Detta är viktigt att notera.
 
-### 3.1 Förvärvsarbetande
+## Förvärvsarbetande
 
 <details>
 
@@ -435,7 +436,7 @@ forvarvsarbetande_prognos_fig <- SkapaStapelDiagram(skickad_df = forvarvsarbetan
 forvarvsarbetande_prognos_fig
 ```
 
-### 3.2 Kompetenskrav
+## Kompetenskrav
 
 <details>
 
@@ -535,7 +536,7 @@ kompetens_bransch_fig <- SkapaStapelDiagram(skickad_df = kompetens_bransch %>%
 kompetens_bransch_fig
 ```
 
-### 3.3 Åldersstruktur
+## Åldersstruktur
 
 ONÖDIG? SÄGER VÄL EGENTLIGEN SAMMA SAK SOM FIGUREN OVAN?
 
@@ -664,9 +665,9 @@ Störst antal personer över 50 år arbetar i Dalarna inom vård och omsorg. Ung
 bransch_alder_antal_fig
 ```
 
-## 4 Utbud i Dalarnas län
+# Utbud i Dalarnas län
 
-### 4.1 Befolkning i arbetsför ålder
+## Befolkning i arbetsför ålder
 
 <details>
 
@@ -756,7 +757,7 @@ bef_inr_utr <- SkapaStapelDiagram(skickad_df = befolkning_utr_inr_df,
 bef_inr_utr
 ```
 
-### 4.2 Hur många pendlar?
+## Hur många pendlar?
 
 <details>
 
@@ -844,7 +845,7 @@ pendling_kommun <- SkapaStapelDiagram(skickad_df = pendling_kommun_df %>%
 pendling_kommun
 ```
 
-### 4.3 Utbildningsnivå
+## Utbildningsnivå
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
   diagram_capt <- "Källa: NMS-databasen (SCB), databasen Stativ\nBearbetning: Samhällsanalys, Region Dalarna"
@@ -1041,9 +1042,9 @@ utbgrupp_prog_fig
 utbgrupp_prog_balans_fig
 ```
 
-### 4.4 Gymnasiet, högskolan och YH
+# Gymnasiet, högskolan och YH
 
-#### Gymnasiet
+## Gymnasiet
 
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
@@ -1196,7 +1197,7 @@ gym_prognos_fig <- SkapaStapelDiagram(skickad_df = gymnasium_prognos_df %>%
 gym_prognos_fig
 ```
 
-#### Högskolan
+## Högskolan
 
 De som tog examen från Högskolan Dalarna läsåret 2020 gjorde det i stor utsträckning från två program, hälso- och sjukvård samt pedagogik- och lärarutbildning. Andra populär program är företagsekonomin, handel och administration samt informations- och kommunikationsteknik (IKT).
 
@@ -1270,7 +1271,7 @@ hogskoleexamen_prognos_fig <- SkapaStapelDiagram(skickad_df = prognos_df_hogskol
 hogskoleexamen_prognos_fig
 ```
 
-#### Yrkeshögskolan
+## Yrkeshögskolan
 
 <details>
 
@@ -1397,11 +1398,11 @@ yh_prognos_fig <- SkapaStapelDiagram(skickad_df = prognos_df_yh%>%
 yh_prognos_fig
 ```
 
-## 5 Hur väl fungerar arbetsmarknaden i Dalarna?
+# Hur väl fungerar arbetsmarknaden i Dalarna?
 
-En väl fungerande arbetsmarknad kännetecknas bland annat av att många arbetar och dessutom gör det med vad de är utbildade till. En arbetsmarknad med dessa kännetecken kan sannolikt hantera såväl kriser i samhället, som de utmaningar som arbetsmarknaden ställs inför i framtiden. I detta avsnitt diskuteras hur väl arbetsmarknaden i Dalarna fungerar.
+En väl fungerande arbetsmarknad kännetecknas bland annat av att många arbetar, att många arbetar med vad de är utbildade till och att det inte råder någon större brist på kompetens. En arbetsmarknad med dessa kännetecken kan sannolikt hantera såväl kriser i samhället, som de utmaningar som arbetsmarknaden ställs inför i framtiden.
 
-### Hur många arbetar?
+## Hur många arbetar?
 
 Sysselsättningsgraden, det vill säga utsträckningen i vilken människor i
 arbetsför ålder (20-64 år) arbetar, skiljer sig framförallt åt mellan inrikes och
@@ -1416,7 +1417,7 @@ kvinnor i samtliga län förutom Norrbotten. I Dalarna var
 sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent, vilket
 är ca `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad-arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0) ` procentenheter mer än för utrikes födda kvinnor i Dalarna. 
 
-Något man dock måste ta hänsyn till när man analyserar sysselsättningsgrad bland utrikes födda är hur lång tid personerna har varit i Sverige, samt vilken utbildningsnivå de har (den andra figuren nedan). För en djupare diskussion runt detta, se Region Dalarnas rapport <a href="https://region-dalarna.github.io/kvinnor_man_i_Dalarna/">"Kvinnor och män i Dalarna"<a>
+Något man dock måste ta hänsyn till när man analyserar sysselsättningsgrad bland utrikes födda är hur lång tid personerna har varit i Sverige, samt vilken utbildningsnivå de har. För en djupare diskussion runt detta, se Region Dalarnas rapport <a href="https://region-dalarna.github.io/kvinnor_man_i_Dalarna/">"Kvinnor och män i Dalarna"</a>
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
   diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
@@ -1507,7 +1508,7 @@ syss_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_d
 syss_kommun_fig
 ```
 
-### Matchning på arbetsmarknaden
+## Matchning på arbetsmarknaden
 
 Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning
 människor jobbar med vad de är utbildade till. Generellt tenderar olika
@@ -1596,9 +1597,9 @@ matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
 matchning_bakg_fig
 ```
 
-### Kompetensbrist?
+## Brist på kompetens
 
-Som diskuterades i inledningen av detta avsnitt
+Ytterligare en viktig aspekt av en regions arbetsmarknad är hur lätt det är för arbetsgivare att hitta arbetskraft. Bland Sveriges län varierar den upplevda bristen på arbetskraft relativt mycket. Lättast att hitta kompetens år `r max(kompetensbrist_df$År)` har småföretag i `r kompetensbrist_df %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Region`, där ungefär `r round(kompetensbrist_df %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel,0)` procent av småföretagen uppger att de har brist på kompetens. Att jämföra med `r kompetensbrist_df %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Region`, där ungefär `r round(kompetensbrist_df %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel,0)` procent av småföretagen uppger att de har samma brist. I Dalarna upplever ungefär `r round(kompetensbrist_df %>% filter(År == max(År)) %>% filter(Region == "Dalarnas län") %>% .$Andel,0)` procent av småföretagarna att de har svårt att hitta arbetskraft, vilket är en ökning med `r round(kompetensbrist_df %>% filter(År == max(År)) %>% filter(Region == "Dalarnas län") %>% .$Andel - kompetensbrist_df %>% filter(År == "2020") %>% filter(Region == "Dalarnas län") %>% .$Andel ,0)` procentenheter sedan undersökningen som gjordes 2020.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Tillväxtverket: Företagens villkor och verklighet.\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Andel småföretag som anser att tillgång till lämplig arbetskraft är ett stort hinder för tillväxt"
@@ -1635,9 +1636,11 @@ kompetensbrist_fig <- SkapaStapelDiagram(skickad_df = kompetensbrist_df %>%
 kompetensbrist_fig
 ```
 
-## 6 Utbildningsområden och prognoser {.tabset .tabset-fade .tabset-pills}
+Sammanfattningsvis...
 
-### Bygg
+# Utbildningsområden och prognoser {.tabset .tabset-fade .tabset-pills}
+
+## Bygg {-}
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 38"}
 #lista_figurer$befolkningsforandring_20_64
