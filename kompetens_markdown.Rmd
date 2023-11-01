@@ -1397,27 +1397,26 @@ yh_prognos_fig <- SkapaStapelDiagram(skickad_df = prognos_df_yh%>%
 yh_prognos_fig
 ```
 
-## 5 Matchning i Dalarnas län
+## 5 Hur väl fungerar arbetsmarknaden i Dalarna?
+
+En väl fungerande arbetsmarknad kännetecknas bland annat av att många arbetar och dessutom gör det med vad de är utbildade till. En arbetsmarknad med dessa kännetecken kan sannolikt hantera såväl kriser i samhället, som de utmaningar som arbetsmarknaden ställs inför i framtiden. I detta avsnitt diskuteras hur väl arbetsmarknaden i Dalarna fungerar.
+
+### Hur många arbetar?
 
 Sysselsättningsgraden, det vill säga utsträckningen i vilken människor i
-arbetsför ålder (20-64 år) arbetar, skiljer sig åt mellan inrikes och
+arbetsför ålder (20-64 år) arbetar, skiljer sig framförallt åt mellan inrikes och
 utrikes födda. Sysselsättningsgraden bland utrikes födda är lägre än
 sysselsättningsgraden för inrikes födda i samtliga svenska län. Det
 finns även skillnader mellan kvinnor och män. För inrikes födda, det
 vänstra diagrammet nedan, är sysselsättningsgraden för båda könen
 ungefär lika hög. Variationen i sysselsättningsgrad mellan länen är även
-den ganska liten.
-
-För utrikes födda (det högra diagrammet nedan) är bilden annorlunda.
+den ganska liten. För utrikes födda (det högra diagrammet nedan) är bilden annorlunda.
 Utrikes födda män har en högre sysselsättningsgrad än utrikes födda
 kvinnor i samtliga län förutom Norrbotten. I Dalarna var
 sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent, vilket
 är ca `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad-arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0) ` procentenheter mer än för utrikes födda kvinnor i Dalarna. 
-Något man måste ta hänsyn till när man analyserar sysselsättningsgrad och 
-arbetslöshet bland utrikes födda är hur lång tid de har varit i Sverige.
-Vistelsetid i Sverige har ett starkt samband med sysselsättningsgrad och 
-arbetslöshet och därmed kommer andelen nyanlända i gruppen utrikes födda att 
-påverka nivån på dessa variabler.  
+
+Något man dock måste ta hänsyn till när man analyserar sysselsättningsgrad bland utrikes födda är hur lång tid personerna har varit i Sverige, samt vilken utbildningsnivå de har (den andra figuren nedan). För en djupare diskussion runt detta, se Region Dalarnas rapport <a href="https://region-dalarna.github.io/kvinnor_man_i_Dalarna/">"Kvinnor och män i Dalarna"<a>
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
   diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
@@ -1508,6 +1507,8 @@ syss_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_d
 syss_kommun_fig
 ```
 
+### Matchning på arbetsmarknaden
+
 Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning
 människor jobbar med vad de är utbildade till. Generellt tenderar olika
 typer av specialiserade eftergymnasiala utbildningar, exempelvis läkare
@@ -1594,6 +1595,10 @@ matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='center', out.width="90%"}
 matchning_bakg_fig
 ```
+
+### Kompetensbrist?
+
+Som diskuterades i inledningen av detta avsnitt
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Tillväxtverket: Företagens villkor och verklighet.\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Andel småföretag som anser att tillgång till lämplig arbetskraft är ett stort hinder för tillväxt"
