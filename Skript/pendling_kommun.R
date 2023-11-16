@@ -4,6 +4,7 @@ hamta_data_pendling_kommun <-function(region_vekt = "20",
                                       spara_data = TRUE,
                                       filnamn = "pendling_kommun.xlsx",
                                       ta_med_riket = TRUE,
+                                      senaste_ar = FALSE,
                                       tid = 1900:2100){#välj ett högt avslutningsår (då kommer uppdateringar med automatiskt)
 
   ##### Hämtar data för att beräkna pendling #######
@@ -16,6 +17,10 @@ hamta_data_pendling_kommun <-function(region_vekt = "20",
   if(ta_med_riket == TRUE){
     valda_kommuner = c("0000",hamtakommuner(region_vekt))
   }else valda_kommuner = c(hamtakommuner(region_vekt))
+  
+  if(senaste_ar == TRUE){
+    tid = max(hamta_kolada_giltiga_ar("N00968"),region_vekt)
+  }
   
   #### Dra hem variablerna från Kolada
   Indendling_df <- get_values(
