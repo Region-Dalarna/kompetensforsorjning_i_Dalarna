@@ -23,8 +23,8 @@ p_load(here,
        openxlsx)
 
 # Funktioner som behövs (hämtas från Git-Hub)
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_SkapaDiagram.R")
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R", encoding = "utf-8", echo = FALSE)
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R", encoding = "utf-8", echo = FALSE)
 
 befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_prognos.xlsx")
 sysselsatta_90_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_90.xlsx")
