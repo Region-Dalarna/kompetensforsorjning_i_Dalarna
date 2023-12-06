@@ -2,6 +2,7 @@
 hamta_data_pendling_kommun <-function(region_vekt = "20", 
                                       output_mapp = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
                                       spara_data = TRUE,
+                                      returnera_data = FALSE,
                                       filnamn = "pendling_kommun.xlsx",
                                       ta_med_riket = TRUE,
                                       senaste_ar = FALSE,
@@ -54,8 +55,10 @@ hamta_data_pendling_kommun <-function(region_vekt = "20",
   # Slår ihop de två
   pendling_df <- rbind(Indendling_df,Utpendling_df)
   
-  if (spara_data==TRUE){
+  if (spara_data == TRUE){
     openxlsx::write.xlsx(pendling_df,paste0(output_mapp,filnamn))
   }
+  
+  if(returnera_data == TRUE) return(pendling_df)
 }
 
