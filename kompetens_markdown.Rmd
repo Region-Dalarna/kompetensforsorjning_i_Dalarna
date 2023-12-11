@@ -81,7 +81,20 @@ Senast uppdaterad: `r Sys.Date()`</i>
 </p>
 
 
-# Bakgrund och teori
+# Introduktion
+
+I ljuset av en ständigt föränderlig arbetsmarknad och det accelererande tempot inom teknologisk utveckling står Dalarna inför utmaningar och möjligheter när det gäller att säkerställa en robust och hållbar kompetensförsörjning. I Dalarna finns en stor variation av industrier som behöver kompetensförsörjas, allt ifrån en högteknologisk industri till en turism industri baserad på dalarnas kulturella kontext och hållbarhet. Denna rapport är avsedd att belysa de viktigaste aspekterna av regionens nuvarande och framtida kompetenslandskap, identifiera trender och behov, samt föreslå strategier för att möta dessa utmaningar på ett proaktivt sätt. Rapporten kommer även att utforska de centrala sektorerna och branscherna som driver regionens ekonomi. Vidare kommer den att analysera befintliga kompetensresurser, identifiera eventuella luckor och framhäva möjligheter för kompetensutveckling och nytänkande samarbete mellan näringsliv, utbildningsinstitutioner och offentliga sektorn. Denna rapport är avsedd att fungera som en grund för informerade beslut och samverkan, med målet att säkra regionens framtid genom en stark och anpassningsbar kompetensförsörjning.
+
+I Dalarna har de unga (0-19 år) samt de arbetsföra (20-64) minskat sedan 1968, medan de äldre (65-79 år och 80+ år) har ökat under samma tidsperiod, en utveckling som dessutom prognostiseras fortsätta i framtiden. Det gör att regionen kan komma att stå inför ett flertal utmaningar i framtiden, däribland:
+
+* Arbetskraftsbrist: Minskningen av unga och arbetsföra personer kan resultera i en brist på arbetskraft. Detta kan vara särskilt påtagligt inom vissa sektorer och yrken, vilket kan hämma ekonomisk tillväxt och innovation.
+
+* Ökad börda på sociala trygghetssystem: Med en ökande andel äldre människor ökar behovet av hälso- och sjukvård samt pensioner. Detta kan öka belastningen på sociala trygghetssystem och offentliga finanser om det inte finns tillräckliga ekonomiska resurser för att stödja den åldrande befolkningen.
+
+* Strukturella förändringar på arbetsmarknaden: Arbetsmarknaden kan genomgå strukturella förändringar för att anpassa sig till den förändrade demografiska profilen. Det kan innebära ökad efterfrågan på teknologiska lösningar, automation och andra effektiviseringsåtgärder för att kompensera för bristen på arbetskraft.
+
+* Ökad efterfrågan på vårdtjänster: En ökande äldre befolkning kan leda till en ökad efterfrågan på hälso- och sjukvårdstjänster och äldreomsorg. Detta kan kräva investeringar och anpassningar inom hälso- och sjukvårdssystemet för att möta behoven hos den äldre befolkningen.
+
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE,include=FALSE}
 
@@ -122,6 +135,8 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 1"}
 befolkning_for
 ```
+
+Den största näringen i Dalarna, där flest arbetar, var under 2021 hälso- och sjukvården, som dessutom har ökat något under 2010-talet. Även inom handel, transport, magasinering och kommunikation samt utvinning av mineral och tillverkningsindustri arbetade många i Dalarna 2021. I den sistnämnda branschen har dock antalet förvärvsarbetande minskat stadigt sedan 1990-talet. Bland övriga branscher har antalet förvärvsarbetande ökat inom bland annat kreditinstitut, fastighetsförvaltning och företagstjänster samt forskning, utveckling och utbildning.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, include=FALSE}
 diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92"
@@ -177,9 +192,9 @@ fig_forv_90
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.width=10, fig.align='Center',fig.cap="Figur 3"}
 knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2020/Branschstruktur_Dalarnas_kommuner_2020.png")
 ```
-<br>
-<br>
-<br>
+
+I den vänstra cirkeln finns branscher efter antal anställda bland kvinnor, i den högra finns antal branscher efter anställda män. Kvinnor arbetar framförallt inom vård och omsorg och utbildning. Även handel, offentlig förvaltning, företagstjänster, tillverkning, kultur, samt fritid och nöje i fallande ordning. I den högra cirkeln så visas det att män framförallt jobbar inom tillverkningsindustrin, bygg, handel, företagstjänster, vård och omsorg, transport, utbildning, offentlig förvaltning samt jord- och skogsbruk. 
+
 ```{r, echo=FALSE,message = FALSE, warning = FALSE, fig.width=10, fig.align='Center',fig.cap="Figur 3"}
 knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2020/Dalarna_kon_dagbef_2020.png")
 ```
