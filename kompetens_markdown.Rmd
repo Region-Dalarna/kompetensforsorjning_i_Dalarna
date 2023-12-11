@@ -198,9 +198,9 @@ I den vänstra cirkeln finns branscher efter antal anställda bland kvinnor, i d
 ```{r, echo=FALSE,message = FALSE, warning = FALSE, fig.width=10, fig.align='Center',fig.cap="Figur 3"}
 knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2020/Dalarna_kon_dagbef_2020.png")
 ```
-<br>
-<br>
-<br>
+
+De orangea staplarna är andelen kvinnor som har minst tre års eftergymnasial utbildning i Dalarna. Bland kvinnorna så har andelen med tre års eftergymnasial utbildning ökat från 7 procent till 29,5 procent mellan 1985 till 2022, vilket motsvarar en ökning med 400 %. De gröna staplarna är andelen män med minst tre år eftergymnasial utbildning i Dalarna. Andelen män med tre års eftergymnasial utbildning har ökat från 7,5 procent 1985 till 15 procent 2022, vilket är en fördubbling. Det går att utläsa från tabellen att andel kvinnor med tre års eftergymnasial utbildning är dubbelt så stor 2022 mot mäns andel.
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
 
@@ -235,6 +235,8 @@ utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 6"}
 utb_85_fig
 ```
+
+Stolparna är total andel (både kvinnor och män) med minst tre års eftergymnasial utbildning 2022. Dalarna ligger näst längst ut till höger i grafen och visar att Dalarna har näst lägst andel med eftergymnasial utbildning på 22 procent, spridningen mellan de 15 regioner som har lägst andel personer med eftergymnasial utbildning ligger mellan drygt 22 procent till 28,5 procent. 
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 # Ta bort s och län i länsnamn
