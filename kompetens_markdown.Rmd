@@ -186,9 +186,24 @@ knitr::include_graphics(here("Diagram","per_bransch_tidsserie.png"))
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 2"}
 fig_forv_90
 ```
-<br>
-<br>
-<br>
+
+I Dalarnas största kommun, Falun, jobbar majoriteten inom vård och omsorg, följt av utbildning, företagstjänster, offentlig förvaltning, handel, tillverkning, bygg, kultur, fritid och nöje. 
+I Dalarnas näst största kommun, Borlänge, så jobbar majoriteten av befolkningen inom handel, följt av vård och omsorg, offentlig förvaltning, utbildning, tillverkning, företagstjänster, bygg och transport. 
+I Ludvika så är det vanligast att jobba inom tillverkningsindustrin, följt av vård och omsorg, utbildning, handel, företagstjänster samt bygg. 
+I Avesta så är det även där vanligast att jobba inom tillverkning, följt av vård och omsorg, handel, utbildning, bygg, företagstjänster samt transport. 
+I Mora så jobbar de flesta inom vård och omsorg, följt av tillverkning, handel, utbildning, bygg och företagstjänster. 
+I Leksand arbetar de flesta inom handel, följt av vård och omsorg, utbildning, tillverkning, bygg och företagstjänster, hotell och restaurang samt jord- och skogsbruk.
+I Hedemora arbetar de flesta inom vård och omsorg, följt av tillverkning, utbildning, handel och bygg.
+I Säter så är den största branschen vård och omsorg, sen i fallande ordning kommer följande branscher: utbildning, bygg, tillverkning, jord- och skogsbruk, kultur, fritid och nöje, samt handel.
+I Rättvik arbetar de flesta inom vård och omsorg, följt av utbildning, bygg, tillverkning, handel, jord- och skogsbruk, företagstjänster samt hotell och restaurang. 
+I Smedjebacken arbetar de flesta inom tillverkningsindustrin, följt av vård och omsorg, utbildning, bygg, handel samt företagstjänster.  
+I Gagnef är den största branschen där flest arbetar inom är vård och omsorg, följt av tillverkningsekonomi, utbildning, bygg, offentlig förvaltning, samt handel. 
+I Malung-Sälen arbetar flest inom vård och omsorg, följt av bygg, kultur, fritid och nöje, utbildning, handel, tillverkning och företagstjänster.  
+I Älvdalen så jobbar flertalet inom vård och omsorg, bygg, tillverkning, handel, utbildning och 
+I Orsa så jobbar de flesta inom vård och omsorg, följt av bygg, transport, utbildning, kultur och fritid, samt jord- och skogsbruk.
+I Dalarnas minsta kommun sett till befolkning, Vansbro, jobbar de flesta inom tillverkningsindustrin, följt av handel, vård och omsorg, utbildning, och bygg.
+Det finns fler branscher i varje kommun, vilket kan ses i figur 3.
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.width=10, fig.align='Center',fig.cap="Figur 3"}
 knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2020/Branschstruktur_Dalarnas_kommuner_2020.png")
 ```
