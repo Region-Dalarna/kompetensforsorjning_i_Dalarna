@@ -139,7 +139,7 @@ befolkning_for
 Den största näringen i Dalarna, där flest arbetar, var under 2021 hälso- och sjukvården, som dessutom har ökat något under 2010-talet. Även inom handel, transport, magasinering och kommunikation samt utvinning av mineral och tillverkningsindustri arbetade många i Dalarna 2021. I den sistnämnda branschen har dock antalet förvärvsarbetande minskat stadigt sedan 1990-talet. Bland övriga branscher har antalet förvärvsarbetande ökat inom bland annat kreditinstitut, fastighetsförvaltning och företagstjänster samt forskning, utveckling och utbildning.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, include=FALSE}
-diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92"
+diagram_capt <- "Källa: RAMS och BAS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92. Bas från och med 2020."
 
 # Gör om år till en faktorvariabel för utbildningsnivå_balans. Detta för att kunna bestämma vilken ordning staplarna för de olika åren kommer i diagrammet
 max_ar <- max(sysselsatta_90_df$år)
