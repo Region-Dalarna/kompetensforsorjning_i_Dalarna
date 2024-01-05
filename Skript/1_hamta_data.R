@@ -18,15 +18,28 @@ gg_forv_90 <- diagram_data_forvarvsarbetande_90(output_mapp_figur = Output_mapp_
                                                 returnera_data = TRUE,
                                                 vald_farg = diagramfarger("rus_sex"))
 
-# Utbildningsnivå från 85 och framåt uppdelat på kön
-source("G:/skript/hamta_data/utbildningsniva_85.R")
-data_utbniva_85(spara_data = TRUE,
-                output_mapp = Output_mapp)
+# Utbildningsnivå från 85 och framåt uppdelat på kön. Data hämtas i detta fall från GGplot-objektet (när data används i markdown)
+source("G:/skript/diagram/diag_utbniva_over_tid_och_andel_specifikt_ar.R")
+gg_utbniva_85 <- diag_utbniva_lang_tidserie(region_vekt = c("20"),
+                                            output_mapp = Output_mapp_figur,
+                                            diagram_capt = "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna",
+                                            skapa_fil = TRUE,
+                                            diag_hogutb_over_tid = TRUE,
+                                            diag_lagutb_over_tid = FALSE,
+                                            diag_andel_alla_utbnivaer = FALSE,
+                                            diag_andel_eftergymn_jmfr_lan = FALSE)
 
 # Utbildningsnivå senaste år
-source(here("Skript","utbildningsniva_senastear.R"), encoding="UTF-8")
-hamta_data_utbniva(output_mapp = Output_mapp,
-                   spara_data = TRUE)
+source("G:/skript/diagram/diag_utbniva_over_tid_och_andel_specifikt_ar.R")
+gg_utbniva_senastear <- diag_utbniva_lang_tidserie(region_vekt = c("20"),
+                                                   output_mapp = Output_mapp_figur,
+                                                   diagram_capt = "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna",
+                                                   skapa_fil = TRUE,
+                                                   diag_hogutb_over_tid = FALSE,
+                                                   diag_lagutb_over_tid = FALSE,
+                                                   diag_andel_alla_utbnivaer = FALSE,
+                                                   diag_andel_eftergymn_jmfr_lan = TRUE,
+                                                   minst_3_ar = TRUE)
 
 # Gymnasieantagning - sourcar ett skript som Peter har skapat. vet inte när data uppdateras.
 # Eftersom skriptet automatiskt skapar en dataframe så skapas denna först för att sedan tas bort (vi vill bara spara till Excel)

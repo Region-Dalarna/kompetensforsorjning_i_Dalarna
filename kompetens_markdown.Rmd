@@ -28,7 +28,7 @@ source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_Sk
 
 befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_prognos.xlsx")
 #sysselsatta_90_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_90.xlsx")
-utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_85.xlsx")
+#utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_85.xlsx")
 utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
 arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx")
 forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_bransch.xlsx")
@@ -169,85 +169,21 @@ I den vänstra cirkeln finns branscher efter antal anställda bland kvinnor, i d
 knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2020/Dalarna_kon_dagbef_2020.png")
 ```
 
-De orangea staplarna är andelen kvinnor som har minst tre års eftergymnasial utbildning i Dalarna. Bland kvinnorna så har andelen med tre års eftergymnasial utbildning ökat från 7 procent till 29,5 procent mellan 1985 till 2022, vilket motsvarar en ökning med 400 %. De gröna staplarna är andelen män med minst tre år eftergymnasial utbildning i Dalarna. Andelen män med tre års eftergymnasial utbildning har ökat från 7,5 procent 1985 till 15 procent 2022, vilket är en fördubbling. Det går att utläsa från tabellen att andel kvinnor med tre års eftergymnasial utbildning är dubbelt så stor 2022 mot mäns andel.
+De orangea staplarna är andelen kvinnor som har minst tre års eftergymnasial utbildning i Dalarna. Bland kvinnorna så har andelen med tre års eftergymnasial utbildning ökat från ungefär `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data %>% filter(år == min(år),kön == "kvinnor") %>% .$total,0)` procent till ca `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data %>% filter(år == max(år),kön == "kvinnor") %>% .$total,0)` procent mellan `r min(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data$år)` till `r max(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data$år)`. De gröna staplarna är andelen män med minst tre år eftergymnasial utbildning i Dalarna. Andelen män med tre års eftergymnasial utbildning har ökat från ungefär `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data %>% filter(år == min(år),kön == "män") %>% .$total,0)` procent `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data %>% filter(år == max(år),kön == "kvinnor") %>% .$total,0)` procent mellan `r min(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data$år)` till ca `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data %>% filter(år == max(år),kön == "män") %>% .$total,0)` procent `r max(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data$år)`. Det går att utläsa från tabellen att andel kvinnor med tre års eftergymnasial utbildning är dubbelt så stor `r max(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data$år)` mot mäns andel. `r min(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data$år)` var något större andel män högutbildade, jämfört med kvinnor.
 
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-# Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning
-utbildning_85_utskrift<-utbildning_85_df %>%
-  filter(utb_niva!="Uppgift saknas") %>%
-    group_by(år,region,kön,utb_niva) %>%
-      summarize(antal=sum(Befolkning)) %>%
-        mutate(andel=(antal/sum(antal))*100)
-
-diagramtitel <- paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning i ",unique(utbildning_85_utskrift$region))
-diagramtitel <- str_wrap(diagramtitel)
-diagramfilnamn <- paste0("utbildningsniva_85_21_kon.png")
-
-utb_85_fig <- SkapaStapelDiagram(skickad_df =utbildning_85_utskrift %>%
-                              filter(år%in%c("1985","1990","1995","2000","2005","2010","2015",max(utbildning_85_utskrift$år))) %>%
-                                filter(utb_niva=="Eftergymnasial utbildning, 3 år eller mer"),
-                             skickad_x_var = "år",
-                             skickad_y_var = "andel",
-                             skickad_x_grupp = "kön",
-                             manual_color = diagramfarger("kon"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt =  diagram_capt,
-                             x_axis_lutning = 0,
-                             stodlinjer_avrunda_fem = TRUE,
-                             manual_y_axis_title="procent",
-                             output_mapp = "",
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = FALSE)
-```
+HOPPET 99-00 BEHÖVER DISKUTERAS. HAR FÖR MIG ATT DET HAR NÅGOT ATT GÖRA MED HUR MAN MÄTER /JON
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 5"}
-utb_85_fig
+gg_utbniva_85$hogutb_andel_ar20_1985_2022
 ```
 
-Stolparna är total andel (både kvinnor och män) med minst tre års eftergymnasial utbildning 2022. Dalarna ligger näst längst ut till höger i grafen och visar att Dalarna har näst lägst andel med eftergymnasial utbildning på 22 procent, spridningen mellan de 15 regioner som har lägst andel personer med eftergymnasial utbildning ligger mellan drygt 22 procent till 28,5 procent. 
-
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-# Ta bort s och län i länsnamn
-utbildning_senastear_df$region <- skapa_kortnamn_lan(utbildning_senastear_df$region,byt_ut_riket_mot_sverige = TRUE)
-
-# Tar bort uppgift saknas och beräknar hur stor andel som har en viss utbildning - ej uppdelat på kön
-utbildning_senastear_df <- utbildning_senastear_df %>%
-  filter(utb_niva!="Uppgift saknas") %>%
-    group_by(år,region,utb_niva) %>%
-      summarize(antal = sum(Befolkning)) %>%
-        mutate(andel = (antal/sum(antal))*100)
-
-diagramtitel <- paste0("Andel av befolkningen (25-64 år) med minst 3 års eftergymnasial utbildning ",max(utbildning_senastear_df$år))
-diagramtitel <- str_wrap(diagramtitel)
-diagramfilnamn <- paste0("utbildningsniva_jmf_lan.png")
-
-utb_senastear_fig <- SkapaStapelDiagram(skickad_df = utbildning_senastear_df %>%
-                                         filter(år == max(år),utb_niva == "Eftergymnasial utbildning, 3 år eller mer") %>% 
-                                          mutate(fokus = ifelse(region == "Dalarna",1,
-                                                                 ifelse(region == "Sverige",2,0))),
-                                       skickad_x_var = "region",
-                                       skickad_y_var = "andel",
-                                       manual_x_axis_text_vjust=1,
-                                       manual_x_axis_text_hjust=1,
-                                       manual_color = diagramfarger("rus_tre_fokus"),
-                                       diagram_titel = diagramtitel,
-                                       diagram_capt =  diagram_capt,
-                                       x_axis_sort_value = TRUE,
-                                       x_axis_lutning = 45,
-                                       x_var_fokus = "fokus",
-                                       stodlinjer_avrunda_fem = TRUE,
-                                       manual_y_axis_title = "procent",
-                                       output_mapp = "",
-                                       filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil = FALSE)
-
-```
+Stolparna är andelar med minst tre års eftergymnasial utbildning år `r max(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data$år)`. Dalarna ligger näst längst ned i grafen, vilket visar att Dalarna har näst lägst andel med eftergymnasialt utbildade bland Sveriges län. Ungefär `r round(gg_utbniva_senastear$hogutb_andel_ar_2022$data %>% filter(kön == "kvinnor",region == "Dalarna") %>% .$total,0)` procent av kvinnorna och `r round(gg_utbniva_senastear$hogutb_andel_ar_2022$data %>% filter(kön == "män",region == "Dalarna") %>% .$total,0)` av männen i Dalarna har en eftergymnasial utbildning om minst 3 år, att jämföra med `r round(gg_utbniva_senastear$hogutb_andel_ar_2022$data %>% filter(kön == "kvinnor",region == "Stockholm") %>% .$total,0)` procent för kvinnor och `r round(gg_utbniva_senastear$hogutb_andel_ar_2022$data %>% filter(kön == "män",region == "Stockholm") %>% .$total,0)` i Stockholm, de län som har högst utbildningsnivå i Sverige. Spridningen mellan könen är således klart större i Dalarna än i Stockholm. 
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 6"}
-utb_senastear_fig
+gg_utbniva_senastear$hogutb_andel_ar_2022
 ```
+
+AVVAKTA MED
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året"
