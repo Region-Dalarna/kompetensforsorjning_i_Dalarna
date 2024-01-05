@@ -27,7 +27,7 @@ source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_AP
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R", encoding = "utf-8", echo = FALSE)
 
 befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_prognos.xlsx")
-sysselsatta_90_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_90.xlsx")
+#sysselsatta_90_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_90.xlsx")
 utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_85.xlsx")
 utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
 arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx")
@@ -136,55 +136,10 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
 befolkning_for
 ```
 
-Den största näringen i Dalarna, där flest arbetar, var under 2021 hälso- och sjukvården, som dessutom har ökat något under 2010-talet. Även inom handel, transport, magasinering och kommunikation samt utvinning av mineral och tillverkningsindustri arbetade många i Dalarna 2021. I den sistnämnda branschen har dock antalet förvärvsarbetande minskat stadigt sedan 1990-talet. Bland övriga branscher har antalet förvärvsarbetande ökat inom bland annat kreditinstitut, fastighetsförvaltning och företagstjänster samt forskning, utveckling och utbildning.
-
-```{r, echo=FALSE, message = FALSE, warning = FALSE, include=FALSE}
-diagram_capt <- "Källa: RAMS och BAS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92. Bas från och med 2020."
-
-# Gör om år till en faktorvariabel för utbildningsnivå_balans. Detta för att kunna bestämma vilken ordning staplarna för de olika åren kommer i diagrammet
-max_ar <- max(sysselsatta_90_df$år)
-
-#sysselsatta_90_df$år <- factor(sysselsatta_90_df$år, levels = c(max_ar,"2010","2000","1990"))
-
-# Eftersom sysselsatta_90_df används även vid senare diagram så skapar jag en ny df som blir unik för denna chunk.
-# Annars blir det fel
-
-sysselsatta_90_df_alt <- sysselsatta_90_df %>% 
-  mutate(Näringsgren = stringr::str_to_sentence(Näringsgren),
-         Näringsgren = str_wrap(Näringsgren,40))
-
-# sysselsatta_90_df$Näringsgren <- stringr::str_to_sentence(sysselsatta_90_df$Näringsgren)
-# 
-# sysselsatta_90_df$Näringsgren <- str_wrap(sysselsatta_90_df$Näringsgren,40)
-
-diagram_titel <- paste0("Förvärvsarbetande (16+ år) i Dalarna ")
-diagramfil <- "per_bransch_tidsserie.png"
-
-fig_forv_90 <- SkapaStapelDiagram(skickad_df = sysselsatta_90_df_alt %>%
-                                   filter(år%in%c("1990","2000","2010",max_ar)),
-                                 skickad_x_var = "Näringsgren",
-                                 skickad_y_var = "antal",
-                                 skickad_x_grupp = "år",
-                                 manual_x_axis_text_vjust=1,
-                                 manual_x_axis_text_hjust=1,
-                                 manual_color = diagramfarger("rus_sex"),
-                                 x_axis_sort_value = TRUE,
-                                 vand_sortering = TRUE,
-                                 stodlinjer_avrunda_fem = TRUE,
-                                 x_axis_sort_grp = 4,
-                                 x_axis_lutning = 45,
-                                 diagram_titel = diagram_titel,
-                                 diagram_capt = diagram_capt,
-                                 manual_y_axis_title = "",
-                                 output_mapp = "",
-                                 filnamn_diagram = diagramfil,
-                                 skriv_till_diagramfil = FALSE)
-
-knitr::include_graphics(here("Diagram","per_bransch_tidsserie.png"))
-```
+Den största näringen i Dalarna, där flest arbetar, var under år `r max(forvarvsarbetande_90_senastear$år)` hälso och sjukvård, med ungefär `r plyr::round_any(forvarvsarbetande_90_senastear %>% filter(Näringsgren == "enh för hälso- och sjukvård, socialtjänst; veterinärer",år == max(år)) %>% .$antal,1000)` sysselsatta. Även inom handel, transport, magasinering och kommunikation samt utvinning av mineral och tillverkningsindustri arbetade många i Dalarna `r max(forvarvsarbetande_90_senastear$år)`. I den sistnämnda branschgruppen har dock antalet förvärvsarbetande minskat stadigt sedan 1990-talet. I övrigt har antalet förvärvsarbetande ökat inom bland annat kreditinstitut, fastighetsförvaltning och företagstjänster samt forskning, utveckling och utbildning. I den förstnämnda branschgruppen återfinns bland annat sysselsatta inom IT-sektorn, vilket kan förklara en del av uppgången.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 2"}
-fig_forv_90
+gg_forv_90
 ```
 
 I Dalarnas största kommun, Falun, jobbar majoriteten inom vård och omsorg, följt av utbildning, företagstjänster, offentlig förvaltning, handel, tillverkning, bygg, kultur, fritid och nöje. 

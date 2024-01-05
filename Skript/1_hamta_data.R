@@ -11,9 +11,12 @@ diag_befolkning(output_mapp = Output_mapp,
                 spara_data = TRUE)
 
 # Förvärvsarbetande från 1990 till senaste år
-source(here("Skript","forvarvsarbetande_90_senastear.R"), encoding="UTF-8")
-hamta_data_sysselsatta_1990(output_mapp = Output_mapp,
-                            spara_data = TRUE)
+source(here("Skript","diagram_forvarvsarbetande_90_senastear_SCB.R"), encoding="UTF-8")
+gg_forv_90 <- diagram_data_forvarvsarbetande_90(output_mapp_figur = Output_mapp_figur,
+                                                spara_figur = TRUE,
+                                                returnera_figur = TRUE,
+                                                returnera_data = TRUE,
+                                                vald_farg = diagramfarger("rus_sex"))
 
 # Utbildningsnivå från 85 och framåt uppdelat på kön
 source("G:/skript/hamta_data/utbildningsniva_85.R")

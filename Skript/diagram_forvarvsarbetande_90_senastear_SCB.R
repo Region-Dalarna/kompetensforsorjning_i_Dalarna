@@ -1,13 +1,12 @@
-#test = diagram_data_forvarvsarbetande_90(region_vekt = "20",spara_figur = FALSE,valda_ar = c("1990","2000","2010","2015"))
-diagram_data_forvarvsarbetande_90 <- function(region_vekt = c("20"), # Vilken region vill man ha. Enbart 1 får väljas
+#test = diagram_data_forvarvsarbetande_90(region_vekt = "01",spara_figur = FALSE,valda_ar = c("1990","2000","2010"),kon_klartext = c("kvinnor"))
+diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken region vill man ha. Enbart 1 får väljas
                                               output_mapp_data = NA, # Om man vill spara data. Används primärt i Rmarkdown-rapporter.
                                               output_mapp_figur= "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
+                                              spara_figur = TRUE,
                                               filnamn_data = "arbetsloshet_76.xlsx", # Filnamn på sparad data
                                               kon_klartext = c("män","kvinnor"), # män och kvinnor ger totalt. Det går även att välja ett av könen. Jämförelse mellan kön är inte möjlig.
                                               valda_ar = c("1990","2000","2010"), # Vilka år skall jämföras (max 1 mindre än antalet färger i vald_farg). Senaste år läggs till automatiskt
                                               vald_farg = diagramfarger("rus_sex"), # Val av diagramfärger
-                                              filnamn_figur = "forvarvsarbetande_90.png", # Filnamn
-                                              spara_figur = TRUE, # Sparar figuren till output_mapp_figur
                                               returnera_figur = TRUE, # Skall figuren returneras som ett ggplot-objekt
                                               returnera_data = FALSE){ # Tidsserie där kön jämförs. Går bara om en region valts i region_vekt
   
@@ -29,6 +28,7 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = c("20"), # Vilken re
   objektnamn <- c() # Används för att namnge
   
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R")
+  source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R", encoding = "utf-8", echo = FALSE)
   source("https://raw.githubusercontent.com/Region-Dalarna/hamta_data/main/hamta_forvarvsarbetande_bransch_1990_senastear_SCB.R")
  
   # Sourcar data för arbetslöshet
@@ -38,31 +38,39 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = c("20"), # Vilken re
   
   if("kvinnor" %in% unique(df$kön) & "män" %in% unique(df$kön)) {
     variabellista = c("region","Näringsgren","år")
-    diagram_titel <- paste0("Förvärvsarbetande (16+ år) i Dalarna")
-    objektnamn <- "forvarvsarbetande_90_totalt"
+    diagram_titel <- paste0("Förvärvsarbetande (16+ år) i ",skapa_kortnamn_lan(hamtaregion_kod_namn(region_vekt)[2]))
+    objektnamn <- paste0("forvarvsarbetande_90_totalt_",skapa_kortnamn_lan(hamtaregion_kod_namn(region_vekt)[2]))
   }else {
       variabellista = c("region","kön","Näringsgren","år")
-      diagram_titel <- paste0("Förvärvsarbetande ",unique(df$kön) ," (16+ år) i Dalarna")
-      objektnamn <- paste0("forvarvsarbetande_90_",unique(df$kön))
+      diagram_titel <- paste0("Förvärvsarbetande ",unique(df$kön) ," (16+ år) i ",skapa_kortnamn_lan(hamtaregion_kod_namn(region_vekt)[2]))
+      objektnamn <- paste0("forvarvsarbetande_90_",unique(df$kön),"_",skapa_kortnamn_lan(hamtaregion_kod_namn(region_vekt)[2]))
       }
   
   df_sum = df %>% 
     group_by(across(any_of(variabellista))) %>% 
-      summarize(antal = sum(antal))
+      summarize(antal = sum(antal)) %>% 
+        ungroup()
   
+  # Om användaren vill returnera data görs detta här
   if(returnera_data == TRUE){
     assign("forvarvsarbetande_90_senastear", df_sum, envir = .GlobalEnv)
   }
+  
+  # Om användaren vill spara data görs detta här. Sker enbart om både outputmapp och filnamn har valts
+  if (!is.na(output_mapp_data) & !is.na(filnamn_data)){
+    write.xlsx(df_sum,paste0(output_mapp,filnamn))
+  }
     
-  # Gör om år till en faktorvariabel för utbildningsnivå_balans. Detta för att kunna bestämma vilken ordning staplarna för de olika åren kommer i diagrammet
+  # Lägger till senaste år till de år som användaren valt
   valda_ar <- c(valda_ar, max(df_sum$år))
 
+  # Branscher har för långa namn, vilket justeras här
   sysselsatta_90_df_alt <- df_sum %>% 
     mutate(Näringsgren = stringr::str_to_sentence(Näringsgren),
            Näringsgren = str_wrap(Näringsgren,40))
   
 
-  diagram_capt <- "Källa: RAMS och BAS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92.\nByte till bas från och med 2020."
+  diagram_capt <- "Källa: RAMS och BAS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92.\nByte från RAMS till BAS som datakälla från och med 2020."
   diagramfil <- paste0(objektnamn,".png")
   
   gg_obj <- SkapaStapelDiagram(skickad_df = sysselsatta_90_df_alt %>%
@@ -72,7 +80,7 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = c("20"), # Vilken re
                                     skickad_x_grupp = "år",
                                     manual_x_axis_text_vjust=1,
                                     manual_x_axis_text_hjust=1,
-                                    manual_color = diagramfarger("rus_sex"),
+                                    manual_color = vald_farg,
                                     x_axis_sort_value = TRUE,
                                     vand_sortering = TRUE,
                                     stodlinjer_avrunda_fem = TRUE,
