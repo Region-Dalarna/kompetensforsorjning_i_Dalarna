@@ -49,12 +49,12 @@ temp_df <- las_in_data_gymnasieantagningen(output_mapp_excel = Output_mapp,
 
 rm(temp_df)
 
-# Arbetslöshet 08-senaste år. Excel, Arbetsförmedlingen
+# Arbetslöshet 08-senaste år. Excel, Arbetsförmedlingen - KVAR
 source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
 hamta_data_arbetsloshet(output_mapp = Output_mapp,
                         spara_data = TRUE)
 
-# Förvärvsarbetande, uppdelat på kön - Från projektet kvinnor och män
+# Förvärvsarbetande, uppdelat på kön - Från projektet kvinnor och män 
 source("C:/Users/frkjon/Projekt/kvinnor_man_i_Dalarna/Skript/forvarvsarbetande_bransch.R", encoding="UTF-8")
 data_forvarvsarbetande_bransch(spara_data = TRUE,
                                output_mapp = Output_mapp)
