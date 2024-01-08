@@ -103,11 +103,15 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
   if(diag_forandring == TRUE){
     diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92"
     
-    # Beräknar förändring in antalet anställda från 1990 till senaste år
-    df_for <- df %>%
-      filter(år %in% c(min(år),max(år))) %>% 
+    df_sum = df %>% 
       group_by(år,region,Näringsgren) %>% 
-      summarize(antal = sum(antal)) %>% 
+        summarize(antal = sum(antal)) %>% 
+          ungroup()
+    
+    # Beräknar förändring in antalet anställda från 1990 till senaste år
+    df_for <- df_sum %>%
+      filter(år %in% c(min(år),max(år))) %>% 
+      group_by(region,Näringsgren) %>%
       mutate(skillnad = last(antal)-first(antal)) %>% 
       mutate(Näringsgren =case_when(
         Näringsgren == "byggindustri" ~ "Bygg",
