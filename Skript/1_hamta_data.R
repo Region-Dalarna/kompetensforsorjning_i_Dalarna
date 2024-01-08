@@ -54,10 +54,16 @@ source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
 hamta_data_arbetsloshet(output_mapp = Output_mapp,
                         spara_data = TRUE)
 
-# Förvärvsarbetande, uppdelat på kön - Från projektet kvinnor och män 
-source("C:/Users/frkjon/Projekt/kvinnor_man_i_Dalarna/Skript/forvarvsarbetande_bransch.R", encoding="UTF-8")
-data_forvarvsarbetande_bransch(spara_data = TRUE,
-                               output_mapp = Output_mapp)
+# Förvärvsarbetande senaste observation (uppdelat på kön) 
+source("https://raw.githubusercontent.com/Region-Dalarna/sarbarhetsanalys/main/Skript/diagram_andel_forvarvsarbetande_bransch.R")
+gg_forv_senastear <- diag_sysselsatta_andel(region_vekt = c("20"),
+                                            output_mapp_figur = Output_mapp_figur,
+                                            returnera_data = TRUE,
+                                            spara_figur = TRUE,
+                                            returnera_figur = TRUE,
+                                            diag_lan = FALSE,
+                                            diag_kommun = FALSE,
+                                            diag_lan_antal = TRUE)
 
 # Förvärvsarbetande prognos - Excel - Trender och prognoser
 source(here("Skript","forvarvsarbetande_prognos.R"), encoding="UTF-8")

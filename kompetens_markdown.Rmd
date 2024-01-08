@@ -31,7 +31,7 @@ befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjni
 #utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_85.xlsx")
 utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
 arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx")
-forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_bransch.xlsx")
+#forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_bransch.xlsx")
 forvarvsarbetande_prognos <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_prognos.xlsx")
 kompetens_yrke_lan <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/kompetens_lan_bransch.xlsx")
 #Skriptet som skapar nedanstående data finns på Mona: P1079gem/Jon/kompetensförsörjning/utbildningsniva_bransch_korrekt.R. OBS! Uppdateras inte när skriptet hämta data körs.
@@ -226,39 +226,10 @@ Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp som inte är h
  
 </details>
 
-I Dalarna var den klart största branschen `r max(forvarvsarbetande_bransch$år)` , sett till antalet förvärvsarbetande, `r tolower(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal=sum(antal)) %>% filter(region == "Dalarna",antal== max(antal)) %>% .$naringsgren)` med ungefär `r format(plyr::round_any(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal=sum(antal)) %>% filter(region == "Dalarna",antal== max(antal)) %>% .$antal,100),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas. Andra branscher med många anställda i Dalarna är tillverkning och utvinning samt utbildning, med ca `r format(plyr::round_any(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal = sum(antal)) %>% filter(region == "Dalarna",naringsgren == "Tillverkning och utvinning") %>% .$antal,100),big.mark = " ")` respektive ungefär `r format(plyr::round_any(forvarvsarbetande_bransch %>% group_by(år,region,naringsgren) %>% summarize(antal = sum(antal)) %>% filter(region == "Dalarna",naringsgren == "Utbildning") %>% .$antal,100),big.mark = " ")` anställda. Störst andel kvinnor återfinns inom `r tolower(forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$naringsgren)` där ca `r round((forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "kvinnor") %>% filter(andel == max(andel)) %>% .$andel)*100,0)` procent av de förvärvsarbetande är kvinnor, medan störst andel män återfinns inom `r tolower(forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$naringsgren)` där ca `r round((forvarvsarbetande_bransch %>% filter(region == "Dalarna",kön == "män") %>% filter(andel == max(andel)) %>% .$andel)*100,0)` procent av de förvärvsarbetande är män.
-
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: 16-74 år"
-
-forvarvsarbetande_bransch$andel <- (forvarvsarbetande_bransch$andel)*100
-
-diagramtitel <- paste0("Antal förvärvsarbetande per bransch i Dalarna år ",unique(forvarvsarbetande_bransch$år))
-diagramfil <- "forvarvsarbetande_bransch.png"
-
-forvarvsarbetande_kon_fig <- SkapaStapelDiagram(skickad_df <- forvarvsarbetande_bransch %>%
-                                                 filter(region == "Dalarna"), 
-                                               skickad_x_var = "naringsgren", 
-                                               skickad_y_var = "antal", 
-                                               skickad_x_grupp = "kön",
-                                               diagram_liggande=FALSE,
-                                               manual_x_axis_text_vjust=1,
-                                               manual_x_axis_text_hjust=1,
-                                               x_axis_lutning = 45,
-                                               x_axis_sort_value=TRUE,
-                                               manual_color = diagramfarger("kon"),
-                                               stodlinjer_avrunda_fem = TRUE,
-                                               diagram_titel = diagramtitel,
-                                               diagram_capt =  diagram_capt,
-                                               facet_legend_bottom=TRUE,
-                                               berakna_index = FALSE,
-                                               output_mapp = "",
-                                               filnamn_diagram = diagramfil,
-                                               skriv_till_diagramfil = FALSE)
-```
+I Dalarna är den klart största branschen, sett till antalet förvärvsarbetande, `r tolower(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal=sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$bransch)` med ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$Antal,100),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas. Andra branscher med många anställda i Dalarna är tillverkning och utvinning samt utbildning, med ca `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Tillverkning och utvinning") %>% .$Antal,100),big.mark = " ")` respektive ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Utbildning") %>% .$Antal,100),big.mark = " ")` anställda. Inom vård och omsorg samt utbildning är en övervägande majoritet av de sysselsatta kvinnor, medan det omvända gäller för bygg och transport.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 8"}
-forvarvsarbetande_kon_fig
+gg_forv_senastear
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 8", include = FALSE}
