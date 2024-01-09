@@ -10,10 +10,12 @@ source(here("Skript","befolkning_aldersgrupp_prognos.R"), encoding="UTF-8")
 diag_befolkning(output_mapp = Output_mapp,
                 spara_data = TRUE)
 
-# Förvärvsarbetande från 1990 till senaste år
+# Förvärvsarbetande från 1990 till senaste år. Både antal och förändring (från första till sista)
 source(here("Skript","diagram_forvarvsarbetande_90_senastear_SCB.R"), encoding="UTF-8")
 gg_forv_90 <- diagram_data_forvarvsarbetande_90(output_mapp_figur = Output_mapp_figur,
                                                 spara_figur = TRUE,
+                                                diag_antal = TRUE,
+                                                diag_forandring = TRUE,
                                                 returnera_figur = TRUE,
                                                 returnera_data = TRUE,
                                                 vald_farg = diagramfarger("rus_sex"))
@@ -64,6 +66,15 @@ gg_forv_senastear <- diag_sysselsatta_andel(region_vekt = c("20"),
                                             diag_lan = FALSE,
                                             diag_kommun = FALSE,
                                             diag_lan_antal = TRUE)
+
+source(here("Skript","diagram_forvarvsarbetande_90_senastear_SCB.R"), encoding="UTF-8")
+gg_forv_forandring <- diagram_data_forvarvsarbetande_90(output_mapp_figur = Output_mapp_figur,
+                                                        spara_figur = TRUE,
+                                                        returnera_figur = TRUE,
+                                                        returnera_data = TRUE,
+                                                        diag_antal = FALSE,
+                                                        diag_forandring =TRUE,
+                                                        vald_farg = diagramfarger("rus_sex"))
 
 # Förvärvsarbetande prognos - Excel - Trender och prognoser
 source(here("Skript","forvarvsarbetande_prognos.R"), encoding="UTF-8")

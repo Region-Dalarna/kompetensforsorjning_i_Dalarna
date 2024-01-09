@@ -29,7 +29,7 @@ source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_Sk
 befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_prognos.xlsx")
 #sysselsatta_90_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_90.xlsx")
 #utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_85.xlsx")
-utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
+#utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
 arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx")
 #forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_bransch.xlsx")
 forvarvsarbetande_prognos <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_prognos.xlsx")
@@ -139,7 +139,7 @@ befolkning_for
 Den största näringen i Dalarna, där flest arbetar, var under år `r max(forvarvsarbetande_90_senastear$år)` hälso och sjukvård, med ungefär `r plyr::round_any(forvarvsarbetande_90_senastear %>% filter(Näringsgren == "enh för hälso- och sjukvård, socialtjänst; veterinärer",år == max(år)) %>% .$antal,1000)` sysselsatta. Även inom handel, transport, magasinering och kommunikation samt utvinning av mineral och tillverkningsindustri arbetade många i Dalarna `r max(forvarvsarbetande_90_senastear$år)`. I den sistnämnda branschgruppen har dock antalet förvärvsarbetande minskat stadigt sedan 1990-talet. I övrigt har antalet förvärvsarbetande ökat inom bland annat kreditinstitut, fastighetsförvaltning och företagstjänster samt forskning, utveckling och utbildning. I den förstnämnda branschgruppen återfinns bland annat sysselsatta inom IT-sektorn, vilket kan förklara en del av uppgången.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 2"}
-gg_forv_90
+gg_forv_90$forvarvsarbetande_90_totalt_Dalarna
 ```
 
 I Dalarnas största kommun, Falun, jobbar majoriteten inom vård och omsorg, följt av utbildning, företagstjänster, offentlig förvaltning, handel, tillverkning, bygg, kultur, fritid och nöje. 
@@ -232,55 +232,12 @@ I Dalarna är den klart största branschen, sett till antalet förvärvsarbetand
 gg_forv_senastear
 ```
 
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92"
+Hur många som jobbar inom olika branscher i Dalarna har förändrats genom åren. En tydlig utveckling, mellan 1990 och `r max(forvarvsarbetande_90_forandring$år)` är att många fler arbetar i företag som sysslar med `r tolower(forvarvsarbetande_90_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$Näringsgren)`, en ökning på ungefär `r format(plyr::round_any(forvarvsarbetande_90_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$skillnad,100),big.mark= " ")` förvärvsarbetande. Detta beror sannolikt på att många företag idag lejer bort vissa tjänster, såsom lokalvård. Om exempelvis ett tillverkande företag som SSAB tidigare anställde lokalvårdare själva, så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället lejer ut sådan verksamhet till andra företag specialiserade inom området, räknas lokalvårdarna istället som förvärvsarbetande inom företagstjänster, finans mm.
 
-# Beräknar förändring in antalet anställda från 1990 till senaste år
-sysselsatta_df_forandring <- sysselsatta_90_df %>%
-  filter(år %in% c(min(år),max(år))) %>% 
-    group_by(region,Näringsgren) %>% 
-      mutate(skillnad = last(antal)-first(antal)) %>% 
-        mutate(Näringsgren =case_when(
-          Näringsgren == "byggindustri" ~ "Bygg",
-          Näringsgren == "civila myndigheter, försvar; internat. organisationer" ~ "Myndigheter mm" ,
-          Näringsgren == "energi- o vattenförsörjning, avfallshantering" ~ "Energi och miljö",
-          Näringsgren == "enh för hälso- och sjukvård, socialtjänst; veterinärer" ~ "Hälso- och sjukvård mm" ,
-          Näringsgren == "forskning o utveckling; utbildning" ~ "Utbildning",
-          Näringsgren == "handel; transport, magasinering; kommunikation" ~ "Handel, transport mm" ,
-          Näringsgren == "jordbruk, skogsbruk, jakt, fiske" ~ "Jordbruk och skogsbruk",
-          Näringsgren == "kreditinstitut, fastighetsförvaltn, företagstjänster" ~ "Företagstjänster, finans mm",
-          Näringsgren == "näringsgren okänd" ~ "Okänd verksamhet" ,
-          Näringsgren == "personliga och kulturella tjänster" ~ "Kultur mm",
-          Näringsgren == "utvinning av mineral, tillverkningsindustri" ~ "Tillverkning och utvinning"))
-
-diagram_titel <- paste0("Förändring av antalet förvärvsarbetande (16-74) år från år ", min(sysselsatta_df_forandring$år), " till ", max(sysselsatta_df_forandring$år))
-diagramfil <- "forvarvsarbetande_forandring.png"
-
-forv_forandring_fig <- SkapaStapelDiagram(skickad_df = sysselsatta_df_forandring %>% 
-                                           filter(år == max(år),Näringsgren != "Okänd verksamhet"), 
-                                         skickad_x_var = "Näringsgren", 
-                                         skickad_y_var = "skillnad",
-                                         manual_color = diagramfarger("rus_sex")[1],
-                                         diagram_titel = diagram_titel,
-                                         x_axis_sort_value = TRUE,
-                                         x_axis_lutning = 90,
-                                         diagram_capt = diagram_capt,
-                                         diagram_liggande = TRUE,
-                                         diagram_facet = FALSE,
-                                         stodlinjer_avrunda_fem = TRUE,
-                                         geom_position_stack = TRUE,
-                                         output_mapp = "",
-                                         filnamn_diagram = diagramfil,
-                                         skriv_till_diagramfil = FALSE)
-
-```
-
-Hur många som jobbar inom olika branscher i Dalarna har förändrats genom åren. En tydlig utveckling, mellan 1990 och `r max(sysselsatta_df_forandring$år)` är att många fler arbetar i företag som sysslar med `r tolower(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$Näringsgren)`, en ökning på ungefär `r format(plyr::round_any(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$skillnad,100),big.mark= " ")` förvärvsarbetande. Detta beror sannolikt på att många företag idag lejer bort vissa tjänster,såsom lokalvård. Om exempelvis ett tillverkande företag som SSAB tidigare anställde lokalvårdare själva, så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället lejer ut sådan verksamhet till andra företag specialiserade inom området, räknas lokalvårdarna istället som förvärvsarbetande inom företagstjänster, finans mm.
-
-Den bransch i Dalarna där antalet förvärvsarbetande har minskat mest är `r tolower(sysselsatta_df_forandring %>% filter(år == max(år)) %>% filter(skillnad == min(.$skillnad)) %>%  .$Näringsgren)`, med ca `r format(plyr::round_any(abs(sysselsatta_df_forandring %>% filter(år == min(år)) %>% filter(skillnad == min(.$skillnad)) %>%  .$skillnad),100),big.mark= " ")` färre förvärvsarbetande `r max(sysselsatta_df_forandring$år)` jämfört med 1990. Detta beror delvis på det som diskuterades i föregående stycke, men en viktigare förklaring är sannolikt att företag inom tillverkning och utvinning idag har en mer automatiserad produktion än de hade för 30 år sedan, något som medför att det behövs färre antal anställda i produktionen.
+Den bransch i Dalarna där antalet förvärvsarbetande har minskat mest är `r tolower(forvarvsarbetande_90_forandring %>% filter(år == max(år)) %>% filter(skillnad == min(.$skillnad)) %>%  .$Näringsgren)`, med ca `r format(plyr::round_any(abs(forvarvsarbetande_90_forandring %>% filter(år == min(år)) %>% filter(skillnad == min(.$skillnad)) %>%  .$skillnad),100),big.mark= " ")` färre förvärvsarbetande `r max(forvarvsarbetande_90_forandring$år)` jämfört med 1990. Detta beror delvis på det som diskuterades i föregående stycke, men en viktigare förklaring är sannolikt att företag inom tillverkning och utvinning idag har en mer automatiserad produktion än de hade för 30 år sedan, något som medför att det behövs färre antal anställda i produktionen.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 9"}
-forv_forandring_fig
+gg_forv_90$forvarvsarbetande_90_forandring_Dalarna
 ```
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}

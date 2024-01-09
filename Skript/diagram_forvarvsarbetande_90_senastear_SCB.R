@@ -139,7 +139,7 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
     
     diagram_titel <- paste0("Förändring av antalet förvärvsarbetande (16-74) år från år ", min(df_for$år), " till ", max(df_for$år))
     diagramfil <- "forvarvsarbetande_90_forandring.png"
-    objektnamn <- c(objektnamn,"forvarvsarbetande_90_forandring")
+    objektnamn <- c(objektnamn,paste0("forvarvsarbetande_90_forandring_",skapa_kortnamn_lan(hamtaregion_kod_namn(region_vekt)[2])))
     
     gg_obj <- SkapaStapelDiagram(skickad_df = df_for %>% 
                                       filter(år == max(år),Näringsgren != "Okänd verksamhet"), 
