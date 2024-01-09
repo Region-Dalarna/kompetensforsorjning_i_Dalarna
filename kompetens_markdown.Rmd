@@ -240,6 +240,8 @@ Den bransch i Dalarna där antalet förvärvsarbetande har minskat mest är `r t
 gg_forv_90$forvarvsarbetande_90_forandring_Dalarna
 ```
 
+AVVAKTA MED PROGNOSEN
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna"
 
