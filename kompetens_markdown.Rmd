@@ -232,21 +232,6 @@ I Dalarna är den klart största branschen, sett till antalet förvärvsarbetand
 gg_forv_senastear
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 8", include = FALSE}
-#lista_figurer$antal_sysselsatta_proc_min_max_ar
-knitr::include_graphics(here("Diagram","antal_sysselsatta_proc_min_max_ar.png"))
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 8", include = FALSE}
-#lista_figurer$antal_sysselsatta_proc_min_max_ar
-knitr::include_graphics(here("Diagram","antal_sysselsatta_proc_min_max_ar_ejsun.png"))
-```
-
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 8",include = FALSE}
-#lista_figurer$antal_sysselsatta_proc_min_max_ar
-knitr::include_graphics(here("Diagram","antal_forvarvsarbetande_bransch_97.png"))
-```
-
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92"
 

@@ -3,7 +3,7 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
                                               output_mapp_data = NA, # Om man vill spara data. Används primärt i Rmarkdown-rapporter.
                                               output_mapp_figur= "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
                                               spara_figur = TRUE,
-                                              filnamn_data = "arbetsloshet_76.xlsx", # Filnamn på sparad data
+                                              filnamn_data = "forvarvsarbetande_bransch.xlsx", # Filnamn på sparad data
                                               diag_antal = TRUE,
                                               diag_forandring = TRUE,
                                               kon_klartext = c("män","kvinnor"), # män och kvinnor ger totalt. Det går även att välja ett av könen. Jämförelse mellan kön är inte möjlig.
@@ -27,7 +27,8 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
   
   gg_list <- list() # Skapa en tom lista att lägga flera ggplot-objekt i (om man skapar flera diagram)
   i <- 1 # Räknare
-  objektnamn <- c() # Används för att namnge
+  objektnamn <- c() # Används för att namnge objekt i lista
+  list_data <- lst() # Skapa tom lista som används för att spara till Excel.
   
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R")
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R", encoding = "utf-8", echo = FALSE)
@@ -61,7 +62,7 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
     
     # Om användaren vill spara data görs detta här. Sker enbart om både outputmapp och filnamn har valts
     if (!is.na(output_mapp_data) & !is.na(filnamn_data)){
-      write.xlsx(df_sum,paste0(output_mapp,filnamn))
+      list_data <- c(list_data,list("Antal" = df_sum))
     }
       
     # Lägger till senaste år till de år som användaren valt
@@ -126,6 +127,16 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
         Näringsgren == "personliga och kulturella tjänster" ~ "Kultur mm",
         Näringsgren == "utvinning av mineral, tillverkningsindustri" ~ "Tillverkning och utvinning"))
     
+    # Om användaren vill returnera data görs detta här
+    if(returnera_data == TRUE){
+      assign("forvarvsarbetande_90_forandring", df_for, envir = .GlobalEnv)
+    }
+    
+    # Om användaren vill spara data görs detta här. Sker enbart om både outputmapp och filnamn har valts
+    if (!is.na(output_mapp_data) & !is.na(filnamn_data)){
+      list_data <- c(list_data,list("Andel" = df_sum))
+    }
+    
     diagram_titel <- paste0("Förändring av antalet förvärvsarbetande (16-74) år från år ", min(df_for$år), " till ", max(df_for$år))
     diagramfil <- "forvarvsarbetande_90_forandring.png"
     objektnamn <- c(objektnamn,"forvarvsarbetande_90_forandring")
@@ -152,5 +163,9 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
 
   names(gg_list) <- c(objektnamn)
   if(returnera_figur == TRUE) return(gg_list)
+  
+  if (!is.na(output_mapp_data) & !is.na(filnamn_data)){
+    write.xlsx(df_sum,paste0(output_mapp,filnamn))
+  }
   
 }
