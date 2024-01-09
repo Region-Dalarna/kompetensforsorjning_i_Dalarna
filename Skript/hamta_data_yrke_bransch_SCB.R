@@ -29,7 +29,7 @@ hamta_data_yrken_bransch <- function(region_vekt = "20", # Val av region. Finns 
   url <- "https://api.scb.se/OV0104/v1/doris/sv/ssd/START/AM/AM0208/AM0208D/YREG56N"
   
   # Gör om från klartext till kod som databasen förstår
-  if (kon_klartext == "*"){
+  if (all(kon_klartext == "*")){
     
     kon_vekt = "*"
     
@@ -41,7 +41,7 @@ hamta_data_yrken_bransch <- function(region_vekt = "20", # Val av region. Finns 
     
   }else yrke_vekt <- hamta_kod_med_klartext(url, yrke_klartext, skickad_fran_variabel = "Yrke2012")
   
-  if ( bransch_klartext == "*"){
+  if ( all(bransch_klartext == "*")){
     
     brancsh_vekt = "*"
     

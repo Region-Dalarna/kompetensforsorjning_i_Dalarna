@@ -35,9 +35,10 @@ diagram_kvalifikationskrav <- function(region_vekt = "20", # Vilken region vill 
   source("https://raw.githubusercontent.com/Region-Dalarna/hamta_data/main/hamta_data_yrke_bransch_SCB.R")
   
   # Sourcar data för arbetslöshet
-  df <-  hamta_data_yrken_bransch(region_vekt = region_vekt,
-                                  kon_klartext = kon_klartext,
-                                  returnera_data = TRUE) 
+  px_df <-  hamta_data_yrken_bransch(region_vekt = region_vekt,
+                                     kon_klartext = kon_klartext,
+                                     tid = "9999",
+                                     returnera_data = TRUE) 
   
   # Ändra namn på vissa branscher
   px_df$Branschgrupp <- case_when(
