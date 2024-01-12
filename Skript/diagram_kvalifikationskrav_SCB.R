@@ -1,16 +1,16 @@
 #test = diagram_data_forvarvsarbetande_90(region_vekt = "20",spara_figur = FALSE,valda_ar = c("1990","2000","2010"),kon_klartext = c("män","kvinnor"))
-diagram_kvalifikationskrav <- function(region_vekt = "20", # Vilken region vill man ha. Enbart 1 får väljas
+diagram_kvalifikationskrav <- function(region_vekt = "20", # Vilken region vill man titta på. Enbart en får väljas.
                                               output_mapp_data = NA, # Om man vill spara data. Används primärt i Rmarkdown-rapporter.
                                               output_mapp_figur= "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
+                                              diag_jmf = TRUE, # Jämför antingen kommuner eller län (beroende på val under jmf_omrade nedan)
+                                              diag_senastear = TRUE, # Senaste år för vald region
+                                              jmf_omrade = "lan", # Om lan, jämförs sveriges alla län. Om kommun, jämförs kommuner i valt län (region_vekt) eller i samma län som vald kommun (region_vekt)
                                               spara_figur = TRUE,
-                                              filnamn_data = "forvarvsarbetande_bransch.xlsx", # Filnamn på sparad data
-                                              diag_antal = TRUE,
-                                              diag_forandring = TRUE,
+                                              filnamn_data = "kvalifikationskrav.xlsx", # Filnamn på sparad data
                                               kon_klartext = c("män","kvinnor"), # män och kvinnor ger totalt. Det går även att välja ett av könen. Jämförelse mellan kön är inte möjlig.
-                                              valda_ar = c("1990","2000","2010"), # Vilka år skall jämföras (max 1 mindre än antalet färger i vald_farg). Senaste år läggs till automatiskt
                                               vald_farg = diagramfarger("rus_sex"), # Val av diagramfärger
                                               returnera_figur = TRUE, # Skall figuren returneras som ett ggplot-objekt
-                                              returnera_data = FALSE){ # Tidsserie där kön jämförs. Går bara om en region valts i region_vekt
+                                              returnera_data = FALSE){ # Skall data returneras
   
   
   # =================================================================================================================
@@ -19,7 +19,7 @@ diagram_kvalifikationskrav <- function(region_vekt = "20", # Vilken region vill 
   # Det andra visar en jämförelse mellan kön inom ett län (eller riket).
   # Källa  https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0210__AM0210A/ArbStatusM/
   # =================================================================================================================
-  
+  kon_klartext = "kvinnor"
   # Skript som behövs
   if (!require("pacman")) install.packages("pacman")
   p_load(here,
@@ -30,9 +30,18 @@ diagram_kvalifikationskrav <- function(region_vekt = "20", # Vilken region vill 
   objektnamn <- c() # Används för att namnge objekt i lista
   list_data <- lst() # Skapa tom lista som används för att spara till Excel.
   
+  valt_lan = hamtaregion_kod_namn("20")[[2]]
+  
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R")
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R", encoding = "utf-8", echo = FALSE)
   source("https://raw.githubusercontent.com/Region-Dalarna/hamta_data/main/hamta_data_yrke_bransch_SCB.R")
+  
+  if(jmf_omrade == "lan"){
+    region_vekt = hamtaAllaLan()
+  }
+  if(jmf_omrade == "kommun"){
+    region_vekt = hamtakommuner(substr(region_vekt,1,2))
+  }
   
   # Sourcar data för arbetslöshet
   px_df <-  hamta_data_yrken_bransch(region_vekt = region_vekt,
@@ -71,52 +80,33 @@ diagram_kvalifikationskrav <- function(region_vekt = "20", # Vilken region vill 
   
   
   
-  if(diag_antal == TRUE){
-    if("kvinnor" %in% unique(df$kön) & "män" %in% unique(df$kön)) {
-      variabellista = c("region","Näringsgren","år")
-      diagram_titel <- paste0("Förvärvsarbetande (16+ år) i ",skapa_kortnamn_lan(hamtaregion_kod_namn(region_vekt)[2]))
-      objektnamn <- paste0("forvarvsarbetande_90_totalt_",skapa_kortnamn_lan(hamtaregion_kod_namn(region_vekt)[2]))
+  if(diag_jmf == TRUE){
+    if("kvinnor" %in% unique(px_df$kön) & "män" %in% unique(px_df$kön)) {
+      variabellista = c("år","region","kompetensniva")
+      diagram_titel <- paste0("Kvalifikationskrav för anställda (16-64 år) ",max(px_df$år))
+      objektnamn <- paste0("kvalifikationskrav_jmf_",region_vekt)
     }else {
-      variabellista = c("region","kön","Näringsgren","år")
-      diagram_titel <- paste0("Förvärvsarbetande ",unique(df$kön) ," (16+ år) i ",skapa_kortnamn_lan(hamtaregion_kod_namn(region_vekt)[2]))
-      objektnamn <- paste0("forvarvsarbetande_90_",unique(df$kön),"_",skapa_kortnamn_lan(hamtaregion_kod_namn(region_vekt)[2]))
+      variabellista = c("år","kön","region","kompetensniva")
+      diagram_titel <- paste0("Kvalifikationskrav för anställda ",unique(px_df$kön) ," (16-64 år) i ",max(px_df$år))
+      objektnamn <- paste0("kvalifikationskrav_jmf_",unique(px_df$kön),"_",region_vekt)
     }
-    
-    df_sum = df %>% 
-      group_by(across(any_of(variabellista))) %>% 
-      summarize(antal = sum(antal)) %>% 
-      ungroup()
-    
-    # Om användaren vill returnera data görs detta här
-    if(returnera_data == TRUE){
-      assign("forvarvsarbetande_90_senastear", df_sum, envir = .GlobalEnv)
-    }
-    
-    # Om användaren vill spara data görs detta här. Sker enbart om både outputmapp och filnamn har valts
-    if (!is.na(output_mapp_data) & !is.na(filnamn_data)){
-      list_data <- c(list_data,list("Antal" = df_sum))
-    }
-    
+
     diagram_capt <- "Källa: Yrkesregistret i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
     
-    kompetens_lan <- kompetens_yrke_lan %>%
-      filter(år == max(år)) %>% 
-      group_by(år,region,kompetensniva) %>%
-      summarize(Antal=sum(`Anställda.16-64.år.(dagbef)`)) %>%
-      mutate(Andel=((Antal/sum(Antal))*100)-0.001)
-    
-    # Skapar en faktorvariabel för att få utbildningsnivå i "rätt" ordning i figuren
-    kompetens_lan$kompetensniva <- factor(kompetens_lan$kompetensniva, levels = c("Enklare yrken","Motsvarande gymnasial kompetens","Motsvarande högskolekompetens","Motsvarande fördjupad högskolekompetens","Chefsyrken","Okänt")[6:1])
-    
-    diagram_titel <- paste0("Kvalifikationskrav för anställda (16-64 år) ",max(kompetens_lan$år))
-    diagramfil <- "kompetenskrav_lan.png"
-    
-    kompetens_lan_fig <- SkapaStapelDiagram(skickad_df = kompetens_lan %>% 
-                                              mutate(region = skapa_kortnamn_lan(region)),
+    px_df_sum <- px_df %>% 
+        group_by(across(any_of(variabellista))) %>%
+          summarize(Antal = sum(`Anställda 16-64 år (dagbef)`)) %>%
+            mutate(Andel = ((Antal/sum(Antal))*100)-0.001) %>% 
+              ungroup()
+              
+   
+    kompetens_lan_fig <- SkapaStapelDiagram(skickad_df = px_df_sum %>% 
+                                              mutate(region = skapa_kortnamn_lan(region),
+                                                     kompetensniva = factor(kompetensniva, levels = c("Enklare yrken","Motsvarande gymnasial kompetens","Motsvarande högskolekompetens","Motsvarande fördjupad högskolekompetens","Chefsyrken","Okänt")[6:1])),
                                             skickad_x_var = "region",
                                             skickad_y_var = "Andel",
                                             skickad_x_grupp = "kompetensniva",
-                                            manual_color = c(rgb(211,211,211, maxColorValue = 255),diagramfarger("rus_sex")),
+                                            manual_color = c(rgb(211,211,211, maxColorValue = 255),vald_farg),
                                             diagram_titel = diagram_titel,
                                             x_axis_lutning = 0,
                                             diagram_capt = diagram_capt,
@@ -136,61 +126,52 @@ diagram_kvalifikationskrav <- function(region_vekt = "20", # Vilken region vill 
     
   }
   
-  if(diag_forandring == TRUE){
-    diagram_capt <- "Källa: RAMS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Branschgruppering baserad på SNI2002 och SNI92"
-    
-    df_sum = df %>% 
-      group_by(år,region,Näringsgren) %>% 
-      summarize(antal = sum(antal)) %>% 
-      ungroup()
-    
-    # Beräknar förändring in antalet anställda från 1990 till senaste år
-    df_for <- df_sum %>%
-      filter(år %in% c(min(år),max(år))) %>% 
-      group_by(region,Näringsgren) %>%
-      mutate(skillnad = last(antal)-first(antal)) %>% 
-      mutate(Näringsgren =case_when(
-        Näringsgren == "byggindustri" ~ "Bygg",
-        Näringsgren == "civila myndigheter, försvar; internat. organisationer" ~ "Myndigheter mm" ,
-        Näringsgren == "energi- o vattenförsörjning, avfallshantering" ~ "Energi och miljö",
-        Näringsgren == "enh för hälso- och sjukvård, socialtjänst; veterinärer" ~ "Hälso- och sjukvård mm" ,
-        Näringsgren == "forskning o utveckling; utbildning" ~ "Utbildning",
-        Näringsgren == "handel; transport, magasinering; kommunikation" ~ "Handel, transport mm" ,
-        Näringsgren == "jordbruk, skogsbruk, jakt, fiske" ~ "Jordbruk och skogsbruk",
-        Näringsgren == "kreditinstitut, fastighetsförvaltn, företagstjänster" ~ "Företagstjänster, finans mm",
-        Näringsgren == "näringsgren okänd" ~ "Okänd verksamhet" ,
-        Näringsgren == "personliga och kulturella tjänster" ~ "Kultur mm",
-        Näringsgren == "utvinning av mineral, tillverkningsindustri" ~ "Tillverkning och utvinning"))
-    
-    # Om användaren vill returnera data görs detta här
-    if(returnera_data == TRUE){
-      assign("forvarvsarbetande_90_forandring", df_for, envir = .GlobalEnv)
+  if(diag_senastear == TRUE){
+    if("kvinnor" %in% unique(px_df$kön) & "män" %in% unique(px_df$kön)) {
+      variabellista = c("år","region","Branschgrupp","kompetensniva")
+      diagram_titel <- paste0("Kvalifikationskrav för anställda (16-64 år) i ",valt_lan," ",max(px_df$år))
+      objektnamn <- paste0("kvalifikationskrav_senastear_",region_vekt)
+    }else {
+      variabellista = c("år","kön","region","Branschgrupp","kompetensniva")
+      diagram_titel <- paste0("Kvalifikationskrav för anställda ",unique(px_df$kön) ," (16-64 år) i ",valt_lan," ",max(px_df$år))
+      objektnamn <- paste0("kvalifikationskrav_senastear_",unique(px_df$kön),"_",region_vekt)
     }
     
-    # Om användaren vill spara data görs detta här. Sker enbart om både outputmapp och filnamn har valts
-    if (!is.na(output_mapp_data) & !is.na(filnamn_data)){
-      list_data <- c(list_data,list("Andel" = df_sum))
-    }
+    diagram_capt <- "Källa: Yrkesregistret i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
     
-    diagram_titel <- paste0("Förändring av antalet förvärvsarbetande (16-74) år från år ", min(df_for$år), " till ", max(df_for$år))
-    diagramfil <- "forvarvsarbetande_90_forandring.png"
-    objektnamn <- c(objektnamn,paste0("forvarvsarbetande_90_forandring_",skapa_kortnamn_lan(hamtaregion_kod_namn(region_vekt)[2])))
+    kompetens_bransch <- kompetens_yrke_lan %>%
+      filter(år==max(år),region=="Dalarnas län") %>%
+      group_by(across(any_of(variabellista))) %>%
+      summarize(Antal=sum(`Anställda.16-64.år.(dagbef)`)) %>%
+      mutate(Andel=((Antal/sum(Antal))*100)-0.001)
     
-    gg_obj <- SkapaStapelDiagram(skickad_df = df_for %>% 
-                                   filter(år == max(år),Näringsgren != "Okänd verksamhet"), 
-                                 skickad_x_var = "Näringsgren", 
-                                 skickad_y_var = "skillnad",
-                                 manual_color = vald_farg[1],
-                                 diagram_titel = diagram_titel,
-                                 x_axis_sort_value = TRUE,
-                                 x_axis_lutning = 90,
-                                 diagram_capt = diagram_capt,
-                                 diagram_liggande = TRUE,
-                                 stodlinjer_avrunda_fem = TRUE,
-                                 geom_position_stack = TRUE,
-                                 output_mapp = output_mapp_figur,
-                                 filnamn_diagram = diagramfil,
-                                 skriv_till_diagramfil = spara_figur)
+    # Skapar en faktorvariabel för att få utbildningsnivå i "rätt" ordning i figuren
+    kompetens_bransch$kompetensniva <- factor(kompetens_bransch$kompetensniva, levels = c("Enklare yrken","Motsvarande gymnasial kompetens","Motsvarande högskolekompetens","Motsvarande fördjupad högskolekompetens","Chefsyrken","Okänt")[6:1])
+    
+    diagram_titel <- paste0("Kvalifikationskrav för anställda (16-64 år) i ",unique(kompetens_bransch$region)," ",unique(kompetens_bransch$år))
+    diagramfil <- "kompetenskrav_bransch.png"
+    
+    kompetens_bransch_fig <- SkapaStapelDiagram(skickad_df = kompetens_bransch %>% 
+                                                  filter(Branschgrupp != "Okänd verksamhet"), 
+                                                skickad_x_var = "Branschgrupp",
+                                                skickad_y_var = "Andel",
+                                                skickad_x_grupp = "kompetensniva",
+                                                manual_color = c(rgb(211,211,211, maxColorValue = 255),diagramfarger("rus_sex")),
+                                                diagram_titel = diagram_titel,
+                                                #x_axis_sort_value = TRUE,
+                                                legend_vand_ordning = TRUE,
+                                                diagram_capt = diagram_capt,
+                                                x_axis_lutning = 0,
+                                                diagram_liggande = TRUE,
+                                                x_axis_sort_value = TRUE,
+                                                x_axis_sort_grp = 6,
+                                                vand_sortering = TRUE,
+                                                geom_position_stack = TRUE,
+                                                manual_y_axis_title = "procent",
+                                                stodlinjer_avrunda_fem = TRUE,
+                                                output_mapp = "",
+                                                filnamn_diagram = diagramfil,
+                                                skriv_till_diagramfil = FALSE)
     
     gg_list[[i]] <- gg_obj
     i=i+1

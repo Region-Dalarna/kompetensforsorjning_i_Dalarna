@@ -4,7 +4,7 @@ hamta_data_yrken_bransch <- function(region_vekt = "20", # Val av region. Finns 
                                         yrke_klartext = "*", # Se nedan för alternativa val. "*" för alla
                                         bransch_klartext = "*", # Se nedan för alternativa val. "*" för alla
                                         returnera_data = TRUE, # Vill användaren returnera data som en dataframe
-                                        tid = "9999", # Sätts till "9999" om man enbart vill ha senaste år,"*" för alla alternativt intervall
+                                        tid = 2010:"9999", # Sätts till "9999" om man enbart vill ha senaste år,"*" för alla, alternativt intervall (exempelvis 2010:"999)
                                         filnamn = "yrke_bransch.xlsx"){ # Filnamn
   
   
