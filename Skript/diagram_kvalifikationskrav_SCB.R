@@ -2,8 +2,8 @@
 diagram_kvalifikationskrav <- function(region_vekt = "20", # Vilken region vill man titta på. Enbart en får väljas.
                                               output_mapp_data = NA, # Om man vill spara data. Används primärt i Rmarkdown-rapporter.
                                               output_mapp_figur= "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
-                                              diag_jmf = TRUE, # Jämför antingen kommuner eller län (beroende på val under jmf_omrade nedan)
-                                              diag_senastear = TRUE, # Senaste år för vald region
+                                              diag_jmf_omrade = TRUE, # Jämför antingen kommuner eller län (beroende på val under jmf_omrade nedan)
+                                              diag_jmf_bransch = TRUE, # Senaste år för vald region
                                               jmf_omrade = "lan", # Om lan, jämförs sveriges alla län. Om kommun, jämförs kommuner i valt län (region_vekt) eller i samma län som vald kommun (region_vekt)
                                               spara_figur = TRUE,
                                               filnamn_data = "kvalifikationskrav.xlsx", # Filnamn på sparad data
@@ -30,11 +30,11 @@ diagram_kvalifikationskrav <- function(region_vekt = "20", # Vilken region vill 
   objektnamn <- c() # Används för att namnge objekt i lista
   list_data <- lst() # Skapa tom lista som används för att spara till Excel.
   
-  valt_lan = hamtaregion_kod_namn("20")[[2]]
-  
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R")
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R", encoding = "utf-8", echo = FALSE)
   source("https://raw.githubusercontent.com/Region-Dalarna/hamta_data/main/hamta_data_yrke_bransch_SCB.R")
+  
+  valt_lan = hamtaregion_kod_namn(region_vekt)[[2]]
   
   if(jmf_omrade == "lan"){
     region_vekt = hamtaAllaLan()
@@ -80,7 +80,7 @@ diagram_kvalifikationskrav <- function(region_vekt = "20", # Vilken region vill 
   
   
   
-  if(diag_jmf == TRUE){
+  if(diag_jmf_omrade == TRUE){
     if("kvinnor" %in% unique(px_df$kön) & "män" %in% unique(px_df$kön)) {
       variabellista = c("år","region","kompetensniva")
       diagram_titel <- paste0("Kvalifikationskrav för anställda (16-64 år) ",max(px_df$år))
@@ -126,39 +126,36 @@ diagram_kvalifikationskrav <- function(region_vekt = "20", # Vilken region vill 
     
   }
   
-  if(diag_senastear == TRUE){
+  if(diag_jmf_bransch == TRUE){
     if("kvinnor" %in% unique(px_df$kön) & "män" %in% unique(px_df$kön)) {
       variabellista = c("år","region","Branschgrupp","kompetensniva")
-      diagram_titel <- paste0("Kvalifikationskrav för anställda (16-64 år) i ",valt_lan," ",max(px_df$år))
-      objektnamn <- paste0("kvalifikationskrav_senastear_",region_vekt)
+        diagram_titel <- paste0("Kvalifikationskrav för anställda (16-64 år) i ",valt_lan," ",max(px_df$år))
+          objektnamn <- paste0("kvalifikationskrav_senastear_",region_vekt)
     }else {
       variabellista = c("år","kön","region","Branschgrupp","kompetensniva")
-      diagram_titel <- paste0("Kvalifikationskrav för anställda ",unique(px_df$kön) ," (16-64 år) i ",valt_lan," ",max(px_df$år))
-      objektnamn <- paste0("kvalifikationskrav_senastear_",unique(px_df$kön),"_",region_vekt)
+        diagram_titel <- paste0("Kvalifikationskrav för anställda ",unique(px_df$kön) ," (16-64 år) i ",valt_lan," ",max(px_df$år))
+          objektnamn <- paste0("kvalifikationskrav_senastear_",unique(px_df$kön),"_",region_vekt)
     }
     
     diagram_capt <- "Källa: Yrkesregistret i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
     
-    kompetens_bransch <- kompetens_yrke_lan %>%
-      filter(år==max(år),region=="Dalarnas län") %>%
-      group_by(across(any_of(variabellista))) %>%
-      summarize(Antal=sum(`Anställda.16-64.år.(dagbef)`)) %>%
-      mutate(Andel=((Antal/sum(Antal))*100)-0.001)
+    px_df_sum <- px_df %>%
+      filter(år == max(år),region == valt_lan) %>%
+        group_by(across(any_of(variabellista))) %>%
+          summarize(Antal=sum(`Anställda.16-64.år.(dagbef)`)) %>%
+            mutate(Andel=((Antal/sum(Antal))*100)-0.001)
     
-    # Skapar en faktorvariabel för att få utbildningsnivå i "rätt" ordning i figuren
-    kompetens_bransch$kompetensniva <- factor(kompetens_bransch$kompetensniva, levels = c("Enklare yrken","Motsvarande gymnasial kompetens","Motsvarande högskolekompetens","Motsvarande fördjupad högskolekompetens","Chefsyrken","Okänt")[6:1])
-    
-    diagram_titel <- paste0("Kvalifikationskrav för anställda (16-64 år) i ",unique(kompetens_bransch$region)," ",unique(kompetens_bransch$år))
+   
     diagramfil <- "kompetenskrav_bransch.png"
     
     kompetens_bransch_fig <- SkapaStapelDiagram(skickad_df = kompetens_bransch %>% 
-                                                  filter(Branschgrupp != "Okänd verksamhet"), 
+                                                  filter(Branschgrupp != "Okänd verksamhet") %>% 
+                                                  mutate(kompetensniva = factor(kompetensniva, levels = c("Enklare yrken","Motsvarande gymnasial kompetens","Motsvarande högskolekompetens","Motsvarande fördjupad högskolekompetens","Chefsyrken","Okänt")[6:1])), 
                                                 skickad_x_var = "Branschgrupp",
                                                 skickad_y_var = "Andel",
                                                 skickad_x_grupp = "kompetensniva",
                                                 manual_color = c(rgb(211,211,211, maxColorValue = 255),diagramfarger("rus_sex")),
                                                 diagram_titel = diagram_titel,
-                                                #x_axis_sort_value = TRUE,
                                                 legend_vand_ordning = TRUE,
                                                 diagram_capt = diagram_capt,
                                                 x_axis_lutning = 0,
