@@ -82,9 +82,10 @@ TP_Prognos_bransch(spara_data = TRUE,
                    output_mapp = Output_mapp)
 
 # Kompetensnivå för län och bransch
-source(here("Skript","kompetensnivå_bransch.R"), encoding="UTF-8")
-yrken_kompetens(spara_data = TRUE,
-                   output_mapp = Output_mapp)
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_kvalifikationskrav_SCB.R", encoding="UTF-8")
+gg_kvalifikation <- diagram_kvalifikationskrav(output_mapp_figur = Output_mapp_figur,
+                                               returnera_figur = TRUE,
+                                               returnera_data = TRUE)
 
 # Befolkningsförändring uppdelat på komponent (län)
 source(here("Skript","befolkningsforandring_20_64.R"), encoding="UTF-8")
