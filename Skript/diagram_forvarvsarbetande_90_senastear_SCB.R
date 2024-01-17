@@ -1,23 +1,21 @@
-#test = diagram_data_forvarvsarbetande_90(region_vekt = "20",spara_figur = FALSE,valda_ar = c("1990","2000","2010"),kon_klartext = c("män","kvinnor"))
-diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken region vill man ha. Enbart 1 får väljas
+diagram_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken region vill man ha. Enbart 1 får väljas
                                               output_mapp_data = NA, # Om man vill spara data. Används primärt i Rmarkdown-rapporter.
                                               output_mapp_figur= "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/",
                                               spara_figur = TRUE,
                                               filnamn_data = "forvarvsarbetande_bransch.xlsx", # Filnamn på sparad data
-                                              diag_antal = TRUE,
-                                              diag_forandring = TRUE,
+                                              diag_antal = TRUE, # Diagram som visar antal för varje bransch i valda år
+                                              diag_forandring = TRUE, # Förändring från första till sista år (i antal) för varje bransch
                                               kon_klartext = c("män","kvinnor"), # män och kvinnor ger totalt. Det går även att välja ett av könen. Jämförelse mellan kön är inte möjlig.
-                                              valda_ar = c("1990","2000","2010"), # Vilka år skall jämföras (max 1 mindre än antalet färger i vald_farg). Senaste år läggs till automatiskt
+                                              valda_ar = c("1990","2000","2010","9999"), # Vilka år skall jämföras (får inte vara fler än antalet färger i vald_farg)."9999" ger senaste år
                                               vald_farg = diagramfarger("rus_sex"), # Val av diagramfärger
                                               returnera_figur = TRUE, # Skall figuren returneras som ett ggplot-objekt
                                               returnera_data = FALSE){ # Tidsserie där kön jämförs. Går bara om en region valts i region_vekt
   
   
   # =================================================================================================================
-  # Diagram för arbetslöshet från 1974 till senaste år (AKU - SCB). 
-  # Finns för tillfället i två varianter, det ena visar en jämförelse mellan län (alternativt län och riket)
-  # Det andra visar en jämförelse mellan kön inom ett län (eller riket).
-  # Källa  https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0210__AM0210A/ArbStatusM/
+  # Diagram för antalet förvärvsarbetande inom olika branscher från 1990 till senaste observation
+  # Finns för tillfället i två varianter, det ena är ett stapeldiagram där varje stapel motsvarar ett år,
+  # det andra är ett liggande stapeldiagram med förändring från första till sista år
   # =================================================================================================================
   
   # Skript som behövs
@@ -26,7 +24,6 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
          tidyverse)
   
   gg_list <- list() # Skapa en tom lista att lägga flera ggplot-objekt i (om man skapar flera diagram)
-  i <- 1 # Räknare
   objektnamn <- c() # Används för att namnge objekt i lista
   list_data <- lst() # Skapa tom lista som används för att spara till Excel.
   
@@ -40,6 +37,10 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
                                      returnera_data = TRUE) 
   
   if(diag_antal == TRUE){
+    
+    # Ersätter "9999" med senaste år
+    valda_ar <- valda_ar %>% as.character() %>% str_replace("9999", max(df$år))
+    
     if("kvinnor" %in% unique(df$kön) & "män" %in% unique(df$kön)) {
       variabellista = c("region","Näringsgren","år")
       diagram_titel <- paste0("Förvärvsarbetande (16+ år) i ",skapa_kortnamn_lan(hamtaregion_kod_namn(region_vekt)[2]))
@@ -64,9 +65,6 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
     if (!is.na(output_mapp_data) & !is.na(filnamn_data)){
       list_data <- c(list_data,list("Antal" = df_sum))
     }
-      
-    # Lägger till senaste år till de år som användaren valt
-    valda_ar <- c(valda_ar, max(df_sum$år))
   
     # Branscher har för långa namn, vilket justeras här
     sysselsatta_90_df_alt <- df_sum %>% 
@@ -96,8 +94,8 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
                                       output_mapp = output_mapp_figur,
                                       filnamn_diagram = diagramfil,
                                       skriv_till_diagramfil = spara_figur)
-    gg_list[[i]] <- gg_obj
-    i=i+1
+    
+    gg_list <- c(gg_list, list(gg_obj))
   
   }
   
@@ -134,7 +132,7 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
     
     # Om användaren vill spara data görs detta här. Sker enbart om både outputmapp och filnamn har valts
     if (!is.na(output_mapp_data) & !is.na(filnamn_data)){
-      list_data <- c(list_data,list("Andel" = df_sum))
+      list_data <- c(list_data,list("Förändring" = df_for))
     }
     
     diagram_titel <- paste0("Förändring av antalet förvärvsarbetande (16-74) år från år ", min(df_for$år), " till ", max(df_for$år))
@@ -157,15 +155,14 @@ diagram_data_forvarvsarbetande_90 <- function(region_vekt = "20", # Vilken regio
                                     filnamn_diagram = diagramfil,
                                     skriv_till_diagramfil = spara_figur)
     
-    gg_list[[i]] <- gg_obj
-    i=i+1
+    gg_list <- c(gg_list, list(gg_obj))
   }
 
   names(gg_list) <- c(objektnamn)
   if(returnera_figur == TRUE) return(gg_list)
   
   if (!is.na(output_mapp_data) & !is.na(filnamn_data)){
-    write.xlsx(df_sum,paste0(output_mapp,filnamn))
+    write.xlsx(list_data,paste0(output_mapp,filnamn))
   }
   
 }

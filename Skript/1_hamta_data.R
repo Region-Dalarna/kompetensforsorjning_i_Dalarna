@@ -11,14 +11,14 @@ diag_befolkning(output_mapp = Output_mapp,
                 spara_data = TRUE)
 
 # Förvärvsarbetande från 1990 till senaste år. Både antal och förändring (från första till sista)
-source(here("Skript","diagram_forvarvsarbetande_90_senastear_SCB.R"), encoding="UTF-8")
-gg_forv_90 <- diagram_data_forvarvsarbetande_90(output_mapp_figur = Output_mapp_figur,
-                                                spara_figur = TRUE,
-                                                diag_antal = TRUE,
-                                                diag_forandring = TRUE,
-                                                returnera_figur = TRUE,
-                                                returnera_data = TRUE,
-                                                vald_farg = diagramfarger("rus_sex"))
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_forvarvsarbetande_90_senastear_SCB.R", encoding="UTF-8")
+gg_forv_90 <- diagram_forvarvsarbetande_90(output_mapp_figur = Output_mapp_figur,
+                                           spara_figur = TRUE,
+                                           diag_antal = TRUE,
+                                           diag_forandring = TRUE,
+                                           returnera_figur = TRUE,
+                                           returnera_data = TRUE,
+                                           vald_farg = diagramfarger("rus_sex"))
 
 # Utbildningsnivå från 85 och framåt uppdelat på kön. Data hämtas i detta fall från GGplot-objektet (när data används i markdown)
 source("G:/skript/diagram/diag_utbniva_over_tid_och_andel_specifikt_ar.R")
