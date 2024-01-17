@@ -284,88 +284,11 @@ forvarvsarbetande_prognos_fig
  
 </details>
 
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-# diagram_capt <- "Källa: Yrkesregistret i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
-# 
-# kompetens_lan <- kompetens_yrke_lan %>%
-#     filter(år == max(år)) %>% 
-#       group_by(år,region,kompetensniva) %>%
-#         summarize(Antal=sum(`Anställda.16-64.år.(dagbef)`)) %>%
-#           mutate(Andel=((Antal/sum(Antal))*100)-0.001)
-# 
-# # Skapar en faktorvariabel för att få utbildningsnivå i "rätt" ordning i figuren
-# kompetens_lan$kompetensniva <- factor(kompetens_lan$kompetensniva, levels = c("Enklare yrken","Motsvarande gymnasial kompetens","Motsvarande högskolekompetens","Motsvarande fördjupad högskolekompetens","Chefsyrken","Okänt")[6:1])
-# 
-# diagram_titel <- paste0("Kvalifikationskrav för anställda (16-64 år) ",max(kompetens_lan$år))
-# diagramfil <- "kompetenskrav_lan.png"
-# 
-# kompetens_lan_fig <- SkapaStapelDiagram(skickad_df = kompetens_lan %>% 
-#                                           mutate(region = skapa_kortnamn_lan(region)),
-#                                          skickad_x_var = "region",
-#                                          skickad_y_var = "Andel",
-#                                          skickad_x_grupp = "kompetensniva",
-#                                          manual_color = c(rgb(211,211,211, maxColorValue = 255),diagramfarger("rus_sex")),
-#                                          diagram_titel = diagram_titel,
-#                                          x_axis_lutning = 0,
-#                                          diagram_capt = diagram_capt,
-#                                          legend_vand_ordning = TRUE,
-#                                          diagram_liggande = TRUE,
-#                                          geom_position_stack = TRUE,
-#                                          manual_y_axis_title = "procent",
-#                                          stodlinjer_avrunda_fem = TRUE,
-#                                          x_axis_sort_value = TRUE,
-#                                          x_axis_sort_grp = 6,
-#                                          vand_sortering = TRUE,
-#                                          output_mapp = "",
-#                                          filnamn_diagram = diagramfil,
-#                                          skriv_till_diagramfil = FALSE)
-  
-
-```
-
 Hur stor andel som jobbar inom yrken med olika former av kvalifikationskrav varierar relativt mycket 
-mellan Sveriges län. `r kompetens_lan %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$region ` har störst andel som arbetar inom enklare yrken, med ungefär `r round(kompetens_lan %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0) ` procent av de förvärvsarbetande i länet. Dock jobbar generellt relativt få inom dessa yrken, oavsett region. Om vi istället fokuserar på yrken med kvalifikationskrav som motsvarar gymnasial kompetens är skillnaderna större mellan Sveriges län. Minst andel återfinns i `r kompetens_lan %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` där ungefär `r round(kompetens_lan %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande har den typen av yrken, medan störst andel återfinns i `r kompetens_lan %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kompetens_lan %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande. För yrken med högre kvalifikationskrav, exempelvis "motsvarande fördjupad högskolekompetens", är situationen mer eller mindre det omvända. Största andel har `r kompetens_lan %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kompetens_lan %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande, medan `r kompetens_lan %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` med ungefär `r round(kompetens_lan %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent har lägst andel. Kvalifikationskraven i Dalarna påminner om de i Kalmar, med relativt stor andel av de förvärvsarbetande inom yrken med motsvarande gymnasial kompetens och färre inom yrken som kräver olika former av högskolekompetens.
+mellan Sveriges län. `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$region ` har störst andel som arbetar inom enklare yrken, med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0) ` procent av de förvärvsarbetande i länet. Dock jobbar generellt relativt få inom dessa yrken, oavsett region. Om vi istället fokuserar på yrken med kvalifikationskrav som motsvarar gymnasial kompetens är skillnaderna större mellan Sveriges län. Minst andel återfinns i `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` där ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande har den typen av yrken, medan störst andel återfinns i `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande. För yrken med högre kvalifikationskrav, exempelvis "motsvarande fördjupad högskolekompetens", är situationen mer eller mindre det omvända. Största andel har `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande, medan `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent har lägst andel. Kvalifikationskraven i Dalarna påminner om de i Kalmar, med relativt stor andel av de förvärvsarbetande inom yrken med motsvarande gymnasial kompetens och färre inom yrken som kräver olika former av högskolekompetens.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 11"}
 gg_kvalifikation$kvalifikationskrav_jmf_lan
-```
-
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: Yrkesregistret i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
-
-kompetens_bransch <- kompetens_yrke_lan %>%
-  filter(år==max(år),region=="Dalarnas län") %>%
-    group_by(region,år,Branschgrupp,kompetensniva) %>%
-      summarize(Antal=sum(`Anställda.16-64.år.(dagbef)`)) %>%
-        mutate(Andel=((Antal/sum(Antal))*100)-0.001)
-  
-# Skapar en faktorvariabel för att få utbildningsnivå i "rätt" ordning i figuren
-kompetens_bransch$kompetensniva <- factor(kompetens_bransch$kompetensniva, levels = c("Enklare yrken","Motsvarande gymnasial kompetens","Motsvarande högskolekompetens","Motsvarande fördjupad högskolekompetens","Chefsyrken","Okänt")[6:1])
-
-diagram_titel <- paste0("Kvalifikationskrav för anställda (16-64 år) i ",unique(kompetens_bransch$region)," ",unique(kompetens_bransch$år))
-diagramfil <- "kompetenskrav_bransch.png"
-
-kompetens_bransch_fig <- SkapaStapelDiagram(skickad_df = kompetens_bransch %>% 
-                                         filter(Branschgrupp != "Okänd verksamhet"), 
-                                           skickad_x_var = "Branschgrupp",
-                                           skickad_y_var = "Andel",
-                                           skickad_x_grupp = "kompetensniva",
-                                           manual_color = c(rgb(211,211,211, maxColorValue = 255),diagramfarger("rus_sex")),
-                                           diagram_titel = diagram_titel,
-                                           #x_axis_sort_value = TRUE,
-                                           legend_vand_ordning = TRUE,
-                                           diagram_capt = diagram_capt,
-                                           x_axis_lutning = 0,
-                                           diagram_liggande = TRUE,
-                                           x_axis_sort_value = TRUE,
-                                           x_axis_sort_grp = 6,
-                                           vand_sortering = TRUE,
-                                           geom_position_stack = TRUE,
-                                           manual_y_axis_title = "procent",
-                                           stodlinjer_avrunda_fem = TRUE,
-                                           output_mapp = "",
-                                           filnamn_diagram = diagramfil,
-                                           skriv_till_diagramfil = FALSE)
 ```
 
 Även mellan branscher varierar kvalifikationskraven naturligtvis. Störst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där mer än var fjärde arbetar inom den typen av yrke. Detta kan delvis förklaras av att hotell och restaurang också är den bransch i Dalarna med störst andel utrikes födda anställda. Personer som tillhör denna grupp tenderar att ha förgymnasiala utbildningar i större utsträckning än inrikes födda, vilket illustreras i avsnitt 4 nedan. Även inom företagstjänster är många yrken av enklare karaktär.  Det omvända gäller inom exempelvis utbildning, där fler än hälften av de anställda arbetar inom yrken som kräver motsvarande högskolekompetens.
