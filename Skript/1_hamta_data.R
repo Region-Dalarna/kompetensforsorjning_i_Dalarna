@@ -11,7 +11,7 @@ diag_befolkning(output_mapp = Output_mapp,
                 spara_data = TRUE)
 
 # Förvärvsarbetande från 1990 till senaste år. Både antal och förändring (från första till sista)
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_forvarvsarbetande_90_senastear_SCB.R", encoding="UTF-8")
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_forvarvsarbetande_90_senastear_SCB.R")
 gg_forv_90 <- diagram_forvarvsarbetande_90(output_mapp_figur = Output_mapp_figur,
                                            spara_figur = TRUE,
                                            diag_antal = TRUE,
@@ -67,14 +67,14 @@ gg_forv_senastear <- diag_sysselsatta_andel(region_vekt = c("20"),
                                             diag_kommun = FALSE,
                                             diag_lan_antal = TRUE)
 
-source(here("Skript","diagram_forvarvsarbetande_90_senastear_SCB.R"), encoding="UTF-8")
-gg_forv_forandring <- diagram_data_forvarvsarbetande_90(output_mapp_figur = Output_mapp_figur,
-                                                        spara_figur = TRUE,
-                                                        returnera_figur = TRUE,
-                                                        returnera_data = TRUE,
-                                                        diag_antal = FALSE,
-                                                        diag_forandring =TRUE,
-                                                        vald_farg = diagramfarger("rus_sex"))
+# source(here("Skript","diagram_forvarvsarbetande_90_senastear_SCB.R"), encoding="UTF-8")
+# gg_forv_forandring <- diagram_data_forvarvsarbetande_90(output_mapp_figur = Output_mapp_figur,
+#                                                         spara_figur = TRUE,
+#                                                         returnera_figur = TRUE,
+#                                                         returnera_data = TRUE,
+#                                                         diag_antal = FALSE,
+#                                                         diag_forandring =TRUE,
+#                                                         vald_farg = diagramfarger("rus_sex"))
 
 # Förvärvsarbetande prognos - Excel - Trender och prognoser
 source(here("Skript","forvarvsarbetande_prognos.R"), encoding="UTF-8")
@@ -86,6 +86,18 @@ source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_kv
 gg_kvalifikation <- diagram_kvalifikationskrav(output_mapp_figur = Output_mapp_figur,
                                                returnera_figur = TRUE,
                                                returnera_data = TRUE)
+
+# Utbildningsnivå och ålder för län och bransch. Andel och antal
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_bransch_utb_alder_NMS.R", encoding="UTF-8")
+gg_bransch_utb_alder <- diag_bransch_utb_alder(output_mapp_figur = Output_mapp_figur,
+                                               returnera_figur = TRUE,
+                                               returnera_data = TRUE,
+                                               andel = TRUE)
+
+gg_bransch_utb_alder_antal = diag_bransch_utb_alder(output_mapp_figur = Output_mapp_figur,
+                                                    returnera_figur = TRUE,
+                                                    returnera_data = TRUE,
+                                                    andel = FALSE)
 
 # Befolkningsförändring uppdelat på komponent (län)
 source(here("Skript","befolkningsforandring_20_64.R"), encoding="UTF-8")
