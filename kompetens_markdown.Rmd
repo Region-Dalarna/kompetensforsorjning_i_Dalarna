@@ -39,7 +39,7 @@ forvarvsarbetande_prognos <- read.xlsx("G:/skript/projekt/data/kompetensforsorjn
 befolkning_flytt_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkningsforandring_20_64.xlsx")
 befolkning_utr_inr_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_utr_inr.xlsx")
 pendling_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_lan.xlsx")
-pendling_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_kommun.xlsx")
+#pendling_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_kommun.xlsx")
 #Skriptet som skapar nedanstående data finns på Mona: P1079gem/Jon/kompetensförsörjning/utbildningsniva_befolkning_bakgrund_korrekt.R. OBS! Uppdateras inte när skriptet hämta data körs.
 befolkning_utb_alder_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/12_jul_23_utdata_utbildningsniva_befolkning_bakgrund.xlsx")
 # Data från Trender och prognoser. Måste sannolikt ändras om det kommer en ny leverans från SCB.
@@ -426,42 +426,10 @@ pendling_lan <- SkapaStapelDiagram(skickad_df =pendling_lan_df,
 pendling_lan
 ```
 
-Att flera av kommunerna i Dalarna tillhör större arbetsmarknadsregioner blir tydligt i diagrammet nedan. Störst andel utpendling har `r pendling_kommun_df %>% filter(year == max(year),municipality != "Riket",pendling_typ == "Andel utpendling",gender == "T") %>% filter(Pendling_andel == max(Pendling_andel)) %>% .$municipality` där ungefär `r round(pendling_kommun_df %>% filter(year == max(year),municipality != "Riket",pendling_typ == "Andel utpendling",gender == "T") %>% filter(Pendling_andel == max(Pendling_andel)) %>% .$Pendling_andel,0)` procent av de boende som förvärvsarbetar gör det i en annan kommun, i stor utsträckning Borlänge. Även Gagnef (pendling till Borlänge) och Smedjebacken (pendling till Ludvika) är kommuner där många pendlar till sitt arbete. Störst inpendling har `r pendling_kommun_df %>% filter(year == max(year),municipality != "Riket",pendling_typ == "Andel inpendling",gender == "T") %>% filter(Pendling_andel == max(Pendling_andel)) %>% .$municipality`, där ungefär `r round(pendling_kommun_df %>% filter(year == max(year),municipality != "Riket",pendling_typ == "Andel inpendling",gender == "T") %>% filter(Pendling_andel == max(Pendling_andel)) %>% .$Pendling_andel,0)` procent av de förvärvsarbetande bor i en annan kommun. I norra Dalarna, med flera kommuner som till ytan är stora, exempelvis Malung-Sälen och Älvdalen, är situationen det omvända. Här bor och arbetar de allra flesta i samma kommun.
-
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: SCB (via Kolada)\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Gäller pendlare över kommungräns."
-
-diagram_titel <- paste0("Andel av förvärvsarbetande som pendlar över kommungräns år ",max(pendling_kommun_df$year))
-diagram_titel<-str_wrap(diagram_titel,50)
-diagramfil <- "pendling_kommun.png"
-
-pendling_kommun <- SkapaStapelDiagram(skickad_df = pendling_kommun_df %>%
-                               filter(year%in%c(max(year))) %>%
-                                filter(gender=="T") %>%
-                                  mutate(municipality=ifelse(municipality=="Riket", "Sverige",municipality)),
-                             skickad_x_var = "municipality",
-                             skickad_y_var = "Pendling_andel",
-                             skickad_x_grupp = "pendling_typ",
-                             manual_x_axis_text_vjust=1,
-                             manual_x_axis_text_hjust=1,
-                             manual_color = diagramfarger("rus_sex"),
-                             x_axis_sort_value = TRUE,
-                             x_axis_sort_grp = 2,
-                             vand_sortering=TRUE,
-                             dataetiketter = FALSE,
-                             dataetiketter_antal_dec = 0,
-                             manual_y_axis_title="procent",
-                             stodlinjer_avrunda_fem = TRUE,
-                             diagram_titel = diagram_titel,
-                             diagram_capt = diagram_capt,
-                             output_mapp = "",
-                             filnamn_diagram = diagramfil,
-                             skriv_till_diagramfil = FALSE)
-
-```
+Att flera av kommunerna i Dalarna tillhör större arbetsmarknadsregioner blir tydligt i diagrammet nedan. Störst andel utpendling har `r andel_pendlare %>% filter(pendlingstyp == "Andel utpendling") %>% filter(andel == max(andel)) %>% .$region` där ungefär `r round(andel_pendlare %>% filter(pendlingstyp == "Andel utpendling") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av de boende som förvärvsarbetar gör det i en annan kommun, i stor utsträckning Borlänge. Även Gagnef (pendling till Borlänge) och Smedjebacken (pendling till Ludvika) är kommuner där många pendlar till sitt arbete. Störst inpendling har `r andel_pendlare %>% filter(pendlingstyp == "Andel inpendling") %>% filter(andel == max(andel)) %>% .$region`, där ungefär `r round(andel_pendlare %>% filter(pendlingstyp == "Andel inpendling") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av de förvärvsarbetande bor i en annan kommun. I norra Dalarna, med flera kommuner som till ytan är stora, exempelvis Malung-Sälen och Älvdalen, är situationen det omvända. Här bor och arbetar de allra flesta i samma kommun.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 19"}
-pendling_kommun
+gg_pendling_kommun
 ```
 
 ## Utbildningsnivå
