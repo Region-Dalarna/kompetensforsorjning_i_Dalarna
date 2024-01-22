@@ -337,6 +337,8 @@ I Sverige har invandringen (utrikes flyttnetto) överlag haft en positiv inverka
 gg_bef_for
 ```
 
+AVVAKTA MED. FINNS DET NÅGOT DIAGRAMSKRIPT SOM GÖR DETTA?
+
 Om Dalarnas arbetsföra befolkning delas upp i inrikes och utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat i antal de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna minskade inrikes födda invånare i arbetsför ålder (20-64 år) från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`.
 
 
