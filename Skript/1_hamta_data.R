@@ -111,9 +111,13 @@ hamta_data_bef_utr(spara_data = TRUE,
                    output_mapp = Output_mapp)
 
 # Befolkningsförändring uppdelat på komponent (län)
-source(here("Skript","pendling_lan.R"), encoding="UTF-8")
-hamta_data_pendling_lan(spara_data = TRUE,
-                        output_mapp = Output_mapp)
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_pendlare_over_kommungrans.R", encoding="UTF-8")
+gg_pendling_kommun <- diag_pendling_over_kommungrans(output_mapp_figur = Output_mapp_figur,
+                                                     enbart_in_ut = TRUE,
+                                                     diagramfarg_vektor = diagramfarger("rus_sex"),
+                                                     diag_absoluta_tal = FALSE,
+                                                     returnera_figur = TRUE,
+                                                     returnera_data = TRUE)
 
 # Befolkningsförändring uppdelat på komponent (län)
 source(here("Skript","pendling_kommun.R"), encoding="UTF-8")
