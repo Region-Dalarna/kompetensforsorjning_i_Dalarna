@@ -333,43 +333,8 @@ Bland Sveriges regioner är de befolkningsmässigt största  även de vars befol
 
 I Sverige har invandringen (utrikes flyttnetto) överlag haft en positiv inverkan på den arbetsföra delen av befolkningens storlek det senaste dryga decenniet (de lila staplarna nedan). I vissa regioner, däribland Dalarna, motverkas denna ökning dock av ett negativt inrikes flyttnetto (gröna staplar) och en negativ demografisk förändring (blåa staplar), vilket sammantaget ger en minskande befolkning.
 
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-  diagram_capt <- "Källa: Befolkningsregistret i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-  # Grupperar och pivoterar data
-  utskrift_df <- befolkning_flytt_df %>%
-    rename("Inrikes flyttnetto" = `inrikes.flyttnetto`,
-           "Utrikes flyttnetto" = `utrikes.flyttnetto`,
-           "Demografisk förändring" = `Demografisk.förändring` ) %>% 
-      select(region,`Inrikes flyttnetto`,`Utrikes flyttnetto`,`Demografisk förändring`) %>% 
-        pivot_longer(!c(region),names_to="variabel",values_to="forandring")
-  
-  diagramtitel <- paste0("Befolkningsförändring i arbetsför ålder (20-64 år) per län ","2010","-",max(befolkning_flytt_df$år))
-  diagramfilnamn <- paste0("befolkningsforandring_20_64.png")
-
-  bef_for_flytt <- SkapaStapelDiagram(skickad_df =utskrift_df,
-                                     skickad_x_var = "region",
-                                     skickad_y_var = "forandring",
-                                     skickad_x_grupp = "variabel",
-                                     manual_color = diagramfarger("rus_sex"),
-                                     diagram_titel = diagramtitel,
-                                     diagram_capt =  diagram_capt,
-                                     diagram_facet = FALSE,
-                                     x_axis_lutning = 0,
-                                     x_axis_sort_value = TRUE,
-                                     diagram_liggande = TRUE,
-                                     stodlinjer_avrunda_fem = TRUE,
-                                     geom_position_stack = TRUE,
-                                     manual_y_axis_title="procent",
-                                     berakna_index = FALSE,
-                                     output_mapp = "",
-                                     filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = FALSE)
-  
-```
-
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 16"}
-bef_for_flytt
+gg_bef_for
 ```
 
 Om Dalarnas arbetsföra befolkning delas upp i inrikes och utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat i antal de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna minskade inrikes födda invånare i arbetsför ålder (20-64 år) från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`.

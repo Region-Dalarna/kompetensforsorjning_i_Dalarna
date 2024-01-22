@@ -100,9 +100,10 @@ gg_bransch_utb_alder_antal = diag_bransch_utb_alder(output_mapp_figur = Output_m
                                                     andel = FALSE)
 
 # Befolkningsförändring uppdelat på komponent (län)
-source(here("Skript","befolkningsforandring_20_64.R"), encoding="UTF-8")
-hamta_data_bef_for(spara_data = TRUE,
-                   output_mapp = Output_mapp)
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_befolkningsforandring.R", encoding="UTF-8")
+gg_bef_for <- diagram_befolkningsforandring(output_mapp_figur = Output_mapp_figur,
+                                            returnera_figur = TRUE,
+                                            returnera_data = TRUE)
 
 # Befolkningsförändring uppdelat på komponent (län)
 source(here("Skript","befolkning_utr_inr.R"), encoding="UTF-8")
