@@ -1051,47 +1051,47 @@ skillnader mellan kvinnor och män, men också mellan olika kommuner. I
 linje med den nationella bilden är sysselsättningsgraden högre för
 gruppen utrikes födda män än för utrikes födda kvinnor.
 Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan
-kommuner där den högsta sysselsättningsgraden finns i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$region` (ca `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent) och den lägsta i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$region` (ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "män",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)`
+kommuner där den högsta sysselsättningsgraden finns i `r first(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$region)` (ca `r first(round(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$varde,0))` procent) och den lägsta i `r first(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$region)` (ungefär `r first(round(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$varde,0))`
 procent).
 
 Skillnaderna mellan utrikes födda kvinnor och män är mer synlig mellan
-kommuner i Dalarna än när länen som helhet jämförs. `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$region` har
-den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor, runt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==max(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)`
-procent, och ligger klart över genomsnittet för Dalarnas län (knappt `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(region == "Dalarna") %>% .$sysselsättningsgrad,0)`
-procent). Samtidigt är sysselsättningsgraden i `r arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$region` kommun bland
-utrikes födda kvinnor bara ungefär `r round(arbetsmarknadsstatus_kommun_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född") %>% filter(sysselsättningsgrad ==min(sysselsättningsgrad)) %>% .$sysselsättningsgrad,0)` procent. 
+kommuner i Dalarna än när länen som helhet jämförs. `r first(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$region)` har
+den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor, runt `r first(round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$varde,0))`
+procent, och ligger klart över genomsnittet för Dalarnas län (knappt `r round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0)`
+procent). Samtidigt är sysselsättningsgraden i `r first(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde == min(varde)) %>% .$region)` kommun bland
+utrikes födda kvinnor bara ungefär `r first(round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde == min(varde)) %>% .$varde,0))` procent. 
 
 Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan 
 kommunerna i Dalarna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt
 flyktingkrisen 2015. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som hade högst invandring i förhållande till folkmängd under 2015, 2016 och 2017.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
-
-  diagramtitel <- paste0("Sysselsättningsgrad i åldersgruppen 20-64 år i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>%      filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
-  diagramfilnamn <- paste0("sysselsättningsgrad","_kommun",".png")
-
-syss_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_df %>% 
-                                       filter(kön != "totalt",födelseregion != "totalt"), 
-                                     skickad_x_var = "region", 
-                                     skickad_y_var = "sysselsättningsgrad", 
-                                     skickad_x_grupp = "kön",
-                                     manual_y_axis_title = "procent",
-                                     manual_x_axis_text_vjust=1,
-                                     manual_x_axis_text_hjust=1,
-                                     manual_color = diagramfarger("kon"),
-                                     diagram_titel = diagramtitel,
-                                     diagram_capt =  diagram_capt,
-                                     diagram_facet = TRUE,
-                                     y_axis_100proc = TRUE,
-                                     facet_grp = "födelseregion",
-                                     facet_scale = "fixed",
-                                     facet_legend_bottom = TRUE,
-                                     x_axis_sort_value = TRUE,
-                                     x_axis_lutning = 45,
-                                     output_mapp = "",
-                                     filnamn_diagram = diagramfilnamn,
-                                     skriv_till_diagramfil = FALSE) 
+#   diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
+# 
+#   diagramtitel <- paste0("Sysselsättningsgrad i åldersgruppen 20-64 år i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>%      filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
+#   diagramfilnamn <- paste0("sysselsättningsgrad","_kommun",".png")
+# 
+# syss_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_df %>% 
+#                                        filter(kön != "totalt",födelseregion != "totalt"), 
+#                                      skickad_x_var = "region", 
+#                                      skickad_y_var = "sysselsättningsgrad", 
+#                                      skickad_x_grupp = "kön",
+#                                      manual_y_axis_title = "procent",
+#                                      manual_x_axis_text_vjust=1,
+#                                      manual_x_axis_text_hjust=1,
+#                                      manual_color = diagramfarger("kon"),
+#                                      diagram_titel = diagramtitel,
+#                                      diagram_capt =  diagram_capt,
+#                                      diagram_facet = TRUE,
+#                                      y_axis_100proc = TRUE,
+#                                      facet_grp = "födelseregion",
+#                                      facet_scale = "fixed",
+#                                      facet_legend_bottom = TRUE,
+#                                      x_axis_sort_value = TRUE,
+#                                      x_axis_lutning = 45,
+#                                      output_mapp = "",
+#                                      filnamn_diagram = diagramfilnamn,
+#                                      skriv_till_diagramfil = FALSE) 
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='left', out.width="90%", fig.cap="Figur 34"}
