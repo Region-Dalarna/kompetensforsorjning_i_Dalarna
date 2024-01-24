@@ -130,10 +130,32 @@ source(here("Skript","hogskoleexamen.R"), encoding="UTF-8")
 diag_hogskoleexamen(spara_data = TRUE,
                     output_mapp = Output_mapp)
 
-# Sysselsättningsgrad, län och kommun - från projektet "Kvinnor och män i Dalarna"
-source("C:/Users/frkjon/Projekt/kvinnor_man_i_Dalarna/Skript/arbetsmarknadsstatus_senastear.R", encoding="UTF-8")
-diag_arbetsmarknadsstatus(skapa_fil = TRUE,
-                          output_mapp = Output_mapp)
+# Sysselsättningsgrad, kommun
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_arbetsmarknadsstatus_senastear.R", encoding="UTF-8")
+gg_arbetsmarknadsstatus_kommun <- diagram_arbetsmarknadsstatus(output_mapp_figur = Output_mapp_figur,
+                                                               diag_arbetskraftsdeltagande = FALSE,
+                                                               diag_arbetslosthet = FALSE,
+                                                               valda_farger = diagramfarger("kon"),
+                                                               kon_klartext = c("kvinnor","män"),
+                                                               fodelseregion_klartext_vekt =  c("inrikes född", "utrikes född"),
+                                                               spara_figur = TRUE,
+                                                               returnera_figur = TRUE,
+                                                               returnera_data = TRUE)
+
+# Sysselsättningsgrad, län
+gg_arbetsmarknadsstatus_lan <- diagram_arbetsmarknadsstatus(region_vekt = hamtaAllaLan(),
+                                                            output_mapp_figur = Output_mapp_figur,
+                                                            diag_arbetskraftsdeltagande = FALSE,
+                                                            diag_arbetslosthet = FALSE,
+                                                            valda_farger = diagramfarger("kon"),
+                                                            kon_klartext = c("kvinnor","män"),
+                                                            fodelseregion_klartext_vekt =  c("inrikes född", "utrikes född"),
+                                                            spara_figur = TRUE,
+                                                            returnera_figur = TRUE,
+                                                            returnera_data = TRUE,
+                                                            data_namm = "arbetsmarknadsstatus_lan")
+
+
 
 # Matchning på arbetsmarknaden, län och bakgrund - från projektet "Kvinnor och män i Dalarna"
 source("C:/Users/frkjon/Projekt/kvinnor_man_i_Dalarna/Skript/matchning.R", encoding="UTF-8")

@@ -389,6 +389,8 @@ För att fördjupa förståelsen för utbudet av arbetskraft bör lokala arbetsm
 
 Det som i första hand påverkar pendlingsmönster är närheten till större städer. Högst andel utpendlare i Sverige har Uppsala län, där närmare var fjärde boende som förvärvsarbetar gör det i ett annat län, Stockholm i stor utsträckning. Även Södermanland och Västmanland, som båda ligger relativt nära Stockholm, har stor utpendling. Störst andel inpendlare har Kronobergs län. I Dalarna är andelen förvärvsarbetande som pendlar över länsgräns relativt liten.
 
+SKRIPT FÖR PENDLING LÄN SAKNAS FÖR TILLFÄLLET. OKLART OM LÄNSPERSPEKTIVET ÄR INTRESSANT
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Gäller pendlare över länsgräns."
 
@@ -1001,42 +1003,42 @@ ungefär lika hög. Variationen i sysselsättningsgrad mellan länen är även
 den ganska liten. För utrikes födda (det högra diagrammet nedan) är bilden annorlunda.
 Utrikes födda män har en högre sysselsättningsgrad än utrikes födda
 kvinnor i samtliga län förutom Norrbotten. I Dalarna var
-sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0)` procent, vilket
-är ca `r round(arbetsmarknadsstatus_lan_df %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad-arbetsmarknadsstatus_lan_df %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna") %>% .$sysselsättningsgrad,0) ` procentenheter mer än för utrikes födda kvinnor i Dalarna. 
+sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0)` procent, vilket
+är ca `r round(arbetsmarknadsstatus_lan %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde-arbetsmarknadsstatus_lan %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0) ` procentenheter mer än för utrikes födda kvinnor i Dalarna. 
 
 Något man dock måste ta hänsyn till när man analyserar sysselsättningsgrad bland utrikes födda är hur lång tid personerna har varit i Sverige, samt vilken utbildningsnivå de har. För en djupare diskussion runt detta, se Region Dalarnas rapport <a href="https://region-dalarna.github.io/kvinnor_man_i_Dalarna/">"Kvinnor och män i Dalarna"</a>
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-  diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
-
-  diagramtitel <- paste0("Sysselsättningsgrad i åldersgruppen 20-64 år i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
-  diagramfilnamn <- paste0("sysselsättningsgrad","_lan",".png")
-
-syss_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>% 
-                                   filter(kön != "totalt",födelseregion != "totalt"), 
-                                 skickad_x_var = "region", 
-                                 skickad_y_var = "sysselsättningsgrad", 
-                                 skickad_x_grupp = "kön",
-                                 manual_y_axis_title = "procent",
-                                 manual_x_axis_text_vjust=1,
-                                 manual_x_axis_text_hjust=1,
-                                 manual_color = diagramfarger("kon"),
-                                 diagram_titel = diagramtitel,
-                                 diagram_capt =  diagram_capt,
-                                 diagram_facet = TRUE,
-                                  y_axis_100proc = TRUE,
-                                 facet_grp = "födelseregion",
-                                 facet_scale = "fixed",
-                                 facet_legend_bottom = TRUE,
-                                 x_axis_sort_value = TRUE,
-                                 x_axis_lutning = 45,
-                                 output_mapp = "",
-                                 filnamn_diagram = diagramfilnamn,
-                                 skriv_till_diagramfil = FALSE)  
+#   diagram_capt <- c("Källa: SCB:s öppna statistikdatabas, befolkningens arbetsmarknadsstatus (BAS).\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Andelen av befolkningen som är sysselsatt (sysselsättningsgrad).")
+# 
+#   diagramtitel <- paste0("Sysselsättningsgrad i åldersgruppen 20-64 år i ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$manad_long)," ",unique(arbetsmarknadsstatus_lan_df %>% filter(ar == max(ar)) %>% filter(manad_long==max(manad_long)) %>%  .$ar))
+#   diagramfilnamn <- paste0("sysselsättningsgrad","_lan",".png")
+# 
+# syss_lan_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_lan_df %>% 
+#                                    filter(kön != "totalt",födelseregion != "totalt"), 
+#                                  skickad_x_var = "region", 
+#                                  skickad_y_var = "sysselsättningsgrad", 
+#                                  skickad_x_grupp = "kön",
+#                                  manual_y_axis_title = "procent",
+#                                  manual_x_axis_text_vjust=1,
+#                                  manual_x_axis_text_hjust=1,
+#                                  manual_color = diagramfarger("kon"),
+#                                  diagram_titel = diagramtitel,
+#                                  diagram_capt =  diagram_capt,
+#                                  diagram_facet = TRUE,
+#                                   y_axis_100proc = TRUE,
+#                                  facet_grp = "födelseregion",
+#                                  facet_scale = "fixed",
+#                                  facet_legend_bottom = TRUE,
+#                                  x_axis_sort_value = TRUE,
+#                                  x_axis_lutning = 45,
+#                                  output_mapp = "",
+#                                  filnamn_diagram = diagramfilnamn,
+#                                  skriv_till_diagramfil = FALSE)  
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='left', out.width="90%", fig.cap="Figur 33"}
-syss_lan_fig
+gg_arbetsmarknadsstatus_lan$sysselsattningsgrad_senastear
 ```
 
 
@@ -1093,7 +1095,7 @@ syss_kommun_fig <- SkapaStapelDiagram(skickad_df = arbetsmarknadsstatus_kommun_d
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='left', out.width="90%", fig.cap="Figur 34"}
-syss_kommun_fig
+gg_arbetsmarknadsstatus_kommun$sysselsattningsgrad_senastear
 ```
 
 
