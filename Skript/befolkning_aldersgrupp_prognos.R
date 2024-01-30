@@ -5,7 +5,7 @@ p_load(pxweb,
        openxlsx)
 
 # Funktioner som behövs
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R", encoding = "utf-8", echo = FALSE)
 
 # source("G:/skript/func/func_SkapaDiagram.R", encoding = "utf-8", echo = FALSE)
 # source("G:/skript/func/func_API.R", encoding = "utf-8", echo = FALSE)

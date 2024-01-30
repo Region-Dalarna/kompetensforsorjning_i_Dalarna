@@ -6,9 +6,9 @@ Output_mapp="G:/skript/projekt/data/kompetensforsorjning/"
 Output_mapp_figur <- here("Diagram","/")
 
 # Befolknings uppdelat på åldersgrupp
-source(here("Skript","befolkning_aldersgrupp_prognos.R"), encoding="UTF-8")
-diag_befolkning(output_mapp = Output_mapp,
-                spara_data = TRUE)
+# source(here("Skript","befolkning_aldersgrupp_prognos.R"), encoding="UTF-8")
+# diag_befolkning(output_mapp = Output_mapp,
+#                 spara_data = TRUE)
 
 # Förvärvsarbetande från 1990 till senaste år. Både antal och förändring (från första till sista)
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_forvarvsarbetande_90_senastear_SCB.R")
@@ -45,19 +45,19 @@ gg_utbniva_senastear <- diag_utbniva_lang_tidserie(region_vekt = c("20"),
 
 # Gymnasieantagning - sourcar ett skript som Peter har skapat. vet inte när data uppdateras.
 # Eftersom skriptet automatiskt skapar en dataframe så skapas denna först för att sedan tas bort (vi vill bara spara till Excel)
-source("G:/skript/hamta_data/func_gymnasieantagningen.R", encoding = "utf-8", echo = FALSE)
-temp_df <- las_in_data_gymnasieantagningen(output_mapp_excel = Output_mapp,
-                                           spara_data_excel = TRUE)
-
-rm(temp_df)
+# source("G:/skript/hamta_data/func_gymnasieantagningen.R", encoding = "utf-8", echo = FALSE)
+# temp_df <- las_in_data_gymnasieantagningen(output_mapp_excel = Output_mapp,
+#                                            spara_data_excel = TRUE)
+# 
+# rm(temp_df)
 
 # Arbetslöshet 08-senaste år. Excel, Arbetsförmedlingen - KVAR
-source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
-hamta_data_arbetsloshet(output_mapp = Output_mapp,
-                        spara_data = TRUE)
+# source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
+# hamta_data_arbetsloshet(output_mapp = Output_mapp,
+#                         spara_data = TRUE)
 
 # Förvärvsarbetande senaste observation (uppdelat på kön) 
-source("https://raw.githubusercontent.com/Region-Dalarna/sarbarhetsanalys/main/Skript/diagram_andel_forvarvsarbetande_bransch.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_andel_forvarvsarbetande_bransch.R")
 gg_forv_senastear <- diag_sysselsatta_andel(region_vekt = c("20"),
                                             output_mapp_figur = Output_mapp_figur,
                                             returnera_data = TRUE,
@@ -76,10 +76,10 @@ gg_forv_senastear <- diag_sysselsatta_andel(region_vekt = c("20"),
 #                                                         diag_forandring =TRUE,
 #                                                         vald_farg = diagramfarger("rus_sex"))
 
-# Förvärvsarbetande prognos - Excel - Trender och prognoser
-source(here("Skript","forvarvsarbetande_prognos.R"), encoding="UTF-8")
-TP_Prognos_bransch(spara_data = TRUE,
-                   output_mapp = Output_mapp)
+# # Förvärvsarbetande prognos - Excel - Trender och prognoser
+# source(here("Skript","forvarvsarbetande_prognos.R"), encoding="UTF-8")
+# TP_Prognos_bransch(spara_data = TRUE,
+#                    output_mapp = Output_mapp)
 
 # Kompetensnivå för län och bransch
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_kvalifikationskrav_SCB.R", encoding="UTF-8")
@@ -105,10 +105,10 @@ gg_bef_for <- diagram_befolkningsforandring(output_mapp_figur = Output_mapp_figu
                                             returnera_figur = TRUE,
                                             returnera_data = TRUE)
 
-# Befolkningsförändring uppdelat på komponent (län)
-source(here("Skript","befolkning_utr_inr.R"), encoding="UTF-8")
-hamta_data_bef_utr(spara_data = TRUE,
-                   output_mapp = Output_mapp)
+# # Befolkningsförändring uppdelat på komponent (län)
+# source(here("Skript","befolkning_utr_inr.R"), encoding="UTF-8")
+# hamta_data_bef_utr(spara_data = TRUE,
+#                    output_mapp = Output_mapp)
 
 # Befolkningsförändring uppdelat på komponent (län)
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_pendlare_over_kommungrans.R", encoding="UTF-8")
@@ -119,16 +119,16 @@ gg_pendling_kommun <- diag_pendling_over_kommungrans(output_mapp_figur = Output_
                                                      returnera_figur = TRUE,
                                                      returnera_data = TRUE)
 
-# Befolkningsförändring uppdelat på komponent (län)
-source(here("Skript","pendling_kommun.R"), encoding="UTF-8")
-hamta_data_pendling_kommun(spara_data = TRUE,
-                           output_mapp = Output_mapp)
+# # Befolkningsförändring uppdelat på komponent (län)
+# source(here("Skript","pendling_kommun.R"), encoding="UTF-8")
+# hamta_data_pendling_kommun(spara_data = TRUE,
+#                            output_mapp = Output_mapp)
 
-# Högskoleexamen - från NMS-databasen/MONA. Uppdateras inte automatisk.
-# Skript för att uppdatera data finns på P1079gem/Jon/kompetensförsörjning/hogskoleexamen_korrekt.R. Välj senast tillgängliga år i MONA.
-source(here("Skript","hogskoleexamen.R"), encoding="UTF-8")
-diag_hogskoleexamen(spara_data = TRUE,
-                    output_mapp = Output_mapp)
+# # Högskoleexamen - från NMS-databasen/MONA. Uppdateras inte automatisk.
+# # Skript för att uppdatera data finns på P1079gem/Jon/kompetensförsörjning/hogskoleexamen_korrekt.R. Välj senast tillgängliga år i MONA.
+# source(here("Skript","hogskoleexamen.R"), encoding="UTF-8")
+# diag_hogskoleexamen(spara_data = TRUE,
+#                     output_mapp = Output_mapp)
 
 # Sysselsättningsgrad, kommun
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_arbetsmarknadsstatus_senastear.R", encoding="UTF-8")
@@ -157,8 +157,8 @@ gg_arbetsmarknadsstatus_lan <- diagram_arbetsmarknadsstatus(region_vekt = hamtaA
 
 
 
-# Matchning på arbetsmarknaden, län och bakgrund - från projektet "Kvinnor och män i Dalarna"
-source("C:/Users/frkjon/Projekt/kvinnor_man_i_Dalarna/Skript/matchning.R", encoding="UTF-8")
-diag_matchning(spara_data = TRUE,
-               output_mapp = Output_mapp)
+# # Matchning på arbetsmarknaden, län och bakgrund - från projektet "Kvinnor och män i Dalarna"
+# source("C:/Users/frkjon/Projekt/kvinnor_man_i_Dalarna/Skript/matchning.R", encoding="UTF-8")
+# diag_matchning(spara_data = TRUE,
+#                output_mapp = Output_mapp)
 

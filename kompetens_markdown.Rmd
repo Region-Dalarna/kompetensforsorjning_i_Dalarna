@@ -1,18 +1,17 @@
 ---
-title: ""
+title: "Kompetensförsörjning i Dalarna"
 author: ""
 date: ""
 output: 
   html_document:
+    includes:
+      in_header: hero_image.html
     toc: yes
     toc_float: yes
     toc_depth: 6
-    css: "styles.css"
+    css: "styles_hero.css"
     number_sections: true
 ---
-:::{#header}
-<img src="logo_liggande_platta_farg.png" height="50" width="100" margin="0 auto"/>
-:::
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -74,14 +73,13 @@ kompetensbrist_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/Till
   rename("Region" = Kolumn1) %>% 
       pivot_longer(2:length(names(.)),names_to = "År",values_to = "Andel")
 ```
-# Kompetensförsörjning i Dalarna{.unlisted .unnumbered}
+
+# Introduktion {-}
+
 <p style = "font-size:12px">
 <i>Skapad av: Samhällsanalys, Region Dalarna<br>
 Senast uppdaterad: `r Sys.Date()`</i>
 </p>
-
-
-# Introduktion
 
 I ljuset av en ständigt föränderlig arbetsmarknad och det accelererande tempot inom teknologisk utveckling står Dalarna inför utmaningar och möjligheter när det gäller att säkerställa en robust och hållbar kompetensförsörjning. I Dalarna finns en stor variation av industrier som behöver kompetensförsörjas, allt ifrån en högteknologisk industri till en turism industri baserad på dalarnas kulturella kontext och hållbarhet. Denna rapport är avsedd att belysa de viktigaste aspekterna av regionens nuvarande och framtida kompetenslandskap, identifiera trender och behov, samt föreslå strategier för att möta dessa utmaningar på ett proaktivt sätt. Rapporten kommer även att utforska de centrala sektorerna och branscherna som driver regionens ekonomi. Vidare kommer den att analysera befintliga kompetensresurser, identifiera eventuella luckor och framhäva möjligheter för kompetensutveckling och nytänkande samarbete mellan näringsliv, utbildningsinstitutioner och offentliga sektorn. Denna rapport är avsedd att fungera som en grund för informerade beslut och samverkan, med målet att säkra regionens framtid genom en stark och anpassningsbar kompetensförsörjning.
 

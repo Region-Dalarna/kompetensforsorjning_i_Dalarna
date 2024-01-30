@@ -8,7 +8,7 @@ pacman::p_load(openxlsx,
                tidyverse)
 
 # Funktioner som behövs (hämtas från Git-Hub)
-source("https://raw.githubusercontent.com/FaluPeppe/func/main/func_API.R")
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R", encoding = "utf-8", echo = FALSE)
 
 #test_list=diag_antal_varslade(skapa_fil=FALSE)
 hamta_data_arbetsloshet <- function(region_vekt = "20",
