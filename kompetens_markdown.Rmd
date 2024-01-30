@@ -332,7 +332,7 @@ Bland Sveriges regioner är de befolkningsmässigt största  även de vars befol
 I Sverige har invandringen (utrikes flyttnetto) överlag haft en positiv inverkan på den arbetsföra delen av befolkningens storlek det senaste dryga decenniet (de lila staplarna nedan). I vissa regioner, däribland Dalarna, motverkas denna ökning dock av ett negativt inrikes flyttnetto (gröna staplar) och en negativ demografisk förändring (blåa staplar), vilket sammantaget ger en minskande befolkning.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 16"}
-gg_bef_for
+gg_bef_for$befolkningsforandring_20_64
 ```
 
 AVVAKTA MED. FINNS DET NÅGOT DIAGRAMSKRIPT SOM GÖR DETTA?
@@ -429,7 +429,7 @@ pendling_lan
 Att flera av kommunerna i Dalarna tillhör större arbetsmarknadsregioner blir tydligt i diagrammet nedan. Störst andel utpendling har `r andel_pendlare %>% filter(pendlingstyp == "Andel utpendling") %>% filter(andel == max(andel)) %>% .$region` där ungefär `r round(andel_pendlare %>% filter(pendlingstyp == "Andel utpendling") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av de boende som förvärvsarbetar gör det i en annan kommun, i stor utsträckning Borlänge. Även Gagnef (pendling till Borlänge) och Smedjebacken (pendling till Ludvika) är kommuner där många pendlar till sitt arbete. Störst inpendling har `r andel_pendlare %>% filter(pendlingstyp == "Andel inpendling") %>% filter(andel == max(andel)) %>% .$region`, där ungefär `r round(andel_pendlare %>% filter(pendlingstyp == "Andel inpendling") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av de förvärvsarbetande bor i en annan kommun. I norra Dalarna, med flera kommuner som till ytan är stora, exempelvis Malung-Sälen och Älvdalen, är situationen det omvända. Här bor och arbetar de allra flesta i samma kommun.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 19"}
-gg_pendling_kommun
+gg_pendling_kommun$In_och_utpendling_procent
 ```
 
 ## Utbildningsnivå
