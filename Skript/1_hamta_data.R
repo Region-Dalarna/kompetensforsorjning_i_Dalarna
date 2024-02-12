@@ -126,6 +126,13 @@ gg_utbniva_bakgrund_alder <- diag_utb_niva_bakgr_alder(output_mapp_figur = Outpu
                                                        diag_utb_alder = TRUE,
                                                        returnera_figur = TRUE,
                                                        returnera_data = TRUE)
+
+# Kompetensbrist
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_kompetensbrist_lan_TVV.R",encoding="UTF-8")
+gg_kompetensbrist <- diag_kompetensbrist(output_mapp_figur = Output_mapp_figur,
+                                         returnera_figur = TRUE,
+                                         returnera_data = TRUE)
+
 # # Befolkningsförändring uppdelat på komponent (län)
 # source(here("Skript","pendling_kommun.R"), encoding="UTF-8")
 # hamta_data_pendling_kommun(spara_data = TRUE,
