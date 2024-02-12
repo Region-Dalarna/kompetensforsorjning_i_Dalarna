@@ -110,7 +110,7 @@ gg_bef_for <- diagram_befolkningsforandring(output_mapp_figur = Output_mapp_figu
 # hamta_data_bef_utr(spara_data = TRUE,
 #                    output_mapp = Output_mapp)
 
-# Befolkningsförändring uppdelat på komponent (län)
+# Pendling
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_pendlare_over_kommungrans.R", encoding="UTF-8")
 gg_pendling_kommun <- diag_pendling_over_kommungrans(output_mapp_figur = Output_mapp_figur,
                                                      enbart_in_ut = TRUE,
@@ -119,6 +119,13 @@ gg_pendling_kommun <- diag_pendling_over_kommungrans(output_mapp_figur = Output_
                                                      returnera_figur = TRUE,
                                                      returnera_data = TRUE)
 
+# Utbildningsnivå (bakgrund och åldersgrupper)
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_utb_bakgr_alder_NMS.R", encoding="UTF-8")
+gg_utbniva_bakgrund_alder <- diag_utb_niva_bakgr_alder(output_mapp_figur = Output_mapp_figur,
+                                                       diag_utb_bakgrund = TRUE,
+                                                       diag_utb_alder = TRUE,
+                                                       returnera_figur = TRUE,
+                                                       returnera_data = TRUE)
 # # Befolkningsförändring uppdelat på komponent (län)
 # source(here("Skript","pendling_kommun.R"), encoding="UTF-8")
 # hamta_data_pendling_kommun(spara_data = TRUE,
