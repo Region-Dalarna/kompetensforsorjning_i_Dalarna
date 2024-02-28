@@ -67,7 +67,7 @@ prognos_df_yh <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensför
         summarize(antal=sum(ex))
 arbetsmarknadsstatus_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 1)
 arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 2)
-matchning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/matchning.xlsx")
+#matchning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/matchning.xlsx")
 # Data nedan laddas hem från: https://tillvaxtverket.se/tillvaxtverket/statistikochanalys/statistikomforetag/foretagande/hinderfortillvaxt.1718.html
 # Välj ladda ner Excel-fil strax under figuren
 # kompetensbrist_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/Tillgång till lämplig arbetskraft.xlsx",sheet=4) %>%
@@ -86,7 +86,7 @@ I ljuset av en ständigt föränderlig arbetsmarknad och det accelererande tempo
 
 För att få en bättre uppfattning om utbildningssystemet i Dalarna och hur det fungerar, rekommenderas att läsa:
 
-<details style = "background-color: #c5e9e2">
+<details style = "background-color: #b6f0fd">
 
   <summary>En kort introduktion till utbildningssystemet i Dalarna</summary>
 
@@ -984,83 +984,20 @@ väldigt hög sannolikhet att man även har det som yrke (närmare 100
 procent). På andra sidan av spektrumet finns dels olika former av
 gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis
 humaniora och konst, där runt hälften jobbar med vad de är utbildade
-till. Rent generellt ligger matchninggraden på runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent i
-Sverige, där något fler kvinnor än män jobbar med vad de är utbildade
-till. Det finns vissa skillnader mellan länen, men dessa är relativt
+till. Rent generellt ligger matchninggraden på runt `r round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent för kvinnor och `r round(matchning_df %>% filter(kön == "män",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` i
+Sverige. Det finns vissa skillnader mellan länen, men dessa är relativt
 små. I Dalarna är matchningsgraden ca
-`r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` procent, vilket är något sämre än riket som helhet.
-
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas, regionala matchningsindikatorer.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Med matchning avses matchad förvärvsgrad\ndvs. andelen anställda som har ett yrke som helt matchar deras utbildning (enligt SCB)."
-
-diagramtitel <- paste0("Matchning på arbetsmarknaden i Sveriges regioner ",max(matchning_df$år))
-diagramfilnamn <- paste0("matchning_lan.png")
-
-matchning_lan_fig <- SkapaStapelDiagram(skickad_df = matchning_df %>%
-                                         filter(kön != "samtliga anställda",
-                                                fodelseland == "totalt",
-                                                år == max(år)),
-                                       skickad_x_var = "region",
-                                       skickad_y_var = "matchningsgrad",
-                                       skickad_x_grupp = "kön",
-                                       manual_x_axis_text_vjust=1,
-                                       manual_x_axis_text_hjust=1,
-                                       manual_color = diagramfarger("kon"),
-                                       diagram_titel = diagramtitel,
-                                       diagram_capt =  diagram_capt,
-                                       y_axis_100proc = TRUE,
-                                       x_axis_sort_value = TRUE,
-                                       x_axis_lutning = 45,
-                                       manual_y_axis_title = "procent",
-                                       output_mapp = "",
-                                       filnamn_diagram = diagramfilnamn,
-                                       skriv_till_diagramfil = FALSE)
-```
+`r round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` procent för kvinnor och `r round(matchning_df %>% filter(kön == "män",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` , vilket alltså är något sämre än riket som helhet.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='left', out.width="90%", fig.cap="Figur 35"}
-matchning_lan_fig
+gg_matchning$matchning_jmf
 ```
 
 Matchningen på arbetsmarknaden tenderar att variera beroende på var man
-är född. I Dalarna har inrikes födda högst matchning med ungefär `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)`
-procent för både kvinnor och män. Även personer födda inom EU har hög
-matchning (runt `r round(matchning_df %>% filter(kön == "samtliga anställda",fodelseland == "födda i Norden eller EU utom Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent). Lägst matchningsgrad har personer `r matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (ca `r round(matchning_df %>% filter(kön == "samtliga anställda",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent).
-
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-matchning_df <- matchning_df %>% 
-  mutate("fodelseland" = ifelse(fodelseland %in% c("födda i Europa utom Norden och EU samt Sydamerika, Nordamerika och Oceanien"),"övriga", fodelseland)) 
-
-diagramtitel <- paste0("Matchning på arbetsmarknaden i Dalarna år ",max(matchning_df$år)," per födelseregion")
-diagramfilnamn <- paste0("matchning_bakgrund.png")
-
-matchning_bakg_fig <- SkapaStapelDiagram(skickad_df =matchning_df %>%
-                                           filter(kön != "samtliga anställda",
-                                                  år == max(år),
-                                                  region == "Dalarna",
-                                                  fodelseland != "totalt"),
-                                         skickad_x_var = "fodelseland",
-                                         skickad_y_var = "matchningsgrad",
-                                         skickad_x_grupp = "kön",
-                                         # manual_x_axis_text_vjust=1,
-                                         # manual_x_axis_text_hjust=1,
-                                         manual_color = diagramfarger("kon"),
-                                         diagram_titel = diagramtitel,
-                                         diagram_capt =  diagram_capt,
-                                         diagram_facet = FALSE,
-                                         x_axis_sort_value = TRUE,
-                                         x_axis_lutning =0,
-                                         y_axis_100proc = TRUE,
-                                         diagram_liggande = TRUE,
-                                         manual_y_axis_title="procent",
-                                         berakna_index = FALSE,
-                                         output_mapp = "",
-                                         filnamn_diagram = diagramfilnamn,
-                                         skriv_till_diagramfil = FALSE)
-
-```
+är född. I Dalarna har inrikes födda högst matchning med `r round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` för kvinnor och `r round(matchning_df %>% filter(kön == "män",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` för män. Lägst matchningsgrad för män har personer `r matchning_df %>% filter(kön == "män",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (ca `r round(matchning_df %>% filter(kön == "män",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent), medan personer `r matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` har lägst matchningsgrad för kvinnor (ca `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)` procent).
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.width=10, fig.align='left', out.width="90%", fig.cap="Figur 36"}
-matchning_bakg_fig
+gg_matchning$matchning_bakgrund
 ```
 
 ## Brist på kompetens

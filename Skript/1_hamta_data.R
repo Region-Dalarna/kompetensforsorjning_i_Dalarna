@@ -127,6 +127,11 @@ gg_utbniva_bakgrund_alder <- diag_utb_niva_bakgr_alder(output_mapp_figur = Outpu
                                                        returnera_figur = TRUE,
                                                        returnera_data = TRUE)
 
+# Matchning (län och bakgrund)
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_matchning_lan_bakgrund.R", encoding="UTF-8")
+gg_matchning <- diag_matchning_lan(output_mapp_figur = Output_mapp_figur,
+                                   returnera_figur = TRUE,
+                                   returnera_data = TRUE)
 # Kompetensbrist
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_kompetensbrist_lan_TVV.R",encoding="UTF-8")
 gg_kompetensbrist <- diag_kompetensbrist(output_mapp_figur = Output_mapp_figur,
