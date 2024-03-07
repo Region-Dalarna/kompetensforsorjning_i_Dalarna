@@ -44,11 +44,11 @@ pendling_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendli
 # Data från Trender och prognoser. Måste sannolikt ändras om det kommer en ny leverans från SCB.
 prognos_df_utbniva <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab0A_20.csv",sep='\t',encoding="latin1") %>% 
     mutate(Ar = as.character(Ar))
-gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/gymnasieantagning.xlsx") %>% 
-    group_by(ar,program) %>% 
-      summarize(Män=sum(Ant_Män),
-                Kvinnor=sum(Ant_Kv)) %>%
-        pivot_longer(.,3:4,names_to="Kon",values_to = "Antagna")
+# gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/gymnasieantagning.xlsx") %>% 
+#     group_by(ar,program) %>% 
+#       summarize(Män=sum(Ant_Män),
+#                 Kvinnor=sum(Ant_Kv)) %>%
+#         pivot_longer(.,3:4,names_to="Kon",values_to = "Antagna")
 # Data från Trender och prognoser. Måste sannolikt ändras om det kommer en ny leverans från SCB.
 gymnasium_prognos_df <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1b_20.csv",sep='\t',encoding="latin1") %>%
     group_by(pgm_ny,ar) %>% 
@@ -86,7 +86,7 @@ I ljuset av en ständigt föränderlig arbetsmarknad och det accelererande tempo
 
 För att få en bättre uppfattning om utbildningssystemet i Dalarna och hur det fungerar, rekommenderas att läsa:
 
-<details style = "background-color: #b6f0fd">
+<details style = "background-color:  #cff4fc">
 
   <summary>En kort introduktion till utbildningssystemet i Dalarna</summary>
 
@@ -139,7 +139,7 @@ diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsan
                                         stodlinjer_avrunda_fem = TRUE,
                                         output_mapp = "",
                                         filnamn_diagram = diagramfil,
-                                        skriv_till_diagramfil =FALSE)
+                                        skriv_till_diagramfil = FALSE)
 
 ```
 
@@ -251,7 +251,7 @@ Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp som inte är h
 I Dalarna är den klart största branschen, sett till antalet förvärvsarbetande, `r tolower(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal=sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$bransch)` med ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$Antal,100),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas. Andra branscher med många anställda i Dalarna är tillverkning och utvinning samt utbildning, med ca `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Tillverkning och utvinning") %>% .$Antal,100),big.mark = " ")` respektive ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Utbildning") %>% .$Antal,100),big.mark = " ")` anställda. Inom vård och omsorg samt utbildning är en övervägande majoritet av de sysselsatta kvinnor, medan det omvända gäller för bygg och transport.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 8"}
-gg_forv_senastear
+gg_forv_senastear$antal_per_bransch
 ```
 
 Hur många som jobbar inom olika branscher i Dalarna har förändrats genom åren. En tydlig utveckling, mellan 1990 och `r max(forvarvsarbetande_90_forandring$år)` är att många fler arbetar i företag som sysslar med `r tolower(forvarvsarbetande_90_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$Näringsgren)`, en ökning på ungefär `r format(plyr::round_any(forvarvsarbetande_90_forandring %>% filter(år == max(år)) %>% filter(skillnad == max(.$skillnad)) %>%  .$skillnad,100),big.mark= " ")` förvärvsarbetande. Detta beror sannolikt på att många företag idag lejer bort vissa tjänster, såsom lokalvård. Om exempelvis ett tillverkande företag som SSAB tidigare anställde lokalvårdare själva, så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället lejer ut sådan verksamhet till andra företag specialiserade inom området, räknas lokalvårdarna istället som förvärvsarbetande inom företagstjänster, finans mm.
@@ -567,121 +567,22 @@ utbgrupp_prog_balans_fig
 
 ## Gymnasiet
 
-
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september"
-
-diagram_titel <- paste0("Antagna gymnasieelever i Dalarna ", max(gymnasieantagning_df$ar)," per program")
-diagramfil <- "gymnasieantagning.png"
-    
-gymnasieantagning_df[gymnasieantagning_df == "Flygteknikutbildningen, Marinteknikutbildningen, Sjöfartsutbildningen, Tågteknikutbildningen, Utbildningen samiska näringar eller Yrkesdansarutbildningen"] <- "Flygteknikutbildningen mfl."
-
-    
-gym_alla_fig <- SkapaStapelDiagram(skickad_df = gymnasieantagning_df %>% 
-                                     filter(ar==max(.$ar)),
-                                   skickad_x_var = "program", 
-                                   skickad_y_var = "Antagna", 
-                                   manual_x_axis_text_vjust=0,
-                                   manual_x_axis_text_hjust=0.6,
-                                   manual_color = diagramfarger("rus_sex")[1],
-                                   diagram_titel = diagram_titel,
-                                   x_axis_sort_value = TRUE,
-                                   diagram_capt = diagram_capt,
-                                   x_axis_lutning = 0,
-                                   diagram_liggande = TRUE,
-                                   manual_y_axis_title = "Antagna elever",
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   output_mapp = "",
-                                   filnamn_diagram = diagramfil,
-                                   skriv_till_diagramfil = FALSE)
-```
-
-Vid antagningen hösten 2023 antogs flest unga i Dalarna till introduktionsprogrammet, ett program dit enbart personer som inte är behöriga till andra program antas. Bland de nationella programmen antogs flest till ekonomiprogrammet, samhällsvetenskapsprogrammet och teknikprogrammet. Högskoleförberedande program är således mest populära bland länets ungdomar. Bland yrkesförberedande program antogs flest till bygg- och anläggningsprogrammet respektive fordons- och transportprogrammet. 
+Vid antagningen hösten `r max(gymnasieantagning_df$ar)` antogs flest unga i Dalarna till introduktionsprogrammet, ett program dit enbart personer som inte är behöriga till andra program antas. Bland de nationella programmen antogs flest till ekonomiprogrammet, samhällsvetenskapsprogrammet och teknikprogrammet. Högskoleförberedande program är således mest populära bland länets ungdomar. Bland yrkesförberedande program antogs flest till bygg- och anläggningsprogrammet respektive fordons- och transportprogrammet. 
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 24"}
-gym_alla_fig
+gg_gymnasiet$gymnasieantagning_tot
 ```
 
 Det råder stora könsmässiga skillnader mellan antagna till olika program. För högskoleförberedande program är obalansen störst på samhällsvetenskapsprogrammet, dit klart flest tjejer antas och teknikprogrammet, dit klart flest pojkar antas. Bland yrkesförberedande program är det en överväldigande majoritet tjejer som antas till Vård- och omsorgsprogrammet medan en överväldigande majoritet killar antas till bygg- och anläggningsprogrammet och el- och energiprogrammet. Dessa obalanser återspeglas även senare i arbetslivet. Kvinnor är överrepresenterade inom vård och omsorg och utbildning, medan män är i klar majoritet inom byggsektorn. Om målsättningen är att skapa en mer jämställd fördelning mellan olika branscher i arbetslivet, är det således viktigt att börja arbetet redan i skolan. Det finns uppenbarligen stora skillnader mellan vilka val killar och tjejer gör redan då.
 
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: Källan är Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september"
-
-diagram_titel <- paste0("Antagna gymnasieelever i Dalarna ", max(gymnasieantagning_df$ar)," per program")
-diagramfil <- "gymnasieantagning_kon.png"
-
-gym_kon_fig <- SkapaStapelDiagram(skickad_df = gymnasieantagning_df %>% 
-                                     filter(ar==max(.$ar)),
-                                   skickad_x_var = "program", 
-                                   skickad_y_var = "Antagna",
-                                   skickad_x_grupp = "Kon",
-                                   manual_x_axis_text_vjust=0,
-                                   manual_x_axis_text_hjust=0.6,
-                                   manual_color = diagramfarger("kon"),
-                                   diagram_titel = diagram_titel,
-                                   x_axis_sort_value = TRUE,
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   diagram_capt = diagram_capt,
-                                   x_axis_lutning = 0,
-                                   diagram_liggande = TRUE,
-                                   manual_y_axis_title = "Antagna elever",
-                                   output_mapp = "",
-                                   filnamn_diagram = diagramfil,
-                                   skriv_till_diagramfil = FALSE)
-```
-
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 25"}
-gym_kon_fig
+gg_gymnasiet_kon$gymnasieantagning_kon_tot
 ```
 
-Det program som ökat klart mest i antalet antagna är introduktionsprogrammet. År `r min(gymnasieantagning_df$ar)` antogs runt `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == min(.$ar)) %>% .$Antagna)` personer till programmet, en siffra som ökade till `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == max(.$ar)) %>% .$Antagna)` år `r max(gymnasieantagning_df$ar)`. Bland studieförberedande program är ökningen störst på ekonomiprogrammet, dit mer än dubbel så många antas idag som 2011. Bland program som i första hand kan ses som yrkesförberedande har antalet antagna till naturbruksprogrammet ökat avsevärt sedan 2011, medan antalet antagna till restaurang- och livsmedelsprogrammet och hotell och turismprogrammet har minskat tydligt.
-
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt_fleraar<-"Källa: Gymnasieantagningen, Dalarnas kommunförbund\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Antagna i början av september\nEnbart program som existerat samtliga år"
-
- # Tar fram det år som ligger mellan min och max i dataset. Tar dessutom fram min och maxår
-medel_ar = as.character(round(((max(as.integer(gymnasieantagning_df$ar))-min(as.integer(gymnasieantagning_df$ar)))/2)+min(as.integer(gymnasieantagning_df$ar))))
-min_ar = min(gymnasieantagning_df$ar)
-max_ar = max(gymnasieantagning_df$ar)
-
-diagram_titel <- paste0("Antagna gymnasieelever i Dalarna per program")
-diagramfil <- "gymnasieantagning_fleraar.png"
-
-gym_fleraar_fig <- SkapaStapelDiagram(skickad_df = gymnasieantagning_df%>% 
-                                        filter(program%in%unique(gymnasieantagning_df %>%
-                                                                  filter(ar == min_ar) %>%
-                                                                    .$program)) %>% 
-                                          filter(program%in%unique(gymnasieantagning_df %>%
-                                                                  filter(ar == medel_ar) %>%
-                                                                    .$program)) %>% 
-                                            filter(program%in%unique(gymnasieantagning_df %>%
-                                                                  filter(ar == max_ar) %>%
-                                                                    .$program)) %>% 
-                                              filter(ar %in% c(min(.$ar),medel_ar,max(.$ar))) %>% 
-                                                mutate(ar = factor(ar, levels = c(max_ar,medel_ar,min_ar))),
-                                     skickad_x_var = "program", 
-                                     skickad_y_var = "Antagna", 
-                                     skickad_x_grupp = "ar",
-                                     manual_x_axis_text_vjust=0,
-                                     manual_x_axis_text_hjust=0.6,
-                                     manual_color = diagramfarger("rus_sex"),
-                                     diagram_titel = diagram_titel,
-                                     x_axis_sort_value = TRUE,
-                                     diagram_capt = diagram_capt_fleraar,
-                                     #procent_0_100_10intervaller = TRUE,
-                                     x_axis_lutning = 0,
-                                     legend_vand_ordning = TRUE,
-                                     diagram_liggande = TRUE,
-                                     manual_y_axis_title = "Antagna elever",
-                                     #geom_position_stack = TRUE,
-                                     berakna_index = FALSE,
-                                     output_mapp = "",
-                                     filnamn_diagram = diagramfil,
-                                     skriv_till_diagramfil = FALSE)
-```
+Det program som ökat klart mest i antalet antagna är introduktionsprogrammet. År `r min(gymnasieantagning_df$ar)` antogs runt `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == min(.$ar)) %>% .$Antagna)` personer till programmet, en siffra som ökade till `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == max(.$ar)) %>% .$Antagna)` år `r max(gymnasieantagning_df$ar)`. Bland studieförberedande program är ökningen störst på ekonomiprogrammet, dit mer än dubbel så många antas idag som `r min(gymnasieantagning_df$ar)`. Bland program som i första hand kan ses som yrkesförberedande har antalet antagna till naturbruksprogrammet ökat avsevärt sedan `r min(gymnasieantagning_df$ar)`, medan antalet antagna till restaurang- och livsmedelsprogrammet och hotell och turismprogrammet har minskat tydligt.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 26"}
-gym_fleraar_fig
+gg_gymnasiet$gymnasieantagning_fleraar
 ```
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}

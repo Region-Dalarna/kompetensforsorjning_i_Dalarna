@@ -43,13 +43,19 @@ gg_utbniva_senastear <- diag_utbniva_lang_tidserie(region_vekt = c("20"),
                                                    diag_andel_eftergymn_jmfr_lan = TRUE,
                                                    minst_3_ar = TRUE)
 
-# Gymnasieantagning - sourcar ett skript som Peter har skapat. vet inte när data uppdateras.
-# Eftersom skriptet automatiskt skapar en dataframe så skapas denna först för att sedan tas bort (vi vill bara spara till Excel)
-# source("G:/skript/hamta_data/func_gymnasieantagningen.R", encoding = "utf-8", echo = FALSE)
-# temp_df <- las_in_data_gymnasieantagningen(output_mapp_excel = Output_mapp,
-#                                            spara_data_excel = TRUE)
-# 
-# rm(temp_df)
+# Gymnasieantagning, senaste och flera år
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_gymnasiantagning_antal_kon.R")
+# Inte könsuppdelat
+gg_gymnasiet <- diag_gymnasieantagna_antal(output_mapp_figur = Output_mapp_figur,
+                                          returnera_figur = TRUE,
+                                          returnera_data = TRUE)
+
+# Könsuppdelat
+gg_gymnasiet_kon <- diag_gymnasieantagna_antal(output_mapp_figur = Output_mapp_figur,
+                                              returnera_figur = TRUE,
+                                              returnera_data = FALSE,
+                                              konsuppdelat = TRUE,
+                                              diag_antal_fleraar = FALSE)
 
 # Arbetslöshet 08-senaste år. Excel, Arbetsförmedlingen - KVAR
 # source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
