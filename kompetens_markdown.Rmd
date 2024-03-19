@@ -53,13 +53,13 @@ prognos_df_utbniva <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompeten
 gymnasium_prognos_df <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1b_20.csv",sep='\t',encoding="latin1") %>%
     group_by(pgm_ny,ar) %>% 
       summarize(antal=sum(ak1)) 
-hogskoleexamen_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/hogskoleexamen.xlsx")
+#hogskoleexamen_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/hogskoleexamen.xlsx")
 # Data från Trender och prognoser. Måste sannolikt ändras om det kommer en ny leverans från SCB.
 prognos_df_hogskola <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1k_20.csv",sep='\t',encoding="latin1")%>% 
     group_by(Kortnamn_modell_alt,ar) %>% 
       summarize(antal=sum(exgen))
 # Skriptet som skapar nedanstående data finns på Mona: P1079gem/peter/YH_uppfoljning_bransch_yrke
-folkhogskola_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/13_okt_22_Dalarna_yrkeshogskoleexamen.xlsx", sheet =1)
+folkhogskola_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/8_mar_24_Dalarna_yrkeshogskoleexamen.xlsx", sheet =1)
 # Skriptet som skapar nedanstående data finns på Mona: P1079gem/peter/YH_uppfoljning_bransch_yrke
 prognos_df_yh <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1g_20.csv",sep='\t',encoding="latin1") %>% 
   filter(!(is.na(ex))) %>% 
@@ -621,39 +621,11 @@ gym_prognos_fig
 
 ## Högskolan
 
-De som tog examen från Högskolan Dalarna läsåret 2020 gjorde det i stor utsträckning från två program, hälso- och sjukvård samt pedagogik- och lärarutbildning. Andra populär program är företagsekonomin, handel och administration samt informations- och kommunikationsteknik (IKT).
-
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: NMS-databasen (SCB), högskoleregistret\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Enbart program/områden med minst 5 examinerade"
-
-diagram_titel <- paste0("Examen från Högskolan Dalarna låsåret ",max(hogskoleexamen_df$Lar)," per program")
-diagramfil <- "hogskoleexamen_alla.png"
-
-hogskoleexamen_fig <- SkapaStapelDiagram(skickad_df = hogskoleexamen_df%>%
-                               filter(antal>4,
-                                      Lar == max(Lar)),
-                             skickad_x_var = "SUN2020Inr_2siffer_namn",
-                             skickad_y_var = "antal",
-                             #skickad_x_grupp = "SUN2020Inr_namn",
-                             # manual_x_axis_text_vjust=0,
-                             # manual_x_axis_text_hjust=0.6,
-                             manual_color = diagramfarger("rus_sex"),
-                             diagram_titel = diagram_titel,
-                             x_axis_sort_value = TRUE,
-                             diagram_capt = diagram_capt,
-                             x_axis_lutning = 0,
-                             diagram_liggande = TRUE,
-                             manual_y_axis_title = "Antal examinerade",
-                             manual_x_axis_title = "Utbildningsområde",
-                             output_mapp = "",
-                             filnamn_diagram = diagramfil,
-                             skriv_till_diagramfil = FALSE)
-```
+De som tog examen från Högskolan Dalarna läsåret `r max(hogskoleexamen_df$Lar)` gjorde det i stor utsträckning från två program, hälso- och sjukvård samt pedagogik- och lärarutbildning med närmare 400 examinerade. Efter en nedgång i mitten av 2010-talet, är antalet examinerade från dessa program idag är på ungefär samma nivå som de var runt 2010. Ett annat populärt program är företagsekonom, handel och administration med `r hogskoleexamen_df %>% filter(Lar==max(.$Lar),SUN2020Inr_2siffer_namn == "Företagsekonomi, handel och administration") %>% .$antal` examinerade. Från detta program examineras fler idag än 2010, men det har varit en tydlig nedgång sedan 2015. Ett program som minskat avsevärt sedan 2010 är teknisk och teknisk industri, där antalet examinerade `r max(hogskoleexamen_df$Lar)` är ungefär en tredjedel av vad det var för tio år sedan.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 28"}
-hogskoleexamen_fig
+gg_hogskoleexamen$hogskoleexamen
 ```
-
 
 TA BORT? Blir mest förvirrande när varken alla program finns, eller antal examinerade stämmer överens med figuren ovan.
 

@@ -57,6 +57,13 @@ gg_gymnasiet_kon <- diag_gymnasieantagna_antal(output_mapp_figur = Output_mapp_f
                                               konsuppdelat = TRUE,
                                               diag_antal_fleraar = FALSE)
 
+# Högskoleexamen
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_examen_hogskolan_NMS.R")
+gg_hogskoleexamen <- diagram_examen_hogskolan_NMS (output_mapp_figur = Output_mapp_figur,
+                                                   returnera_figur = TRUE,
+                                                   returnera_data = TRUE,
+                                                   spara_figur = TRUE)
+
 # Arbetslöshet 08-senaste år. Excel, Arbetsförmedlingen - KVAR
 # source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
 # hamta_data_arbetsloshet(output_mapp = Output_mapp,

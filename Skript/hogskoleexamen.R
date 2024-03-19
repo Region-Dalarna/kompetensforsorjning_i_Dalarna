@@ -20,7 +20,8 @@ diag_hogskoleexamen <-function(output_mapp = "G:/Samhällsanalys/Statistik/Näri
   # ========================== Läs in data ======================================
   
   # Läs in datafil med högskoleexamen
-  hogskoleexamen_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/12_jul_23_Dalarna_hogskoleexamen.xlsx")
+  #hogskoleexamen_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/12_jul_23_Dalarna_hogskoleexamen.xlsx")
+  hogskoleexamen_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/7_mar_24_Dalarna_hogskoleexamen.xlsx")
   # Mall för att få klartext (utbildningsnamn)
   mall_sun <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/mall_sun2020inr.xlsx", sheet = 1)
   mall_sun_2siffer <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/mall_sun2020inr.xlsx", sheet = 2) %>% 
