@@ -130,7 +130,7 @@ Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp som inte är h
 
 I Dalarna är den klart största branschen, sett till antalet förvärvsarbetande, `r tolower(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal=sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$bransch)` med ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$Antal,1000),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas. Andra branscher med många anställda i Dalarna är tillverkning och utvinning samt utbildning, med ca `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Tillverkning och utvinning") %>% .$Antal,1000),big.mark = " ")` respektive ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Utbildning") %>% .$Antal,1000),big.mark = " ")` anställda. Inom vård och omsorg samt utbildning är en övervägande majoritet av de sysselsatta kvinnor, medan det omvända gäller för bygg och transport.
 
-```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',fig.cap="Figur 8"}
+```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',fig.height=5, fig.width=8, fig.align='center',fig.cap="Figur 8"}
 gg_forv_senastear$antal_per_bransch
 ```
 
