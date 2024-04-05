@@ -3,3 +3,4 @@ rmarkdown::render(
   output_file = 'kompetens_markdown_ny.html',
   envir = parent.frame()
 )
+
