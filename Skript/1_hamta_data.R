@@ -20,7 +20,17 @@ gg_forv_90 <- diagram_forvarvsarbetande_90(output_mapp_figur = Output_mapp_figur
                                            returnera_data = TRUE,
                                            vald_farg = diagramfarger("rus_sex"))
 
-# Utbildningsnivå från 85 och framåt uppdelat på kön. Data hämtas i detta fall från GGplot-objektet (när data används i markdown)
+# Utbildningsnivå från 85 och framåt uppdelat på kön. Data hämtas i detta fall från GGplot-objektet (när data används i markdown) FEL
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_flera_diagram_scb.R")
+gg_utbniva_85 <- diag_utbniva_tidserie_och_lansjmfr(region_vekt = c("20"),
+                                                    output_mapp = Output_mapp_figur,
+                                                    diagram_capt = "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna",
+                                                    skapa_fil = TRUE,
+                                                    diag_hogutb_over_tid = TRUE,
+                                                    diag_lagutb_over_tid = TRUE,
+                                                    diag_andel_alla_utbnivaer = TRUE,
+                                                    vald_utb_niva = "hogutb")
+
 source("G:/skript/diagram/diag_utbniva_over_tid_och_andel_specifikt_ar.R")
 gg_utbniva_85 <- diag_utbniva_lang_tidserie(region_vekt = c("20"),
                                             output_mapp = Output_mapp_figur,
@@ -31,7 +41,7 @@ gg_utbniva_85 <- diag_utbniva_lang_tidserie(region_vekt = c("20"),
                                             diag_andel_alla_utbnivaer = FALSE,
                                             diag_andel_eftergymn_jmfr_lan = FALSE)
 
-# Utbildningsnivå senaste år
+# Utbildningsnivå senaste år FEL
 source("G:/skript/diagram/diag_utbniva_over_tid_och_andel_specifikt_ar.R")
 gg_utbniva_senastear <- diag_utbniva_lang_tidserie(region_vekt = c("20"),
                                                    output_mapp = Output_mapp_figur,
