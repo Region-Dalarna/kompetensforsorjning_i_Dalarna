@@ -112,7 +112,7 @@ Den sista varianten av utbildning är **arbetsmarknadsutbildning** som oftast sk
  
 </details>
 
-I fortsättningen av denna rapport diskuteras först efterfrågan och utbud på arbetskraft i Dalarna, därefter utbudet av arbetskraft, därefter studeras de olika utbildningsnivåerna i Dalarna mer ingående, vilket följs av en diskussion om hur väl arbetsmarknaden i Dalarna fungerar. Rapporten avslutas med fördjupningar på bransch-nivå  
+I fortsättningen av denna rapport diskuteras först efterfrågan och utbud på arbetskraft i Dalarna, därefter studeras de olika utbildningsnivåerna i Dalarna mer ingående, vilket följs av en diskussion om hur väl arbetsmarknaden i Dalarna fungerar. Rapporten avslutas med fördjupningar på branschnivå  
 
 # Efterfrågan på arbetskraft
 
@@ -134,13 +134,13 @@ I Dalarna är den klart största branschen, sett till antalet förvärvsarbetand
 gg_forv_senastear$antal_per_bransch
 ```
 
-Historiskt var tillverkning och utvinning den största branschen i Dalarna, men dess betydelse har minskat över tid, något som har omstrukturerat Dalarnas arbetsmarknad under många år. År 1990 var dessa sektorer de mest framstående, men de har nu sjunkit till att vara den tredje största näringen i Dalarna. Denna förändring återspeglar den allmänna tendensen i många regioner där tjänstesektorn har fått ökad betydelse över tid. Dessutom har företag inom tillverkning och utvinning idag har en mer automatiserad produktion än de hade för 30 år sedan, något som medför att det behövs färre antal anställda i produktionen.
+Historiskt var tillverkning och utvinning den största branschen i Dalarna sett till antalet anställda, men dess betydelse har minskat över tid, något som har omstrukturerat Dalarnas arbetsmarknad under många år. Idag är tillverkning och utvinning den tredje största näringen i Dalarna. Denna förändring återspeglar den allmänna tendensen i många regioner där tjänstesektorn har fått ökad betydelse över tid. Dessutom har företag inom tillverkning och utvinning idag har en mer automatiserad produktion än de hade för 30 år sedan, något som medför att det behövs färre antal anställda i produktionen.
 
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',fig.cap="Figur 2"}
 gg_forv_90$forvarvsarbetande_90_totalt_Dalarna
 ```
 
-Bland övriga branscher har det skett en ökning av antalet förvärvsarbetande, särskilt inom företagstjänster och finans där det jobbar 50 procent fler idag än 1990. Detta beror sannolikt på att många företag idag lejer bort vissa tjänster, såsom lokalvård. Om exempelvis ett tillverkande företag som SSAB tidigare anställde lokalvårdare själva, så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället lejer ut sådan verksamhet till andra företag specialiserade inom området, räknas lokalvårdarna istället som förvärvsarbetande inom företagstjänster, finans mm. Även inom kultur och utbildning jobbar många fler idag än i början av 90-talet. 
+Bland övriga branscher har det skett en stor ökning av antalet förvärvsarbetande inom företagstjänster och finans där det jobbar 50 procent fler idag än 1990. Detta beror sannolikt på att många företag idag lejer bort vissa tjänster, såsom lokalvård. Om exempelvis ett tillverkande företag som SSAB tidigare anställde lokalvårdare själva, så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället lejer ut sådan verksamhet till andra företag specialiserade inom området, räknas lokalvårdarna istället som förvärvsarbetande inom företagstjänster, finans mm. Även inom kultur och utbildning jobbar många fler idag än i början av 90-talet. 
 
 Dessa sektorer har således bidragit till att bredda och diversifiera arbetsmarknaden i Dalarna. Sammantaget speglar denna utveckling en omställning mot en mer serviceorienterad ekonomi, medan vissa traditionella sektorer har minskat i omfattning.
 
@@ -150,7 +150,7 @@ gg_forv_90$forvarvsarbetande_90_forandring_Dalarna
 
 Olika kommuner i Dalarna har olika branschstrukturer, vilket åskådliggörs i figuren nedan. I södra delarna av länet, exempelvis Avesta och Ludvika, är tillverkningsindustrin fortfarande en av de största arbetsgivarna, med företag såsom Outokumpu (Avesta) och Hitachi (Ludvika). I de kommuner som har ett akutsjukhus, Falun och Mora, är vård och omsorg den viktigaste branschen, vilket även gäller för Säter och Rättvik. I Leksand spelar handel en stor roll, då kommunen är säte för bland annat Clas Ohlson.
 
-I de nordligaste kommunerna (Malung-Sälen, Orsa och Älvdalen) är byggindustrin en av de största arbetsgivarna, vilket delvis kan förklaras av den byggboom som skett i Dalarnas fjällvärld. Det är även tydligt att näringslivet i länets två största ortern (Borlänge och Falun) domineras av tjänstesektorn (handel, företagstjänster, och offentlig förvaltning).
+I de nordligaste kommunerna (Malung-Sälen, Orsa och Älvdalen) är byggindustrin en av de största arbetsgivarna, vilket delvis kan förklaras av den byggboom som skett i Dalarnas fjällvärld. Det är även tydligt att näringslivet i länets två största orter (Borlänge och Falun) domineras av tjänstesektorn (handel, företagstjänster, och offentlig förvaltning).
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center',,fig.cap="Figur 3"}
 knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2020/Branschstruktur_Dalarnas_kommuner_2020.png")
@@ -208,7 +208,7 @@ forvarvsarbetande_prognos_fig
 Hur stor andel som jobbar inom yrken med olika former av kvalifikationskrav varierar relativt mycket 
 mellan Sveriges län. `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$region ` har störst andel som arbetar inom enklare yrken, med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0) ` procent av de förvärvsarbetande i länet. Dock jobbar generellt relativt få inom dessa yrken, oavsett region. Om vi istället fokuserar på yrken med kvalifikationskrav som motsvarar gymnasial kompetens är skillnaderna större mellan Sveriges län. Minst andel återfinns i `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` där ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande har den typen av yrken, medan störst andel återfinns i `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande. För yrken med högre kvalifikationskrav, exempelvis "motsvarande fördjupad högskolekompetens", är situationen mer eller mindre det omvända. Största andel har `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande, medan `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent har lägst andel. Kvalifikationskraven i Dalarna påminner om de i Kalmar, med relativt stor andel av de förvärvsarbetande inom yrken med motsvarande gymnasial kompetens och färre inom yrken som kräver olika former av högskolekompetens.
 
-```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',,fig.cap="Figur 11"}
+```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='Left',fig.cap="Figur 11"}
 gg_kvalifikation$kvalifikationskrav_jmf_lan
 ```
 
@@ -242,7 +242,7 @@ Sammanfattningsvis...
 
 # Utbud av arbetskraft
 
-Utbudet av arbetskraft i ett område kan bestå av flera olika delar. Dels handlar det om hur många av befolkningen i ett område som är i vad som brukar kallas för arbetsför ålder, dvs. mellan 20 och 64 år gamla. Visserligen jobbar människor allt längre upp i åldrarna, men den största andelen arbetar när de är i arbetsför ålder.  Utbudet består dock inte enbart av de som bor i området, många kommuner har en stor andel pendlare som arbetar i en annan kommun än den de bor i. 
+Utbudet av arbetskraft i ett område kan bestå av flera olika delar. Dels handlar det om hur stor andel av befolkningen som är i vad som brukar kallas för arbetsför ålder, dvs. mellan 20 och 64 år gamla. Visserligen jobbar människor allt längre upp i åldrarna, men den största andelen arbetar när de är i arbetsför ålder.  Utbudet består dock inte enbart av de som bor i området, många kommuner har en stor andel pendlare som arbetar i en annan kommun än den de bor i. 
 
 Vid sidan om utbudet av arbetskraft i en region eller kommun, är det även intressant att undersöka vilken typ av utbildning dessa har. Detta kan ge en indikation på hur väl utbildad arbetskraften är och om det finns en risk att det uppstår kompetensbrist i framtiden.
 
@@ -266,7 +266,7 @@ gg_bef_for$befolkningsforandring_20_64
 
 AVVAKTA MED. FINNS DET NÅGOT DIAGRAMSKRIPT SOM GÖR DETTA?
 
-Om Dalarnas arbetsföra befolkning delas upp i inrikes och utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat i antal de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna minskade inrikes födda invånare i arbetsför ålder (20-64 år) från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`.
+Om den arbetsföra befolkning delas upp i inrikes och utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat i antal de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna har antalet inrikes födda invånare i arbetsför ålder (20-64 år) minskat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`.
 
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
@@ -303,7 +303,7 @@ bef_inr_utr <- SkapaStapelDiagram(skickad_df = befolkning_utr_inr_df,
 bef_inr_utr
 ```
 
-Om Dalarna befolkning delas efter ålder, framträder ett tydligt mönster. De unga (0-19 år) och de i arbetsför ålder (20-64 är) har minskat sedan slutet på 1960-talet, medan de äldre (65-79 år och 80+ år) har ökat kraftigt under samma tidsperiod, en utveckling som dessutom prognostiseras fortsätta i framtiden (se figuren nedan).
+I figuren nedan blir det tydligt att de unga (0-19 år) och de i arbetsför ålder (20-64 är) har minskat sedan slutet på 1960-talet, medan de äldre (65-79 år och 80+ år) har ökat kraftigt under samma tidsperiod, en utveckling som dessutom prognostiseras fortsätta i framtiden (se figuren nedan).
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE,include=FALSE}
 
@@ -434,7 +434,7 @@ Antalet med låg utbildning minskar därefter med åldern ner till åldersgruppe
 gg_utbniva_bakgrund_alder$utb_niva_alder
 ```
 
-I jämförelse med andra län är utbildningsnivån i Dalarna relativt låg. År `r max(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data$år)` hade Dalarna näst lägst andel med eftergymnasialt utbildade bland Sveriges län. Ungefär `r round(gg_utbniva_senastear$hogutb_andel_ar_2022$data %>% filter(kön == "kvinnor",region == "Dalarna") %>% .$total,0)` procent av kvinnorna och `r round(gg_utbniva_senastear$hogutb_andel_ar_2022$data %>% filter(kön == "män",region == "Dalarna") %>% .$total,0)` av männen i Dalarna har en eftergymnasial utbildning om minst 3 år, att jämföra med `r round(gg_utbniva_senastear$hogutb_andel_ar_2022$data %>% filter(kön == "kvinnor",region == "Stockholm") %>% .$total,0)` procent för kvinnor och `r round(gg_utbniva_senastear$hogutb_andel_ar_2022$data %>% filter(kön == "män",region == "Stockholm") %>% .$total,0)` i Stockholm, de län som har högst utbildningsnivå i Sverige. Spridningen mellan könen är således klart större i Dalarna än i Stockholm. 
+I jämförelse med andra län är utbildningsnivån i Dalarna relativt låg. År `r max(gg_utbniva_85$hogutb_andel_ar20_1985_2022$data$år)` hade Dalarna näst lägst andel med eftergymnasialt utbildade bland Sveriges län. Ungefär `r round(gg_utbniva_senastear$hogutb_andel_ar_2022$data %>% filter(kön == "kvinnor",region == "Dalarna") %>% .$total,0)` procent av kvinnorna och `r round(gg_utbniva_senastear$hogutb_andel_ar_2022$data %>% filter(kön == "män",region == "Dalarna") %>% .$total,0)` av männen i Dalarna har en eftergymnasial utbildning om minst 3 år, att jämföra med `r round(gg_utbniva_senastear$hogutb_andel_ar_2022$data %>% filter(kön == "kvinnor",region == "Stockholm") %>% .$total,0)` procent för kvinnor och `r round(gg_utbniva_senastear$hogutb_andel_ar_2022$data %>% filter(kön == "män",region == "Stockholm") %>% .$total,0)` för männen i Stockholm, de län som har högst utbildningsnivå i Sverige. Spridningen mellan könen är således klart större i Dalarna än i Stockholm. 
 
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',,fig.cap="Figur 6"}
 gg_utbniva_senastear$hogutb_andel_ar_2022
@@ -557,7 +557,7 @@ Det råder stora könsmässiga skillnader mellan antagna till olika program. Fö
 gg_gymnasiet_kon$gymnasieantagning_kon_tot
 ```
 
-Det program som ökat klart mest i antalet antagna är introduktionsprogrammet. År `r min(gymnasieantagning_df$ar)` antogs runt `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == min(.$ar)) %>% .$Antagna)` personer till programmet, en siffra som ökade till `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == max(.$ar)) %>% .$Antagna)` år `r max(gymnasieantagning_df$ar)`. Bland studieförberedande program är ökningen störst på ekonomiprogrammet, dit mer än dubbel så många antas idag som `r min(gymnasieantagning_df$ar)`. Bland program som i första hand kan ses som yrkesförberedande har antalet antagna till naturbruksprogrammet ökat avsevärt sedan `r min(gymnasieantagning_df$ar)`, medan antalet antagna till restaurang- och livsmedelsprogrammet samt hotell och turismprogrammet har minskat tydligt.
+Det program som ökat klart mest i antalet antagna är introduktionsprogrammet. År `r min(gymnasieantagning_df$ar)` antogs runt `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == min(.$ar)) %>% .$Antagna)` personer till programmet, en siffra som ökat till `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == max(.$ar)) %>% .$Antagna)` år `r max(gymnasieantagning_df$ar)`. Bland studieförberedande program är ökningen störst på ekonomiprogrammet, dit mer än dubbel så många antas idag som `r min(gymnasieantagning_df$ar)`. Bland program som i första hand kan ses som yrkesförberedande har antalet antagna till naturbruksprogrammet ökat avsevärt sedan `r min(gymnasieantagning_df$ar)`, medan antalet antagna till restaurang- och livsmedelsprogrammet samt hotell och turismprogrammet har minskat tydligt.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 26"}
 gg_gymnasiet$gymnasieantagning_fleraar
@@ -599,9 +599,9 @@ gym_prognos_fig
 
 ## Högskolan
 
-De som tog examen från Högskolan Dalarna läsåret `r max(hogskoleexamen_df$Lar)` gjorde det i stor utsträckning från två program, hälso- och sjukvård samt pedagogik- och lärarutbildning med närmare 400 examinerade vardera. Efter en nedgång i mitten av 2010-talet, är antalet examinerade från dessa program idag är på ungefär samma nivå som de var runt 2010. 
+De som tog examen från Högskolan Dalarna läsåret `r max(hogskoleexamen_df$Lar)` gjorde det i stor utsträckning från två program, hälso- och sjukvård samt pedagogik- och lärarutbildning med närmare 400 examinerade vardera. Efter en nedgång i mitten av 2010-talet, är antalet examinerade från dessa program idag på ungefär samma nivå som de var runt 2010. 
 
-Ett annat populärt program är företagsekonom, handel och administration med `r hogskoleexamen_df %>% filter(Lar==max(.$Lar),SUN2020Inr_2siffer_namn == "Företagsekonomi, handel och administration") %>% .$antal` examinerade. Från detta program examineras fler idag än 2010, men det har varit en tydlig nedgång sedan 2015. Ett program som minskat avsevärt sedan 2010 är teknisk och teknisk industri, där antalet examinerade `r max(hogskoleexamen_df$Lar)` är ungefär en tredjedel av vad det var för tio år sedan.
+Ett annat populärt program är företagsekonomi, handel och administration med `r hogskoleexamen_df %>% filter(Lar==max(.$Lar),SUN2020Inr_2siffer_namn == "Företagsekonomi, handel och administration") %>% .$antal` examinerade. Från detta program examineras fler idag än 2010, men det har varit en tydlig nedgång sedan 2015. Ett program som minskat avsevärt sedan 2010 är teknik och teknisk industri, där antalet examinerade `r max(hogskoleexamen_df$Lar)` är ungefär en tredjedel av vad det var för tio år sedan.
 
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',fig.cap="Figur 28"}
 gg_hogskoleexamen$hogskoleexamen
