@@ -31,27 +31,38 @@ gg_utbniva_85 <- diag_utbniva_tidserie_och_lansjmfr(region_vekt = c("20"),
                                                     diag_andel_alla_utbnivaer = TRUE,
                                                     vald_utb_niva = "hogutb")
 
-source("G:/skript/diagram/diag_utbniva_over_tid_och_andel_specifikt_ar.R")
-gg_utbniva_85 <- diag_utbniva_lang_tidserie(region_vekt = c("20"),
-                                            output_mapp = Output_mapp_figur,
-                                            diagram_capt = "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna",
-                                            skapa_fil = TRUE,
-                                            diag_hogutb_over_tid = TRUE,
-                                            diag_lagutb_over_tid = FALSE,
-                                            diag_andel_alla_utbnivaer = FALSE,
-                                            diag_andel_eftergymn_jmfr_lan = FALSE)
+# source("G:/skript/diagram/diag_utbniva_over_tid_och_andel_specifikt_ar.R")
+# gg_utbniva_85 <- diag_utbniva_lang_tidserie(region_vekt = c("20"),
+#                                             output_mapp = Output_mapp_figur,
+#                                             diagram_capt = "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna",
+#                                             skapa_fil = TRUE,
+#                                             diag_hogutb_over_tid = TRUE,
+#                                             diag_lagutb_over_tid = FALSE,
+#                                             diag_andel_alla_utbnivaer = FALSE,
+#                                             diag_andel_eftergymn_jmfr_lan = FALSE)
 
 # Utbildningsnivå senaste år FEL
-source("G:/skript/diagram/diag_utbniva_over_tid_och_andel_specifikt_ar.R")
-gg_utbniva_senastear <- diag_utbniva_lang_tidserie(region_vekt = c("20"),
-                                                   output_mapp = Output_mapp_figur,
-                                                   diagram_capt = "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna",
-                                                   skapa_fil = TRUE,
-                                                   diag_hogutb_over_tid = FALSE,
-                                                   diag_lagutb_over_tid = FALSE,
-                                                   diag_andel_alla_utbnivaer = FALSE,
-                                                   diag_andel_eftergymn_jmfr_lan = TRUE,
-                                                   minst_3_ar = TRUE)
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_flera_diagram_scb.R")
+gg_utbniva_senastear <- diag_utbniva_tidserie_och_lansjmfr(region_vekt = c("20"),
+                                                           output_mapp = Output_mapp_figur,
+                                                           diagram_capt = "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna",
+                                                           skapa_fil = TRUE,
+                                                           diag_hogutb_over_tid = FALSE,
+                                                           diag_lagutb_over_tid = FALSE,
+                                                           diag_andel_alla_utbnivaer = FALSE,
+                                                           diag_andel_utbniva_jmfr_lan = TRUE,
+                                                           vald_utb_niva = "hogutb")
+
+# source("G:/skript/diagram/diag_utbniva_over_tid_och_andel_specifikt_ar.R")
+# gg_utbniva_senastear <- diag_utbniva_lang_tidserie(region_vekt = c("20"),
+#                                                    output_mapp = Output_mapp_figur,
+#                                                    diagram_capt = "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna",
+#                                                    skapa_fil = TRUE,
+#                                                    diag_hogutb_over_tid = FALSE,
+#                                                    diag_lagutb_over_tid = FALSE,
+#                                                    diag_andel_alla_utbnivaer = FALSE,
+#                                                    diag_andel_eftergymn_jmfr_lan = TRUE,
+#                                                    minst_3_ar = TRUE)
 
 # Gymnasieantagning, senaste och flera år
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_gymnasiantagning_antal_kon.R")
@@ -210,4 +221,10 @@ gg_arbetsmarknadsstatus_lan <- diagram_arbetsmarknadsstatus(region_vekt = hamtaA
 # source("C:/Users/frkjon/Projekt/kvinnor_man_i_Dalarna/Skript/matchning.R", encoding="UTF-8")
 # diag_matchning(spara_data = TRUE,
 #                output_mapp = Output_mapp)
+
+rmarkdown::render(
+  input = 'kompetens_markdown.Rmd',
+  output_file = 'kompetens_markdown_ny.html',
+  envir = parent.frame()
+)
 
