@@ -80,7 +80,7 @@ Senast uppdaterad: `r Sys.Date()`</i>
 </p>
 
 # Sammanfattning {-}
-Denna rapport ger en bild av läget i Dalarna med fokus på kompetensförsörjningen. Rapporten uppdateras två gånger per år och ett antal viktiga trender och mönstren sammanfattas här:
+Denna rapport ger en bild av läget i Dalarna med fokus på kompetensförsörjningen. Rapporten uppdateras två gånger per år och ett antal viktiga trender och mönster sammanfattas här:
 
 * **Demografiska förändringar**: Dalarna står inför en åldrande befolkning och minskande arbetskraft. Detta kan leda till en ökad efterfrågan på vårdtjänster och en minskad arbetskraft inom vissa sektorer.
 
@@ -89,7 +89,13 @@ Denna rapport ger en bild av läget i Dalarna med fokus på kompetensförsörjni
 
 # Introduktion {-}
 
-I ljuset av en ständigt föränderlig arbetsmarknad och det accelererande tempot inom teknologisk utveckling står Dalarna inför utmaningar och möjligheter när det gäller att säkerställa en robust och hållbar kompetensförsörjning. I Dalarna finns en stor variation av industrier som behöver kompetensförsörjas, allt ifrån en högteknologisk industri till en turism-industri baserad på dalarnas kulturella kontext och hållbarhet. Denna rapport är avsedd att belysa de viktigaste aspekterna av regionens nuvarande och framtida kompetenslandskap, identifiera trender och behov, samt föreslå strategier för att möta dessa utmaningar på ett proaktivt sätt. Rapporten kommer även att utforska de centrala sektorerna och branscherna som driver regionens ekonomi. Vidare kommer den att analysera befintliga kompetensresurser, identifiera eventuella luckor och framhäva möjligheter för kompetensutveckling och nytänkande samarbete mellan näringsliv, utbildningsinstitutioner och offentliga sektorn. Denna rapport är avsedd att fungera som en grund för informerade beslut och samverkan, med målet att säkra regionens framtid genom en stark och anpassningsbar kompetensförsörjning.
+I ljuset av en ständigt föränderlig arbetsmarknad och ett accelererande tempo inom teknologisk utveckling står Dalarna inför utmaningar när det gäller att säkerställa en robust och hållbar kompetensförsörjning. I Dalarna finns en stor variation av industrier som behöver kompetensförsörjas, allt ifrån en högteknologisk industri till en turismindustri baserad på Dalarnas kulturella kontext och hållbarhet.
+
+Lägg till något om befolkningsutvecklingen i stora drag som påverkar kompetensförsörjningen på kort och lång sikt.
+
+Denna rapport är avsedd att belysa de viktigaste aspekterna av regionens nuvarande och framtida kompetenslandskap, identifiera trender och behov, samt föreslå strategier för att möta dessa utmaningar på ett proaktivt sätt (ska vi gå så långt?). Rapporten kommer även att utforska de centrala sektorerna och branscherna som driver regionens ekonomi. Vidare kommer den att analysera befintliga kompetensresurser, identifiera eventuella luckor och framhäva möjligheter för kompetensutveckling och nytänkande samarbete mellan näringsliv, utbildningsinstitutioner och offentliga sektorn. 
+
+Rapporten är avsedd att fungera som en grund för informerade beslut och samverkan, med målet att säkra regionens framtid genom en stark och anpassningsbar kompetensförsörjning.
 
 För att få en bättre uppfattning om utbildningssystemet i Dalarna och hur det fungerar, rekommenderas att läsa:
 
@@ -97,26 +103,41 @@ För att få en bättre uppfattning om utbildningssystemet i Dalarna och hur det
 
   <summary>En kort introduktion till utbildningssystemet i Dalarna</summary>
 
-<div>Utbildningssystemet är uppdelat i flera nivåer, och det sträcker sig från förskola till högre utbildning. Här är en översikt över de olika utbildningsnivåerna efter grundskolan: 
+<div>
 
-Efter avslutad grundskola kan eleverna välja att fortsätta till **gymnasieskolan**, som varar i tre år. Gymnasieskolan ger eleverna möjlighet att specialisera sig inom olika ämnesområden och förbereder dem för högre utbildning eller arbetsmarknaden. Studieinriktningar kan vara allt ifrån högskoleförberedande program till yrkesinriktade program. Några av de mindre kommunerna i Dalarna har inte egen gymnasieutbildning, utan de samverkar med andra kommuner för att erbjuda gymnasieutbildning. I vissa kommuner som har erbjuder gymnasieskola, kan det finnas samarbeten för att erbjuda elever program som inte finns inom kommunens utbud. 
+Utbildningssystemet är uppdelat i flera nivåer och sträcker sig från förskola till högre utbildning. Här är en översikt över de olika utbildningsnivåerna efter grundskolan: 
+
+Efter avslutad grundskola kan eleverna välja att fortsätta till **gymnasieskolan**, som varar i tre år. Gymnasieskolan ger eleverna möjlighet att specialisera sig inom olika ämnesområden och förbereder dem för högre utbildning eller arbetsmarknaden. Studieinriktningar kan vara allt ifrån högskoleförberedande program till yrkesinriktade program. Några av de mindre kommunerna i Dalarna har inte egen gymnasieutbildning, utan de samverkar med andra kommuner för att erbjuda gymnasieutbildning. I vissa kommuner som erbjuder gymnasieskola kan det finnas samarbeten för att erbjuda elever program som inte finns inom kommunens utbud. 
 
 Det finns påläggsutbildningar eller kompletterande utbildningar som erbjuds till vuxna som inte är på högskolenivå. Det övergripande namnet på dessa är **Vux**. I Dalarna så går Vux under namnet DalaWux, vilket är ett samverkansorgan för all den kommunala vuxenutbildningen i alla 15 kommuner i Dalarna. Komvux är ett annat namn för den kommunala vuxenutbildningen. Syftet med Komvux är att en elev får möjlighet att förse sig med grundskole- och gymnasieutbildning för dem som saknar dessa kvalifikationer. Inom Komvux kan en elev läsa allt ifrån enstaka kurser till hela utbildningspaket, vissa yrkesutbildningar sker på Komvuxnivå, precis som på gymnasienivå. 
 
-En annan utbildningsform för vuxna är **KY-utbildningar**, vilket står för kvalificerad yrkesutbildning. Tidigare hette KY-utbildning YH-utbildning, vilket stod för yrkeshögskola. Dessa utbildningar sker i samarbete med näringslivet och är meningen att de ska leda till jobb efter examen. Inom KY-utbildningar så sker en del av utbildningen via kurser, och ungefär en tredjedel av utbildning sker via praktik, lärandet i arbetslivet (LIA). De flesta av KY-utbildningarna varar mellan 1-2 år och består av 40-80 KY-poäng, där en poäng motsvarar en veckas studier.   
+En annan utbildningsform för vuxna är **YH-utbildning**, vilket står för yrkeshögskoleutbildning. YH-utbildningar sker i samarbete med näringslivet och är meningen att de ska leda till jobb efter examen. Merparten av YH-utbildningen sker via kurser, men ungefär en tredjedel av utbildning sker via praktik, så kallat lärande i arbetslivet (LIA). De flesta YH-utbildningarna varar mellan 1-2 år och består av 200-40O YH-poäng, där fem poäng motsvarar en veckas studier.
+
+Den 1 januari 2024 ersatte YH-utbildning KY-utbildning, vilket stod för kvalificerad yrkesutbildning (behövs den informationen?)
 
 **Folkhögskolor** är utbildningsinstitutioner som erbjuder vuxenutbildning på en informell och folklig nivå. Dessa skolor har sitt ursprung i 1800-talets folkbildningsrörelse och strävar efter att erbjuda möjligheter till personlig utveckling och lärande utan formella krav på förkunskaper eller examensbevis. Folkhögskolorna är öppna för alla, oavsett ålder eller tidigare utbildning. Eleverna uppmuntras att delta aktivt i gemenskapen och bidra till en öppen och inkluderande lärandemiljö. Då folkhögskolorna inte utmynnar i traditionella examina, är de friare att experimentera med innehållet och läroplanen. Till skillnad från annan vuxenutbildning så syftar deras kurser snarare till att berika individens personliga och kreativa erfarenheter.
 
-Den sista varianten av utbildning är **arbetsmarknadsutbildning** som oftast sker inom ramen av arbetsförmedlingen och syftet är att genom en kort, yrkesinriktad utbildning leda till jobb inom yrken där det är brist på utbildad personal och den är framförallt inriktad till personer som av olika skäl har svårt att hitta jobb. Oftast så sker utbildningen genom att Arbetsförmedlingen beställer en riktad utbildning av en privat- eller kommunal utbildningsanordnare, för att fylla de kompetensluckor som finns på arbetsmarknaden och på så sätt göra det lättare för personer som står långt ifrån arbetsmarknaden att få jobb.
+Den sista varianten av utbildning är **arbetsmarknadsutbildning** som oftast sker inom ramen för Arbetsförmedlingens uppdrag. Syftet är att erbjuda en kort, yrkesinriktad utbildning som kan leda till jobb inom yrken där det är brist på utbildad personal och den är framförallt inriktad till personer som av olika skäl har svårt att hitta jobb. Oftast sker utbildningen genom att Arbetsförmedlingen beställer en riktad utbildning av en privat eller kommunal utbildningsanordnare, för att fylla kompetensluckor som finns på arbetsmarknaden.
  </div>
  
 </details>
 
-I fortsättningen av denna rapport diskuteras först efterfrågan och utbud på arbetskraft i Dalarna, därefter studeras de olika utbildningsnivåerna i Dalarna mer ingående, vilket följs av en diskussion om hur väl arbetsmarknaden i Dalarna fungerar. Rapporten avslutas med fördjupningar på branschnivå  
+I fortsättningen av denna rapport redovisas först efterfrågan respektive utbud på arbetskraft i Dalarna. Därefter studeras de olika utbildningsnivåerna i Dalarna mer ingående, följt av en diskussion om hur väl arbetsmarknaden i Dalarna fungerar. Rapporten avslutas med fördjupningar på branschnivå. (I inledningen står det att strategier ska redovisas...)  
 
 # Efterfrågan på arbetskraft
 
-Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp som inte är helt rättfram att mäta. Historisk data över exempelvis antal förvärvsarbetande i olika branscher visar när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet, det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan. I detta avsnitt diskuteras vad de som förvärvsarbetar i Dalarna arbetar med, men också hur kvalificerade deras yrken är och åldersstrukturen på arbetsmarknaden.
+Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp i nationalekonomin som inte är helt enkelt att mäta. Den kan härledas från efterfrågan på varor och tjänster, men är även beroende av andra faktorer som påverkar produktionsförhållanden på olika marknader.
+
+Efterfrågan och utbudet i jämvikt reglerar vilken volym och vilket pris (lön) som gäller på arbetsmarknaden.
+
+Tillväxtverket (2014) definerar arbetskraftsefterfrågan som 
+> *mängden arbetskraft och dess egenskaper - kompetens, kunskaper, utbildning, yrkeserfarenheter - som arbetsgivare efterfrågar och/eller behöver, i nuläget eller längre fram*.
+
+För att mäta efterfrågan går det att antingen förlita sig på information från arbetsgivare eller att göra prognoser baserat på dagens efterfrågan av arbetskraft.
+
+Historisk data över exempelvis antal förvärvsarbetande i olika branscher visar när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet, det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan. I detta avsnitt diskuteras vad de som förvärvsarbetar i Dalarna arbetar med, men också hur kvalificerade deras yrken är och åldersstrukturen på arbetsmarknaden (det här känns mer utbuds- än efterfrågerelaterat).
+
+Hur knyter nedanstående an till efterfrågan på arbetskraft, d v s arbetsgivarnas behov av personer med rätt kompetens till en specifik tjänst vid ett givet tillfälle?
 
 ## Förvärvsarbetande
 
@@ -128,13 +149,13 @@ Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp som inte är h
  
 </details>
 
-I Dalarna är den klart största branschen, sett till antalet förvärvsarbetande, `r tolower(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal=sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$bransch)` med ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$Antal,1000),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas. Andra branscher med många anställda i Dalarna är tillverkning och utvinning samt utbildning, med ca `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Tillverkning och utvinning") %>% .$Antal,1000),big.mark = " ")` respektive ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Utbildning") %>% .$Antal,1000),big.mark = " ")` anställda. Inom vård och omsorg samt utbildning är en övervägande majoritet av de sysselsatta kvinnor, medan det omvända gäller för bygg och transport.
+I Dalarna är den klart största branschen, sett till antalet förvärvsarbetande, `r tolower(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal=sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$bransch)` med ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$Antal,1000),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas (har Dalarna fler anställda inom vård och omsorg per capita än riket/ liknande län?). Andra branscher med många anställda i Dalarna är tillverkning och utvinning samt utbildning, med cirka `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Tillverkning och utvinning") %>% .$Antal,1000),big.mark = " ")` respektive `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Utbildning") %>% .$Antal,1000),big.mark = " ")` anställda. Inom vård och omsorg samt utbildning är en övervägande majoritet av de sysselsatta kvinnor, medan det omvända gäller för tillverkning och utvinning, bygg samt transport.
 
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',fig.height=5, fig.width=8, fig.align='center',fig.cap="Figur 8"}
 gg_forv_senastear$antal_per_bransch
 ```
 
-Historiskt var tillverkning och utvinning den största branschen i Dalarna sett till antalet anställda, men dess betydelse har minskat över tid, något som har omstrukturerat Dalarnas arbetsmarknad under många år. Idag är tillverkning och utvinning den tredje största näringen i Dalarna. Denna förändring återspeglar den allmänna tendensen i många regioner där tjänstesektorn har fått ökad betydelse över tid. Dessutom har företag inom tillverkning och utvinning idag har en mer automatiserad produktion än de hade för 30 år sedan, något som medför att det behövs färre antal anställda i produktionen.
+Historiskt var tillverkning och utvinning den största branschen i Dalarna sett till antalet anställda, men dess betydelse har minskat över tid. Idag är tillverkning och utvinning den tredje största näringen i Dalarna, en förändring som återspeglar den allmänna trenden i många regioner där tjänstesektorn har fått ökad betydelse över tid. Dessutom har företag inom tillverkning och utvinning idag en mer automatiserad produktion än de hade för 30 år sedan, vilket medför att det behövs färre antal anställda i produktionen.
 
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',fig.cap="Figur 2"}
 gg_forv_90$forvarvsarbetande_90_totalt_Dalarna
@@ -539,7 +560,7 @@ utbgrupp_prog_fig
 utbgrupp_prog_balans_fig
 ```
 
-# Gymnasiet, högskolan och YH
+# Gymnasiet, högskolan och yrkeshögskolan
 
 En viktig komponent för att matcha utbudet av arbetskraft med efterfrågan på arbetsmarknaden är att se till att utbildningssystemet är anpassat till arbetsmarknadens behov. Det är därför viktigt att analysera mer ingående vilka typer av utbildningar som erbjuds och efterfrågas i Dalarna, både på gymnasienivå och högre utbildningsnivåer.
 
