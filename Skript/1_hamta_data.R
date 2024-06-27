@@ -86,7 +86,8 @@ gg_hogskoleexamen <- diagram_examen_hogskolan_NMS (output_mapp_figur = Output_ma
                                                    spara_figur = TRUE)
 
 # YH-utbildning
-source("C:/Users/frkjon/Projekt/kompetensforsorjning_i_Dalarna/Skript/diagram_examen_yh_NMS.R")
+source(here("Skript","diagram_examen_yh_NMS.R"), encoding="UTF-8")
+#source("C:/Users/frkjon/Projekt/kompetensforsorjning_i_Dalarna/Skript/diagram_examen_yh_NMS.R")
 gg_yh <- diagram_examen_yh_NMS(output_mapp_figur = Output_mapp_figur,
                                returnera_figur = TRUE,
                                returnera_data = TRUE,
