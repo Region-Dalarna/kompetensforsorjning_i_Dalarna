@@ -91,9 +91,9 @@ Denna rapport ger en bild av läget i Dalarna med fokus på kompetensförsörjni
 
 I ljuset av en ständigt föränderlig arbetsmarknad och ett accelererande tempo inom teknologisk utveckling står Dalarna inför utmaningar när det gäller att säkerställa en robust och hållbar kompetensförsörjning. I Dalarna finns en stor variation av industrier som behöver kompetensförsörjas, allt ifrån en högteknologisk industri till en turismindustri baserad på Dalarnas kulturella kontext och hållbarhet.
 
-Lägg till något om befolkningsutvecklingen i stora drag som påverkar kompetensförsörjningen på kort och lång sikt.
+<span class="kommentar">Lägg till något om befolkningsutvecklingen i stora drag som påverkar kompetensförsörjningen på kort och lång sikt.</span>
 
-Denna rapport är avsedd att belysa de viktigaste aspekterna av regionens nuvarande och framtida kompetenslandskap, identifiera trender och behov, samt föreslå strategier för att möta dessa utmaningar på ett proaktivt sätt (ska vi gå så långt?). Rapporten kommer även att utforska de centrala sektorerna och branscherna som driver regionens ekonomi. Vidare kommer den att analysera befintliga kompetensresurser, identifiera eventuella luckor och framhäva möjligheter för kompetensutveckling och nytänkande samarbete mellan näringsliv, utbildningsinstitutioner och offentliga sektorn. 
+Denna rapport är avsedd att belysa de viktigaste aspekterna av regionens nuvarande och framtida kompetenslandskap, identifiera trender och behov, samt föreslå strategier för att möta dessa utmaningar på ett proaktivt sätt (<span class="kommentar">ska vi gå så långt?</span>). Rapporten kommer även att utforska de centrala sektorerna och branscherna som driver regionens ekonomi. Vidare kommer den att analysera befintliga kompetensresurser, identifiera eventuella luckor och framhäva möjligheter för kompetensutveckling och nytänkande samarbete mellan näringsliv, utbildningsinstitutioner och offentliga sektorn. 
 
 Rapporten är avsedd att fungera som en grund för informerade beslut och samverkan, med målet att säkra regionens framtid genom en stark och anpassningsbar kompetensförsörjning.
 
@@ -112,8 +112,6 @@ Efter avslutad grundskola kan eleverna välja att fortsätta till **gymnasieskol
 Det finns påläggsutbildningar eller kompletterande utbildningar som erbjuds till vuxna som inte är på högskolenivå. Det övergripande namnet på dessa är **Vux**. I Dalarna så går Vux under namnet DalaWux, vilket är ett samverkansorgan för all den kommunala vuxenutbildningen i alla 15 kommuner i Dalarna. Komvux är ett annat namn för den kommunala vuxenutbildningen. Syftet med Komvux är att en elev får möjlighet att förse sig med grundskole- och gymnasieutbildning för dem som saknar dessa kvalifikationer. Inom Komvux kan en elev läsa allt ifrån enstaka kurser till hela utbildningspaket, vissa yrkesutbildningar sker på Komvuxnivå, precis som på gymnasienivå. 
 
 En annan utbildningsform för vuxna är **YH-utbildning**, vilket står för yrkeshögskoleutbildning. YH-utbildningar sker i samarbete med näringslivet och är meningen att de ska leda till jobb efter examen. Merparten av YH-utbildningen sker via kurser, men ungefär en tredjedel av utbildning sker via praktik, så kallat lärande i arbetslivet (LIA). De flesta YH-utbildningarna varar mellan 1-2 år och består av 200-40O YH-poäng, där fem poäng motsvarar en veckas studier.
-
-Den 1 januari 2024 ersatte YH-utbildning KY-utbildning, vilket stod för kvalificerad yrkesutbildning (behövs den informationen?)
 
 **Folkhögskolor** är utbildningsinstitutioner som erbjuder vuxenutbildning på en informell och folklig nivå. Dessa skolor har sitt ursprung i 1800-talets folkbildningsrörelse och strävar efter att erbjuda möjligheter till personlig utveckling och lärande utan formella krav på förkunskaper eller examensbevis. Folkhögskolorna är öppna för alla, oavsett ålder eller tidigare utbildning. Eleverna uppmuntras att delta aktivt i gemenskapen och bidra till en öppen och inkluderande lärandemiljö. Då folkhögskolorna inte utmynnar i traditionella examina, är de friare att experimentera med innehållet och läroplanen. Till skillnad från annan vuxenutbildning så syftar deras kurser snarare till att berika individens personliga och kreativa erfarenheter.
 
@@ -135,9 +133,9 @@ Tillväxtverket (2014) definerar arbetskraftsefterfrågan som
 
 För att mäta efterfrågan går det att antingen förlita sig på information från arbetsgivare eller att göra prognoser baserat på dagens efterfrågan av arbetskraft.
 
-Historisk data över exempelvis antal förvärvsarbetande i olika branscher visar när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet, det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan. I detta avsnitt diskuteras vad de som förvärvsarbetar i Dalarna arbetar med, men också hur kvalificerade deras yrken är och åldersstrukturen på arbetsmarknaden (det här känns mer utbuds- än efterfrågerelaterat).
+Historisk data över exempelvis antal förvärvsarbetande i olika branscher visar när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet, det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan. I detta avsnitt diskuteras vad de som förvärvsarbetar i Dalarna arbetar med, men också hur kvalificerade deras yrken är och åldersstrukturen på arbetsmarknaden (<span class="kommentar">det här känns mer utbuds- än efterfrågerelaterat</span>).
 
-Hur knyter nedanstående an till efterfrågan på arbetskraft, d v s arbetsgivarnas behov av personer med rätt kompetens till en specifik tjänst vid ett givet tillfälle?
+<span class="kommentar">Hur knyter nedanstående an till efterfrågan på arbetskraft, d v s arbetsgivarnas behov av personer med rätt kompetens till en specifik tjänst vid ett givet tillfälle?</span>
 
 ## Förvärvsarbetande
 
@@ -149,7 +147,9 @@ Hur knyter nedanstående an till efterfrågan på arbetskraft, d v s arbetsgivar
  
 </details>
 
-I Dalarna är den klart största branschen, sett till antalet förvärvsarbetande, `r tolower(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal=sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$bransch)` med ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$Antal,1000),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas (har Dalarna fler anställda inom vård och omsorg per capita än riket/ liknande län?). Andra branscher med många anställda i Dalarna är tillverkning och utvinning samt utbildning, med cirka `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Tillverkning och utvinning") %>% .$Antal,1000),big.mark = " ")` respektive `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Utbildning") %>% .$Antal,1000),big.mark = " ")` anställda. Inom vård och omsorg samt utbildning är en övervägande majoritet av de sysselsatta kvinnor, medan det omvända gäller för tillverkning och utvinning, bygg samt transport.
+I Dalarna är den klart största branschen, sett till antalet förvärvsarbetande, `r tolower(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal=sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$bransch)` med ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$Antal,1000),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas (<span class="kommentar">Är det den höga medelåldern som gör att branschen är störst eller är det minskningen i tillverkningsindustrin i kombination med en bred fördelning bland övriga branscher? Har Dalarna fler anställda inom vård och omsorg per capita än riket/liknande län?</span>). Jämfört med 2010 har antalet anställda inom vård och omsorg ökat med (<span class="kommentar">beräkna antal och procentuell förändring av förvärvsarbetande inom vård och omsorg. Varför så stor ökning sedan 2010 efter 20 år av minskat antal förvärvsarbetande? Olika branschnamn mellan figur 8 och figur 2</span>)
+
+Andra branscher med många anställda i Dalarna är tillverkning och utvinning samt utbildning, med cirka `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Tillverkning och utvinning") %>% .$Antal,1000),big.mark = " ")` respektive `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Utbildning") %>% .$Antal,1000),big.mark = " ")` anställda. Inom vård och omsorg samt utbildning är en övervägande majoritet av de sysselsatta kvinnor, medan det omvända gäller för tillverkning och utvinning, bygg samt transport.
 
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',fig.height=5, fig.width=8, fig.align='center',fig.cap="Figur 8"}
 gg_forv_senastear$antal_per_bransch
@@ -161,9 +161,9 @@ Historiskt var tillverkning och utvinning den största branschen i Dalarna sett 
 gg_forv_90$forvarvsarbetande_90_totalt_Dalarna
 ```
 
-Bland övriga branscher har det skett en stor ökning av antalet förvärvsarbetande inom företagstjänster och finans där det jobbar 50 procent fler idag än 1990. Detta beror sannolikt på att många företag idag lejer bort vissa tjänster, såsom lokalvård. Om exempelvis ett tillverkande företag som SSAB tidigare anställde lokalvårdare själva, så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället lejer ut sådan verksamhet till andra företag specialiserade inom området, räknas lokalvårdarna istället som förvärvsarbetande inom företagstjänster, finans mm. Även inom kultur och utbildning jobbar många fler idag än i början av 90-talet. 
+Bland övriga branscher har det skett en stor ökning av antalet förvärvsarbetande inom företagstjänster och finans där det jobbar 50 procent fler idag än 1990. Detta beror sannolikt på att många företag idag upphandlar vissa tjänster, såsom lokalvård. Om exempelvis ett tillverkande företag som SSAB tidigare anställde lokalvårdare själva, så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället upphandlar sådan verksamhet till andra företag specialiserade inom området, räknas lokalvårdarna i stället som förvärvsarbetande inom branschen företagstjänster, finans mm. Även inom kultur och utbildning jobbar många fler idag än i början av 90-talet. 
 
-Dessa sektorer har således bidragit till att bredda och diversifiera arbetsmarknaden i Dalarna. Sammantaget speglar denna utveckling en omställning mot en mer serviceorienterad ekonomi, medan vissa traditionella sektorer har minskat i omfattning.
+Dessa sektorer har således bidragit till att bredda och diversifiera arbetsmarknaden i Dalarna. Sammantaget speglar denna utveckling en omställning mot en mer serviceorienterad ekonomi, medan vissa traditionella (<span class="kommentar">industriella?</span>) sektorer har minskat i omfattning.
 
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',fig.cap="Figur 9"}
 gg_forv_90$forvarvsarbetande_90_forandring_Dalarna
@@ -182,7 +182,7 @@ knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsö
 ```
 
 
-AVVAKTA MED PROGNOSEN
+<span class="kommentar">AVVAKTA MED PROGNOSEN</span>
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna"
@@ -226,14 +226,14 @@ forvarvsarbetande_prognos_fig
  
 </details>
 
-Hur stor andel som jobbar inom yrken med olika former av kvalifikationskrav varierar relativt mycket 
-mellan Sveriges län. `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$region ` har störst andel som arbetar inom enklare yrken, med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0) ` procent av de förvärvsarbetande i länet. Dock jobbar generellt relativt få inom dessa yrken, oavsett region. Om vi istället fokuserar på yrken med kvalifikationskrav som motsvarar gymnasial kompetens är skillnaderna större mellan Sveriges län. Minst andel återfinns i `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` där ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande har den typen av yrken, medan störst andel återfinns i `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande. För yrken med högre kvalifikationskrav, exempelvis "motsvarande fördjupad högskolekompetens", är situationen mer eller mindre det omvända. Största andel har `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande, medan `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent har lägst andel. Kvalifikationskraven i Dalarna påminner om de i Kalmar, med relativt stor andel av de förvärvsarbetande inom yrken med motsvarande gymnasial kompetens och färre inom yrken som kräver olika former av högskolekompetens.
+Hur stor andel som jobbar inom yrken med olika former av kvalifikationskrav speglar olika arbetsgivares efterfrågan på kompetens. Sammansättningen av kvalifikationskrav varierar relativt mycket 
+mellan Sveriges län. `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$region ` har störst andel som arbetar inom enklare yrken, med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0) ` procent av de förvärvsarbetande i länet. Dock jobbar generellt relativt få inom dessa yrken, oavsett region. Om vi i stället fokuserar på yrken med kvalifikationskrav som motsvarar gymnasial kompetens är skillnaderna större mellan Sveriges län. Lägst andel återfinns i `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` där ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande har den typen av yrken, medan störst andel återfinns i `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande. För yrken med högre kvalifikationskrav, exempelvis "motsvarande fördjupad högskolekompetens", är situationen mer eller mindre det omvända. Högst andel har `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande, medan `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent har lägst andel. Kvalifikationskraven i Dalarna påminner om de i Kalmar, med relativt stor andel av de förvärvsarbetande inom yrken med motsvarande gymnasial kompetens och färre inom yrken som kräver olika former av högskolekompetens.
 
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='Left',fig.cap="Figur 11"}
 gg_kvalifikation$kvalifikationskrav_jmf_lan
 ```
 
-Även mellan branscher varierar kvalifikationskraven naturligtvis. Störst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där mer än var fjärde arbetar inom den typen av yrke. Detta kan delvis förklaras av att hotell och restaurang också är den bransch i Dalarna med störst andel utrikes födda anställda. Personer som tillhör denna grupp tenderar att ha förgymnasiala utbildningar i större utsträckning än inrikes födda, vilket illustreras i avsnitt 4 nedan. Även inom företagstjänster är många yrken av enklare karaktär.  Det omvända gäller inom exempelvis utbildning, där fler än hälften av de anställda arbetar inom yrken som kräver motsvarande högskolekompetens.
+Även mellan branscher varierar kvalifikationskraven. Högst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där mer än var fjärde arbetar inom den typen av yrke. Detta kan delvis förklaras av att hotell och restaurang också är den bransch i Dalarna med högst andel utrikes födda anställda. Personer som tillhör denna grupp tenderar att ha förgymnasiala utbildningar i större utsträckning än inrikes födda, vilket illustreras i avsnitt 4 nedan. Även inom företagstjänster är många yrken av enklare karaktär. Det omvända gäller inom exempelvis utbildning, offentlig förvaltning samt IT och kommunikation, där omkring hälften av de anställda arbetar inom yrken som med kvalifikationskrav motsvarande fördjupad högskolekompetens.
 
 ```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 12"}
 gg_kvalifikation$`kvalifikationskrav_bransch_Dalarnas län`
@@ -241,7 +241,9 @@ gg_kvalifikation$`kvalifikationskrav_bransch_Dalarnas län`
 
 ## Åldersstruktur
 
-ONÖDIG? SÄGER VÄL EGENTLIGEN SAMMA SAK SOM FIGUREN OVAN?
+<span class="kommentar">ONÖDIG? SÄGER VÄL EGENTLIGEN SAMMA SAK SOM FIGUREN OVAN? Ja, i princip, men rensad för enklare yrken och chefer. Speglar inte heller åldersstrukturen som figur 14 gör. Borde tas bort.</span>
+
+<span class="kommentar">Finns det ens ett värde av att göra åldersindelningen per bransch som en del av efterfrågan? Är det åldern eller kvalifikationskraven (enligt ovan) som är styrande för efterfrågan?</span>
 
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',,fig.cap="Figur 13"}
 gg_bransch_utb_alder$utbildningsniva_bransch_andelDalarna
@@ -258,6 +260,8 @@ Störst antal personer över 50 år arbetar i Dalarna inom vård och omsorg. Ung
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',fig.cap="Figur 15"}
 gg_bransch_utb_alder_antal$alder_bransch_antalDalarna
 ```
+
+<span class="kommentar">Vad mer borde och kan tas fram som är kopplat till efterfrågan av arbetskraft?.</span>
 
 Sammanfattningsvis...
 
