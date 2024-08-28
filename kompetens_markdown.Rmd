@@ -89,11 +89,13 @@ Denna rapport ger en bild av läget i Dalarna med fokus på kompetensförsörjni
 
 # Introduktion {-}
 
-I ljuset av en ständigt föränderlig arbetsmarknad och ett accelererande tempo inom teknologisk utveckling står Dalarna inför utmaningar när det gäller att säkerställa en robust och hållbar kompetensförsörjning. I Dalarna finns en stor variation av industrier som behöver kompetensförsörjas, allt ifrån en högteknologisk industri till en turismindustri baserad på Dalarnas kulturella kontext och hållbarhet.
+Dalarna har en åldrande befolkning och aktuella prognoser från SCB pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler äldre. Redan idag är försörjningskvoten den högsta i landet, förväntas öka över tid och skapa en brist på arbetskraft. Det här påverkar näringslivets och offentlig sektors möjlighet att rekrytera personal. 
 
-<span class="kommentar">Lägg till något om befolkningsutvecklingen i stora drag som påverkar kompetensförsörjningen på kort och lång sikt.</span>
+Att hitta lösningar på kompetensförsörjningsutmaningen blir avgörande för att skapa en hållbar regional utveckling. Den regionala utvecklingsstrategin, Dalastrategin 2030, pekar även ut en väl fungerande kompetensförsörjning som ett område där nya lösningar måste hittas i perspektivet av en åldrande befolkning. 
 
-Denna rapport är avsedd att belysa de viktigaste aspekterna av regionens nuvarande och framtida kompetenslandskap, identifiera trender och behov, samt föreslå strategier för att möta dessa utmaningar på ett proaktivt sätt (<span class="kommentar">ska vi gå så långt?</span>). Rapporten kommer även att utforska de centrala sektorerna och branscherna som driver regionens ekonomi. Vidare kommer den att analysera befintliga kompetensresurser, identifiera eventuella luckor och framhäva möjligheter för kompetensutveckling och nytänkande samarbete mellan näringsliv, utbildningsinstitutioner och offentliga sektorn. 
+En utveckling mot en allt äldre befolkning skapar arbetskraftsbrist, vilket är en trend som kan observeras på många håll i landet (länka till Tillväxtverket, 2024). Därutöver kan även kompetensbrist uppstå, om de som står till arbetsmarknadens förfogande inte har de kompetenser som efterfrågas. 
+
+Snabb teknologisk utveckling skapar behov av förändrade kompetenser samtidigt som utbildningsområdet är mer trögrörligt, vilket gör att jämvikt mellan efterfrågan och utbud blir svår att uppnå med försämrad effektivitet.Frågan om arbetskrafts- och kompetensbrist är komplex. Både arbetskraftens efterfrågan och utbud behöver studeras, men även matchningen på arbetsmarknaden. Denna rapport syftar till att belysa läget kring kompetensförsörjningen i länet och peka på ett antal utmaningar som arbetsmarknadens aktörer behöver adressera för att uppnå Dalastrategins målbild för 2030 om en väl fungerande kompetensförsörjning.
 
 Rapporten är avsedd att fungera som en grund för informerade beslut och samverkan, med målet att säkra regionens framtid genom en stark och anpassningsbar kompetensförsörjning.
 
@@ -120,20 +122,22 @@ Den sista varianten av utbildning är **arbetsmarknadsutbildning** som oftast sk
  
 </details>
 
-I fortsättningen av denna rapport redovisas först efterfrågan respektive utbud på arbetskraft i Dalarna. Därefter studeras de olika utbildningsnivåerna i Dalarna mer ingående, följt av en diskussion om hur väl arbetsmarknaden i Dalarna fungerar. Rapporten avslutas med fördjupningar på branschnivå. (I inledningen står det att strategier ska redovisas...)  
+I fortsättningen av denna rapport redovisas först efterfrågan respektive utbud på arbetskraft i Dalarna. Därefter studeras de olika utbildningsnivåerna i Dalarna mer ingående, följt av en diskussion om hur väl arbetsmarknaden i Dalarna fungerar. Rapporten avslutas med fördjupningar på branschnivå.  
 
 # Efterfrågan på arbetskraft
 
 Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp i nationalekonomin som inte är helt enkelt att mäta. Den kan härledas från efterfrågan på varor och tjänster, men är även beroende av andra faktorer som påverkar produktionsförhållanden på olika marknader.
 
-Efterfrågan och utbudet i jämvikt reglerar vilken volym och vilket pris (lön) som gäller på arbetsmarknaden.
+I teorin reglerar efterfrågan och utbudet i jämvikt vilken volym och vilket pris (lön) som gäller på arbetsmarknaden.
 
 Tillväxtverket (2014) definerar arbetskraftsefterfrågan som 
 > *mängden arbetskraft och dess egenskaper - kompetens, kunskaper, utbildning, yrkeserfarenheter - som arbetsgivare efterfrågar och/eller behöver, i nuläget eller längre fram*.
 
 För att mäta efterfrågan går det att antingen förlita sig på information från arbetsgivare eller att göra prognoser baserat på dagens efterfrågan av arbetskraft.
 
-Historisk data över exempelvis antal förvärvsarbetande i olika branscher visar när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet, det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan. I detta avsnitt diskuteras vad de som förvärvsarbetar i Dalarna arbetar med, men också hur kvalificerade deras yrken är och åldersstrukturen på arbetsmarknaden (<span class="kommentar">det här känns mer utbuds- än efterfrågerelaterat</span>).
+Historisk data över exempelvis antal förvärvsarbetande i olika branscher visar när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet. 
+
+Det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan. I detta avsnitt diskuteras vad de som förvärvsarbetar i Dalarna arbetar med, men också hur kvalificerade deras yrken är och åldersstrukturen på arbetsmarknaden (<span class="kommentar">det här känns mer utbuds- än efterfrågerelaterat</span>).
 
 <span class="kommentar">Hur knyter nedanstående an till efterfrågan på arbetskraft, d v s arbetsgivarnas behov av personer med rätt kompetens till en specifik tjänst vid ett givet tillfälle?</span>
 
