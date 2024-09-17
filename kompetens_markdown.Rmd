@@ -86,18 +86,30 @@ Denna rapport ger en bild av läget i Dalarna med fokus på kompetensförsörjni
 
 * **Strukturella förändringar på arbetsmarknaden**: Arbetsmarknaden genomgår strukturella förändringar för att anpassa sig till den förändrade demografiska profilen. Det kan innebära ökad efterfrågan på teknologiska lösningar, automation och andra effektiviseringsåtgärder för att kompensera för bristen på arbetskraft.
 
+* **Fånga upp de stora dragen i rapporten**:...
 
 # Introduktion {-}
 
-Dalarna har en åldrande befolkning och aktuella prognoser från SCB pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler äldre. Redan idag är försörjningskvoten den högsta i landet, förväntas öka över tid och skapa en brist på arbetskraft. Det här påverkar näringslivets och offentlig sektors möjlighet att rekrytera personal. 
+Dalarna har en åldrande befolkning och aktuella prognoser från SCB pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler äldre. Redan idag är försörjningskvoten den högsta i landet, förväntas öka över tid och skapa en brist på arbetskraft. Denna utveckling påverkar näringslivets och offentlig sektors möjlighet att rekrytera personal.
+
+En utveckling mot en allt äldre befolkning skapar arbetskraftsbrist, vilket är en trend som kan observeras på många håll i landet (länka till Tillväxtverket, 2024). Därutöver kan även kompetensbrist uppstå, om de som står till arbetsmarknadens förfogande inte har de kompetenser som efterfrågas.
 
 Att hitta lösningar på kompetensförsörjningsutmaningen blir avgörande för att skapa en hållbar regional utveckling. Den regionala utvecklingsstrategin, Dalastrategin 2030, pekar även ut en väl fungerande kompetensförsörjning som ett område där nya lösningar måste hittas i perspektivet av en åldrande befolkning. 
 
-En utveckling mot en allt äldre befolkning skapar arbetskraftsbrist, vilket är en trend som kan observeras på många håll i landet (länka till Tillväxtverket, 2024). Därutöver kan även kompetensbrist uppstå, om de som står till arbetsmarknadens förfogande inte har de kompetenser som efterfrågas. 
+Snabb teknologisk utveckling skapar behov av förändrade kompetenser samtidigt som utbildningsområdet är mer trögrörligt, vilket gör att jämvikt mellan efterfrågan och utbud blir svår att uppnå med försämrad effektivitet som följd. Frågan om arbetskrafts- och kompetensbrist är komplex. Både arbetskraftens efterfrågan och utbud behöver studeras, men även matchningen på arbetsmarknaden och utbildningssystemets bidrag.  
 
-Snabb teknologisk utveckling skapar behov av förändrade kompetenser samtidigt som utbildningsområdet är mer trögrörligt, vilket gör att jämvikt mellan efterfrågan och utbud blir svår att uppnå med försämrad effektivitet.Frågan om arbetskrafts- och kompetensbrist är komplex. Både arbetskraftens efterfrågan och utbud behöver studeras, men även matchningen på arbetsmarknaden. Denna rapport syftar till att belysa läget kring kompetensförsörjningen i länet och peka på ett antal utmaningar som arbetsmarknadens aktörer behöver adressera för att uppnå Dalastrategins målbild för 2030 om en väl fungerande kompetensförsörjning.
+Denna rapport syftar till att belysa läget kring kompetensförsörjningen i länet och peka på ett antal utmaningar som arbetsmarknadens aktörer behöver adressera för att uppnå Dalastrategins målbild för 2030 om en väl fungerande kompetensförsörjning.
 
 Rapporten är avsedd att fungera som en grund för informerade beslut och samverkan, med målet att säkra regionens framtid genom en stark och anpassningsbar kompetensförsörjning.
+
+<span class="kommentar">Vilka diagram kring den generella utvecklingen ska vi ha i rapporten? 
+
+	Befolkningsutveckling över tid
+	Utveckling av arbetsföra över tid
+	Flyttnetto över tid
+	Försörjningskvot och prognos för framtiden
+
+</span>
 
 För att få en bättre uppfattning om utbildningssystemet i Dalarna och hur det fungerar, rekommenderas att läsa:
 
@@ -135,7 +147,14 @@ Tillväxtverket (2014) definerar arbetskraftsefterfrågan som
 
 För att mäta efterfrågan går det att antingen förlita sig på information från arbetsgivare eller att göra prognoser baserat på dagens efterfrågan av arbetskraft.
 
-Historisk data över exempelvis antal förvärvsarbetande i olika branscher visar när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet. 
+Historisk data över exempelvis antal förvärvsarbetande i olika branscher visar när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet.
+
+<span class="kommentar">Vilka diagram kring efterfrågan ska vi ha i rapporten? Från de regionala matchningsindikatorerna hämtas 
+
+E1 Lediga jobb samt
+E2a och E2b Jobbinflöden
+
+</span>
 
 Det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan. I detta avsnitt diskuteras vad de som förvärvsarbetar i Dalarna arbetar med, men också hur kvalificerade deras yrken är och åldersstrukturen på arbetsmarknaden (<span class="kommentar">det här känns mer utbuds- än efterfrågerelaterat</span>).
 
