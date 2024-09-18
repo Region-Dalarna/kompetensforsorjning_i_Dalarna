@@ -92,7 +92,13 @@ Denna rapport ger en bild av läget i Dalarna med fokus på kompetensförsörjni
 
 Dalarna har en åldrande befolkning och aktuella prognoser från SCB pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler äldre. Redan idag är försörjningskvoten den högsta i landet, förväntas öka över tid och skapa en brist på arbetskraft. Denna utveckling påverkar näringslivets och offentlig sektors möjlighet att rekrytera personal.
 
-En utveckling mot en allt äldre befolkning skapar arbetskraftsbrist, vilket är en trend som kan observeras på många håll i landet (länka till Tillväxtverket, 2024). Därutöver kan även kompetensbrist uppstå, om de som står till arbetsmarknadens förfogande inte har de kompetenser som efterfrågas.
+<span class="kommentar">Lägg in lämplig bild som visar förskjutning i åldrar och prognos</span>
+
+<span class="kommentar">Lägg in lämplig bild som visar Utveckling av befolkning i arbetsför ålder över tid - t ex Figur 17 nedan</span>
+
+<span class="kommentar">1-Befolkningsutveckling över tid; 2-; 3-Flyttnetto över tid; </span>
+
+En utveckling mot en allt äldre befolkning skapar arbetskraftsbrist, vilket är en trend som kan observeras på många håll i landet (<span class="kommentar">länka till Tillväxtanalys rapport 2024:01</span>). Därutöver kan även kompetensbrist uppstå, om de som står till arbetsmarknadens förfogande inte har de kompetenser som efterfrågas.
 
 Att hitta lösningar på kompetensförsörjningsutmaningen blir avgörande för att skapa en hållbar regional utveckling. Den regionala utvecklingsstrategin, Dalastrategin 2030, pekar även ut en väl fungerande kompetensförsörjning som ett område där nya lösningar måste hittas i perspektivet av en åldrande befolkning. 
 
@@ -101,15 +107,6 @@ Snabb teknologisk utveckling skapar behov av förändrade kompetenser samtidigt 
 Denna rapport syftar till att belysa läget kring kompetensförsörjningen i länet och peka på ett antal utmaningar som arbetsmarknadens aktörer behöver adressera för att uppnå Dalastrategins målbild för 2030 om en väl fungerande kompetensförsörjning.
 
 Rapporten är avsedd att fungera som en grund för informerade beslut och samverkan, med målet att säkra regionens framtid genom en stark och anpassningsbar kompetensförsörjning.
-
-<span class="kommentar">Vilka diagram kring den generella utvecklingen ska vi ha i rapporten? 
-
-	Befolkningsutveckling över tid
-	Utveckling av arbetsföra över tid
-	Flyttnetto över tid
-	Försörjningskvot och prognos för framtiden
-
-</span>
 
 För att få en bättre uppfattning om utbildningssystemet i Dalarna och hur det fungerar, rekommenderas att läsa:
 
@@ -134,7 +131,7 @@ Den sista varianten av utbildning är **arbetsmarknadsutbildning** som oftast sk
  
 </details>
 
-I fortsättningen av denna rapport redovisas först efterfrågan respektive utbud på arbetskraft i Dalarna. Därefter studeras de olika utbildningsnivåerna i Dalarna mer ingående, följt av en diskussion om hur väl arbetsmarknaden i Dalarna fungerar. Rapporten avslutas med fördjupningar på branschnivå.  
+I fortsättningen av denna rapport redovisas först efterfrågan respektive utbud på arbetskraft i Dalarna. Därefter studeras de olika utbildningsnivåerna i Dalarna mer ingående, följt av en diskussion om hur väl arbetsmarknaden i Dalarna fungerar.  
 
 # Efterfrågan på arbetskraft
 
