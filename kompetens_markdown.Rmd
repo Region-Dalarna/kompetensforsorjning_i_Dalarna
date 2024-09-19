@@ -554,7 +554,7 @@ utbgrupp_prog_fig <- SkapaStapelDiagram(skickad_df = prognos_df_utbniva %>%
                                        skriv_till_diagramfil = FALSE)
 
 # Balans mellan tillgång och efterfrågan
-diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring. Tillgång delat med efterfrågan. En siffra över 100 indikerar att tillgången överstiger efterfrågan."
+diagram_capt <- "Källa: Regionala utbildnings- och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring. Tillgång delat med efterfrågan. En siffra över 100 indikerar att tillgången överstiger efterfrågan."
 diagram_titel <- "Tillgång delat på efterfrågan i Dalarnas län efter utbildningsgrupp (16-74 år)"
 diagramfil <- "balans_tillg_eft_utbniva_prognos.png"
 
@@ -603,7 +603,7 @@ utbgrupp_prog_balans_fig
 
 # Gymnasiet, högskolan och yrkeshögskolan
 
-En viktig komponent för att matcha utbudet av arbetskraft med efterfrågan på arbetsmarknaden är att se till att utbildningssystemet är anpassat till arbetsmarknadens behov. Det är därför viktigt att analysera mer ingående vilka typer av utbildningar som erbjuds och efterfrågas i Dalarna, på alla utbildningsnivåer.
+En viktig komponent för att matcha utbudet av arbetskraft med efterfrågan på arbetsmarknaden är att se till att utbildningssystemet är anpassat till arbetsmarknadens behov. Det är därför viktigt att studera mer ingående vilka typer av utbildningar som erbjuds och efterfrågas i Dalarna, på alla utbildningsnivåer.
 
 ## Gymnasiet
 
@@ -613,20 +613,20 @@ Vid antagningen hösten `r max(gymnasieantagning_df$ar)` antogs flest unga i Dal
 gg_gymnasiet$gymnasieantagning_tot
 ```
 
-Det råder stora könsmässiga skillnader mellan antagna till olika program. För högskoleförberedande program är obalansen störst på samhällsvetenskapsprogrammet, dit klart flest tjejer antas och teknikprogrammet, dit klart flest pojkar antas. Bland yrkesförberedande program är det en överväldigande majoritet tjejer som antas till vård- och omsorgsprogrammet, medan en överväldigande majoritet killar antas till bygg- och anläggningsprogrammet och el- och energiprogrammet. Dessa obalanser återspeglas även senare i arbetslivet. Kvinnor är överrepresenterade inom vård och omsorg och utbildning, medan män är i klar majoritet inom byggsektorn. Om målsättningen är att skapa en mer jämställd fördelning mellan olika branscher i arbetslivet, är det således viktigt att börja arbetet redan i skolan. Det finns uppenbarligen stora skillnader mellan vilka val pojkar och flickor gör redan då.
+Det råder stora könsmässiga skillnader mellan antagna till olika program. För högskoleförberedande program är obalansen störst på samhällsvetenskapsprogrammet, dit klart flest flickor antas och teknikprogrammet, dit klart flest pojkar antas. Bland yrkesförberedande program är det en överväldigande majoritet flickor som antas till vård- och omsorgsprogrammet, medan en överväldigande majoritet pojkar antas till bygg- och anläggningsprogrammet och el- och energiprogrammet. Dessa obalanser återspeglas även senare i arbetslivet. Kvinnor är överrepresenterade inom vård och omsorg, och utbildning, medan män är i klar majoritet inom byggsektorn. Om målsättningen är att skapa en mer jämställd fördelning mellan olika branscher i arbetslivet, är det således viktigt att börja arbetet redan i skolan. Det finns uppenbarligen stora skillnader mellan vilka val pojkar och flickor gör redan då.
 
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',,fig.cap="Figur 25"}
 gg_gymnasiet_kon$gymnasieantagning_kon_tot
 ```
 
-Det program som ökat klart mest i antalet antagna är introduktionsprogrammet. År `r min(gymnasieantagning_df$ar)` antogs runt `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == min(.$ar)) %>% .$Antagna)` personer till programmet, en siffra som ökat till `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == max(.$ar)) %>% .$Antagna)` år `r max(gymnasieantagning_df$ar)`. Bland studieförberedande program är ökningen störst på ekonomiprogrammet, dit mer än dubbelt så många antas idag som `r min(gymnasieantagning_df$ar)`. Bland program som i första hand kan ses som yrkesförberedande har antalet antagna till naturbruksprogrammet ökat avsevärt sedan `r min(gymnasieantagning_df$ar)`, medan antalet antagna till restaurang- och livsmedelsprogrammet samt hotell- och turismprogrammet har minskat tydligt.
+Det program som ökat klart mest i antalet antagna är introduktionsprogrammet. År `r min(gymnasieantagning_df$ar)` antogs `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == min(.$ar)) %>% .$Antagna)` personer till programmet, en siffra som ökat till `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == max(.$ar)) %>% .$Antagna)` år `r max(gymnasieantagning_df$ar)`. Bland studieförberedande program är ökningen störst på ekonomiprogrammet, dit mer än dubbelt så många antas idag som `r min(gymnasieantagning_df$ar)`. Bland program som i första hand kan ses som yrkesförberedande har antalet antagna till naturbruksprogrammet ökat avsevärt sedan `r min(gymnasieantagning_df$ar)`, medan antalet antagna till restaurang- och livsmedelsprogrammet samt hotell- och turismprogrammet har minskat tydligt.
 
-```{r, echo=FALSE, fig.width=10, fig.align='Left',fig.cap="Figur 26"}
+```{r, echo=FALSE, fig.width=10, fig.align='center',fig.cap="Figur 26"}
 gg_gymnasiet$gymnasieantagning_fleraar
 ```
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2019 är verklig data, övriga prognoser\nEnbart program med minst 5 antagna"
+diagram_capt <- "Källa: Regionala utbildnings- och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2019 är verklig data, övriga prognoser\nEnbart program med minst 5 antagna"
 
 max_ar = max(gymnasium_prognos_df$ar)
 
@@ -659,6 +659,8 @@ gym_prognos_fig <- SkapaStapelDiagram(skickad_df = gymnasium_prognos_df %>%
 gym_prognos_fig
 ```
 
+<span class="kommentar">Har vi data på genomströmningen, inte bara de som är antagna?</span>
+
 ## Högskolan
 
 De som tog examen från Högskolan Dalarna läsåret `r max(hogskoleexamen_df$Lar)` gjorde det i stor utsträckning från två program, hälso- och sjukvård samt pedagogik- och lärarutbildning med närmare 400 (<span class="kommentar">Går det att lägga in kod för att beräkna antalet?</span>) examinerade vardera. Efter en nedgång i mitten av 2010-talet, är antalet examinerade från dessa program idag på ungefär samma nivå som de var runt 2010. 
@@ -669,10 +671,10 @@ Ett annat populärt program är företagsekonomi, handel och administration med 
 gg_hogskoleexamen$hogskoleexamen
 ```
 
-<span class="kommentar">TA BORT? Blir mest förvirrande när varken alla program finns, eller antal examinerade stämmer överens med figuren ovan.</span>
+<span class="kommentar">TA BORT? Ja! (osäker på hur långt jag ska ta bort kod i scriptet) Blir mest förvirrande när varken alla program finns, eller antal examinerade stämmer överens med figuren ovan.</span>
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2019 är verklig data, övriga prognoser\nEnbart program med minst 5 examinerade 2019"   
+diagram_capt <- "Källa: Regionala utbildnings- och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2019 är verklig data, övriga prognoser\nEnbart program med minst 5 examinerade 2019"   
 
 max_ar = max(prognos_df_hogskola$ar)
 
@@ -711,12 +713,12 @@ hogskoleexamen_prognos_fig
 
 <details>
 
-  <summary>Mer information om statistiken</summary>
+  <summary>Mer information om utbildningsformen</summary>
 
 <div title="Källa: Wikipedia">En yrkeshögskola är en utbildningsform för yrkesinriktade studier på eftergymnasial nivå. Dess exakta roll varierar mellan olika länder. Inom yrkeshögskolan i Sverige finns två typer av examen på eftergymnasial nivå:
 
-- yrkeshögskoleexamen, vilken motsvarar minst ett års studier på eftergymnasial nivå.
-- kvalificerad yrkeshögskoleexamen, som motsvarar studier under minst två år på denna nivå.
+- yrkeshögskoleexamen, vilken motsvarar minst ett års studier på eftergymnasial nivå
+- kvalificerad yrkeshögskoleexamen, som motsvarar studier under minst två år på denna nivå
 </div>
 
 </details>
@@ -727,17 +729,17 @@ Yrkeshögskolan i Dalarna är i första hand inriktad på utbildningar inom vår
 gg_yh$yh_bransch
 ```
 
-Det vanligaste inriktningen för personer som tagit en examen för yrkeshögskolan och förvärvsarbetar i Dalarna var år `r max(folkhogskola_inriktning_df$Ar)` `r tolower(folkhogskola_inriktning_df %>% filter(antal == max(antal)) %>% .$Sun2000Inr_namn)`, med `r folkhogskola_inriktning_df %>% filter(antal == max(antal)) %>% .$antal` förvärvsarbetande. Även relativt många med inriktningar mot psykiatrisk vård och tandsköterska förvärvsarbetar i Dalarna (den andra figuren nedan). <span class="kommentar">Den här hänvisningen stämmer inte och kan nog tas bort.</span>
+Det vanligaste inriktningen för personer som tagit en examen för yrkeshögskolan och förvärvsarbetar i Dalarna var år `r max(folkhogskola_inriktning_df$Ar)` `r tolower(folkhogskola_inriktning_df %>% filter(antal == max(antal)) %>% .$Sun2000Inr_namn)`, med `r folkhogskola_inriktning_df %>% filter(antal == max(antal)) %>% .$antal` förvärvsarbetande. Även relativt många med inriktningar mot psykiatrisk vård och tandsköterska förvärvsarbetar i Dalarna.
 
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center',fig.cap="Figur 31"}
 gg_yh$yh_inriktning
 ```
 
-<span class="kommentar">Återigen oklart om det är vettigt att ta med trender och prognoser. Hur skall siffrorna tolkas?</span>
+<span class="kommentar">Återigen oklart om det är vettigt att ta med trender och prognoser. Hur skall siffrorna tolkas? Tas bort (osäker på vilka scriptrader som berörs)!</span>
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 
-diagram_capt <- "Källa: Regionala utbildnings och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2018 är verklig data, övriga prognoser\nEnbart program med minst 5 examinerade 2018\nNotera även att data för 2019 saknas"
+diagram_capt <- "Källa: Regionala utbildnings- och arbetsmarknadsprognoser, SCB\nBearbetning:  Samhällsanalys, Region Dalarna\nDiagramförklaring: 2018 är verklig data, övriga prognoser\nEnbart program med minst 5 examinerade 2018\nNotera även att data för 2019 saknas"
 
 max_ar = max(prognos_df_yh$ar)
 
@@ -771,7 +773,13 @@ yh_prognos_fig <- SkapaStapelDiagram(skickad_df = prognos_df_yh%>%
 yh_prognos_fig
 ```
 
-Sammanfattningsvis..
+<span class="kommentar">Plocka in SCB U3: Utbildningsflöden samt U5a och U5b som diagram.!</span>
+
+Sammanfattningsvis... 
+
+De högskoleförberedande gymnasieprogrammen är populära, men SCB:s prognoser för framtiden indikerar att det kan uppstå ett överskott av utbildade inom t ex humaniora och samhällsvetenskap. Dagens bristyrken inom hälso- och sjukvården riskerar att förbli bristyrken.
+
+De som examineras från Högskolan Dalarna räcker inte till för att möta de behov som finns inom t ex hälso- och sjukvården. 
 
 # Hur väl fungerar arbetsmarknaden i Dalarna?
 
