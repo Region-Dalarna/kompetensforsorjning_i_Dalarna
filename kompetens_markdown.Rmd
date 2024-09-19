@@ -90,13 +90,17 @@ Denna rapport ger en bild av läget i Dalarna med fokus på kompetensförsörjni
 
 # Introduktion {-}
 
-Dalarna har en åldrande befolkning och aktuella prognoser från SCB pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler äldre. Redan idag är försörjningskvoten den högsta i landet, förväntas öka över tid och skapa en brist på arbetskraft. Denna utveckling påverkar näringslivets och offentlig sektors möjlighet att rekrytera personal.
+Dalarna har en åldrande befolkning och aktuella prognoser från SCB pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler äldre. Den demografiska försörjningskvoten mäter förhållandet mellan individer i arbetsför ålder och unga och gamla. Sedan 2006 har försörjningskvoten i Dalarna ökat från 76,5 till 91,9 mellan 2006 och 2023. Det innebär att 100 personer i arbetsför ålder ska försörja knappt 92 personer utanför arbetsför ålder. Redan idag är försörjningskvoten i Dalarna den högsta i landet, förväntas öka över tid och skapa en brist på arbetskraft. Denna utveckling påverkar näringslivets och offentlig sektors möjlighet att rekrytera personal.
 
-<span class="kommentar">Lägg in lämplig bild som visar förskjutning i åldrar och prognos</span>
+<span class="kommentar">Lägg in lämplig bild som visar förskjutning i åldrar och prognos. T ex SCB R2 Dalarna vs Riket 2006-2023</span>
+
+I kombination med att försörjningskvoten ökar, minskar även befolkningen i arbetsför ålder över tid. Mellan 2002 och 2022 minskade antalet inrikes födda i arbetsför ålder med cirka 20 000 personer. Samtidigt ökar antalet utrikes födda under samma period, men inte i lika stor omfattning, vilket leder till att befolkningen som helhet i arbetsför ålder krymper. 
 
 <span class="kommentar">Lägg in lämplig bild som visar Utveckling av befolkning i arbetsför ålder över tid - t ex Figur 17 nedan</span>
 
-<span class="kommentar">1-Befolkningsutveckling över tid; 2-; 3-Flyttnetto över tid; </span>
+Befolkningsutvecklingen i Dalarna har varierat över tid med såväl uppgångar som nedgångar. Den senaste stora nedgången var i samband med den ekonomiska krisen runt millenieskiftet och en uppgång skedde i samband med flyktingkrisen 2016. 2023 observeras en kraftig nedgång i Dalarnas befolkning. För en mer ingående analys av befolkningsutvecklingen, se <span class="kommentar">Lägg in länk till Befolkningsrapporten</span>
+
+<span class="kommentar">Lägg in diagram från Befolkningsrapporten, 1.1 1969-2023</span>
 
 En utveckling mot en allt äldre befolkning skapar arbetskraftsbrist, vilket är en trend som kan observeras på många håll i landet (<span class="kommentar">länka till Tillväxtanalys rapport 2024:01</span>). Därutöver kan även kompetensbrist uppstå, om de som står till arbetsmarknadens förfogande inte har de kompetenser som efterfrågas.
 
@@ -139,19 +143,11 @@ Efterfrågan på arbetskraft är i grunden ett teoretiskt begrepp i nationalekon
 
 I teorin reglerar efterfrågan och utbudet i jämvikt vilken volym och vilket pris (lön) som gäller på arbetsmarknaden.
 
-Tillväxtverket (2014) definerar arbetskraftsefterfrågan som 
-> *mängden arbetskraft och dess egenskaper - kompetens, kunskaper, utbildning, yrkeserfarenheter - som arbetsgivare efterfrågar och/eller behöver, i nuläget eller längre fram*.
+Tillväxtverket (2014) definerar arbetskraftsefterfrågan som *mängden arbetskraft och dess egenskaper - kompetens, kunskaper, utbildning, yrkeserfarenheter - som arbetsgivare efterfrågar och/eller behöver, i nuläget eller längre fram*. Indelningen för de regionala matchningsindikatorer som togs fram 2014 utgör grunden för rapportens innehåll för såväl efterfrågan som utbud. Primärt mäts då efterfrågan i form av lediga jobb och inflödet av jobb.  
 
-För att mäta efterfrågan går det att antingen förlita sig på information från arbetsgivare eller att göra prognoser baserat på dagens efterfrågan av arbetskraft.
+<span class="kommentar">Vilka diagram kring efterfrågan ska vi ha i rapporten? Från de regionala matchningsindikatorerna hämtas E1 Lediga jobb samt E2a och E2b Jobbinflöden </span>
 
 Historisk data över exempelvis antal förvärvsarbetande i olika branscher visar när efterfrågan möter utbud, dvs. när en person blir anställd. Efterfrågan kan dock överstiga utbudet.
-
-<span class="kommentar">Vilka diagram kring efterfrågan ska vi ha i rapporten? Från de regionala matchningsindikatorerna hämtas 
-
-E1 Lediga jobb samt
-E2a och E2b Jobbinflöden
-
-</span>
 
 Det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan. I detta avsnitt diskuteras vad de som förvärvsarbetar i Dalarna arbetar med, men också hur kvalificerade deras yrken är och åldersstrukturen på arbetsmarknaden (<span class="kommentar">det här känns mer utbuds- än efterfrågerelaterat</span>).
 
@@ -296,10 +292,13 @@ I detta avsnitt kommer utbudet av arbetskraft beskrivas utifrån hur stor andel 
 <span class="kommentar">Vad kan tas fram som är kopplat till utbudet av arbetskraft? Hur väl speglar innehållet nedan Dalarnas utbud?</span>
 
 <span class="kommentar"> En del av Det här borde vi nog ha med i en utbudsbeskrivning:
-Förvärvsarbetande - idag, förändring över tid, åldersfördelning, arbetade timmar?
-Arbetssökande - idag, förändring över tid, åldersfördelning?
-Inte i arbetskraften - idag, förändring över tid, åldersfördelning?
-In- och utpendlare - läns- eller kommunnivå?
+SCB U1a - Arbetsmarknadsställning
+SCB U1b - Arbetskraftsdeltagande
+SCB U2 - In- och utpendlare - In och ut från länet respektive in och ut från länets kommuner (Finns i Figur 18 och 19)
+SCB U4 - Åldersavgångar
+SCB U3 - Utbildningsflöden (I avsnitt 3)
+SCB U5a - YH-studerande (I avsnitt 3)
+SCB U5b - Nybörjare på Yrkesexamensprogram (I avsnitt 3)
 </span>
 
 ## Befolkning i arbetsför ålder
