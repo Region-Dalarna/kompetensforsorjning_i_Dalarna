@@ -777,7 +777,9 @@ yh_prognos_fig
 
 Sammanfattningsvis... 
 
-De högskoleförberedande gymnasieprogrammen är populära, men SCB:s prognoser för framtiden indikerar att det kan uppstå ett överskott av utbildade inom t ex humaniora och samhällsvetenskap. Dagens bristyrken inom hälso- och sjukvården riskerar att förbli bristyrken.
+Kommentera utbudets relativt låga andelar med högskoleutbildade. Finns det höga krav från arbetsgivarna om att rekrytera i den kategorin kommer det att uppstå en tydlig brist. Den bristen löses inte i närtid, utan det måste ske en anpassning mot att rekrytera i gruppen som inte är lika välutbildad. 
+
+De högskoleförberedande gymnasieprogrammen är populära, men SCB:s prognoser (länk till SCB, 2024) för framtiden indikerar att det kan uppstå ett överskott av utbildade inom t ex humaniora och samhällsvetenskap. Dagens bristyrken inom hälso- och sjukvården riskerar att förbli bristyrken.
 
 De som examineras från Högskolan Dalarna räcker inte till för att möta de behov som finns inom t ex hälso- och sjukvården. 
 
@@ -785,74 +787,59 @@ De som examineras från Högskolan Dalarna räcker inte till för att möta de b
 
 En väl fungerande arbetsmarknad kännetecknas bland annat av att många arbetar, att många arbetar med vad de är utbildade till och att det inte råder någon större brist på kompetens. En arbetsmarknad med dessa kännetecken kan sannolikt hantera såväl kriser i samhället, som de utmaningar som arbetsmarknaden ställs inför i framtiden.
 
-<span class="kommentar">Plocka in matchningsindikatorer? Utbildningsmatchning? Lediga jobb i relation till arbetslösa? </span>
+<span class="kommentar">Plocka in matchningsindikatorer? M1- Lediga jobb och arbetslösa, M2 - Andel anställda med matchning mellan utbildning och yrke samt eventuellt E3 och E5 - Matchning utbildning och yrke och E4 - Typ av matchning</span>
 
 ## Hur många arbetar?
 
-Sysselsättningsgraden, det vill säga i vilken utsträckning människor i
-arbetsför ålder (20-64 år) arbetar, skiljer sig framförallt åt mellan inrikes och utrikes födda. Sysselsättningsgraden bland utrikes födda är lägre än 
-sysselsättningsgraden för inrikes födda i samtliga svenska län. Det
-finns även skillnader mellan kvinnor och män. För inrikes födda, det
-vänstra diagrammet nedan, är sysselsättningsgraden för båda könen
-ungefär lika hög. Variationen i sysselsättningsgrad mellan länen är även
-den ganska liten. För utrikes födda (det högra diagrammet nedan) är bilden annorlunda.
-Utrikes födda män har en högre sysselsättningsgrad än utrikes födda
-kvinnor i samtliga län förutom Norrbotten. I Dalarna var
-sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0)` procent, vilket
+Sysselsättningsgraden, det vill säga i vilken utsträckning människor i arbetsför ålder (20-64 år) arbetar, skiljer sig framförallt åt mellan inrikes och utrikes födda. Sysselsättningsgraden bland utrikes födda är lägre än 
+sysselsättningsgraden för inrikes födda i samtliga svenska län. Det finns även skillnader mellan kvinnor och män. 
+
+För inrikes födda, det vänstra diagrammet nedan, är sysselsättningsgraden för båda könen ungefär lika hög och relativt lika riksgenomsnittet. Variationen i sysselsättningsgrad mellan länen är även den ganska liten. 
+
+För utrikes födda (det högra diagrammet nedan) är bilden annorlunda. Utrikes födda män har en högre sysselsättningsgrad än utrikes födda kvinnor i samtliga län förutom Norrbotten. I Dalarna var sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0)` procent, vilket
 är cirka `r round(arbetsmarknadsstatus_lan %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde-arbetsmarknadsstatus_lan %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0) ` procentenheter mer än för utrikes födda kvinnor i Dalarna.
 
-<span class="kommentar">Behöver vi länsjämförelsen här eller går det att skriva om Dalarna i förhållande till riket och koncentrera bilderna på länet Dalarnas sysselsättningsgrad, kanske över tid för att eventuellt fånga trend? </span>
+<span class="kommentar">Kan vi plocka fram sysselsättningsgraden i Dalarna över tid?</span>
 
-
-Något man dock måste ta hänsyn till när man analyserar sysselsättningsgrad bland utrikes födda är hur lång tid personerna har varit i Sverige, samt vilken utbildningsnivå de har. För en djupare diskussion runt detta, se Region Dalarnas rapport <a href="https://region-dalarna.github.io/kvinnor_man_i_Dalarna/">"Kvinnor och män i Dalarna"</a>
+Något som behöver tas hänsyn till när man analyserar sysselsättningsgrad bland utrikes födda är hur lång tid personerna har varit i Sverige, samt vilken utbildningsnivå de har. För en djupare diskussion runt detta, se Region Dalarnas rapport <a href="https://region-dalarna.github.io/kvinnor_man_i_Dalarna/">"Kvinnor och män i Dalarna"</a>.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.height=5, fig.width=8, fig.align='center', fig.cap="Figur 33"}
 gg_arbetsmarknadsstatus_lan$sysselsattningsgrad_senastear
 ```
 
+Vad gäller sysselsättningsgrad uppvisar kommunerna i Dalarna ett liknande mönster som länen på nationell nivå. Gruppen inrikes födda har en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med utrikes födda. Även här är sysselsättningsgraden för inrikes födda kvinnor och män ungefär lika hög. För utrikes födda är det däremot stora
+skillnader mellan kvinnor och män, men också mellan olika kommuner. I linje med den nationella bilden är sysselsättningsgraden högre för gruppen utrikes födda män än för utrikes födda kvinnor.
 
-Vad gäller sysselsättningsgrad uppvisar kommunerna i Dalarna ett
-liknande mönster som länen på nationell nivå. Gruppen inrikes födda har
-en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med
-utrikes födda. Även här är sysselsättningsgraden för inrikes födda
-kvinnor och män ungefär lika hög. För utrikes födda är det däremot stora
-skillnader mellan kvinnor och män, men också mellan olika kommuner. I
-linje med den nationella bilden är sysselsättningsgraden högre för
-gruppen utrikes födda män än för utrikes födda kvinnor.
-Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan
-kommuner där den högsta sysselsättningsgraden finns i `r first(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$region)` (ca `r first(round(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$varde,0))` procent) och den lägsta i `r first(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$region)` (ungefär `r first(round(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$varde,0))`
+Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan kommuner där den högsta sysselsättningsgraden finns i `r first(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$region)` (ca `r first(round(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$varde,0))` procent) och den lägsta i `r first(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$region)` (ungefär `r first(round(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$varde,0))`
 procent).
 
-Skillnaderna mellan utrikes födda kvinnor och män är mer synlig mellan
-kommuner i Dalarna än när länen som helhet jämförs. `r first(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$region)` har
-den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor, runt `r first(round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$varde,0))`
+Skillnaderna mellan utrikes födda kvinnor och män är mer synlig mellan kommuner i Dalarna än när länen som helhet jämförs. `r first(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$region)` har den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor, runt `r first(round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$varde,0))`
 procent, och ligger klart över genomsnittet för Dalarnas län (knappt `r round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0)`
-procent). Samtidigt är sysselsättningsgraden i `r first(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde == min(varde)) %>% .$region)` kommun bland
-utrikes födda kvinnor bara ungefär `r first(round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde == min(varde)) %>% .$varde,0))` procent. 
+procent). Samtidigt är sysselsättningsgraden i `r first(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde == min(varde)) %>% .$region)` kommun bland utrikes födda kvinnor bara ungefär `r first(round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde == min(varde)) %>% .$varde,0))` procent. 
 
-Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan 
-kommunerna i Dalarna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt
-flyktingkrisen 2015. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som hade högst invandring i förhållande till folkmängd under 2015, 2016 och 2017.
+Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan kommunerna i Dalarna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt flyktingkrisen 2015. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som hade högst invandring i förhållande till folkmängd under 2015, 2016 och 2017.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.height=5, fig.width=8, fig.align='center', fig.cap="Figur 34"}
 gg_arbetsmarknadsstatus_kommun$sysselsattningsgrad_senastear
 ```
 
-<span class="kommentar">ÖNÖDIGT ATT VISA ARBETSLÖSHET OCKSÅ? Nej, men borde lyftas upp till utbudsavsnittet.</span>
+<span class="kommentar">Arbetslöshetsdelen ska flyttas upp till utbudsavsnittet.</span>
 
-Grafen nedan visar att andelen arbetslösa i Dalarna (de blåa staplarna) konsekvent har varit lägre än andelen arbetslösa i Sverige (de görna staplarna). Seden pandemin så har både de arbetslösa i Sverige och Dalarna sjunkit, och nu ligger arbetslösheten på 6,4 respektive 5,8 procent (behöver uppdateras). 
+Grafen nedan visar att andelen arbetslösa i Dalarna (de mörkgröna staplarna) konsekvent har varit lägre än andelen arbetslösa i Sverige (de ljusgröna staplarna). Seden pandemin så har både de arbetslösa i Sverige och Dalarna sjunkit, och nu ligger arbetslösheten på 6,4 respektive 5,8 procent. 
+
+<span class="kommentar">behöver uppdateras med aktuella siffror - kan värdena automatberäknas? Länkarna i punktlistan nedan behöver göras "klickbara". Dalastrategin bör stå som Region Dalarna, årtal.</span>  
 
 Dalarnas låga arbetslöshet beror till viss del på att: 
 
-*	Dalarna har en mångsidig ekonomi med olika industrier och sektorer, vilket kan minska sårbarheten för arbetslöshet. Om en sektor drabbas av nedgång kan andra sektorer fortfarande erbjuda möjligheter till sysselsättning (Dalastrategin 2030; Teknikföretagen, 2023). 
+*	Dalarna har en mångsidig ekonomi med olika industrier och sektorer, vilket kan minska sårbarheten för arbetslöshet. Om en sektor drabbas av nedgång kan andra sektorer fortfarande erbjuda möjligheter till sysselsättning ("Dalastrategin 2030"; Teknikföretagen, 2023). 
 
 *	En aktiv och stark arbetsmarknad, med företag som skapar nya arbetstillfällen och expansion av befintliga företag, kan bidra till att minska arbetslösheten (SVT, 2023; Arbetsförmedlingen, 2023).
 
 *	Dalarna har goda kommunikationsmöjligheter och närhet till städer med hög ekonomisk aktivitet, vilket kan öka möjligheterna till arbete och affärsmöjligheter (Region Dalarna, 2022).
 
-*	Det finns stöd för lokala företag, vilket stimulera ekonomin och skapa fler arbetstillfällen.
+*	Det finns stöd för lokala företag, vilket stimulerar ekonomin och skapar fler arbetstillfällen.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året"
@@ -883,13 +870,8 @@ arb_08_fig
 
 ## Matchning på arbetsmarknaden
 
-Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning
-människor jobbar med vad de är utbildade till. Generellt tenderar olika
-typer av specialiserade eftergymnasiala utbildningar, exempelvis läkare
-och psykologer, ha hög matchning. Utbildar man sig till läkare är det
-väldigt hög sannolikhet att man även har det som yrke (närmare 100
-procent). På andra sidan av spektrumet finns dels olika former av
-gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis
+Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning människor jobbar med vad de är utbildade till. Generellt tenderar olika typer av specialiserade eftergymnasiala utbildningar, exempelvis läkare
+och psykologer, ha hög matchning. Utbildar man sig till läkare är det väldigt hög sannolikhet att man även har det som yrke (över 90 procent). På andra sidan av spektrumet finns dels olika former av gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis
 humaniora och konst, där runt hälften jobbar med vad de är utbildade
 till. Rent generellt ligger matchninggraden på runt `r round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent för kvinnor och `r round(matchning_df %>% filter(kön == "män",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` för män i
 Sverige. Det finns vissa skillnader mellan länen, men dessa är relativt
@@ -900,8 +882,7 @@ små. I Dalarna är matchningsgraden cirka
 gg_matchning$matchning_jmf
 ```
 
-Matchningen på arbetsmarknaden tenderar att variera beroende på var man
-är född. I Dalarna har inrikes födda högst matchning med `r round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent för kvinnor och `r round(matchning_df %>% filter(kön == "män",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` för män. Lägst matchningsgrad för män har personer `r matchning_df %>% filter(kön == "män",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (cirka `r round(matchning_df %>% filter(kön == "män",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent), medan personer `r matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` har lägst matchningsgrad för kvinnor (cirka `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)` procent).
+Matchningen på arbetsmarknaden tenderar att variera beroende på var man är född. I Dalarna har inrikes födda högst matchning med `r round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent för kvinnor och `r round(matchning_df %>% filter(kön == "män",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` för män. Lägst matchningsgrad för män har personer `r matchning_df %>% filter(kön == "män",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (cirka `r round(matchning_df %>% filter(kön == "män",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent), medan personer `r matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` har lägst matchningsgrad för kvinnor (cirka `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)` procent).
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="Figur 36"}
 gg_matchning$matchning_bakgrund
@@ -909,14 +890,25 @@ gg_matchning$matchning_bakgrund
 
 ## Brist på kompetens
 
-Ytterligare en viktig aspekt av en regions arbetsmarknad är hur lätt det är för arbetsgivare att hitta arbetskraft. Bland Sveriges län varierar den upplevda bristen på arbetskraft relativt mycket. Lättast att hitta kompetens år `r max(kompetensbrist$År)` har småföretag i `r kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Region`, där ungefär `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel,0)` procent av småföretagen uppger att de har brist på kompetens. Att jämföra med `r kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Region`, där ungefär `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel,0)` procent av småföretagen uppger att de har samma brist. I Dalarna upplever ungefär `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel,0)` procent av småföretagarna att de har svårt att hitta arbetskraft, vilket är en ökning med `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel - kompetensbrist %>% filter(År == "2020") %>% filter(Region == "Dalarna") %>% .$Andel ,0)` procentenheter sedan undersökningen som gjordes 2020.
+Ytterligare en viktig aspekt av arbetsmarknaden är hur lätt det är för arbetsgivare att hitta arbetskraft. Bland Sveriges län varierar den upplevda bristen på arbetskraft relativt mycket. Lättast att hitta kompetens år `r max(kompetensbrist$År)` har småföretag i `r kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Region`, där ungefär `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel,0)` procent av småföretagen uppger att de har brist på kompetens, att jämföra med `r kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Region`, där ungefär `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel,0)` procent av småföretagen uppger att de har samma brist. I Dalarna upplever ungefär `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel,0)` procent av småföretagarna att de har svårt att hitta arbetskraft, vilket är en ökning med `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel - kompetensbrist %>% filter(År == "2020") %>% filter(Region == "Dalarna") %>% .$Andel ,0)` procentenheter sedan undersökningen som gjordes 2020.
+
+
 
 <br>
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="Figur 37"}
 gg_kompetensbrist$kompetensbrist
 ```
 
-Sammanfattningsvis...
+Sammanfattningsvis finns det en tydlig skillnad i sysselsättningsgraden mellan inrikes och utrikes födda. Samtidigt ökar andelen utrikes födda i . För att möta den arbetskrafts- och kompetensbrist som råder är en viktig nyckel att öka sysselsättningsgraden för utrikes födda.
+
+# Avslutning
+Denna rapport är ett första försök från Region Dalarna att belysa utvecklingen och utmaningarna på arbetsmarknaden i länet. I nuläget pekar rapporten mer på det aktuella läget, än att ge svar för framtiden.
+
+Rapporten kommer att utvecklas över tid med fördjupningar för som kan ytterligare bidra till att hjälpa arbetsmarknadens aktörer att hitta lösningar som kan skapa en förbättrad kompetensförsörjning för framtiden.
+
+Intentionen är att utveckla rapporten till att inkludera fler prognoser för arbetsmarknaden och att bryta ner dessa på olika branscher.
+
+<span class="kommentar">Nedanstående tas bort i denna version</span>
 
 # Utbildningsområden och prognoser {.tabset .tabset-fade .tabset-pills}
 
