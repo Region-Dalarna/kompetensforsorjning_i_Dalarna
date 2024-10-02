@@ -220,7 +220,7 @@ I detta avsnitt presenteras vad de som förvärvsarbetar i Dalarna arbetar med, 
  
 </details>
 
-I Dalarna är den klart största branschen, sett till antalet förvärvsarbetande, `r tolower(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal=sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$bransch)` med ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$Antal,1000),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas. SCB bedömer att behovet av arbetskraft inom vård och omsorg kommer att öka i takt med en åldrande befolkning, särskilt inom äldreomsorgen (SCB Trender och prognoser, 2024).
+I Dalarna är den klart största branschen, sett till antalet förvärvsarbetande, `r tolower(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal=sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$bransch)` med ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$Antal,1000),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas. SCB bedömer att behovet av arbetskraft inom vård och omsorg kommer att öka i takt med en åldrande befolkning, särskilt inom äldreomsorgen (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>).
 
 Andra branscher med många anställda i Dalarna är tillverkning och utvinning samt utbildning, med cirka `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Tillverkning och utvinning") %>% .$Antal,1000),big.mark = " ")` respektive `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Utbildning") %>% .$Antal,1000),big.mark = " ")` anställda. Inom vård och omsorg samt utbildning är en övervägande majoritet av de sysselsatta kvinnor, medan det omvända gäller för tillverkning och utvinning, bygg samt transport.
 
@@ -443,7 +443,8 @@ gg_utbniva_senastear$hogutb_andel_ar_2023
 
 Utbildningsnivån i samhället har dock ökat avsevärt över tid, vilket vi har berört tidigare. Andelen kvinnor som har minst tre års eftergymnasial utbildning i Dalarna har ökat från ungefär `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data %>% filter(år == min(år),kön == "kvinnor") %>% .$total,0)` procent till cirka `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data %>% filter(år == max(år),kön == "kvinnor") %>% .$total,0)` procent mellan `r min(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data$år)` till `r max(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data$år)`. Andelen män med motsvarande utbildningsnivå har ökat från ungefär `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data %>% filter(år == min(år),kön == "män") %>% .$total,0)` procent till cirka `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data %>% filter(år == max(år),kön == "män") %>% .$total,0)` procent under samma tidsperiod. 
 
-Det finns flera möjliga förklaringar till att fler kvinnor än män är högt utbildade. En orsak är att kvinnor i högre utsträckning jobbar inom vård och omsorg samt utbildning, där de flesta yrkesgrupper kräver eftergymnasial utbildning på minst tre år. En annan förklaring är att kvinnor generellt sätt, oavsett utbildning, påbörjar eftergymnasiala studier i högre utsträckning än män <span class="kommentar">Lägg till länkar till (Lunds Universitet, 2017; SCB, 2021; SCB, 2022).</span>
+Det finns flera möjliga förklaringar till att fler kvinnor än män är högt utbildade. En orsak är att kvinnor i högre utsträckning jobbar inom vård och omsorg samt utbildning, där de flesta yrkesgrupper kräver eftergymnasial utbildning på minst tre år. En annan förklaring är att kvinnor generellt sätt, oavsett utbildning, påbörjar eftergymnasiala studier i högre utsträckning än män (<a href="https://www.scb.se/hitta-statistik/statistik-efter-amne/utbildning-och-forskning/befolkningens-utbildning/analyser-och-statistik-om-befolkningens-utbildning/pong/statistiknyhet/konsskillnader-i-utbildnkonsskillnader-i-utbildningsvalen-efter-gymnasieskolan/" target="_blank">SCB, 2019</a>)
+
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="Figur 24"}
 gg_utbniva_85$hogutb_andel_ar20_1985_2023
 ```
@@ -750,18 +751,17 @@ gg_arbetsmarknadsstatus_kommun$sysselsattningsgrad_senastear
 <span class="kommentar">Arbetslöshetsdelen ska flyttas upp till utbudsavsnittet.</span>
 
 Grafen nedan visar arbetslösheten i Sverige och Dalarna under perioden 2008 till 2023. Andelen arbetslösa i Dalarna (de mörkgröna staplarna) har konsekvent varit lägre än andelen arbetslösa i Sverige (de ljusgröna staplarna). Sedan pandemin har andelen arbetslösa i både Sverige och Dalarna sjunkit, och 2023 var arbetslösheten i genomsnitt 6,4 respektive 5,8 procent. 
-
-<span class="kommentar">Arbetslöshetssiffrorna behöver sannolikt uppdateras med aktuella siffror - kan värdena automatberäknas? Länkarna i punktlistan nedan behöver göras "klickbara". Hittar inte rapporten från Teknikföretagen, 2023.</span>  
+<span class="kommentar">Arbetslöshetssiffrorna behöver sannolikt uppdateras med aktuella siffror - kan värdena automatberäknas?</span>  
 
 Dalarnas låga arbetslöshet beror till viss del på att: 
 
-*	Dalarna har en mångsidig ekonomi med olika industrier och sektorer, vilket kan minska sårbarheten för arbetslöshet. Om en sektor drabbas av nedgång kan andra sektorer fortfarande erbjuda möjligheter till sysselsättning (<a href="https://www.regiondalarna.se/globalassets/regional-utveckling/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf/">Region Dalarna, 2021</a>; Teknikföretagen, 2023). 
+*	Dalarna har en mångsidig ekonomi med olika industrier och sektorer, vilket kan minska sårbarheten för arbetslöshet. Om en sektor drabbas av nedgång kan andra sektorer fortfarande erbjuda möjligheter till sysselsättning (<a href="https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/socioekonomisk-analys-2022-nms.pdf">Region Dalarna, 2022</a>; <a href="https://www.teknikforetagen.se/globalassets/rapporter--publikationer/ekonomisk-analys/hjartat-i-svensk-ekonomi/hjartat-i-svensk-ekonomi---industrins-betydelse-och-villkor-i-dalarnas-lan.pdf"> Teknikföretagen, 2019</a>). 
 
-*	En aktiv och stark arbetsmarknad, med företag som skapar nya arbetstillfällen och expansion av befintliga företag, kan bidra till att minska arbetslösheten (SVT, 2023; Arbetsförmedlingen, 2023).
+*	En aktiv och stark arbetsmarknad, med företag som skapar nya arbetstillfällen och expansion av befintliga företag, kan bidra till att minska arbetslösheten (<a href="https://arbetsformedlingen.se/download/18.210b3bc318fa36ad8ec193e/1718203233372/regionala-utsikter-varen-2024.pdf">Arbetsförmedlingen, 2024</a>).
 
-*	Dalarna har goda kommunikationsmöjligheter och närhet till städer med hög ekonomisk aktivitet, vilket kan öka möjligheterna till arbete och affärsmöjligheter (Region Dalarna, 2022).
+*	Dalarna har goda kommunikationsmöjligheter och närhet till städer med hög ekonomisk aktivitet, vilket kan öka möjligheterna till arbete och affärsmöjligheter (<a href="https://www.regiondalarna.se/globalassets/regional-utveckling/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf/">Region Dalarna, 2021</a>).
 
-*	Det finns stöd för lokala företag, vilket stimulerar ekonomin och skapar fler arbetstillfällen.
+*	Det finns stöd för lokala företag, vilket stimulerar ekonomin och skapar fler arbetstillfällen (Se <a href="https://www.regiondalarna.se/verksamhet/regional-utveckling/projektmedel-stod-och-bidrag/foretagsstod/">Region Dalarna, Företagsstöd</a>).
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året"
