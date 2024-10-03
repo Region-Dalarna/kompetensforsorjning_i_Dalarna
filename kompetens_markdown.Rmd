@@ -108,9 +108,11 @@ Genom att klicka på blå text går det att följa länkarna som öppnas i en ny
 
 # Introduktion {-}
 
-Sverige och Dalarna har en åldrande befolkning och aktuella prognoser från SCB (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>) pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler unga och gamla. Den demografiska försörjningskvoten mäter förhållandet mellan individer i arbetsför ålder, och unga och gamla. Sedan 2006 har försörjningskvoten i Dalarna ökat från 76,5 till 91,9 mellan 2006 och 2023. Det innebär att 100 personer i arbetsför ålder ska försörja knappt 92 personer utanför arbetsför ålder. Redan idag är försörjningskvoten i Dalarna den högsta i landet och förväntas öka över tid. Det kommer att förstärka den brist på arbetskraft som råder redan i dag och påverka näringslivets och offentlig sektors möjlighet att rekrytera personal.
+Sverige och Dalarna har en åldrande befolkning och aktuella prognoser från SCB (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>) pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler unga och gamla. Den demografiska försörjningskvoten mäter förhållandet mellan individer i arbetsför ålder, och unga och gamla. Sedan 2006 har försörjningskvoten i Dalarna ökat från `r demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(varde == min(.$varde)) %>% .$varde` till `r demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(varde == max(.$varde)) %>% .$varde` mellan `r min(demografisk_forsorjningskvot_df$år)` och `r max(demografisk_forsorjningskvot_df$år)`. Det innebär att 100 personer i arbetsför ålder ska försörja ungefär `r round(demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(varde == max(.$varde)) %>% .$varde,0)` personer utanför arbetsför ålder. Redan idag är försörjningskvoten i Dalarna den högsta i landet och förväntas öka över tid. Det kommer att förstärka den brist på arbetskraft som råder redan i dag och påverka näringslivets och offentlig sektors möjlighet att rekrytera personal.
 
-<span class="kommentar">Lägg in bild som visar förskjutningen i åldrar över tid. Ta SCB R2 Dalarna vs Riket 2006-2023. Blir Figur 1.</span>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center',fig.cap="Figur 2"}
+gg_demo_forsorjning$demografisk_forsorjningskvot_Dalarna
+```
 
 I kombination med att försörjningskvoten ökar, minskar även befolkningen i arbetsför ålder över tid. Mellan 2002 och 2022 minskade antalet inrikes födda i arbetsför ålder med cirka 20 000 personer. Samtidigt har antalet utrikes födda ökat under samma period, men inte i lika stor omfattning, vilket leder till att befolkningen i arbetsför ålder som helhet krymper. 
 
@@ -118,7 +120,10 @@ I kombination med att försörjningskvoten ökar, minskar även befolkningen i a
 
 Befolkningsutvecklingen i Dalarna har varierat över tid med såväl uppgångar som nedgångar. Den senaste stora nedgången var i samband med den ekonomiska krisen runt millenieskiftet och en uppgång skedde i samband med flyktingkrisen 2016. 2023 observeras en tydlig nedgång i Dalarnas befolkning. För en mer ingående analys av befolkningsutvecklingen, se <a href="https://region-dalarna.github.io/befolkningsutvecklingen_i_Dalarna/" target="_blank">Befolkningsutvecklingen i Dalarna</a>.
 
-<span class="kommentar">Lägg in diagram från Befolkningsrapporten. Ta sista stapeldiagrammet i avsnitt 1.1 1969-2023. Blir Figur 3.</span>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center',fig.cap="Figur 2"}
+gg_befolkning$Befolkningsutveckling_Dalarna
+```
+
 
 En utveckling mot en allt äldre befolkning leder till arbetskraftsbrist, vilket är en trend som kan observeras på många håll i landet. Därutöver kan även kompetensbrist uppstå, om de som står till arbetsmarknadens förfogande inte har de kompetenser som efterfrågas (<a href="https://www.tillvaxtanalys.se/publikationer/rapport/rapportserien/2024-02-29-arbetskrafts--och-kompetensbrist.html/" target="_blank">Tillväxtanalys, 2024</a>).
 
