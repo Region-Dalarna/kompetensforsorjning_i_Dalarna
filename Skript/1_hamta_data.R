@@ -36,6 +36,13 @@ gg_jobbinflode = diagram_jobbinflode_tid_region(region_vekt = "20",
                                                  tid_koder = "*",
                                                  output_mapp_figur = Output_mapp_figur)
 
+# # Arbetskraftsdeltagande
+# source("C:/Users/frkjon/Projekt/kompetensforsorjning_i_Dalarna/Skript/jobbinflode_procent_region.R", encoding="UTF-8")
+# gg_jobbinflode = diagram_jobbinflode_tid_region(region_vekt = "20",
+#                                                 spara_figur=TRUE,
+#                                                 returnera_data = TRUE,
+#                                                 tid_koder = "*",
+#                                                 output_mapp_figur = Output_mapp_figur)
 
 
 # Förvärvsarbetande från 1990 till senaste år. Både antal och förändring (från första till sista)
