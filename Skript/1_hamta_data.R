@@ -27,21 +27,31 @@ gg_befolkning = diagram_befolkningsforandring_ar(region_vekt = "20",
                                                  avrunda_fem = FALSE,
                                                  output_mapp_figur = Output_mapp_figur)
 
-# Jobbinflöde
-source(here("Skript","jobbinflode_procent_region.R"), encoding="UTF-8")
+# Lediga jobb E1 - NY 7/10
+source(here("Skript","diagram_lediga_jobb_E1.R"), encoding="UTF-8")
+gg_lediga_jobb = diagram_lediga_jobb_tid_sektor_E1(region_vekt = "20",
+                                                      spara_figur=TRUE,
+                                                      returnera_data = TRUE,
+                                                      tid_koder = "*",
+                                                      output_mapp_figur = Output_mapp_figur)
+
+
+# Jobbinflöde - NY 7/10
+source(here("Skript","jobbinflode_procent_region_ny.R"), encoding="UTF-8")
 gg_jobbinflode = diagram_jobbinflode_tid_region(region_vekt = "20",
                                                  spara_figur=TRUE,
                                                  returnera_data = TRUE,
                                                  tid_koder = "*",
                                                  output_mapp_figur = Output_mapp_figur)
 
-# # Arbetskraftsdeltagande
-# source("C:/Users/frkjon/Projekt/kompetensforsorjning_i_Dalarna/Skript/jobbinflode_procent_region.R", encoding="UTF-8")
-# gg_jobbinflode = diagram_jobbinflode_tid_region(region_vekt = "20",
-#                                                 spara_figur=TRUE,
-#                                                 returnera_data = TRUE,
-#                                                 tid_koder = "*",
-#                                                 output_mapp_figur = Output_mapp_figur)
+# Arbetskraftsdeltagande - NY 7/10
+source(here("Skript","diagram_arbetskraftsdeltagande.R"), encoding="UTF-8")
+gg_arbetskraftsdeltagande = diagram_arbetskraftsdeltagande_tid_region(region_vekt = "20",
+                                                                      spara_figur=TRUE,
+                                                                      returnera_data = TRUE,
+                                                                      tid_koder = "*",
+                                                                      kon_klartext = c("kvinnor","män"),
+                                                                      output_mapp_figur = Output_mapp_figur)
 
 
 # Förvärvsarbetande från 1990 till senaste år. Både antal och förändring (från första till sista)
@@ -219,6 +229,15 @@ source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_ma
 gg_matchning <- diag_matchning_lan(output_mapp_figur = Output_mapp_figur,
                                    returnera_figur = TRUE,
                                    returnera_data = TRUE)
+
+# Lediga jobb M1 - NY 7/10
+source(here("Skript","diagram_lediga_jobb_arbetslosa_M1.R"), encoding="UTF-8")
+gg_lediga_jobb_M1 = diagram_lediga_jobb_arbetslosa_M1(region_vekt = "20",
+                                                   spara_figur=TRUE,
+                                                   returnera_data = TRUE,
+                                                   tid_koder = "*",
+                                                   output_mapp_figur = Output_mapp_figur)
+
 # Kompetensbrist
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_kompetensbrist_lan_TVV.R",encoding="UTF-8")
 gg_kompetensbrist <- diag_kompetensbrist(output_mapp_figur = Output_mapp_figur,

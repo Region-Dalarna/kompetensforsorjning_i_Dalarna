@@ -183,6 +183,10 @@ I denna rapport får de regionala matchningsindikatorer som togs fram av Reglab 
 
 <a href="https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM9906__AM9906A/RegionIndE1KN/" target="_blank">SCB E1</a>
 
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center',fig.cap="Figur 5"}
+gg_lediga_jobb$lediga_jobb_Dalarna_E1
+```
+
 Var befinner Dalarna sig i dag? Hur ser utvecklingen av lediga jobb ut över tid?
 
 ## Jobbinflöden
@@ -254,6 +258,10 @@ I detta avsnitt presenteras vad de som förvärvsarbetar i Dalarna arbetar med, 
 SCB U1b - Arbetskraftsdeltagande. Jon har gjort diagram, uppdelat på kvinnor och män över tid. Blir Figur 10.</span>
 
 <a href="https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM9906__AM9906B/RegionInd19U1aN1/" target="_blank">SCB U1b</a>
+
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center',fig.cap="Figur 5"}
+gg_arbetskraftsdeltagande$arbetskraftsdeltagande_Dalarna
+```
 
 Personer som ingår i arbetskraften är antingen förvärvsarbetande eller inskrivna på arbetsförmedlingen.
 
@@ -720,6 +728,10 @@ utbgrupp_prog_balans_fig
 ```
 
 <span class="kommentar">Plocka in matchningsindikator M1- Lediga jobb och arbetslösa. Speglar utseende av E1 (Jon har gjort). Blir Figur 34.</span>
+
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center',fig.cap="Figur 5"}
+gg_lediga_jobb_M1$lediga_jobb_M1_Dalarna
+```
 
 ## Hur många arbetar?
 

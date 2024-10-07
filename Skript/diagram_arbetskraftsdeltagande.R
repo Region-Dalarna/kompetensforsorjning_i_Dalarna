@@ -36,6 +36,10 @@ diagram_arbetskraftsdeltagande_tid_region <- function(region_vekt = c("20"),			#
   # Calculate the percentage of the population in the labor force using pivots
   arbetskraftsdeltagande_andel <- arbetskraftsdeltagande_df %>% pivot_wider(names_from = variabel, values_from = varde) %>% mutate(arbetskraftsdeltagande = `I arbetskraften` / `Totalt antal personer` * 100) %>% select(-`I arbetskraften`, -`Inte i arbetskraften`, -`Totalt antal personer`) %>% pivot_longer(cols = starts_with("arbetskraftsdeltagande"), names_to = "variabel", values_to = "andel")
   
+  if(returnera_data == TRUE){
+    assign("arbetskraftsdeltagande_andel_df", arbetskraftsdeltagande_andel, envir = .GlobalEnv)
+  }
+  
   # om regioner är alla kommuner i ett län eller alla län i Sverige görs revidering, annars inte
   region_start <- unique(arbetskraftsdeltagande_andel$region) %>% skapa_kortnamn_lan() %>% list_komma_och()
   region_txt <- ar_alla_kommuner_i_ett_lan(unique(arbetskraftsdeltagande_df$regionkod), returnera_text = TRUE, returtext = region_start)
@@ -59,6 +63,7 @@ diagram_arbetskraftsdeltagande_tid_region <- function(region_vekt = c("20"),			#
                                diagram_titel = diagramtitel,
                                skriv_till_diagramfil = spara_figur,
                                diagram_capt = diagram_capt,
+                               procent_0_100_10intervaller = TRUE,
                                stodlinjer_avrunda_fem = TRUE,
                                filnamn_diagram = diagramfil,
                                manual_y_axis_title = "procent",
