@@ -8,10 +8,12 @@ diagram_lediga_jobb_tid_sektor_E1 <- function(region_vekt = c("20"),			# Val av 
                                                       returnera_figur = TRUE){
   
   if (!require("pacman")) install.packages("pacman")
-  p_load(tidyverse,
+  p_load(here,
+         tidyverse,
          glue)
   
-  source("C:/Users/frkjon/Projekt/laget_i_Dalarna/Skript/hamta_lediga_jobb_region_sektor_tid_RegionIndE1K_RegionIndE1KN_scb.R")
+  #source("C:/Users/frkjon/Projekt/laget_i_Dalarna/Skript/hamta_lediga_jobb_region_sektor_tid_RegionIndE1K_RegionIndE1KN_scb.R")
+  source(here("Skript","hamta_lediga_jobb_region_sektor_tid_RegionIndE1K_RegionIndE1KN_scb.R"), encoding="UTF-8")
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R", encoding = "utf-8")
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_text.R", encoding = "utf-8")
   

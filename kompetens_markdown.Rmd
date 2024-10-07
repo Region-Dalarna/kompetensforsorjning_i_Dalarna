@@ -743,6 +743,10 @@ För utrikes födda, det högra diagrammet nedan, är bilden annorlunda. Utrikes
 är cirka `r round(arbetsmarknadsstatus_lan %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde-arbetsmarknadsstatus_lan %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0) ` procentenheter mer än för utrikes födda kvinnor.
 
 <span class="kommentar">Kan vi plocka fram sysselsättningsgraden i Dalarna över tid?</span>
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="Figur 35"}
+gg_sysselsattningsgrad_93$sysselsattningsgrad_93_Dalarna
+```
+
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="Figur 35"}

@@ -255,6 +255,15 @@ gg_kompetensbrist <- diag_kompetensbrist(output_mapp_figur = Output_mapp_figur,
 # diag_hogskoleexamen(spara_data = TRUE,
 #                     output_mapp = Output_mapp)
 
+# Sysselsättningsgrad, tidserie
+source(here("Skript","diagram_sysselsattningsgrad_93.R"), encoding="UTF-8")
+gg_sysselsattningsgrad_93 = diagram_sysselsattningsgrad_93(region_vekt = "20",
+                                                          spara_figur=TRUE,
+                                                          returnera_data = TRUE,
+                                                          tid_koder = "*",
+                                                          kon_klartext = c("kvinnor","män"),
+                                                          output_mapp_figur = Output_mapp_figur)
+
 # Sysselsättningsgrad, kommun
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_arbetsmarknadsstatus_senastear.R", encoding="UTF-8")
 gg_arbetsmarknadsstatus_kommun <- diagram_arbetsmarknadsstatus(output_mapp_figur = Output_mapp_figur,
