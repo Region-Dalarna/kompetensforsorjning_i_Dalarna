@@ -154,7 +154,7 @@ bef_inr_utr
 ```
 
 <br>
-Befolkningsutvecklingen i Dalarna har varierat över tid med såväl uppgångar som nedgångar. Den senaste stora nedgången var i samband med den ekonomiska krisen runt millenieskiftet och en uppgång skedde i samband med flyktingkrisen 2016. 2023 observeras en tydlig nedgång i Dalarnas befolkning. För en mer ingående analys av befolkningsutvecklingen, se <a href="https://region-dalarna.github.io/befolkningsutvecklingen_i_Dalarna/" target="_blank">Befolkningsutvecklingen i Dalarna</a>.
+Befolkningsutvecklingen i Dalarna har varierat över tid med såväl uppgångar som nedgångar. Den senaste stora nedgången var i samband med den ekonomiska krisen runt millennieskiftet och en uppgång skedde i samband med flyktingkrisen 2016. 2023 observeras en tydlig nedgång i Dalarnas befolkning. För en mer ingående analys av befolkningsutvecklingen, se <a href="https://region-dalarna.github.io/befolkningsutvecklingen_i_Dalarna/" target="_blank">Befolkningsutvecklingen i Dalarna</a>.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center',fig.cap="Figur 3"}
@@ -193,7 +193,7 @@ gg_lediga_jobb$lediga_jobb_Dalarna_E1
 
 ## Jobbinflöden
 
-Efter nedgången på arbetsmarknaden i samband med finanskrisen 2008, då omsättningen på arbetsmarknaden i termer av jobbinflöde låg på drygt 14 procent, har utvecklingen varit i stort sett positiv fram till pandemin 2020. Då skedde en kraftig, men också tillfällig nedgång. 2021-2022 är jobbinflödesnivån tillbaka på den högsta som varit sedan 2007-2008. 
+Efter nedgången på arbetsmarknaden i samband med finanskrisen 2008, då omsättningen på arbetsmarknaden i termer av jobbinflöde låg på drygt 14 procent, har utvecklingen varit i stort sett positiv fram till pandemin 2020. Då skedde en kraftig, men också tillfällig nedgång. 2021-2022 är jobbinflödesnivån tillbaka på den nivå som rådde 2018-2019, närmare 20 procent. 
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center',fig.cap="Figur 5"}
@@ -201,7 +201,7 @@ gg_jobbinflode$jobbinflode_Dalarna
 ```
 
 <br>
-En observation är att av utlysta tjänster tillsätts av individer som redan är aktiva i yrkeslivet, inte de som är nyinträdda på arbetsmarknaden. De nyinträdda ligger runt 5-6 procent, medan andelen jobbytare är ungefär det dubbla.
+En observation är att majoriteten av utlysta tjänster tillsätts av individer som redan är aktiva i yrkeslivet, inte de som är nyinträdda på arbetsmarknaden. De nyinträdda ligger runt 5-6 procent, medan andelen jobbytare är ungefär det dubbla.
 
 ## Kompetenskrav
 
@@ -259,7 +259,7 @@ gg_bransch_utb_alder_antal$alder_bransch_antalDalarna
 
 Företagens möjlighet att kompetensförsörja sina verksamheter utgår från det kortsiktiga utbudet av arbetskraft och de individer som står till arbetsmarknadens förfogande, det vill säga de som arbetar och de som söker arbete. Utbudet av arbetskraft i ett visst område består av de som bor i området, de som kan pendla till området och de som kan distansarbeta. Omfattningen på utbudet påverkas även av antal timmar de önskar arbeta.
 
-Det långsiktiga utbudet av arbetskraft påverkas av förändringar i individers utbildningsnivåer, kompetensutveckling, in- och utflyttning, pendlingsbenägenhet m m. Att beskriva utvecklingen inom dessa områden är viktigt för att kunna bedöma hur kompetensförsörjningen kommer att se ut på längre sikt. Det är även viktigt att studera de som idag inte ingår i arbetskraften, men som kan göra det i framtiden.
+Det långsiktiga utbudet av arbetskraft påverkas av förändringar i individers utbildningsnivåer, kompetensutveckling, in- och utflyttning, pendlingsbenägenhet med mera. Att beskriva utvecklingen inom dessa områden är viktigt för att kunna bedöma hur kompetensförsörjningen kommer att se ut på längre sikt. Det är även viktigt att studera de som idag inte ingår i arbetskraften, men som kan göra det i framtiden.
 
 I detta avsnitt kommer utbudet av arbetskraft beskrivas utifrån hur stor andel av befolkningen som är i vad som brukar kallas för arbetsför ålder, det vill säga mellan 20 och 64 år gamla. Visserligen jobbar människor allt längre upp i åldrarna, men den största andelen arbetar när de är i arbetsför ålder.
 
@@ -349,7 +349,7 @@ gg_bef_for$befolkningsforandring_20_64
 ```
 
 <br>
-Om den arbetsföra befolkning delas upp i inrikes respektive utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat i antal de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna har antalet inrikes födda invånare i arbetsför ålder minskat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`.
+Om den arbetsföra befolkningen delas upp i inrikes respektive utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat i antal de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna har antalet inrikes födda invånare i arbetsför ålder minskat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`.
 
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
@@ -782,7 +782,7 @@ gg_matchning$matchning_bakgrund
 ```
 
 <br>
-Ett ytterligare sätt att betrakta matchningen på arbetsmarknaden är att titta på förhållandet mellan arbetslösa och lediga jobb. Den senaste tillgängliga statstiken är för andra kvartalet 2024. Då fanns 3 000 lediga jobb, samtidigt som antalet arbetslösa uppgick till drygt 13 000. En stark arbetsmarknad som helhet karaktäriseras av balans mellan antalet lediga jobb och arbetslösa. Diagrammet nedan visar även konjunkturens påverkan, till exempel under finanskrisen 2009 som minskade utbudet av lediga jobb samtidigt som antal arbetslösa ökade.
+Ett ytterligare sätt att betrakta matchningen på arbetsmarknaden är att titta på förhållandet mellan arbetslösa och lediga jobb. Den senaste tillgängliga statistiken är för andra kvartalet 2024. Då fanns 3 000 lediga jobb, samtidigt som antalet arbetslösa uppgick till drygt 13 000. En stark arbetsmarknad som helhet karaktäriseras av balans mellan antalet lediga jobb och arbetslösa. Diagrammet nedan visar även konjunkturens påverkan, till exempel under finanskrisen 2009 som minskade utbudet av lediga jobb samtidigt som antal arbetslösa ökade.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center',fig.cap="Figur 38"}
@@ -801,18 +801,47 @@ gg_kompetensbrist$kompetensbrist
 <br>
 Det finns en underliggande svårighet i att separera bristen på arbetskraft från bristen på kompetens. En situation med allt färre i arbetsför ålder skapar en generell brist på arbetskraft, men den förstärker sannolikt även bristen på kompetens då arbetskraftsreserven minskar. Arbetsgivarna behöver därför anställa individer som står längre från de kompetenskrav som ställs, vilket ökar behovet av vidareutbildning efter anställning. För ett djupare resonemang om dessa två brister och potentiella lösningar hänvisas till <a href="https://www.tillvaxtanalys.se/publikationer/rapport/rapportserien/2024-02-29-arbetskrafts--och-kompetensbrist.html/" target="_blank">Tillväxtanalys, 2024</a>.
 
-# Avslutning
-I denna rapport redovisas utvecklingen och utmaningarna på arbetsmarknaden i Dalarna. 
+# Analys
+Arbetsmarknaden och kompetensförsörjningen i Dalarna är komplex med flera utmaningar som samspelar. Dessa utmaningar inkluderar en åldrande befolkning, minskat arbetskraftsutbud, ökande kompetenskrav och svårigheter att matcha arbetskraftens kvalifikationer med efterfrågan från arbetsgivare.
 
-Region Dalarna kommer att utveckla rapportinnehållet över tid med fördjupningar inom olika avsnitt, som kan ytterligare bidra till en ökad kunskap om arbetsmarknaden. Allt i syfte att hjälpa arbetsmarknadens aktörer att hitta lösningar som kan skapa en förbättrad kompetensförsörjning för framtiden.
+<br>
+1. **Arbetskraftsefterfrågan**
+<br>
+Arbetskraftsefterfrågan i Dalarna har ökat markant det senaste decenniet. Det är främst privat sektor som står för majoriteten av de lediga jobben, även om offentlig sektor också haft en markant efterfrågeökning. Den totala efterfrågan är dock svår att kvantifiera exakt, då den påverkas av olika faktorer såsom ekonomiska trender och teknologiska förändringar. Det finns även en variation i efterfrågan på arbetskraft, beroende på bransch och region. Till exempel har hotell- och restaurangbranschen ett stort behov av enklare arbetskraft, medan andra sektorer, såsom IT och offentlig förvaltning, efterfrågar högre kvalifikationer.
+
+<br>
+2. **Arbetskraftsutbud**
+<br>
+Utbudet av arbetskraft minskar stadigt, främst på grund av en åldrande befolkning och ett negativt flyttnetto i många delar av Dalarna. Mellan 2002 och 2022 minskade antalet inrikes födda i arbetsför ålder med cirka 20 000 personer, och även om antalet utrikes födda har ökat, har detta inte varit tillräckligt för att kompensera för förlusten. Det långsiktiga utbudet påverkas av förändringar i utbildningsnivåer, pendlingsmönster och migration, men den ökade andelen äldre innebär också ett större behov av arbetskraft inom vård och omsorg, något som framstår som en kritisk utmaning.
+
+<br>
+3. **Kompetens och kvalifikationskrav**
+<br>
+En viktig aspekt av arbetsmarknaden är hur arbetsgivare efterfrågar olika nivåer av kompetens. I Dalarna finns det stora skillnader i vilka typer av jobb som dominerar. Sektorer som vård och omsorg samt utbildning kräver ofta högre utbildning, medan andra, såsom hotell- och restaurang, främst efterfrågar arbetskraft med enklare kvalifikationer. Det finns stora variationer inom och mellan regioner i efterfrågan på gymnasial och högre utbildning. Dalarna har en hög andel yrken som kräver gymnasial kompetens, medan Stockholms län har flest jobb med krav på högskoleutbildning.
+
+<br>
+4. **Matchning på arbetsmarknaden**
+<br>
+En central utmaning är matchningen mellan utbud och efterfrågan på arbetskraft. I Dalarna är sysselsättningsgraden högre än riksgenomsnittet, men det finns stora skillnader mellan inrikes och utrikes födda. Sysselsättningsgraden är generellt sett lägre för utrikes födda, vilket till stor del kan bero på lägre utbildningsnivå och svårigheter att anpassa sig till arbetsmarknadens krav. Matchningen försvåras också av skillnader mellan kvinnor och män, där kvinnor i högre grad arbetar inom vård, omsorg och utbildning medan män är överrepresenterade inom bygg- och tillverkningssektorerna. Dessutom tenderar utrikes födda att ha svårare att få jobb som motsvarar deras utbildning, vilket försvårar integrationen på arbetsmarknaden.
+
+<br>
+5. **Arbetsmarknadens åldersstruktur**
+<br>
+En annan viktig faktor är åldersstrukturen inom olika sektorer. Särskilt inom vård och omsorg, men även i tillverkningssektorn, är en stor del av arbetskraften över 50 år, vilket innebär att många kommer att gå i pension inom de närmaste 15-20 åren. Detta, i kombination med att befolkningen i Dalarna blir allt äldre, innebär ett stort framtida rekryteringsbehov inom dessa sektorer. Särskilt vården står inför en allvarlig situation där efterfrågan på tjänster ökar samtidigt som tillgången på arbetskraft minskar.
+
+<br>
+6. **Brist på arbetskraft och kompetens**
+<br>
+Det finns en utbredd uppfattning om kompetensbrist bland arbetsgivare, särskilt inom småföretag. I Dalarna upplever omkring 41 procent av småföretagen svårigheter att hitta rätt kompetens, vilket är en ökning med 13 procentenheter från tidigare år. Bristen på arbetskraft förstärks av att den totala arbetskraftsreserven minskar, vilket gör det svårt för arbetsgivare att hitta kvalificerade kandidater. För att hantera detta måste arbetsgivarna ofta sänka kompetenskraven och investera i vidareutbildning.
+
+# Avslutning
+Det finns ett tydligt behov av att hitta nya lösningar för att hantera kompetensförsörjningsutmaningarna. Teknologisk utveckling, förändrade arbetsmarknadsstrukturer och en åldrande befolkning ställer höga krav på utbildningssystemet och arbetsmarknadsinsatser. För att uppnå långsiktig hållbarhet och uppfylla målen i Dalastrategin 2030, måste regionen satsa på att förbättra matchningen mellan utbildning och arbetsmarknadsbehov, samt underlätta för unga och utrikes födda att integreras på arbetsmarknaden.
+
+Sammanfattningsvis är kompetensförsörjningen i Dalarna en av de största utmaningarna för regionens framtida utveckling. Med rätt strategiska insatser och samarbete mellan offentlig sektor, näringsliv och utbildningsinstitutioner kan dock dessa utmaningar mötas på ett hållbart sätt.
+
+Region Dalarna kommer att utveckla rapportens innehåll över tid med fördjupningar inom olika avsnitt, som kan ytterligare bidra till en ökad kunskap om arbetsmarknaden. Allt i syfte att hjälpa arbetsmarknadens aktörer att hitta lösningar som kan skapa en förbättrad kompetensförsörjning för framtiden.
 
 Ett exempel på planerad utveckling är att inkludera mer prognosunderlag för arbetsmarknaden som helhet och för olika branscher.
-
-
-<span class="kommentar">Vi ber ChatGPT göra en sammanfattande text utifrån avsnitten 1-4.</span>
-
-<span class="kommentar">Nedanstående är hämtat från de olika avsnitten och inte strukturerat till någon ordning. Tas förmodligen bort och ersätts av ChatGPT-bidraget.</span>
-
 
 Sammanfattningsvis finns det en tydlig skillnad i sysselsättningsgraden mellan inrikes och utrikes födda. Samtidigt ökar andelen utrikes födda av den totala befolkningen i arbetsför ålder. För att möta den arbetskrafts- och kompetensbrist som råder är en viktig del att fortsatt öka sysselsättningsgraden för utrikes födda.
 
