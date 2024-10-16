@@ -48,7 +48,7 @@ diagram_arbetskraftsdeltagande_tid_region <- function(region_vekt = c("20"),			#
   region_txt <- paste0(" i ", region_txt)
   regionkod_txt <- if (region_start == region_txt) unique(arbetskraftsdeltagande_df$regionkod) %>% paste0(collapse = "_") else region_txt
   
-  diagramtitel <- glue("Arbetskraftsdeltagande (20-64 år) i {region_txt}")
+  diagramtitel <- glue("Arbetskraftsdeltagande hos befolkningen 20-64 år{region_txt}")
   diagramfil <- glue("arbetskraftsdeltagande_{regionfil_txt}.png") %>% str_replace_all("__", "_")
   
   # if ("variabel" %in% names(arbetskraftsdeltagande_df)) {

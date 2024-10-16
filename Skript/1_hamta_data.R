@@ -1,4 +1,6 @@
 # Uppdaterar data som används i rapporten "Läget i Dalarna"
+
+system.time({
 if (!require("pacman")) install.packages("pacman")
 p_load(here)
 
@@ -28,13 +30,29 @@ gg_befolkning = diagram_befolkningsforandring_ar(region_vekt = "20",
                                                  output_mapp_figur = Output_mapp_figur)
 
 # Lediga jobb E1 - NY 7/10
-source(here("Skript","diagram_lediga_jobb_E1.R"), encoding="UTF-8")
+#source(here("Skript","diagram_lediga_jobb_E1.R"), encoding="UTF-8")
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_lediga_jobb_E1.R")
 gg_lediga_jobb = diagram_lediga_jobb_tid_sektor_E1(region_vekt = "20",
-                                                      spara_figur=TRUE,
-                                                      returnera_data = TRUE,
-                                                      tid_koder = "*",
-                                                      output_mapp_figur = Output_mapp_figur)
+                                                   sektor_klartext = c("offentlig sektor", "privat sektor"),
+                                                   kon_klartext = "totalt",
+                                                   cont_klartext = "Lediga jobb",           
+                                                   kvartal_klartext = "9999",
+                                                   spara_figur=TRUE,
+                                                   returnera_data = TRUE,
+                                                   tid_koder = "*",
+                                                   output_mapp_figur = Output_mapp_figur)
 
+
+# gg_lediga_jobb <- diagram_lediga_jobb_tid_sektor_E1(region_vekt = "20",
+#                                                     sektor_klartext = c("offentlig sektor", "privat sektor"),
+#                                                     kon_klartext = "totalt",
+#                                                     cont_klartext = "Lediga jobb",           
+#                                                     kvartal_klartext = "9999",
+#                                                     spara_figur=TRUE,
+#                                                     returnera_data = TRUE,
+#                                                     tid_koder = "*",
+#                                                     kvartal_klartext = "9999",
+#                                                     output_mapp_figur = Output_mapp_figur)
 
 # Jobbinflöde - NY 7/10
 source(here("Skript","jobbinflode_procent_region_ny.R"), encoding="UTF-8")
@@ -289,16 +307,16 @@ gg_arbetsmarknadsstatus_lan <- diagram_arbetsmarknadsstatus(region_vekt = hamtaA
                                                             returnera_data = TRUE,
                                                             data_namm = "arbetsmarknadsstatus_lan")
 
-
+}) # slut system.time för att ladda data
 
 # # Matchning på arbetsmarknaden, län och bakgrund - från projektet "Kvinnor och män i Dalarna"
 # source("C:/Users/frkjon/Projekt/kvinnor_man_i_Dalarna/Skript/matchning.R", encoding="UTF-8")
 # diag_matchning(spara_data = TRUE,
 #                output_mapp = Output_mapp)
-
+system.time({
 rmarkdown::render(
   input = 'kompetens_markdown.Rmd',
   output_file = 'kompetens_markdown_ny.html',
   envir = parent.frame()
 )
-
+}) # slut system.time för att knitta rapporten
