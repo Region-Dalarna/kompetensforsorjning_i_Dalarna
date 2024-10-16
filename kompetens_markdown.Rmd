@@ -82,13 +82,12 @@ Senast uppdaterad: `r Sys.Date()`</i>
 # Sammanfattning {-}
 Denna rapport ger en bild av läget i Dalarna med fokus på kompetensförsörjningen. Rapporten uppdateras årligen. Ett antal viktiga trender och mönster sammanfattas här:
 
-* **Arbetskraftsefterfrågan**: Arbetskraftsefterfrågan i Dalarna har ökat markant det senaste decenniet. Det är främst privat sektor som står för majoriteten av de lediga jobben, även om offentlig sektor också haft en betydande efterfrågeökning. Två tredjedelar av alla lediga jobb tillsätts med personer som redan är förvärvsarbetande. 
+* **Arbetskraftsefterfrågan**: Arbetskraftsefterfrågan i Dalarna har ökat markant de senaste decennierna. Privat sektor står för majoriteten av de lediga jobben, även om offentlig sektor också haft en betydande efterfrågeökning. Två tredjedelar av alla lediga jobb tillsätts med personer som redan är förvärvsarbetande. 
 
-* **Kompetens och kvalifikationskrav**: Det finns stora variationer i efterfrågan på kompetens i Dalarna. Vård, omsorg och utbildning kräver ofta högre utbildning, medan hotell och restaurang efterfrågar enklare kvalifikationer. Dalarna har en hög andel yrken som kräver gymnasial utbildning. Dessa skillnader påverkar matchningen mellan arbetskraft och arbetsgivarnas behov.
-
+* **Kompetens och kvalifikationskrav**: Det finns stora variationer i efterfrågan på kompetens i Dalarna. Vård, omsorg och utbildning kräver ofta högre utbildning, medan hotell och restaurang efterfrågar enklare kvalifikationer. Dalarna har en hög andel yrken som kräver gymnasial utbildning. 
 * **Brist på arbetskraft och kompetens**: Många arbetsgivare, särskilt småföretag, rapporterar svårigheter att hitta rätt kompetens. Detta tvingar arbetsgivare att sänka kraven och investera i vidareutbildning. Teknologiska lösningar och automation kan bli nödvändiga för att kompensera för arbetskraftsbristen.
 
-* **Arbetskraftsutbudet**: Utbudet av arbetskraft i Dalarna minskar på grund av en åldrande befolkning och ett negativt inrikes flyttnetto. Antalet inrikes födda i arbetsför ålder har minskat, och även om utrikes födda ökat, täcker det inte underskottet utan leder till arbetskraftsbrist. Arbetskraftsdeltagandet ökar över tid för både kvinnor och män. Dalarna har den näst lägsta andelen med eftergymnasial utbildning i landet.  
+* **Arbetskraftsutbudet**: Utbudet av arbetskraft i Dalarna minskar på grund av en åldrande befolkning och ett negativt inrikes flyttnetto. Antalet inrikes födda i arbetsför ålder har minskat, och även om utrikes födda ökat, täcker det inte underskottet utan leder till arbetskraftsbrist. Arbetskraftsdeltagandet ökar över tid för både kvinnor och män. Dalarna har den näst lägsta andelen med eftergymnasial utbildning i landet, vilket utmanar arbetsgivarnas möjlighet att hitta kvalificerade sökande.  
 
 * **Arbetsmarknadens åldersstruktur**: En stor del av arbetskraften i Dalarna är över 50 år, särskilt inom vård och omsorg samt tillverkning. Många kommer att gå i pension inom 15-20 år, vilket ökar rekryteringsbehoven. Samtidigt blir befolkningen äldre, vilket skapar en större efterfrågan på vårdtjänster och en belastning på sociala system och offentliga finanser.
 
@@ -668,7 +667,7 @@ gg_yh$yh_inriktning
 ```
 
 <br>
-2018 påbörjade drygt 190 personer en YH-utbildning i Dalarna. De efterföljande tre åren ökade antalet till cirka 250 för att därefter minska till knappt 160 personer under 2022 och 2023. 
+2018 påbörjade drygt 190 personer en YH-utbildning i Dalarna. De efterföljande tre åren ökade antalet till cirka 250 för att därefter minska till knappt 160 personer under 2022 och 2023. Då utbudet fastställs över en treårsperiod kommer även 2024 att ligga på samma nivå som de två föregående åren. Utbudet från 2025-2027 fastställs i nästa ansökningsperiod.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="Figur 31"}
@@ -810,30 +809,12 @@ Arbetsmarknaden och kompetensförsörjningen i Dalarna är komplex med flera utm
 <br>
 * **Arbetskraftsefterfrågan**
 <br>
-Arbetskraftsefterfrågan i Dalarna har ökat markant det senaste decenniet. Det är främst privat sektor som står för majoriteten av de lediga jobben, även om offentlig sektor också haft en betydande efterfrågeökning. Den totala efterfrågan är dock svår att kvantifiera exakt, då den påverkas av olika faktorer såsom ekonomiska trender och teknologiska förändringar. Det finns även en variation i efterfrågan på arbetskraft, beroende på bransch och region. Till exempel har hotell- och restaurangbranschen ett stort behov av enklare arbetskraft, medan andra sektorer, såsom IT och offentlig förvaltning, efterfrågar högre kvalifikationer.
-
-<br>
-* **Arbetskraftsutbud**
-<br>
-Utbudet av arbetskraft minskar stadigt, främst på grund av en åldrande befolkning och ett negativt flyttnetto i många delar av Dalarna. Mellan 2002 och 2022 minskade antalet inrikes födda i arbetsför ålder med cirka 20 000 personer, och även om antalet utrikes födda har ökat, har detta inte varit tillräckligt för att kompensera för förlusten. 
-
-Det finns en tydlig skillnad i sysselsättningsgraden mellan inrikes och utrikes födda och andelen utrikes födda av den totala befolkningen i arbetsför ålder ökar. För att möta den arbetskrafts- och kompetensbrist som råder är en viktig del att fortsatt öka sysselsättningsgraden för utrikes födda. Det långsiktiga utbudet påverkas av förändringar i utbildningsnivåer, pendlingsmönster och migration, men den ökade andelen äldre innebär också ett större behov av arbetskraft inom vård och omsorg, något som framstår som en kritisk utmaning. Dalarna har en relativt låg andel högskoleutbildade, vilket arbetsgivarna behöver förhålla sig till. Om det finns stora krav på högskoleutbildning kommer ett gap mellan efterfrågan och utbud att uppstå. På kort sikt kommer det gapet att behöva täckas av ökad inflyttning eller genom effektiviseringar.
-
+Arbetskraftsefterfrågan i form av lediga jobb i Dalarna har ökat markant de senaste decennierna. Det är privat sektor som står för majoriteten av de lediga jobben, även om offentlig sektor också haft en betydande efterfrågeökning. Den totala efterfrågan är dock svår att prognostisera och påverkas av faktorer som ekonomiska trender och teknologiska förändringar. Det finns även en variation i efterfrågan på arbetskraft, beroende på bransch och region. Till exempel har hotell- och restaurangbranschen ett stort behov av enklare arbetskraft, medan andra sektorer, såsom IT och offentlig förvaltning, efterfrågar högre kvalifikationer. Cirka två tredjedelar av alla lediga jobb tillsätts med personer som redan är förvärvsarbetande, så kallade jobbytare. Det förhållandet har varit relativt konstant över tid.
 
 <br>
 * **Kompetens och kvalifikationskrav**
 <br>
-En viktig aspekt av arbetsmarknaden är hur arbetsgivare efterfrågar olika nivåer av kompetens. I Dalarna finns det stora skillnader i vilka typer av jobb som dominerar. Sektorer som vård och omsorg samt utbildning kräver ofta högre utbildning, medan andra, såsom hotell- och restaurang, främst efterfrågar arbetskraft med enklare kvalifikationer. Det finns stora variationer inom och mellan regioner i efterfrågan på gymnasial och högre utbildning. Dalarna har en hög andel yrken som kräver gymnasial kompetens, medan Stockholms län har flest jobb med krav på högskoleutbildning.
-
-<br>
-* **Matchning på arbetsmarknaden**
-<br>
-En central utmaning är matchningen mellan utbud och efterfrågan på arbetskraft. I Dalarna är sysselsättningsgraden högre än riksgenomsnittet, men det finns stora skillnader mellan inrikes och utrikes födda. Sysselsättningsgraden är generellt sett lägre för utrikes födda, vilket till stor del kan bero på lägre utbildningsnivå och svårigheter att anpassa sig till arbetsmarknadens krav. Matchningen försvåras också av skillnader mellan kvinnor och män, där kvinnor i högre grad arbetar inom vård, omsorg och utbildning medan män är överrepresenterade inom bygg- och tillverkningssektorerna. Dessutom tenderar utrikes födda att ha svårare att få jobb som motsvarar deras utbildning, vilket försvårar integrationen på arbetsmarknaden.
-
-<br>
-* **Arbetsmarknadens och befolkningens åldersstruktur**
-<br>
-En annan viktig faktor är åldersstrukturen inom olika sektorer. Särskilt inom vård och omsorg, men även i tillverkningssektorn, är en stor del av arbetskraften över 50 år, vilket innebär att många kommer att gå i pension inom de närmaste 15-20 åren. Detta, i kombination med att befolkningen i Dalarna blir allt äldre, innebär ett stort framtida rekryteringsbehov inom dessa sektorer. Särskilt vården står inför en allvarlig situation där efterfrågan på tjänster ökar samtidigt som tillgången på arbetskraft minskar. Med en ökande andel äldre människor ökar behovet av hälso- och sjukvård, äldreomsorg samt pensioner. Detta ökar belastningen på sociala trygghetssystem och offentliga finanser, genom investeringar och anpassningar inom hälso- och sjukvårdssystemet, om behoven hos den äldre befolkningen ska mötas. 
+En viktig aspekt av arbetsmarknaden är hur arbetsgivare efterfrågar olika nivåer av kompetens. I Dalarna finns det stora skillnader i vilka typer av jobb som dominerar och därmed också skillnader i kvalifikationskrav. Sektorer som vård och omsorg samt utbildning kräver ofta högre utbildning, medan andra, såsom hotell- och restaurang, främst efterfrågar arbetskraft med enklare kvalifikationer. Det finns stora variationer inom och mellan regioner i efterfrågan på gymnasial och högre utbildning. Dalarna har en hög andel yrken som kräver gymnasial kompetens, medan Stockholms län har flest jobb med krav på högskoleutbildning.
 
 <br>
 * **Brist på arbetskraft och kompetens**
@@ -841,12 +822,23 @@ En annan viktig faktor är åldersstrukturen inom olika sektorer. Särskilt inom
 Det finns en utbredd uppfattning om kompetensbrist bland arbetsgivare, särskilt inom småföretag. I Dalarna upplever omkring 41 procent av småföretagen svårigheter att hitta rätt kompetens, vilket är en ökning med 13 procentenheter från tidigare år. Bristen på arbetskraft förstärks av att den totala arbetskraftsreserven minskar, vilket gör det svårt för arbetsgivare att hitta kvalificerade kandidater. Detta kan vara särskilt påtagligt inom vissa sektorer och yrken, vilket kan hämma ekonomisk tillväxt och innovation. För att hantera detta måste arbetsgivarna ofta sänka kompetenskraven och investera i vidareutbildning. Alternativet är att vidta strukturella förändringar för att anpassa sig till den förändrade demografiska profilen. Det kan innebära ökad efterfrågan på teknologiska lösningar, automation och andra effektiviseringsåtgärder för att kompensera för bristen på arbetskraft.
 
 <br>
+* **Arbetskraftsutbudet**
+<br>
+Utbudet av arbetskraft minskar, främst på grund av en åldrande befolkning och ett negativt inrikes flyttnetto i många delar av Dalarna. Mellan 2002 och 2022 minskade antalet inrikes födda i arbetsför ålder med cirka 20 000 personer, och även om antalet utrikes födda har ökat, har detta inte varit tillräckligt för att kompensera för förlusten. 
+
+Det finns en tydlig skillnad i sysselsättningsgraden mellan inrikes och utrikes födda och andelen utrikes födda av den totala befolkningen i arbetsför ålder ökar. För att möta den arbetskrafts- och kompetensbrist som råder är en viktig del att fortsatt öka sysselsättningsgraden för utrikes födda. Det långsiktiga utbudet påverkas av förändringar i utbildningsnivåer, pendlingsmönster och migration, men den ökade andelen äldre innebär också ett större behov av arbetskraft inom vård och omsorg, något som framstår som en kritisk utmaning. Dalarna har en relativt låg andel högskoleutbildade, vilket arbetsgivarna behöver förhålla sig till. Om det finns stora krav på högskoleutbildning kommer ett gap mellan efterfrågan och utbud att uppstå.
+
+<br>
+* **Arbetsmarknadens åldersstruktur**
+<br>
+En annan viktig faktor är åldersstrukturen inom olika sektorer. Särskilt inom vård och omsorg, men även i tillverkningssektorn, är en stor del av arbetskraften över 50 år, vilket innebär att många kommer att gå i pension inom de närmaste 15-20 åren. Detta, i kombination med att befolkningen i Dalarna blir allt äldre, innebär ett stort framtida rekryteringsbehov inom dessa sektorer. Särskilt vården står inför en allvarlig situation där efterfrågan på tjänster ökar samtidigt som tillgången på arbetskraft minskar. Med en ökande andel äldre människor ökar behovet av hälso- och sjukvård, äldreomsorg samt pensioner. Detta ökar belastningen på sociala trygghetssystem och offentliga finanser, genom investeringar och anpassningar inom hälso- och sjukvårdssystemet, om behoven hos den äldre befolkningen ska mötas.
+
+<br>
+* **Matchningen på arbetsmarknaden**
+<br>
+En central utmaning är matchningen mellan utbud och efterfrågan på arbetskraft. I Dalarna är sysselsättningsgraden högre än riksgenomsnittet, men det finns stora skillnader mellan inrikes och utrikes födda. Sysselsättningsgraden är generellt sett lägre för utrikes födda, vilket till stor del kan bero på lägre utbildningsnivå och svårigheter att anpassa sig till arbetsmarknadens krav. Matchningen försvåras också av skillnader mellan kvinnor och män, där kvinnor i högre grad arbetar inom vård, omsorg och utbildning medan män är överrepresenterade inom bygg- och tillverkningssektorerna. Dessutom tenderar utrikes födda att ha svårare att få jobb som motsvarar deras utbildning, vilket försvårar integrationen på arbetsmarknaden.
+
+<br>
 * **Avslutande kommentar**
 <br>
 Avslutningsvis är kompetensförsörjningen i Dalarna en av de största utmaningarna för länets framtida utveckling. Med rätt strategiska insatser och samarbete mellan offentlig sektor, näringsliv och utbildningsinstitutioner kan dock dessa utmaningar mötas på ett hållbart sätt. Det finns ett tydligt behov av att hitta nya lösningar för att hantera kompetensförsörjningsutmaningarna. Teknologisk utveckling, förändrade arbetsmarknadsstrukturer och en åldrande befolkning ställer höga krav på utbildningssystemet och arbetsmarknadsinsatser. För att uppnå långsiktig hållbarhet och uppfylla målen i Dalastrategin 2030, måste aktörer inom Dalarna satsa på att förbättra matchningen mellan utbildning och arbetsmarknadsbehov, samt underlätta för unga och utrikes födda att integreras på arbetsmarknaden.
-
-
-
-
-
-
