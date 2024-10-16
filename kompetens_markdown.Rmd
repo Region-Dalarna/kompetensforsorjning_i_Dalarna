@@ -80,19 +80,20 @@ Senast uppdaterad: `r Sys.Date()`</i>
 </p>
 
 # Sammanfattning {-}
-Denna rapport ger en bild av läget i Dalarna med fokus på kompetensförsörjningen. Rapporten uppdateras två gånger per år och ett antal viktiga trender och mönster sammanfattas här:
+Denna rapport ger en bild av läget i Dalarna med fokus på kompetensförsörjningen. Rapporten uppdateras årligen. Ett antal viktiga trender och mönster sammanfattas här:
 
-* **Fånga upp de stora dragen i rapporten**:
-Vi ber ChatGPT göra en sammanfattning i 6 korta punkter.
+* **Arbetskraftsefterfrågan**: Arbetskraftsefterfrågan i Dalarna har ökat markant det senaste decenniet. Det är främst privat sektor som står för majoriteten av de lediga jobben, även om offentlig sektor också haft en betydande efterfrågeökning. Två tredjedelar av alla lediga jobb tillsätts med personer som redan är förvärvsarbetande. 
 
-* **Demografiska förändringar**: Dalarna står inför en åldrande befolkning och minskande arbetskraft. Detta kan leda till en ökad efterfrågan på vårdtjänster och en minskad arbetskraft inom vissa sektorer.
+* **Kompetens och kvalifikationskrav**: Det finns stora variationer i efterfrågan på kompetens i Dalarna. Vård, omsorg och utbildning kräver ofta högre utbildning, medan hotell och restaurang efterfrågar enklare kvalifikationer. Dalarna har en hög andel yrken som kräver gymnasial utbildning. Dessa skillnader påverkar matchningen mellan arbetskraft och arbetsgivarnas behov.
 
-* **Strukturella förändringar på arbetsmarknaden**: Arbetsmarknaden genomgår strukturella förändringar för att anpassa sig till den förändrade demografiska profilen. Det kan innebära ökad efterfrågan på teknologiska lösningar, automation och andra effektiviseringsåtgärder för att kompensera för bristen på arbetskraft.
+* **Brist på arbetskraft och kompetens**: Många arbetsgivare, särskilt småföretag, rapporterar svårigheter att hitta rätt kompetens. Detta tvingar arbetsgivare att sänka kraven och investera i vidareutbildning. Teknologiska lösningar och automation kan bli nödvändiga för att kompensera för arbetskraftsbristen.
 
-* **Matchningen på arbetsmarknaden**
+* **Arbetskraftsutbudet**: Utbudet av arbetskraft i Dalarna minskar på grund av en åldrande befolkning och ett negativt inrikes flyttnetto. Antalet inrikes födda i arbetsför ålder har minskat, och även om utrikes födda ökat, täcker det inte underskottet utan leder till arbetskraftsbrist. Arbetskraftsdeltagandet ökar över tid för både kvinnor och män. Dalarna har den näst lägsta andelen med eftergymnasial utbildning i landet.  
 
+* **Arbetsmarknadens åldersstruktur**: En stor del av arbetskraften i Dalarna är över 50 år, särskilt inom vård och omsorg samt tillverkning. Många kommer att gå i pension inom 15-20 år, vilket ökar rekryteringsbehoven. Samtidigt blir befolkningen äldre, vilket skapar en större efterfrågan på vårdtjänster och en belastning på sociala system och offentliga finanser.
 
-* **Utbildningssystemets bidrag**
+* **Matchningen på arbetsmarknaden**: Sysselsättningsgraden är högre än riket i genomsnitt, men stora skillnader finns mellan inrikes och utrikes födda. Utrikes födda har svårare att hitta jobb som matchar deras utbildning, vilket försvårar integrationen. Kvinnor arbetar ofta i vård och utbildning, medan män dominerar bygg- och tillverkningssektorerna.
+
 
 <details>
 
@@ -227,7 +228,7 @@ gg_kvalifikation$kvalifikationskrav_jmf_lan
 ```
 
 <br>
-Även mellan branscher varierar kvalifikationskraven. Högst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där mer än var fjärde arbetar inom den typen av yrke. Detta kan delvis förklaras av att hotell och restaurang också är den bransch i Dalarna med högst andel utrikes födda anställda. Personer som tillhör denna grupp tenderar även att ha förgymnasiala utbildningar i större utsträckning än inrikes födda (se även avsnitt 4). 
+Även mellan branscher varierar kvalifikationskraven. Högst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där mer än var fjärde arbetar inom den typen av yrke. Detta kan delvis förklaras av att hotell och restaurang också är den bransch i Dalarna med högst andel utrikes födda anställda. Personer som tillhör denna grupp tenderar även att ha förgymnasiala utbildningar i större utsträckning än inrikes födda. 
 
 Även inom företagstjänster är många yrken av enklare karaktär, medan det omvända gäller inom exempelvis utbildning, offentlig förvaltning samt IT och kommunikation. Där arbetar omkring hälften av de anställda inom yrken som med kvalifikationskrav motsvarande fördjupad högskolekompetens.
 
@@ -307,7 +308,7 @@ gg_forv_90$forvarvsarbetande_90_totalt_Dalarna
 ```
 
 <br>
-Bland övriga branscher har det skett en stor ökning av antalet förvärvsarbetande inom företagstjänster och finans där det jobbar 50 procent fler idag än 1990. Detta beror sannolikt på att många företag idag upphandlar vissa tjänster, såsom rekrytering, lönehantering, lokalvård med mera. Om exempelvis ett tillverkande företag som SSAB tidigare anställde lokalvårdare själva, så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället upphandlar sådan verksamhet till andra företag specialiserade inom området, räknas lokalvårdarna i stället som förvärvsarbetande inom branschen företagstjänster, finans mm. Även inom kultur och utbildning jobbar många fler idag än 1990. 
+Bland övriga branscher har det skett en stor ökning av antalet förvärvsarbetande inom företagstjänster och finans där det jobbar 50 procent fler idag än 1990. Även inom kultur och utbildning jobbar många fler idag än 1990. Ökningen inom företagstjänster beror sannolikt på att många företag idag upphandlar vissa tjänster, såsom rekrytering, lönehantering, lokalvård med mera. Om exempelvis ett tillverkande företag som SSAB tidigare anställde lokalvårdare själva, så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället upphandlar sådan verksamhet till andra företag specialiserade inom området, räknas lokalvårdarna i stället som förvärvsarbetande inom branschen företagstjänster, finans mm.  
 
 Dessa sektorer har således bidragit till att bredda och diversifiera arbetsmarknaden i Dalarna. Sammantaget speglar denna utveckling en omställning mot en mer serviceorienterad ekonomi, medan vissa traditionella sektorer har minskat i omfattning.
 
@@ -351,7 +352,7 @@ gg_bef_for$befolkningsforandring_20_64
 ```
 
 <br>
-Om den arbetsföra befolkningen delas upp i inrikes respektive utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat i antal de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna har antalet inrikes födda invånare i arbetsför ålder minskat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till ca `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`.
+Om den arbetsföra befolkningen delas upp i inrikes respektive utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat i antal de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna har antalet inrikes födda invånare i arbetsför ålder minskat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till cirka `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till cirka `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`.
 
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
@@ -809,7 +810,7 @@ Arbetsmarknaden och kompetensförsörjningen i Dalarna är komplex med flera utm
 <br>
 * **Arbetskraftsefterfrågan**
 <br>
-Arbetskraftsefterfrågan i Dalarna har ökat markant det senaste decenniet. Det är främst privat sektor som står för majoriteten av de lediga jobben, även om offentlig sektor också haft en markant efterfrågeökning. Den totala efterfrågan är dock svår att kvantifiera exakt, då den påverkas av olika faktorer såsom ekonomiska trender och teknologiska förändringar. Det finns även en variation i efterfrågan på arbetskraft, beroende på bransch och region. Till exempel har hotell- och restaurangbranschen ett stort behov av enklare arbetskraft, medan andra sektorer, såsom IT och offentlig förvaltning, efterfrågar högre kvalifikationer.
+Arbetskraftsefterfrågan i Dalarna har ökat markant det senaste decenniet. Det är främst privat sektor som står för majoriteten av de lediga jobben, även om offentlig sektor också haft en betydande efterfrågeökning. Den totala efterfrågan är dock svår att kvantifiera exakt, då den påverkas av olika faktorer såsom ekonomiska trender och teknologiska förändringar. Det finns även en variation i efterfrågan på arbetskraft, beroende på bransch och region. Till exempel har hotell- och restaurangbranschen ett stort behov av enklare arbetskraft, medan andra sektorer, såsom IT och offentlig förvaltning, efterfrågar högre kvalifikationer.
 
 <br>
 * **Arbetskraftsutbud**
@@ -839,6 +840,8 @@ En annan viktig faktor är åldersstrukturen inom olika sektorer. Särskilt inom
 <br>
 Det finns en utbredd uppfattning om kompetensbrist bland arbetsgivare, särskilt inom småföretag. I Dalarna upplever omkring 41 procent av småföretagen svårigheter att hitta rätt kompetens, vilket är en ökning med 13 procentenheter från tidigare år. Bristen på arbetskraft förstärks av att den totala arbetskraftsreserven minskar, vilket gör det svårt för arbetsgivare att hitta kvalificerade kandidater. Detta kan vara särskilt påtagligt inom vissa sektorer och yrken, vilket kan hämma ekonomisk tillväxt och innovation. För att hantera detta måste arbetsgivarna ofta sänka kompetenskraven och investera i vidareutbildning. Alternativet är att vidta strukturella förändringar för att anpassa sig till den förändrade demografiska profilen. Det kan innebära ökad efterfrågan på teknologiska lösningar, automation och andra effektiviseringsåtgärder för att kompensera för bristen på arbetskraft.
 
+<br>
+* **Avslutande kommentar**
 <br>
 Avslutningsvis är kompetensförsörjningen i Dalarna en av de största utmaningarna för länets framtida utveckling. Med rätt strategiska insatser och samarbete mellan offentlig sektor, näringsliv och utbildningsinstitutioner kan dock dessa utmaningar mötas på ett hållbart sätt. Det finns ett tydligt behov av att hitta nya lösningar för att hantera kompetensförsörjningsutmaningarna. Teknologisk utveckling, förändrade arbetsmarknadsstrukturer och en åldrande befolkning ställer höga krav på utbildningssystemet och arbetsmarknadsinsatser. För att uppnå långsiktig hållbarhet och uppfylla målen i Dalastrategin 2030, måste aktörer inom Dalarna satsa på att förbättra matchningen mellan utbildning och arbetsmarknadsbehov, samt underlätta för unga och utrikes födda att integreras på arbetsmarknaden.
 
