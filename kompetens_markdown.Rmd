@@ -359,36 +359,6 @@ gg_bef_for$befolkningsforandring_20_64
 <br>
 Om den arbetsföra befolkningen delas upp i inrikes respektive utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat i antal de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna har antalet inrikes födda invånare i arbetsför ålder minskat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till cirka `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till cirka `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`.
 
-
-```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: Befolkningsregistret i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-befolkning_utr_inr_df$bakgrund <- factor(befolkning_utr_inr_df$bakgrund, levels = c("Utrikes födda","Inrikes födda"))
-
-diagramtitel <- paste0("Befolkning i arbetsför ålder (20-64 år) i ",unique(befolkning_utr_inr_df$region))
-diagramfilnamn <- paste0("befolkning_utr_inr.png")
-
-bef_inr_utr <- SkapaStapelDiagram(skickad_df = befolkning_utr_inr_df, 
-                             skickad_x_var = "år", 
-                             skickad_y_var = "antal", 
-                             skickad_x_grupp = "bakgrund",
-                             manual_color = diagramfarger("rus_sex"),
-                             diagram_titel = diagramtitel,
-                             #x_axis_sort_value = TRUE,
-                             diagram_capt = diagram_capt,
-                             #procent_0_100_10intervaller = TRUE,
-                             x_axis_lutning = 0,
-                             legend_vand_ordning = TRUE,
-                             diagram_liggande = TRUE,
-                             manual_y_axis_title = "",
-                             geom_position_stack = TRUE,
-                             stodlinjer_avrunda_fem = TRUE,
-                             berakna_index = FALSE,
-                             output_mapp = "",
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = FALSE)
-```
-
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="Figur 16"}
 bef_inr_utr
