@@ -318,3 +318,5 @@ rmarkdown::render(
   envir = parent.frame()
 )
 }) # slut system.time för att knitta rapporten
+
+
