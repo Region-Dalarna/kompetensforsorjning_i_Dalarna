@@ -133,12 +133,12 @@ bef_inr_utr <- SkapaStapelDiagram(skickad_df = befolkning_utr_inr_df,
                              skickad_x_grupp = "bakgrund",
                              manual_color = diagramfarger("rus_sex"),
                              diagram_titel = diagramtitel,
-                             #x_axis_sort_value = TRUE,
                              diagram_capt = diagram_capt,
-                             #procent_0_100_10intervaller = TRUE,
-                             x_axis_lutning = 0,
+                             x_axis_lutning = 45,
                              legend_vand_ordning = TRUE,
-                             diagram_liggande = TRUE,
+                             diagram_liggande = FALSE,
+                             manual_x_axis_text_hjust = 1,
+                             manual_x_axis_text_vjust = 1,
                              manual_y_axis_title = "",
                              geom_position_stack = TRUE,
                              stodlinjer_avrunda_fem = TRUE,
@@ -322,7 +322,7 @@ Olika kommuner i Dalarna har olika branschstrukturer, vilket åskådliggörs i f
 I de nordligaste kommunerna (Malung-Sälen, Orsa och Älvdalen) är byggindustrin en av de största arbetsgivarna, vilket delvis kan förklaras av den byggboom som skett i Dalarnas fjällvärld. Det är även tydligt att näringslivet i länets två största orter (Borlänge och Falun) domineras av tjänstesektorn (handel, företagstjänster, och offentlig förvaltning) samt utbildning.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="Figur 14"}
-knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2020/Branschstruktur_Dalarnas_kommuner_2020.png")
+knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2023/dagbef_dalarnas_kommuner_aug_2023_transparent.png")
 ```
 
 ```{r, echo=FALSE,message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center',,fig.cap="Figur 4",include=FALSE}
