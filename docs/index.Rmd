@@ -1,0 +1,808 @@
+---
+title: "Kompetensförsörjning i Dalarna"
+author: ""
+date: ""
+output: 
+  bookdown::html_document2:
+    fig_caption: yes          # Aktiverar bildtexter
+    number_sections: true     # Behåll avsnittsnumreringen
+    global_numbering: true    # Global numrering av figurer och tabeller
+    includes:
+      in_header: hero_image.html
+    toc: yes
+    toc_float: yes
+    toc_depth: 6
+    css: "styles_hero.css"
+lang: sv                      # Ställer in svenska för bildtexter
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Nödvändiga paket
+if (!require("pacman")) install.packages("pacman")
+p_load(here,
+       tidyverse,
+       bookdown,
+       openxlsx)
+
+# Funktioner som behövs (hämtas från Git-Hub)
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R", encoding = "utf-8", echo = FALSE)
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R", encoding = "utf-8", echo = FALSE)
+
+befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_prognos.xlsx")
+#sysselsatta_90_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_90.xlsx")
+#utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_85.xlsx")
+#utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
+arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx")
+#forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_bransch.xlsx")
+forvarvsarbetande_prognos <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_prognos.xlsx")
+#kompetens_yrke_lan <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/kompetens_lan_bransch.xlsx")
+#Skriptet som skapar nedanstående data finns på Mona: P1079gem/Jon/kompetensförsörjning/utbildningsniva_bransch_korrekt.R. OBS! Uppdateras inte när skriptet hämta data körs.
+#bransch_utb_alder_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/11_jul_23_utdata_forvarvsarbetande_bransch.xlsx")
+befolkning_flytt_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkningsforandring_20_64.xlsx")
+befolkning_utr_inr_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_utr_inr.xlsx")
+pendling_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_lan.xlsx")
+#pendling_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_kommun.xlsx")
+#Skriptet som skapar nedanstående data finns på Mona: P1079gem/Jon/kompetensförsörjning/utbildningsniva_befolkning_bakgrund_korrekt.R. OBS! Uppdateras inte när skriptet hämta data körs.
+#befolkning_utb_alder_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/9_feb_24_utdata_utbildningsniva_befolkning_bakgrund.xlsx")
+# Data från Trender och prognoser. Måste sannolikt ändras om det kommer en ny leverans från SCB.
+prognos_df_utbniva <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab0A_20.csv",sep='\t',encoding="latin1") %>% 
+    mutate(Ar = as.character(Ar))
+# gymnasieantagning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/gymnasieantagning.xlsx") %>% 
+#     group_by(ar,program) %>% 
+#       summarize(Män=sum(Ant_Män),
+#                 Kvinnor=sum(Ant_Kv)) %>%
+#         pivot_longer(.,3:4,names_to="Kon",values_to = "Antagna")
+# Data från Trender och prognoser. Måste sannolikt ändras om det kommer en ny leverans från SCB.
+gymnasium_prognos_df <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1b_20.csv",sep='\t',encoding="latin1") %>%
+    group_by(pgm_ny,ar) %>% 
+      summarize(antal=sum(ak1)) 
+#hogskoleexamen_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/hogskoleexamen.xlsx")
+# Data från Trender och prognoser. Måste sannolikt ändras om det kommer en ny leverans från SCB.
+prognos_df_hogskola <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1k_20.csv",sep='\t',encoding="latin1")%>% 
+    group_by(Kortnamn_modell_alt,ar) %>% 
+      summarize(antal=sum(exgen))
+# Skriptet som skapar nedanstående data finns på Mona: P1079gem/peter/YH_uppfoljning_bransch_yrke
+#folkhogskola_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/8_mar_24_Dalarna_yrkeshogskoleexamen.xlsx", sheet =1)
+# Skriptet som skapar nedanstående data finns på Mona: P1079gem/peter/YH_uppfoljning_bransch_yrke
+prognos_df_yh <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1g_20.csv",sep='\t',encoding="latin1") %>% 
+  filter(!(is.na(ex))) %>% 
+      group_by(Kortnamn_modell_alt,ar) %>% 
+        summarize(antal=sum(ex))
+arbetsmarknadsstatus_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 1)
+arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 2)
+#matchning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/matchning.xlsx")
+# Data nedan laddas hem från: https://tillvaxtverket.se/tillvaxtverket/statistikochanalys/statistikomforetag/foretagande/hinderfortillvaxt.1718.html
+# Välj ladda ner Excel-fil strax under figuren
+# kompetensbrist_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/Tillgång till lämplig arbetskraft.xlsx",sheet=4) %>%
+#   rename("Region" = Kolumn1) %>% 
+#       pivot_longer(2:length(names(.)),names_to = "År",values_to = "Andel")
+```
+<p style = "font-size:12px">
+<i>Rapporten är skapad av Samhällsanalys, Region Dalarna<br>
+Senast uppdaterad: `r Sys.Date()`</i>
+</p>
+
+# Sammanfattning {-}
+Denna rapport ger en bild av läget i Dalarna med fokus på kompetensförsörjningen. Rapporten uppdateras årligen. Ett antal viktiga trender och mönster sammanfattas här:
+
+* **Arbetskraftsefterfrågan**: Arbetskraftsefterfrågan i Dalarna har ökat markant de senaste decennierna. Privat sektor står för majoriteten av de lediga jobben, även om offentlig sektor också haft en betydande efterfrågeökning. Två tredjedelar av alla lediga jobb tillsätts med personer som redan är förvärvsarbetande. 
+
+* **Kompetens och kvalifikationskrav**: Det finns stora variationer i efterfrågan på kompetens i Dalarna. Vård, omsorg och utbildning kräver ofta högre utbildning, medan hotell och restaurang efterfrågar enklare kvalifikationer. Dalarna har en hög andel yrken som kräver gymnasial utbildning.
+
+* **Brist på arbetskraft och kompetens**: Många arbetsgivare, särskilt småföretag, rapporterar svårigheter att hitta rätt kompetens. Detta tvingar arbetsgivare att sänka kraven och investera i vidareutbildning. Teknologiska lösningar och automation kan bli nödvändiga för att kompensera för arbetskraftsbristen.
+
+* **Arbetskraftsutbudet**: Utbudet av arbetskraft i Dalarna minskar på grund av en åldrande befolkning och ett negativt inrikes flyttnetto. Antalet inrikes födda i arbetsför ålder har minskat, och även om utrikes födda ökat, täcker det inte underskottet utan leder till arbetskraftsbrist. Arbetskraftsdeltagandet ökar över tid för både kvinnor och män. Dalarna har den näst lägsta andelen med eftergymnasial utbildning i landet, vilket utmanar arbetsgivarnas möjlighet att hitta kvalificerade sökande.  
+
+* **Arbetsmarknadens åldersstruktur**: En stor del av arbetskraften i Dalarna är över 50 år, särskilt inom vård och omsorg samt tillverkning. Många kommer att gå i pension inom 15-20 år, vilket ökar rekryteringsbehoven. Samtidigt blir befolkningen äldre, vilket skapar en större efterfrågan på vårdtjänster och en belastning på sociala system och offentliga finanser.
+
+* **Matchningen på arbetsmarknaden**: Sysselsättningsgraden är högre än riket i genomsnitt, men stora skillnader finns mellan inrikes och utrikes födda. Utrikes födda har svårare att hitta jobb som matchar deras utbildning, vilket försvårar integrationen. Kvinnor arbetar ofta i vård och utbildning, medan män dominerar bygg- och tillverkningssektorerna.
+
+
+<details>
+
+  <summary>Mer om rapportformatet</summary>
+
+<div>Webbrapportformatet ger möjligheter att enkelt automatisera uppdateringar när ny statistik finns tillgänglig. Publiceringsdatum visas längst upp på sidan. 
+
+För att förstora diagrammen i rapporten, högerklicka på ett diagram och välj alternativet "Öppna bild i ny flik". 
+
+Genom att klicka på blå text går det att följa länkarna som öppnas i en ny flik.
+</div>
+ 
+</details>
+
+# Inledning {-}
+
+Sverige och Dalarna har en åldrande befolkning och aktuella prognoser från SCB (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>) pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler unga och gamla. Den demografiska försörjningskvoten mäter förhållandet mellan individer i arbetsför ålder, och unga och gamla. Sedan 2006 har försörjningskvoten i Dalarna ökat från `r demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(varde == min(.$varde)) %>% .$varde` till `r demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(varde == max(.$varde)) %>% .$varde` mellan `r min(demografisk_forsorjningskvot_df$år)` och `r max(demografisk_forsorjningskvot_df$år)`. Det innebär att 100 personer i arbetsför ålder ska försörja ungefär `r round(demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(varde == max(.$varde)) %>% .$varde,0)` personer utanför arbetsför ålder. Redan idag är försörjningskvoten i Dalarna den högsta i landet och förväntas öka över tid. Det kommer att förstärka den brist på arbetskraft som råder redan i dag och påverka näringslivets och offentlig sektors möjlighet att rekrytera personal.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_demo_forsorjning$`demografisk_forsorjningskvot_Riket och Dalarna`
+```
+
+<br>
+I kombination med att försörjningskvoten ökar, minskar även befolkningen i arbetsför ålder över tid. Mellan 2002 och 2022 minskade antalet inrikes födda i arbetsför ålder med cirka 20 000 personer. Samtidigt har antalet utrikes födda ökat under samma period, men inte i lika stor omfattning, vilket leder till att befolkningen i arbetsför ålder som helhet krymper. 
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: Befolkningsregistret i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+
+befolkning_utr_inr_df$bakgrund <- factor(befolkning_utr_inr_df$bakgrund, levels = c("Utrikes födda","Inrikes födda"))
+
+diagramtitel <- paste0("Befolkning i arbetsför ålder (20-64 år) i ",unique(befolkning_utr_inr_df$region))
+diagramfilnamn <- paste0("befolkning_utr_inr.png")
+
+bef_inr_utr <- SkapaStapelDiagram(skickad_df = befolkning_utr_inr_df, 
+                             skickad_x_var = "år", 
+                             skickad_y_var = "antal", 
+                             skickad_x_grupp = "bakgrund",
+                             manual_color = diagramfarger("rus_sex"),
+                             diagram_titel = diagramtitel,
+                             diagram_capt = diagram_capt,
+                             x_axis_lutning = 45,
+                             legend_vand_ordning = TRUE,
+                             diagram_liggande = FALSE,
+                             manual_x_axis_text_hjust = 1,
+                             manual_x_axis_text_vjust = 1,
+                             manual_y_axis_title = "",
+                             geom_position_stack = TRUE,
+                             stodlinjer_avrunda_fem = TRUE,
+                             berakna_index = FALSE,
+                             output_mapp = "",
+                             filnamn_diagram = diagramfilnamn,
+                             skriv_till_diagramfil = FALSE)
+```
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+bef_inr_utr
+```
+
+<br>
+Befolkningsutvecklingen i Dalarna har varierat över tid med såväl uppgångar som nedgångar. Den senaste stora nedgången var i samband med den ekonomiska krisen runt millennieskiftet och en uppgång skedde i samband med flyktingkrisen 2016. 2023 observeras en tydlig nedgång i Dalarnas befolkning. För en mer ingående analys av befolkningsutvecklingen, se <a href="https://region-dalarna.github.io/befolkningsutvecklingen_i_Dalarna/" target="_blank">Befolkningsutvecklingen i Dalarna</a>.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_befolkning$Befolkningsutveckling_Dalarna
+```
+
+<br>
+En utveckling mot en allt äldre befolkning leder till arbetskraftsbrist, vilket är en trend som kan observeras på många håll i landet. Därutöver kan även kompetensbrist uppstå, om de som står till arbetsmarknadens förfogande inte har de kompetenser som efterfrågas (<a href="https://www.tillvaxtanalys.se/publikationer/rapport/rapportserien/2024-02-29-arbetskrafts--och-kompetensbrist.html/" target="_blank">Tillväxtanalys, 2024</a>).
+
+Att hitta lösningar på kompetensförsörjningsutmaningen blir avgörande för att skapa en hållbar regional utveckling. Den regionala utvecklingsstrategin, <a href="https://www.regiondalarna.se/globalassets/regional-utveckling/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf/" target="_blank">Dalastrategin 2030</a>, pekar även ut en väl fungerande kompetensförsörjning som ett område där nya lösningar måste hittas i perspektivet av en åldrande befolkning. 
+
+Snabb teknologisk utveckling skapar behov av förändrade kompetenser samtidigt som utbildningsområdet är mer trögrörligt. Det leder till att jämvikt mellan efterfrågan och utbud, och matchning på arbetsmarknaden, blir svårare att uppnå med försämrad effektivitet som följd. Frågan om arbetskrafts- och kompetensbrist är komplex.
+
+Rapporten syftar till att belysa läget kring kompetensförsörjningen i länet och fungera som en grund för informerade beslut och samverkan. Målet är att peka på ett antal utmaningar som arbetsmarknadens aktörer behöver adressera för att uppnå Dalastrategins målbild för 2030 om en väl fungerande kompetensförsörjning. 
+
+Region Dalarnas ambition är att utveckla rapportens innehåll och omfång i kommande utgåvor genom fördjupningar av olika avsnitt, som ytterligare kan bidra till kunskap om arbetsmarknaden. Som exempel kan nämnas att inkludera mer prognosunderlag för arbetsmarknaden som helhet och för olika branscher. 
+
+Rapporten redovisar först efterfrågan respektive utbud på arbetskraft i Dalarna. Därefter studeras de olika utbildningsnivåerna i Dalarna mer ingående, följt av en genomgång av hur väl arbetsmarknaden i Dalarna fungerar. Rapporten avslutas med en sammanfattande diskussion.  
+
+# Efterfrågan på arbetskraft
+
+<a href="https://tillvaxtverket.se/download/18.27a54dd21870d50fcb36cd6/1679644966939/Regionala-Matchningsindikatorer-%E2%88%92-dec-2014.pdf" target="_blank">Reglab (2014)</a> definerar arbetskraftsefterfrågan som *"mängden arbetskraft och dess egenskaper - kompetens, kunskaper, utbildning, yrkeserfarenheter - som arbetsgivare efterfrågar och/eller behöver, i nuläget eller längre fram"*. 
+
+Efterfrågan på arbetskraft är inte är helt enkelt att mäta. I teorin kan den härledas från efterfrågan på varor och tjänster, men är även beroende av andra faktorer som påverkar produktionsförhållanden på olika marknader.
+
+I denna rapport får de regionala matchningsindikatorer som togs fram av Reglab 2014 utgöra grunden för innehållet för såväl efterfrågan som utbud. Primärt mäts då efterfrågan i form av lediga jobb och inflödet av jobb. 
+
+## Lediga jobb
+
+Under andra kvartalet 2024 fanns det cirka 3 000 lediga jobb. Två tredjedelar av dessa fanns inom privat sektor. Efterfrågan inom offentlig sektor har ökat markant efter 2017, men är nu nere på samma nivå som innan 2017. 
+
+Över tid har antalet lediga jobb i länet ökat successivt sedan den lägsta noteringen i efterdyningarna av finanskrisen 2008. Privat sektor står för den högsta andelen av efterfrågan, med undantag för några enstaka observationstillfällen.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_lediga_jobb$lediga_jobb_Dalarna_E1
+```
+
+## Jobbinflöden
+
+Efter nedgången på arbetsmarknaden i samband med finanskrisen 2008, då omsättningen på arbetsmarknaden i termer av jobbinflöde låg på drygt 14 procent, har utvecklingen varit i stort sett positiv fram till pandemin 2020. Då skedde en kraftig, men också tillfällig nedgång. 2021-2022 är jobbinflödesnivån tillbaka på den nivå som rådde 2018-2019, närmare 20 procent. 
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_jobbinflode$jobbinflode_Dalarna
+```
+
+<br>
+En observation är att majoriteten av utlysta tjänster tillsätts av individer som redan är aktiva i yrkeslivet, inte de som är nyinträdda på arbetsmarknaden. De nyinträdda ligger runt 5-6 procent, medan andelen jobbytare är ungefär det dubbla.
+
+## Kompetenskrav
+
+<details>
+
+  <summary>Mer information om statistiken</summary>
+
+<div>För att beskriva kompetens- och kvalifikationskrav har denna rapport utgått ifrån yrkesregistret i SCB:s öppna statistikdatabas. I detta register delas yrken in i nio olika grupper. Utifrån dessa grupper klassificeras de kategorier som syns i diagrammen nedan. Chefsyrken och yrken som kräver olika typer av högskolekompetens har samma benämning i klassificeringen som i SCB:s kategorisering. Yrken med krav på kortare utbildning eller introduktion har klassificerats som enklare yrken. Övriga yrken klassificeras som motsvarande gymnasial kompetens. Läs mer på <a href="https://www.scb.se/dokumentation/klassifikationer-och-standarder/standard-for-svensk-yrkesklassificering-ssyk/" target="_blank">SCB:s hemsida</a>. </div>
+
+</details>
+Hur stor andel som jobbar inom yrken med olika former av kvalifikationskrav speglar olika arbetsgivares efterfrågan på kompetens. Sammansättningen av kvalifikationskrav varierar relativt mycket 
+mellan Sveriges län. `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$region ` har störst andel som arbetar inom enklare yrken, med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0) ` procent av de förvärvsarbetande i länet. Dock jobbar generellt relativt få inom dessa yrken, oavsett region. 
+
+Om vi i stället fokuserar på yrken med kvalifikationskrav som motsvarar gymnasial kompetens är skillnaderna större mellan Sveriges län. Lägst andel återfinns i `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` där ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande har den typen av yrken, medan störst andel återfinns i `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande. 
+
+För yrken med högre kvalifikationskrav, exempelvis "motsvarande fördjupad högskolekompetens", är situationen mer eller mindre det omvända. Högst andel har `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande, medan `r kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$region ` med ungefär `r round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)` procent har lägst andel. Kvalifikationskraven i Dalarna påminner om de i Kalmar, med relativt stor andel av de förvärvsarbetande inom yrken med motsvarande gymnasial kompetens och färre inom yrken som kräver olika former av högskolekompetens.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_kvalifikation$kvalifikationskrav_jmf_lan
+```
+
+<br>
+Även mellan branscher varierar kvalifikationskraven. Högst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där mer än var fjärde arbetar inom den typen av yrke. Detta kan delvis förklaras av att hotell och restaurang också är den bransch i Dalarna med högst andel utrikes födda anställda. Personer som tillhör denna grupp tenderar även att ha förgymnasiala utbildningar i större utsträckning än inrikes födda. 
+
+Även inom företagstjänster är många yrken av enklare karaktär, medan det omvända gäller inom exempelvis utbildning, offentlig förvaltning samt IT och kommunikation. Där arbetar omkring hälften av de anställda inom yrken som med kvalifikationskrav motsvarande fördjupad högskolekompetens.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_kvalifikation$`kvalifikationskrav_bransch_Dalarnas län`
+```
+
+## Åldersstruktur
+
+`r bransch_alder %>% filter(alder_grupper == "16-19 år",SNI2007_Grupp_namn != "Okänt") %>%filter(Andel == max(.$Andel)) %>% .$SNI2007_Grupp_namn` är den bransch där den klart största andelen yngre arbetar, drygt `r round(bransch_alder %>% filter(alder_grupper == "16-19 år") %>%filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande är mellan 16 och 19 år gamla. Även inom kultur, fritid och nöje är många av de förvärvsarbetande unga, vilket är ett kvitto på att många unga tar sitt första steg in på arbetsmarknaden inom dessa branscher. 
+
+Det omvända gäller för jord och skogsbruk, där närmare 75 procent av de förvärvsarbetande är äldre än 50 år. Detta kan delvis förklaras med att alla som äger en skogsfastighet räknas som förvärvsarbetande och många av dessa tenderar att vara äldre.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_bransch_utb_alder$alder_bransch_andelDalarna
+```
+
+<br>
+Störst antal personer över 50 år arbetar i Dalarna inom vård och omsorg. Ungefär `r format(plyr::round_any(as.numeric(sum(bransch_alder %>% filter(alder_grupper %in% c("50-64 år","65-70 år","71-74 år"),SNI2007_Grupp_namn == "Vård och omsorg") %>% .$Antal)),100),big.mark = " ")` förvärvsarbetande inom branschen är minst 50 år och kommer således att gå i pension inom 15-20 år. Detta, i kombination med en befolkning som blir allt äldre och därför efterfrågar mer vård, leder till ett stort rekryteringsbehov inom vård och omsorg idag och i framtiden. 
+
+Även inom tillverkning och utvinning är relativt många över 50 år, ca `r format(plyr::round_any(as.numeric(sum(bransch_alder %>% filter(alder_grupper %in% c("50-64 år","65-70 år","71-74 år"),SNI2007_Grupp_namn == "Tillverkning och utvinning") %>% .$Antal)),100),big.mark = " ")` förvärvsarbetande. Det är en hög andel av de cirka 21 000 som arbetar inom branschen, men det är svårare att säga hur behovet är i framtiden. Tillverkning och utvinning är en bransch som har varit i förändring över tid, med minskat antal anställda. Från 1990 till 2023 har antalet förvärvsarbetande i branschen minskat med 13 000 (se figur 13 nedan). 
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_bransch_utb_alder_antal$alder_bransch_antalDalarna
+```
+
+# Utbud av arbetskraft
+
+Företagens möjlighet att kompetensförsörja sina verksamheter utgår från det kortsiktiga utbudet av arbetskraft och de individer som står till arbetsmarknadens förfogande, det vill säga de som arbetar och de som söker arbete. Utbudet av arbetskraft i ett visst område består av de som bor i området, de som kan pendla till området och de som kan distansarbeta. Omfattningen på utbudet påverkas även av antal timmar de önskar arbeta.
+
+Det långsiktiga utbudet av arbetskraft påverkas av förändringar i individers utbildningsnivåer, kompetensutveckling, in- och utflyttning, pendlingsbenägenhet med mera. Att beskriva utvecklingen inom dessa områden är viktigt för att kunna bedöma hur kompetensförsörjningen kommer att se ut på längre sikt. Det är även viktigt att studera de som idag inte ingår i arbetskraften, men som kan göra det i framtiden.
+
+I detta avsnitt kommer utbudet av arbetskraft beskrivas utifrån hur stor andel av befolkningen som är i vad som brukar kallas för arbetsför ålder, det vill säga mellan 20 och 64 år gamla. Visserligen jobbar människor allt längre upp i åldrarna, men den största andelen arbetar när de är i arbetsför ålder.
+
+Historisk data över exempelvis antal förvärvsarbetande i olika branscher visar när efterfrågan möter utbud, det vill säga när en person blir anställd. Efterfrågan kan dock överstiga utbudet. Det blir exempelvis allt vanligare att företag har svårt att hitta arbetskraft, något som inte återspeglas i figurerna nedan.
+
+
+## Arbetskraftsdeltagande
+
+Personer som ingår i arbetskraften är antingen förvärvsarbetande eller inskrivna på arbetsförmedlingen. Sedan 2006 har arbetskraftsdeltagandet, för både kvinnor och män i arbetsför ålder, ökat. För män är andelen knappt 88 procent under 2022 medan kvinnors andel är omkring tre procentenheter lägre vid samma tidpunkt. Över tid har dock skillnaden mellan män och kvinnors arbetskraftsdeltagande minskat. 
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_arbetskraftsdeltagande$arbetskraftsdeltagande_Dalarna
+```
+
+<br>
+Arbetskraftsdeltagandet i Dalarna under 2022 är högre än riksgenomsnittet för såväl män som kvinnor.
+
+## Förvärvsarbetande
+
+<details>
+
+  <summary>Mer information om statistiken</summary>
+
+<div title="Källa: SCB">Förvärvsarbetande omfattar både anställda och företagare. Har personen fått en lön i november som överstiger 99 kronor klassificeras personen som förvärvsarbetande. För egenföretagare gäller, liksom tidigare, att de personer som under referensåret har deklarerat för aktiv näringsverksamhet klassificeras som förvärvsarbetande. </div>
+ 
+</details>
+I Dalarna är den klart största branschen, sett till antalet förvärvsarbetande, `r tolower(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal=sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$bransch)` med ungefär `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(Antal== max(Antal)) %>% .$Antal,1000),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas. SCB bedömer att behovet av arbetskraft inom vård och omsorg kommer att öka i takt med en åldrande befolkning, särskilt inom äldreomsorgen (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>).
+
+Andra branscher med många anställda i Dalarna är tillverkning och utvinning samt utbildning, med cirka `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Tillverkning och utvinning") %>% .$Antal,1000),big.mark = " ")` respektive `r format(plyr::round_any(antal_forvarvsarbetande_bransch %>% group_by(år,bransch) %>% summarize(Antal = sum(Antal)) %>% filter(bransch == "Utbildning") %>% .$Antal,1000),big.mark = " ")` anställda. Inom vård och omsorg samt utbildning är en övervägande majoritet av de sysselsatta kvinnor, medan det omvända gäller för tillverkning och utvinning, bygg samt transport.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_forv_senastear$antal_per_bransch
+```
+
+<br>
+Historiskt har tillverkning och utvinning varit den största branschen i Dalarna sett till antalet anställda, men vård och omsorg är idag störst. I diagrammet nedan är tillverkning och utvinning den tredje största branschen i Dalarna, men det beror på att branscherna handel och transport är sammanslagna baserat på branschgrupperingen 1990. Att tillverkning och utvinning minskat i antal anställda sedan 1990 är en förändring som återspeglar den allmänna trenden i många regioner där tjänstesektorn har fått ökad betydelse över tid. Dessutom har företag inom tillverkning och utvinning idag en mer automatiserad produktion än de hade för 30 år sedan, vilket medför att det behövs färre antal anställda i produktionen.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_forv_90$forvarvsarbetande_90_totalt_Dalarna
+```
+
+<br>
+Bland övriga branscher har det skett en stor ökning av antalet förvärvsarbetande inom företagstjänster och finans där det jobbar 50 procent fler idag än 1990. Även inom kultur och utbildning jobbar många fler idag än 1990. Ökningen inom företagstjänster beror sannolikt på att många företag idag upphandlar vissa tjänster, såsom rekrytering, lönehantering, lokalvård med mera. Om exempelvis ett tillverkande företag som SSAB tidigare anställde lokalvårdare själva, så återfanns dessa inom branschen tillverkning och utvinning, men om företaget istället upphandlar sådan verksamhet till andra företag specialiserade inom området, räknas lokalvårdarna i stället som förvärvsarbetande inom branschen företagstjänster, finans mm.  
+
+Dessa sektorer har således bidragit till att bredda och diversifiera arbetsmarknaden i Dalarna. Sammantaget speglar denna utveckling en omställning mot en mer serviceorienterad ekonomi, medan vissa traditionella sektorer har minskat i omfattning.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_forv_90$forvarvsarbetande_90_forandring_Dalarna
+```
+
+<br>
+Olika kommuner i Dalarna har olika branschstrukturer, vilket åskådliggörs i figuren nedan. I södra delarna av länet, exempelvis Avesta och Ludvika, är tillverkningsindustrin fortfarande en av de största arbetsgivarna, med företag såsom Outokumpu (Avesta) och Hitachi (Ludvika). I de kommuner som har ett akutsjukhus, Falun och Mora, är vård och omsorg den viktigaste branschen, vilket även gäller för Säter och Rättvik. I Leksand spelar handel en stor roll, då kommunen är säte för bland annat Clas Ohlson.
+
+I de nordligaste kommunerna (Malung-Sälen, Orsa och Älvdalen) är byggindustrin en av de största arbetsgivarna, vilket delvis kan förklaras av den byggboom som skett i Dalarnas fjällvärld. Det är även tydligt att näringslivet i länets två största orter (Borlänge och Falun) domineras av tjänstesektorn (handel, företagstjänster, och offentlig förvaltning) samt utbildning.
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2023/dagbef_dalarnas_kommuner_aug_2023_transparent.png")
+```
+
+```{r, echo=FALSE,message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center',,fig.cap="Figur 4",include=FALSE}
+knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2020/Dalarna_kon_dagbef_2020.png")
+```
+
+
+## Befolkning i arbetsför ålder
+
+<details>
+
+  <summary>Mer information om statistiken</summary>
+
+<div title="Källa: SCB">Inrikes flyttnetto är antalet som flyttar till en region från andra regioner i Sverige minus antalet som flyttar från en region till andra regioner i Sverige. Utrikes flyttnetto är invandring till en region minus utvandring/emigrering från en region. Demografisk förändring är den del av befolkningsförändringen som inte kan förklaras av inrikes och utrikes flyttnetto.</div>
+ 
+</details>
+Bland Sveriges regioner är de befolkningsmässigt största även de vars befolkning i arbetsför ålder (20 - 64 år) har ökat mest det senaste dryga decenniet. Typiskt för dessa regioner är att de har ett positivt inrikes flyttnetto, det vill säga människor i arbetsför ålder flyttar från andra delar av Sverige till exempelvis Stockholm eller Uppsala i större utsträckning än de flyttar därifrån. För många mindre regioner, såsom Dalarna, gäller det omvända. Härifrån flyttar många till andra regioner i Sverige, såväl utrikes födda som exempelvis har hamnat i Dalarna när de invandrat till Sverige, som inrikes födda. 
+
+I Sverige har invandringen (utrikes flyttnetto) haft en positiv inverkan på den arbetsföra delen av befolkningens storlek det senaste dryga decenniet. Samtliga regioner har ett positivt utrikes flyttnetto.
+
+I vissa regioner, däribland Dalarna, motverkas dock denna ökning av ett negativt inrikes flyttnetto och en negativ demografisk förändring, vilket sammantaget ger en minskande befolkning.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_bef_for$befolkningsforandring_20_64
+```
+
+<br>
+Om den arbetsföra befolkningen delas upp i inrikes respektive utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat i antal de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna har antalet inrikes födda invånare i arbetsför ålder minskat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till cirka `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till cirka `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+bef_inr_utr
+```
+
+<br>
+I figuren nedan blir det tydligt att de unga (0-19 år) och de i arbetsför ålder (20-64 år) har minskat sedan slutet på 1960-talet, medan de äldre (65-79 år och 80+ år) har ökat kraftigt under samma tidsperiod, en utveckling som dessutom prognostiseras fortsätta i framtiden.
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE,include=FALSE}
+
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2032 är prognos, övriga historisk data."
+ # Det första datasettet - innehåller åldersgrupper men inte totalt för alla
+ 
+# Summerar på år och aldersgrupper
+ befolkning_forandring_df_sum <- befolkning_forandring_df %>%
+   group_by(år,aldersgrupper) %>%
+    summarize(`Folkmängd`=sum(`Folkmängd`))
+
+ # Använder en faktorvariabel för att styra ordningen på åldersgrupper
+ befolkning_forandring_df_sum$aldersgrupper <- factor(befolkning_forandring_df_sum$aldersgrupper, levels = c("totalt","0-19 år","20-64 år","65-79 år","80+ år"))
+ 
+   diagram_titel <- "Dalarnas befolkning uppdelat på åldersgrupper"
+   diagram_typ <- "befolkning_forandring"
+   diagramfil <- "befolkning_forandring.png"
+
+   befolkning_for <- SkapaStapelDiagram(skickad_df = befolkning_forandring_df_sum %>%
+                                          filter(aldersgrupper!="totalt"),
+                                        skickad_x_var = "aldersgrupper",
+                                        skickad_y_var = "Folkmängd",
+                                        skickad_x_grupp = "år",
+                                        manual_x_axis_text_vjust=0.7,
+                                        manual_x_axis_text_hjust=0.3,
+                                        manual_color = diagramfarger("rus_sex"),
+                                        x_axis_lutning = 0,
+                                        diagram_titel = diagram_titel,
+                                        diagram_capt = diagram_capt,
+                                        manual_x_axis_title = "Åldersgrupper",
+                                        stodlinjer_avrunda_fem = TRUE,
+                                        output_mapp = "",
+                                        filnamn_diagram = diagramfil,
+                                        skriv_till_diagramfil = FALSE)
+
+```
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+befolkning_for
+```
+
+## Pendlare
+
+<details>
+
+  <summary>Mer information om statistiken</summary>
+
+<div title="Källa: SCB">Andel inpendlare beräknas genom att dela antal inpendlare (personer som förvärvsarbetar i kommunen/regionen och bor i en annan kommun/region) med antal förvärvsarbetande som arbetar i kommunen/regionen (dagbefolkning). Andel utpendlare  beräknas genom  att dela antal utpendlare (personer som bor i kommunen/regionen och förvärvsarbetar i en annan kommun/region) med antal förvärvsarbetande som bor i kommunen/regionen (nattbefolkning).</div>
+
+</details>
+Personer som pendlar till arbete är en komponent av arbetskraften som behöver studeras. Om arbetsmarknaden i den egna kommunen är svag, kan pendling till andra kommuners arbetsmarknader erbjuda möjligheter till arbete och bidra till en totalt sett starkare arbetsmarknad.
+
+För att fördjupa förståelsen för utbudet av arbetskraft bör lokala arbetsmarknadsregioner inkluderas i analysen, utöver kommuner eller län som analysenhet. Lokala arbetsmarknadsregioner skapas utifrån pendlingsrelationer mellan kommuner.  
+
+Det som i första hand påverkar pendlingsmönster är närheten till större städer. Högst andel utpendlare i Sverige har Uppsala län, där närmare var fjärde boende som förvärvsarbetar gör det i ett annat län, Stockholm i stor utsträckning. Även Södermanland och Västmanland, som båda ligger relativt nära Stockholm, har stor utpendling. Hallands närhet till arbetsmarknaden i Göteborg med omnejd bidrar sannolikt till en utpendlingsandel på cirka 23 procent. Störst andel inpendlare har Kronobergs län. I Dalarna är andelen förvärvsarbetande som pendlar över länsgräns relativt liten.
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Gäller pendlare över länsgräns."
+
+# Skapar ett dataset som används för att skriva ut
+pendling_lan_df <- pendling_lan_df %>%
+  select(region,år,`Andel.inpendling`,`Andel.utpendling`) %>% 
+    pivot_longer(cols=3:4,names_to = "Typ_pendling") %>% 
+      mutate("Typ_pendling" = ifelse(Typ_pendling == "Andel.inpendling","Andel inpendling", "Andel utpendling"))
+
+diagramtitel <- paste0("Andel av förvärvsarbetande som pendlar över länsgräns år ",unique(pendling_lan_df$år))
+diagram_titel<-str_wrap(diagram_titel,50)
+diagramfilnamn <- paste0("pendling_lan.png")
+
+pendling_lan <- SkapaStapelDiagram(skickad_df =pendling_lan_df,
+                                   skickad_x_var = "region",
+                                   skickad_y_var = "value",
+                                   skickad_x_grupp = "Typ_pendling",
+                                   manual_x_axis_text_vjust=1,
+                                   manual_x_axis_text_hjust=1,
+                                   manual_color = diagramfarger("rus_sex"),
+                                   diagram_titel = diagramtitel,
+                                   diagram_capt =  diagram_capt,
+                                   stodlinjer_avrunda_fem = TRUE,
+                                   x_axis_sort_value = TRUE,
+                                   x_axis_sort_grp = 2,
+                                   vand_sortering = TRUE,
+                                   manual_y_axis_title="procent",
+                                   output_mapp = "",
+                                   filnamn_diagram = diagramfilnamn,
+                                   skriv_till_diagramfil = FALSE)
+
+```
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+pendling_lan
+```
+
+<br>
+Att flera av kommunerna i Dalarna tillhör större arbetsmarknadsregioner blir tydligt i diagrammet nedan. Störst andel utpendling har `r andel_pendlare %>% filter(pendlingstyp == "Andel utpendling") %>% filter(andel == max(andel)) %>% .$region` där ungefär `r round(andel_pendlare %>% filter(pendlingstyp == "Andel utpendling") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av de boende som förvärvsarbetar gör det i en annan kommun, i stor utsträckning Borlänge. Även Gagnef (pendling till Borlänge), Smedjebacken (pendling till Ludvika) och Orsa (pendling till Mora) är kommuner där många pendlar till sitt arbete. Störst inpendling har `r andel_pendlare %>% filter(pendlingstyp == "Andel inpendling") %>% filter(andel == max(andel)) %>% .$region`, där ungefär `r round(andel_pendlare %>% filter(pendlingstyp == "Andel inpendling") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av de förvärvsarbetande bor i en annan kommun. I norra Dalarna, med flera kommuner som till ytan är stora, exempelvis Malung-Sälen och Älvdalen, är situationen det omvända. Här bor och arbetar de allra flesta i samma kommun.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_pendling_kommun$In_och_utpendling_procent
+```
+
+## Utbildningsnivå
+
+Utbildningsnivån bland Dalarnas invånare varierar såväl mellan kvinnor och män, som mellan inrikes och utrikes födda. Kvinnor har generellt en högre utbildningsnivå än män. Ungefär var fjärde kvinna (inrikes och utrikes födda) har en eftergymnasial utbildning på minst 3 år, vilket motsvarar minst kandidatexamen. För män är motsvarande siffra ungefär `r round(utb_niva_bakgrund %>% filter(SUN_6kat == "Eftergymnasial utbildning 3 år eller längre",Kon_namn == "man",bakgrund== "Inrikes född") %>% .$andel,0)` procent för inrikes födda och cirka `r round(utb_niva_bakgrund %>% filter(SUN_6kat == "Eftergymnasial utbildning 3 år eller längre",Kon_namn == "man",bakgrund== "Utrikes född") %>% .$andel,0)` procent för utrikes födda. Således är en större andel av de utrikes födda högutbildade. 
+
+Annars återfinns den största skillnaden mellan grupperna bland de med lägst utbildningsnivå. I gruppen inrikes födda har i praktiken alla mellan 20 och 64 år åtminstone en högstadieutbildning. För utrikes födda är bilden helt annorlunda. Drygt `r round(utb_niva_bakgrund %>% filter(SUN_6kat == "Förgymnasial utbildning kortare än 9 år",Kon_namn == "kvinna",bakgrund== "Utrikes född") %>% .$andel,0)` procent av de utrikes födda kvinnorna och ungefär `r round(utb_niva_bakgrund %>% filter(SUN_6kat == "Förgymnasial utbildning kortare än 9 år",Kon_namn == "man",bakgrund== "Utrikes född") %>% .$andel,0)` procent av de utrikes födda männen har en högsta utbildning som understiger högstadiet. Detta är sannolikt en av förklaringarna till att utrikes födda har en klart lägre sysselsättningsgrad än inrikes födda. Personer med lägre utbildningsnivå har svårare att möta företagens kompetenskrav och hitta jobb, och står därför längre ifrån arbetsmarknaden.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_utbniva_bakgrund_alder$utb_niva_bakgrund
+```
+
+<br>
+Det är även  stora skillnader i utbildningsnivå mellan åldersgrupper. Om vi enbart fokuserar på de med en lägst utbildning, är det tydligt att äldre är överrepresenterade i Dalarna. Detta beror sannolikt på att utbildningsnivån i samhället har ökat över tid. Längre tillbaka var kraven på arbetsmarknaden lägre, vilket gjorde det möjligt att gå ut högstadiet och sedan få ett jobb, något som är mycket svårare idag. 
+
+Antalet med låg utbildning minskar därefter med åldern ner till åldersgruppen runt 40 år, innan mönstret bryts. Att yngre åldersgrupper, framförallt de mellan 20 och 35 år, har relativt många med låg utbildning, beror troligtvis på att personer födda utrikes, som generellt har en lägre utbildningsnivå än inrikes födda, är överrepresenterade i dessa åldersgrupper.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_utbniva_bakgrund_alder$utb_niva_alder
+```
+
+<br>
+I jämförelse med andra län är utbildningsnivån i Dalarna relativt låg, men också med en relativt stor spridning mellan kvinnor och män. År `r max(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data$år)` hade Dalarna näst lägst andel med eftergymnasialt utbildade bland Sveriges län. Ungefär `r round(gg_utbniva_senastear$hogutb_andel_ar_2023$data %>% filter(kön == "kvinnor",region == "Dalarna") %>% .$total,0)` procent av kvinnorna och `r round(gg_utbniva_senastear$hogutb_andel_ar_2023$data %>% filter(kön == "män",region == "Dalarna") %>% .$total,0)` procent av männen i Dalarna har en eftergymnasial utbildning om minst 3 år. Det kan jämföras med `r round(gg_utbniva_senastear$hogutb_andel_ar_2023$data %>% filter(kön == "kvinnor",region == "Stockholm") %>% .$total,0)` procent för kvinnor respektive `r round(gg_utbniva_senastear$hogutb_andel_ar_2023$data %>% filter(kön == "män",region == "Stockholm") %>% .$total,0)` procent för män i Stockholm, det län som har högst utbildningsnivå i Sverige.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_utbniva_senastear$hogutb_andel_ar_2023
+```
+
+<br>
+Utbildningsnivån i samhället har dock ökat avsevärt över tid, vilket vi har berört tidigare. Andelen kvinnor som har minst tre års eftergymnasial utbildning i Dalarna har ökat från ungefär `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data %>% filter(år == min(år),kön == "kvinnor") %>% .$total,0)` procent till cirka `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data %>% filter(år == max(år),kön == "kvinnor") %>% .$total,0)` procent mellan `r min(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data$år)` till `r max(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data$år)`. Andelen män med motsvarande utbildningsnivå har ökat från ungefär `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data %>% filter(år == min(år),kön == "män") %>% .$total,0)` procent till cirka `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data %>% filter(år == max(år),kön == "män") %>% .$total,0)` procent under samma tidsperiod. 
+
+Det finns flera möjliga förklaringar till att fler kvinnor än män är högt utbildade. En orsak är att kvinnor i högre utsträckning jobbar inom vård och omsorg samt utbildning, där de flesta yrkesgrupper kräver eftergymnasial utbildning på minst tre år. En annan förklaring är att kvinnor generellt sätt, oavsett utbildning, påbörjar eftergymnasiala studier i högre utsträckning än män (<a href="https://www.scb.se/hitta-statistik/statistik-efter-amne/utbildning-och-forskning/befolkningens-utbildning/analyser-och-statistik-om-befolkningens-utbildning/pong/statistiknyhet/konsskillnader-i-utbildnkonsskillnader-i-utbildningsvalen-efter-gymnasieskolan/" target="_blank">SCB, 2019</a>)
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_utbniva_85$hogutb_andel_ar20_1985_2023
+```
+
+# Gymnasiet, högskolan och yrkeshögskolan
+
+En viktig komponent för att matcha utbudet av arbetskraft med efterfrågan på arbetsmarknaden är att se till att utbildningssystemet är anpassat till arbetsmarknadens behov. Det är därför viktigt att studera mer ingående vilka typer av utbildningar som erbjuds och efterfrågas i Dalarna, på alla utbildningsnivåer.
+
+För att få en bättre uppfattning om utbildningssystemet i Dalarna och hur det fungerar, rekommenderas att läsa:
+
+<details>
+
+  <summary>En kort introduktion till utbildningssystemet i Dalarna</summary>
+
+<div>
+
+Utbildningssystemet är uppdelat i flera nivåer och sträcker sig från förskola till högre utbildning. Här är en översikt över de olika utbildningsnivåerna efter grundskolan: 
+
+Efter avslutad grundskola kan eleverna välja att fortsätta till **gymnasieskolan**, som varar i tre år. Gymnasieskolan ger eleverna möjlighet att specialisera sig inom olika ämnesområden och förbereder dem för högre utbildning eller arbetsmarknaden. Studieinriktningar kan vara allt ifrån högskoleförberedande program till yrkesinriktade program. Några av de mindre kommunerna i Dalarna har inte egen gymnasieutbildning, utan de samverkar med andra kommuner för att erbjuda gymnasieutbildning. I vissa kommuner som erbjuder gymnasieskola kan det finnas samarbeten för att erbjuda elever program som inte finns inom kommunens utbud. 
+
+Det finns påläggsutbildningar eller kompletterande utbildningar som erbjuds till vuxna som inte är på högskolenivå. Det övergripande namnet på dessa är **Vux**. I Dalarna så går Vux under namnet DalaWux, vilket är ett samverkansorgan för all den kommunala vuxenutbildningen i alla 15 kommuner i Dalarna. Komvux är ett annat namn för den kommunala vuxenutbildningen. Syftet med Komvux är att en elev får möjlighet att förse sig med grundskole- och gymnasieutbildning för dem som saknar dessa kvalifikationer. Inom Komvux kan en elev läsa allt ifrån enstaka kurser till hela utbildningspaket, vissa yrkesutbildningar sker på Komvuxnivå, precis som på gymnasienivå. 
+
+En annan utbildningsform för vuxna är **YH-utbildning**, vilket står för yrkeshögskoleutbildning. YH-utbildningar sker i samarbete med näringslivet och är meningen att de ska leda till jobb efter examen. Merparten av YH-utbildningen sker via kurser, men ungefär en tredjedel av utbildning sker via praktik, så kallat lärande i arbetslivet (LIA). De flesta YH-utbildningarna varar mellan 1-2 år och består av 200-40O YH-poäng, där fem poäng motsvarar en veckas studier.
+
+**Folkhögskolor** är utbildningsinstitutioner som erbjuder vuxenutbildning på en informell och folklig nivå. Dessa skolor har sitt ursprung i 1800-talets folkbildningsrörelse och strävar efter att erbjuda möjligheter till personlig utveckling och lärande utan formella krav på förkunskaper eller examensbevis. Folkhögskolorna är öppna för alla, oavsett ålder eller tidigare utbildning. Eleverna uppmuntras att delta aktivt i gemenskapen och bidra till en öppen och inkluderande lärandemiljö. Då folkhögskolorna inte utmynnar i traditionella examina, är de friare att experimentera med innehållet och läroplanen. Till skillnad från annan vuxenutbildning så syftar deras kurser snarare till att berika individens personliga och kreativa erfarenheter.
+
+Den sista varianten av utbildning är **arbetsmarknadsutbildning** som oftast sker inom ramen för Arbetsförmedlingens uppdrag. Syftet är att erbjuda en kort, yrkesinriktad utbildning som kan leda till jobb inom yrken där det är brist på utbildad personal och den är framförallt inriktad till personer som av olika skäl har svårt att hitta jobb. Oftast sker utbildningen genom att Arbetsförmedlingen beställer en riktad utbildning av en privat eller kommunal utbildningsanordnare, för att fylla kompetensluckor som finns på arbetsmarknaden.
+ </div>
+ 
+</details>
+
+## Gymnasiet
+
+Vid antagningen hösten `r max(gymnasieantagning_df$ar)` antogs flest unga i Dalarna till introduktionsprogrammet, ett program dit enbart personer som inte är behöriga till andra program antas. Bland de nationella programmen antogs flest till ekonomiprogrammet, samhällsvetenskapsprogrammet och teknikprogrammet. Högskoleförberedande program är således mest populära bland länets ungdomar. Bland yrkesförberedande program antogs flest till bygg- och anläggningsprogrammet respektive fordons- och transportprogrammet. 
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_gymnasiet$gymnasieantagning_tot
+```
+
+<br>
+Det råder stora könsmässiga skillnader mellan antagna till olika program. För högskoleförberedande program är obalansen störst på samhällsvetenskapsprogrammet, dit klart flest flickor antas och teknikprogrammet, dit klart flest pojkar antas. Bland yrkesförberedande program är det en överväldigande majoritet flickor som antas till vård- och omsorgsprogrammet, medan en överväldigande majoritet pojkar antas till bygg- och anläggningsprogrammet och el- och energiprogrammet. Dessa obalanser återspeglas även senare i arbetslivet. Kvinnor är överrepresenterade inom vård och omsorg, och utbildning, medan män är i klar majoritet inom byggsektorn. Om målsättningen är att skapa en mer jämställd fördelning mellan olika branscher i arbetslivet, är det således viktigt att börja arbetet redan i skolan. Det finns uppenbarligen stora skillnader mellan vilka val pojkar och flickor gör redan då.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_gymnasiet_kon$gymnasieantagning_kon_tot
+```
+
+<br>
+Det program som ökat klart mest i antalet antagna är introduktionsprogrammet. År `r min(gymnasieantagning_df$ar)` antogs `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == min(.$ar)) %>% .$Antagna)` personer till programmet, en siffra som ökat till `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == max(.$ar)) %>% .$Antagna)` år `r max(gymnasieantagning_df$ar)`. Bland studieförberedande program är ökningen störst på ekonomiprogrammet, dit mer än dubbelt så många antas idag som `r min(gymnasieantagning_df$ar)`. Bland program som i första hand kan ses som yrkesförberedande har antalet antagna till naturbruksprogrammet ökat avsevärt sedan `r min(gymnasieantagning_df$ar)`, medan antalet antagna till restaurang- och livsmedelsprogrammet samt hotell- och turismprogrammet har minskat tydligt.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_gymnasiet$gymnasieantagning_fleraar
+```
+
+<br>
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: Regionala utbildnings- och arbetsmarknadsprognoser, SCB\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2019 är verklig data, övriga prognoser\nEnbart program med minst 5 antagna"
+
+max_ar = max(gymnasium_prognos_df$ar)
+
+diagram_titel <- "Antagna gymnasieelever i Dalarnas län per program"
+diagramfil <- "gymnasieantagna_prognos.png"
+
+gym_prognos_fig <- SkapaStapelDiagram(skickad_df = gymnasium_prognos_df %>%
+                                      filter(ar%in%c(2019,2025,max_ar),
+                                             antal>5) %>% 
+                                        mutate(ar = factor(ar,levels = c(max_ar,"2025","2019"))), 
+                                     skickad_x_var = "pgm_ny", 
+                                     skickad_y_var = "antal",
+                                     skickad_x_grupp = "ar",
+                                     manual_x_axis_text_vjust=0,
+                                     manual_x_axis_text_hjust=0.6,
+                                     manual_color = diagramfarger("rus_sex"),
+                                     diagram_titel = diagram_titel,
+                                     diagram_capt = diagram_capt,
+                                     x_axis_lutning = 0,
+                                     x_axis_sort_value = TRUE,
+                                     legend_vand_ordning = TRUE,
+                                     diagram_liggande = TRUE,
+                                     berakna_index = FALSE,
+                                     output_mapp = "",
+                                     filnamn_diagram = diagramfil,
+                                     skriv_till_diagramfil = FALSE)
+```
+
+Prognosen för den kommande tioårsperioden pekar inte på några dramatiska förändringar i nuvarande antagningsmönster. Introduktionsprogrammet förväntas även framöver vara det största programmet, följt av samhällsvetenskap, ekonomi och naturvetenskap. 
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gym_prognos_fig
+```
+
+## Högskolan
+
+De som tog examen från Högskolan Dalarna läsåret `r max(hogskoleexamen_df$Lar)` gjorde det i stor utsträckning från två program, hälso- och sjukvård samt pedagogik och lärarutbildning med närmare 400 examinerade vardera. Efter en nedgång 2015, är antalet examinerade från dessa program idag på ungefär samma nivå som de var runt 2010. 
+
+Ett annat populärt program är företagsekonomi, handel och administration med `r hogskoleexamen_df %>% filter(Lar==max(.$Lar),SUN2020Inr_2siffer_namn == "Företagsekonomi, handel och administration") %>% .$antal` examinerade. Från detta program examineras fler idag än 2010, men det har varit en tydlig nedgång sedan 2015. Ett program som minskat avsevärt sedan 2010 är teknik och teknisk industri, där antalet examinerade `r max(hogskoleexamen_df$Lar)` är ungefär en tredjedel av jämfört med 2010.
+
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_hogskoleexamen$hogskoleexamen
+```
+
+## Yrkeshögskolan
+
+<details>
+
+  <summary>Mer information om utbildningsformen</summary>
+
+<div title="Källa: Wikipedia">En yrkeshögskola är en utbildningsform för yrkesinriktade studier på eftergymnasial nivå. Dess exakta roll varierar mellan olika länder. Inom yrkeshögskolan i Sverige finns två typer av examen på eftergymnasial nivå:
+
+- yrkeshögskoleexamen, vilken motsvarar minst ett års studier på eftergymnasial nivå
+- kvalificerad yrkeshögskoleexamen, vilken motsvarar studier under minst två år på denna nivå
+</div>
+
+</details>
+
+Yrkeshögskolan i Dalarna är i första hand inriktad på utbildningar inom vård och omsorg, vilket återspeglar sig på länets arbetsmarknad. Den vanligaste branschen för examinerade från yrkeshögskolan var år `r max(folkhogskola_bransch_df$Ar)` `r tolower(folkhogskola_bransch_df %>% filter(antal == max(antal)) %>% .$AstSNI2007_namn)`, med `r folkhogskola_bransch_df %>% filter(antal == max(antal)) %>% .$antal` förvärvsarbetande i Dalarna. Det finns dock även utbildningar inom tillverkning och utvinning, då specifikt utvinning av annan malm. 
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_yh$yh_bransch
+```
+
+<br>
+Det vanligaste inriktningen för personer som tagit en examen för yrkeshögskolan och förvärvsarbetar i Dalarna var år `r max(folkhogskola_inriktning_df$Ar)` `r tolower(folkhogskola_inriktning_df %>% filter(antal == max(antal)) %>% .$Sun2000Inr_namn)`, med `r folkhogskola_inriktning_df %>% filter(antal == max(antal)) %>% .$antal` förvärvsarbetande. Även relativt många med inriktningar mot psykiatrisk vård och tandsköterska förvärvsarbetar i Dalarna.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_yh$yh_inriktning
+```
+
+<br>
+2018 påbörjade drygt 190 personer en YH-utbildning i Dalarna. De efterföljande tre åren ökade antalet till cirka 250 för att därefter minska till knappt 160 personer under 2022 och 2023. Då utbudet fastställs över en treårsperiod kommer även 2024 att ligga på samma nivå som de två föregående åren. Utbudet från 2025-2027 fastställs i nästa ansökningsperiod.
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
+gg_antagna_yh$antagna_yh_Dalarna
+```
+
+# Arbetsmarknaden i Dalarna
+
+En väl fungerande arbetsmarknad kännetecknas bland annat av att många arbetar, att många arbetar med vad de är utbildade till och att det inte råder någon större brist på kompetens. En arbetsmarknad med dessa kännetecken kan sannolikt hantera såväl kriser i samhället, som de utmaningar som arbetsmarknaden ställs inför i framtiden.
+
+
+## Sysselsättningsgraden
+
+Sysselsättningsgraden, det vill säga i vilken utsträckning människor i arbetsför ålder (20-64 år) arbetar, skiljer sig framförallt åt mellan inrikes och utrikes födda. Sysselsättningsgraden bland utrikes födda är lägre än sysselsättningsgraden för inrikes födda i samtliga svenska län. Det finns även skillnader mellan kvinnor och män. 
+
+För inrikes födda, det vänstra diagrammet i figur 32 nedan, är sysselsättningsgraden för båda könen ungefär lika hög. Variationen i sysselsättningsgrad mellan länen är även den ganska liten, vilket ger små skillnader mot riksgenomsnittet. 
+
+För utrikes födda, det högra diagrammet i figur 32 nedan, är bilden annorlunda. Utrikes födda män har en högre sysselsättningsgrad än utrikes födda kvinnor i samtliga län förutom Norrbotten. I Dalarna var sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0)` procent, vilket
+är cirka `r round(arbetsmarknadsstatus_lan %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde-arbetsmarknadsstatus_lan %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0) ` procentenheter mer än för utrikes födda kvinnor.
+
+<br>
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_arbetsmarknadsstatus_lan$sysselsattningsgrad_senastear
+```
+
+<br>
+Något som behöver tas hänsyn till vid en analys av sysselsättningsgraden bland utrikes födda är hur lång tid personerna har varit i Sverige, samt vilken utbildningsnivå de har. För en djupare diskussion runt detta, se Region Dalarnas rapport <a href="https://region-dalarna.github.io/kvinnor_man_i_Dalarna/">"Kvinnor och män i Dalarna"</a>.
+
+Vad gäller sysselsättningsgrad uppvisar kommunerna i Dalarna ett liknande mönster som länen på nationell nivå. Gruppen inrikes födda har en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med utrikes födda. Även här är sysselsättningsgraden för inrikes födda kvinnor och män ungefär lika hög. För utrikes födda är det däremot stora
+skillnader mellan kvinnor och män, men också mellan olika kommuner. I linje med den nationella bilden är sysselsättningsgraden högre för gruppen utrikes födda män än för utrikes födda kvinnor.
+
+Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan kommuner där den högsta sysselsättningsgraden finns i `r first(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$region)` (cirka `r first(round(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$varde,0))` procent) och den lägsta i `r first(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$region)` (cirka `r first(round(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$varde,0))`
+procent).
+
+Skillnaderna mellan utrikes födda kvinnor och män är mer synliga mellan kommuner i Dalarna än när länen som helhet jämförs. `r first(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$region)` har den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor, cirka `r first(round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$varde,0))`
+procent, och ligger klart över genomsnittet för Dalarnas län (knappt `r round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0)`
+procent). Samtidigt är sysselsättningsgraden bland utrikes födda kvinnor i  `r first(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde == min(varde)) %>% .$region)` kommun bara `r first(round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde == min(varde)) %>% .$varde,0))` procent. 
+
+Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan kommunerna i Dalarna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt flyktingkrisen 2015. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som hade högst invandring i förhållande till folkmängd under 2015, 2016 och 2017.
+
+<br>
+```{r, echo = FALSE, message = FALSE, warning = FALSE,fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_arbetsmarknadsstatus_kommun$sysselsattningsgrad_senastear
+```
+
+<br>
+Över tid har sysselsättningsgraden för personer i arbetsför ålder i Dalarna ökat bland både kvinnor och män. Sedan 1993 har andelen ökat från cirka 70 procent till drygt 80 procent för kvinnor och 84 procent för män.
+
+<br>
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_sysselsattningsgrad_93$sysselsattningsgrad_93_Dalarna
+```
+
+<br>
+Grafen nedan visar arbetslösheten i Sverige och Dalarna under perioden 2008 till 2023. Andelen arbetslösa i Dalarna (de mörkgröna staplarna) har konsekvent varit lägre än andelen arbetslösa i Sverige (de ljusgröna staplarna). Sedan pandemin har andelen arbetslösa i både Sverige och Dalarna sjunkit, och 2023 var arbetslösheten i genomsnitt 6,4 respektive 5,8 procent. Under andra kvartalet 2024 var arbetslösheten i Dalarna 5,3 procent, att jämföra med 6,5 procent för riket som helhet (<a href="https://mb.cision.com/Public/1326/4016890/945db14fdac19df6.pdf">Arbetsförmedlingen, 2024</a>).
+
+Dalarnas låga arbetslöshet beror till viss del på att: 
+
+*	Dalarna har en mångsidig ekonomi med olika industrier och sektorer, vilket kan minska sårbarheten för arbetslöshet. Om en sektor drabbas av nedgång kan andra sektorer fortfarande erbjuda möjligheter till sysselsättning (<a href="https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/socioekonomisk-analys-2022-nms.pdf">Region Dalarna, 2022</a>; <a href="https://www.teknikforetagen.se/globalassets/rapporter--publikationer/ekonomisk-analys/hjartat-i-svensk-ekonomi/hjartat-i-svensk-ekonomi---industrins-betydelse-och-villkor-i-dalarnas-lan.pdf"> Teknikföretagen, 2019</a>). 
+
+*	En aktiv och stark arbetsmarknad, med företag som skapar nya arbetstillfällen och expansion av befintliga företag, kan bidra till att minska arbetslösheten (<a href="https://arbetsformedlingen.se/download/18.210b3bc318fa36ad8ec193e/1718203233372/regionala-utsikter-varen-2024.pdf">Arbetsförmedlingen, 2024</a>).
+
+*	Dalarna har goda kommunikationsmöjligheter och närhet till städer med hög ekonomisk aktivitet, vilket kan öka möjligheterna till arbete och affärsmöjligheter (<a href="https://www.regiondalarna.se/globalassets/regional-utveckling/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf/">Region Dalarna, 2021</a>).
+
+*	Det finns stöd för lokala företag, vilket stimulerar ekonomin och skapar fler arbetstillfällen (Se <a href="https://www.regiondalarna.se/verksamhet/regional-utveckling/projektmedel-stod-och-bidrag/foretagsstod/">Region Dalarna, Företagsstöd</a>).
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+diagram_capt <- "Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året"
+
+diagramtitel <- paste0("Arbetslöshet i Dalarna och Sverige")
+diagramfilnamn <- paste0("arbetsloshet_08_senastear.png")
+
+arb_08_fig <- SkapaStapelDiagram(skickad_df =arbetslosa_08_df ,
+                                 skickad_x_var = "Ar",
+                                 skickad_y_var = "Arbetslöshet",
+                                 skickad_x_grupp = "Region",
+                                 manual_x_axis_text_vjust=1,
+                                 manual_x_axis_text_hjust=1,
+                                 manual_color = diagramfarger("rus_sex"),
+                                 diagram_titel = diagramtitel,
+                                 diagram_capt =  diagram_capt,
+                                 x_axis_lutning = 45,
+                                 manual_y_axis_title = "procent",
+                                 stodlinjer_avrunda_fem = TRUE,
+                                 output_mapp = "",
+                                 filnamn_diagram = diagramfilnamn,
+                                 skriv_till_diagramfil = FALSE)
+```
+
+```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+arb_08_fig
+```
+
+## Matchning på arbetsmarknaden
+
+Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning människor jobbar med vad de är utbildade till. Generellt tenderar olika typer av specialiserade eftergymnasiala utbildningar, exempelvis läkare
+och psykologer, ha hög matchning. Utbildar man sig till läkare är det väldigt hög sannolikhet att man även har det som yrke (över 90 procent). På andra sidan av spektrumet finns dels olika former av gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis humaniora och konst, där runt hälften jobbar med vad de är utbildade till. 
+
+I stora drag ligger matchninggraden på runt `r round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent för kvinnor och `r round(matchning_df %>% filter(kön == "män",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent för män i
+Sverige. Det finns vissa skillnader mellan länen, men dessa är relativt små. I Dalarna är matchningsgraden cirka
+`r round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` procent för kvinnor och `r round(matchning_df %>% filter(kön == "män",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` för män , vilket alltså är marginellt lägre än riket som helhet.
+
+<br>
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_matchning$matchning_jmf
+```
+
+<br>
+Matchningen på arbetsmarknaden tenderar att variera beroende på var man är född. I Dalarna har inrikes födda högst matchning med `r round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent för kvinnor och `r round(matchning_df %>% filter(kön == "män",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent för män. Lägst matchningsgrad för män har personer `r matchning_df %>% filter(kön == "män",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (cirka `r round(matchning_df %>% filter(kön == "män",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent), medan personer `r matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` har lägst matchningsgrad för kvinnor (cirka `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)` procent). Kvinnor födda i Afrika är dock den kategori i diagrammet nedan som har högst matchningsgrad med knappt `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == max(matchningsgrad)) %>% .$matchningsgrad,0)` procent.
+
+<br>
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_matchning$matchning_bakgrund
+```
+
+## Brist på arbetskraft och kompetens
+
+Ytterligare en viktig aspekt av arbetsmarknaden är hur lätt det är för arbetsgivare att hitta arbetskraft med rätt kompetens. Bland Sveriges län varierar den upplevda bristen på arbetskraft relativt mycket. Lättast att hitta kompetens år `r max(kompetensbrist$År)` har småföretag i `r kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Region`, där ungefär `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel,0)` procent av småföretagen uppger att de har brist på kompetens, att jämföra med `r kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Region`, där ungefär `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel,0)` procent av småföretagen uppger att de har samma brist. I Dalarna upplever ungefär `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel,0)` procent av småföretagarna att de har svårt att hitta arbetskraft, vilket är en ökning med `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel - kompetensbrist %>% filter(År == "2020") %>% filter(Region == "Dalarna") %>% .$Andel ,0)` procentenheter sedan undersökningen som gjordes 2020.
+
+<br>
+```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+gg_kompetensbrist$kompetensbrist
+```
+
+<br>
+Det finns en underliggande svårighet i att separera bristen på arbetskraft från bristen på kompetens. En situation med allt färre i arbetsför ålder skapar en generell brist på arbetskraft, men den förstärker sannolikt även bristen på kompetens då arbetskraftsreserven minskar. Arbetsgivarna behöver därför anställa individer som står längre från de kompetenskrav som ställs, vilket ökar behovet av vidareutbildning efter anställning. För ett djupare resonemang om dessa två brister och potentiella lösningar hänvisas till <a href="https://www.tillvaxtanalys.se/publikationer/rapport/rapportserien/2024-02-29-arbetskrafts--och-kompetensbrist.html/" target="_blank">Tillväxtanalys, 2024</a>.
+
+# Sammanfattande diskussion
+Arbetsmarknaden och kompetensförsörjningen i Dalarna är komplex med flera utmaningar som samspelar. Dessa utmaningar inkluderar en åldrande befolkning, minskat arbetskraftsutbud, ökande kompetenskrav och svårigheter att matcha arbetskraftens kvalifikationer med efterfrågan från arbetsgivare.
+
+<br>
+* **Arbetskraftsefterfrågan**
+<br>
+Arbetskraftsefterfrågan i form av lediga jobb i Dalarna har ökat markant de senaste decennierna. Det är privat sektor som står för majoriteten av de lediga jobben, även om offentlig sektor också haft en betydande efterfrågeökning. Den totala efterfrågan är dock svår att prognostisera och påverkas av faktorer som ekonomiska trender och teknologiska förändringar. Det finns även en variation i efterfrågan på arbetskraft, beroende på bransch och region. Till exempel har hotell- och restaurangbranschen ett stort behov av enklare arbetskraft, medan andra sektorer, såsom IT och offentlig förvaltning, efterfrågar högre kvalifikationer. Cirka två tredjedelar av alla lediga jobb tillsätts med personer som redan är förvärvsarbetande, så kallade jobbytare. Det förhållandet har varit relativt konstant över tid.
+
+<br>
+* **Kompetens och kvalifikationskrav**
+<br>
+En viktig aspekt av arbetsmarknaden är hur arbetsgivare efterfrågar olika nivåer av kompetens. I Dalarna finns det stora skillnader i vilka typer av jobb som dominerar och därmed också skillnader i kvalifikationskrav. Sektorer som vård och omsorg samt utbildning kräver ofta högre utbildning, medan andra, såsom hotell- och restaurang, främst efterfrågar arbetskraft med enklare kvalifikationer. Det finns stora variationer inom och mellan regioner i efterfrågan på gymnasial och högre utbildning. Dalarna har en hög andel yrken som kräver gymnasial kompetens, medan Stockholms län har flest jobb med krav på högskoleutbildning.
+
+<br>
+* **Brist på arbetskraft och kompetens**
+<br>
+Det finns en utbredd uppfattning om kompetensbrist bland arbetsgivare, särskilt inom småföretag. I Dalarna upplever omkring 41 procent av småföretagen svårigheter att hitta rätt kompetens, vilket är en ökning med 13 procentenheter från tidigare år. Bristen på arbetskraft förstärks av att den totala arbetskraftsreserven minskar, vilket gör det svårt för arbetsgivare att hitta kvalificerade kandidater. Detta kan vara särskilt påtagligt inom vissa sektorer och yrken, vilket kan hämma ekonomisk tillväxt och innovation. För att hantera detta måste arbetsgivarna ofta sänka kompetenskraven och investera i vidareutbildning. Alternativet är att vidta strukturella förändringar för att anpassa sig till den förändrade demografiska profilen. Det kan innebära ökad efterfrågan på teknologiska lösningar, automation och andra effektiviseringsåtgärder för att kompensera för bristen på arbetskraft.
+
+<br>
+* **Arbetskraftsutbudet**
+<br>
+Utbudet av arbetskraft minskar, främst på grund av en åldrande befolkning och ett negativt inrikes flyttnetto i många delar av Dalarna. Mellan 2002 och 2022 minskade antalet inrikes födda i arbetsför ålder med cirka 20 000 personer, och även om antalet utrikes födda har ökat, har detta inte varit tillräckligt för att kompensera för förlusten. 
+
+Det finns en tydlig skillnad i sysselsättningsgraden mellan inrikes och utrikes födda och andelen utrikes födda av den totala befolkningen i arbetsför ålder ökar. För att möta den arbetskrafts- och kompetensbrist som råder är en viktig del att fortsatt öka sysselsättningsgraden för utrikes födda. Det långsiktiga utbudet påverkas av förändringar i utbildningsnivåer, pendlingsmönster och migration, men den ökade andelen äldre innebär också ett större behov av arbetskraft inom vård och omsorg, något som framstår som en kritisk utmaning. Dalarna har en relativt låg andel högskoleutbildade invånare, vilket arbetsgivarna behöver förhålla sig till. Om det finns stora krav på högskoleutbildning kommer ett gap mellan efterfrågan och utbud att uppstå.
+
+<br>
+* **Arbetsmarknadens åldersstruktur**
+<br>
+En annan viktig faktor är åldersstrukturen inom olika sektorer. Särskilt inom vård och omsorg, men även i tillverkningssektorn, är en stor del av arbetskraften över 50 år, vilket innebär att många kommer att gå i pension inom de närmaste 15-20 åren. Detta, i kombination med att befolkningen i Dalarna blir allt äldre, innebär ett stort framtida rekryteringsbehov inom dessa sektorer. Särskilt vården står inför en allvarlig situation där efterfrågan på tjänster ökar samtidigt som tillgången på arbetskraft minskar. Med en ökande andel äldre människor ökar behovet av hälso- och sjukvård, äldreomsorg samt pensioner. Detta ökar belastningen på sociala trygghetssystem och offentliga finanser, genom investeringar och anpassningar inom hälso- och sjukvårdssystemet, om behoven hos den äldre befolkningen ska mötas.
+
+<br>
+* **Matchningen på arbetsmarknaden**
+<br>
+En central utmaning är matchningen mellan utbud och efterfrågan på arbetskraft. I Dalarna är sysselsättningsgraden högre än riksgenomsnittet, men det finns stora skillnader mellan inrikes och utrikes födda. Sysselsättningsgraden är generellt sett lägre för utrikes födda, vilket till stor del kan bero på lägre utbildningsnivå och svårigheter att anpassa sig till arbetsmarknadens krav. Matchningen försvåras också av skillnader mellan kvinnor och män, där kvinnor i högre grad arbetar inom vård, omsorg och utbildning medan män är överrepresenterade inom bygg- och tillverkningssektorerna. Dessutom tenderar utrikes födda att ha svårare att få jobb som motsvarar deras utbildning, vilket försvårar integrationen på arbetsmarknaden.
+
+<br>
+* **Avslutande kommentar**
+<br>
+Avslutningsvis är kompetensförsörjningen i Dalarna en av de största utmaningarna för länets framtida utveckling. Med rätt strategiska insatser och samarbete mellan offentlig sektor, näringsliv och utbildningsinstitutioner kan dock dessa utmaningar mötas på ett hållbart sätt. Det finns ett tydligt behov av att hitta nya lösningar för att hantera kompetensförsörjningsutmaningarna. Teknologisk utveckling, förändrade arbetsmarknadsstrukturer och en åldrande befolkning ställer höga krav på utbildningssystemet och arbetsmarknadsinsatser. För att uppnå långsiktig hållbarhet och uppfylla målen i Dalastrategin 2030, måste aktörer inom Dalarna satsa på att förbättra matchningen mellan utbildning och arbetsmarknadsbehov, samt underlätta för unga och utrikes födda att integreras på arbetsmarknaden.
