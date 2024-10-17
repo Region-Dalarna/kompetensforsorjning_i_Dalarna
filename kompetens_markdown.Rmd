@@ -424,8 +424,6 @@ För att fördjupa förståelsen för utbudet av arbetskraft bör lokala arbetsm
 
 Det som i första hand påverkar pendlingsmönster är närheten till större städer. Högst andel utpendlare i Sverige har Uppsala län, där närmare var fjärde boende som förvärvsarbetar gör det i ett annat län, Stockholm i stor utsträckning. Även Södermanland och Västmanland, som båda ligger relativt nära Stockholm, har stor utpendling. Hallands närhet till arbetsmarknaden i Göteborg med omnejd bidrar sannolikt till en utpendlingsandel på cirka 23 procent. Störst andel inpendlare har Kronobergs län. I Dalarna är andelen förvärvsarbetande som pendlar över länsgräns relativt liten.
 
-<span class="kommentar">Peter! Har vi mer aktuella siffror för diagram 18 och 19?</span>
-
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Gäller pendlare över länsgräns."
 
@@ -600,9 +598,6 @@ Prognosen för den kommande tioårsperioden pekar inte på några dramatiska fö
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
 gym_prognos_fig
 ```
-
-<br>
-<span class="kommentar">Peter! Har vi data på genomströmningen (vilka tar examen?) i gymnasieutbildningarna, inte bara de som är antagna? Kolla om vi kan inkludera detta!</span>
 
 ## Högskolan
 
