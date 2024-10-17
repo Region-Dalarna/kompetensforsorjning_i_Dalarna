@@ -307,16 +307,13 @@ gg_arbetsmarknadsstatus_lan <- diagram_arbetsmarknadsstatus(region_vekt = hamtaA
 
 }) # slut system.time för att ladda data
 
-# # Matchning på arbetsmarknaden, län och bakgrund - från projektet "Kvinnor och män i Dalarna"
-# source("C:/Users/frkjon/Projekt/kvinnor_man_i_Dalarna/Skript/matchning.R", encoding="UTF-8")
-# diag_matchning(spara_data = TRUE,
-#                output_mapp = Output_mapp)
-system.time({
-rmarkdown::render(
-  input = 'kompetens_markdown.Rmd',
-  output_file = 'kompetens_markdown_ny.html',
-  envir = parent.frame()
-)
-}) # slut system.time för att knitta rapporten
+# 2. om man vill knitta rapporten
+source(paste0(here("Skript","/"), "2_knitta_rapport.R"))
+
+# 3. om man vill kopiera den till docs, för publicering på webben med Github Pages
+#source(paste0(here("Skript","/"), "3_kopiera_till_docs_for_publicera_pa_webben.R"))
+
+# 4. skjut upp hela repositoryt till Github
+#source(paste0(here("Skript","/"), "4_push_av_hela_repo_till_github.R"))
 
 
