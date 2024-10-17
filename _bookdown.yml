@@ -1,0 +1,6 @@
+language:
+  label:
+    fig: !expr function(x) sprintf("Figur %s", x)  # Tar bort fetstil
+number_by_section: false  # Inaktivera kapitelnumrering för figurer
+
+
