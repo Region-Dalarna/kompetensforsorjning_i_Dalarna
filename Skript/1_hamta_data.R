@@ -230,13 +230,17 @@ gg_pendling_kommun <- diag_pendling_over_kommungrans(output_mapp_figur = Output_
                                                      returnera_data = TRUE)
 
 # Utbildningsnivå (bakgrund och åldersgrupper)
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_utb_bakgr_alder_NMS.R", encoding="UTF-8")
-gg_utbniva_bakgrund_alder <- diag_utb_niva_bakgr_alder(output_mapp_figur = Output_mapp_figur,
-                                                       diag_utb_bakgrund = TRUE,
-                                                       diag_utb_alder = TRUE,
-                                                       skapa_fil = spara_diagram_som_bildfiler,
-                                                       returnera_figur = TRUE,
-                                                       returnera_data = TRUE)
+#source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_utb_bakgr_alder_NMS.R", encoding="UTF-8")
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_inr_utr_fodda_lan_scb.R")
+gg_utbniva_bakgrund <- diag_utbniva_inr_utr_fodda_kon_lan(skriv_diagramfil = spara_diagram_som_bildfiler,
+                                                                output_mapp = Output_mapp_figur,
+                                                                returnera_df_rmarkdown = TRUE)
+
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_antal_utbniva_alder_kon_scb.R")
+gg_lagutbildade_alder <- diag_antal_utbniva_alder_kon(skriv_diagramfil = spara_diagram_som_bildfiler,
+                                                      output_mapp = Output_mapp_figur,
+                                                      returnera_df_rmarkdown = TRUE)
+
 
 # Matchning (län och bakgrund)
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_matchning_lan_bakgrund.R", encoding="UTF-8")

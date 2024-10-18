@@ -478,7 +478,7 @@ Annars återfinns den största skillnaden mellan grupperna bland de med lägst u
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
-gg_utbniva_bakgrund_alder$utb_niva_bakgrund
+gg_utbniva_bakgrund[[names(gg_utbniva_bakgrund)]]
 ```
 
 <br>
@@ -488,7 +488,7 @@ Antalet med låg utbildning minskar därefter med åldern ner till åldersgruppe
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
-gg_utbniva_bakgrund_alder$utb_niva_alder
+gg_lagutbildade_alder[[names(gg_lagutbildade_alder)]]
 ```
 
 <br>

@@ -1,6 +1,6 @@
 diagram_examen_yh_NMS <- function(output_mapp_figur = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/", # Här hamnar sparad figur
                                          valda_farger = diagramfarger("rus_sex"), # Vilka färger skall användas i diagram
-                                         caption = "Källa: NMS-databasen (SCB), utbildningsregistret\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Examensår efter 2011.",
+                                         caption = "Källa: NMS-databasen (SCB), utbildningsregistret\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Examensår efter 2011, samtliga förvärvsarbetande 16-74 år.",
                                          diag_bransch = TRUE, # Skall diagram över vanligaste branscher för yh-utbildade skapas
                                          diag_inriktning = TRUE, # Skall diagram över vanligaste inriktningar för yh-utbildade skapas
                                          spara_figur = TRUE, # Om true sparas figuren till output_mapp
@@ -36,7 +36,7 @@ diagram_examen_yh_NMS <- function(output_mapp_figur = "G:/Samhällsanalys/Statis
   # =============================================== Diagram ===============================================
   
   if(diag_bransch == TRUE){
-    diagram_titel <- paste0("De tio vanligaste branscherna för förvärvsarbetande (16-74 år) i Dalarnas län för YH-utbildade ",max(folkhogskola_df$Ar))
+    diagram_titel <- paste0("De tio vanligaste branscherna för förvärvsarbetande i Dalarnas för YH-utbildade år ",max(folkhogskola_df$Ar))
     # Rubriken blir för lång. Använder string_wrap för skriva den i två rader
     diagram_titel <- str_wrap(diagram_titel)
     diagram_typ <- "yh_bransch"
@@ -89,7 +89,7 @@ diagram_examen_yh_NMS <- function(output_mapp_figur = "G:/Samhällsanalys/Statis
       assign("folkhogskola_inriktning_df", folkhogskola_inriktning, envir = .GlobalEnv)
     }
     
-    diagram_titel <- paste0("De tio vanligaste YH-inriktningarna för förvärvsarbetande (16-74 år) i Dalarnas län  ",max(folkhogskola_df$Ar))
+    diagram_titel <- paste0("De tio vanligaste YH-inriktningarna för förvärvsarbetande i Dalarna år ",max(folkhogskola_df$Ar))
     diagram_titel <- str_wrap(diagram_titel)
     diagram_typ <- "yh_inriktning"
     diagramfil <- paste0(diagram_typ,".png")
