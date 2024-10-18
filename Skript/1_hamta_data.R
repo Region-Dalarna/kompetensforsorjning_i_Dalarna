@@ -240,7 +240,57 @@ source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_antal
 gg_lagutbildade_alder <- diag_antal_utbniva_alder_kon(skriv_diagramfil = spara_diagram_som_bildfiler,
                                                       output_mapp = Output_mapp_figur,
                                                       returnera_df_rmarkdown = TRUE)
+# ta ut alla åldrar som numeriska värden
+alder_num <- str_extract_all(unique(utbniva_kon_alder_df$ålder), "\\d+") %>% 
+  unlist() %>% 
+  as.numeric() 
 
+# skapa en textsträng med minsta och största ålder i datasetet som vi lägger 
+alder_txt <- paste0(min(alder_num), "-", max(alder_num), " år")
+
+# skapa en dataframe med andelar för utbildningsnivåer för åldersgruppen 20-64 år
+utb_niva_20_64_ar <- utbniva_kon_alder_df %>% 
+  mutate(ålder = alder_txt) %>% 
+  group_by(år, regionkod, region, ålder, kön, utbildningsnivå) %>% 
+  summarise(varde = sum(varde, na.rm = TRUE)) %>% 
+  mutate(andel = varde / sum(varde, na.rm = TRUE) * 100) %>% 
+  ungroup()
+
+# skapa en variabel för andelen kvinnor som är eftergymnasialt utbildade
+kv_eftergymn_andel <- utb_niva_20_64_ar %>% 
+  filter(utbildningsnivå == "eftergymnasial utbildning",
+         kön == "kvinnor") %>% 
+  dplyr::pull(andel) %>% round()
+
+# skapa en variabel för andelen män som är eftergymnasialt utbildade
+man_eftergymn_andel <- utb_niva_20_64_ar %>% 
+  filter(utbildningsnivå == "eftergymnasial utbildning",
+         kön == "män") %>% 
+  dplyr::pull(andel) %>% round()
+
+man_inr_forgymn_andel <- utbniva_bakgr_kon_df %>% 
+  filter(utbildning == "förgymnasial utbildning",
+         bakgrund == "Födda i Sverige",
+         kön == "män") %>% 
+  dplyr::pull(varde) %>% round()
+
+kv_inr_forgymn_andel <- utbniva_bakgr_kon_df %>% 
+  filter(utbildning == "förgymnasial utbildning",
+         bakgrund == "Födda i Sverige",
+         kön == "kvinnor") %>% 
+  dplyr::pull(varde) %>% round()
+
+man_utr_forgymn_andel <- utbniva_bakgr_kon_df %>% 
+  filter(utbildning == "förgymnasial utbildning",
+         bakgrund == "Utrikes födda",
+         kön == "män") %>% 
+  dplyr::pull(varde) %>% round()
+
+kv_utr_forgymn_andel <- utbniva_bakgr_kon_df %>% 
+  filter(utbildning == "förgymnasial utbildning",
+         bakgrund == "Utrikes födda",
+         kön == "kvinnor") %>% 
+  dplyr::pull(varde) %>% round()
 
 # Matchning (län och bakgrund)
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_matchning_lan_bakgrund.R", encoding="UTF-8")
