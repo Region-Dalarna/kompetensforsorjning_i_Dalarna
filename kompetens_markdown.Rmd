@@ -245,23 +245,21 @@ gg_kvalifikation$`kvalifikationskrav_bransch_Dalarnas län`
 
 ## Åldersstruktur
 
-`r bransch_alder %>% filter(alder_grupper == "16-19 år",SNI2007_Grupp_namn != "Okänt") %>%filter(Andel == max(.$Andel)) %>% .$SNI2007_Grupp_namn` är den bransch där den klart största andelen yngre arbetar, drygt `r round(bransch_alder %>% filter(alder_grupper == "16-19 år") %>%filter(Andel == max(.$Andel)) %>% .$Andel,0)` procent av de förvärvsarbetande är mellan 16 och 19 år gamla. Även inom kultur, fritid och nöje är många av de förvärvsarbetande unga, vilket är ett kvitto på att många unga tar sitt första steg in på arbetsmarknaden inom dessa branscher. 
+`r bransch_alder %>% filter(alder == "16-19 år",bransch != "Okänt") %>%filter(andel == max(.$andel)) %>% .$bransch` är den bransch där den klart största andelen yngre arbetar, `r round(bransch_alder %>% filter(alder == "16-19 år") %>%filter(andel == max(.$andel)) %>% .$andel,0)` procent av de förvärvsarbetande är mellan 16 och 19 år gamla. Även inom kultur, fritid och nöje är många av de förvärvsarbetande unga, vilket är ett kvitto på att många unga tar sitt första steg in på arbetsmarknaden inom dessa branscher. 
 
-Det omvända gäller för jord och skogsbruk, där närmare 75 procent av de förvärvsarbetande är äldre än 50 år. Detta kan delvis förklaras med att alla som äger en skogsfastighet räknas som förvärvsarbetande och många av dessa tenderar att vara äldre.
+Det omvända gäller för `r tolower(bransch_aldst_andel$bransch)` där cirka `r round(bransch_aldst_andel$andel,0)` procent av de förvärvsarbetande är äldre än 60 år. Detta kan delvis förklaras med att alla som äger en skogsfastighet räknas som förvärvsarbetande och många av dessa tenderar att vara äldre.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
-gg_bransch_utb_alder$alder_bransch_andelDalarna
+gg_bransch_utb_alder$alder_bransch_andel_Dalarna
 ```
 
 <br>
-Störst antal personer över 50 år arbetar i Dalarna inom vård och omsorg. Ungefär `r format(plyr::round_any(as.numeric(sum(bransch_alder %>% filter(alder_grupper %in% c("50-64 år","65-70 år","71-74 år"),SNI2007_Grupp_namn == "Vård och omsorg") %>% .$Antal)),100),big.mark = " ")` förvärvsarbetande inom branschen är minst 50 år och kommer således att gå i pension inom 15-20 år. Detta, i kombination med en befolkning som blir allt äldre och därför efterfrågar mer vård, leder till ett stort rekryteringsbehov inom vård och omsorg idag och i framtiden. 
-
-Även inom tillverkning och utvinning är relativt många över 50 år, ca `r format(plyr::round_any(as.numeric(sum(bransch_alder %>% filter(alder_grupper %in% c("50-64 år","65-70 år","71-74 år"),SNI2007_Grupp_namn == "Tillverkning och utvinning") %>% .$Antal)),100),big.mark = " ")` förvärvsarbetande. Det är en hög andel av de cirka 21 000 som arbetar inom branschen, men det är svårare att säga hur behovet är i framtiden. Tillverkning och utvinning är en bransch som har varit i förändring över tid, med minskat antal anställda. Från 1990 till 2023 har antalet förvärvsarbetande i branschen minskat med 13 000 (se figur 13 nedan). 
+Störst antal personer över 60 år arbetar i Dalarna inom `r tolower(bransch_aldst_antal$bransch)`. Ungefär `r format(plyr::round_any(as.numeric(bransch_aldst_antal$antal),100),big.mark = " ")` förvärvsarbetande inom branschen är minst 60 år och kommer således att gå i pension inom 5-10 år. Detta, i kombination med en befolkning som blir allt äldre och därför efterfrågar mer vård, leder till ett stort rekryteringsbehov inom vård och omsorg idag och i framtiden. 
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
-gg_bransch_utb_alder_antal$alder_bransch_antalDalarna
+gg_bransch_utb_alder_antal$alder_bransch_antal_Dalarna
 ```
 
 # Utbud av arbetskraft

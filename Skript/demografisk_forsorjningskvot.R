@@ -24,7 +24,7 @@ source("https://raw.githubusercontent.com/Region-Dalarna/hamta_data/refs/heads/m
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R", encoding = "utf-8")
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_text.R", encoding = "utf-8")
 
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna"
+diagram_capt <- "Källa: SCB:s öppna statistikdatabas, bearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Försörjningskvoten beräknas genom att lägga ihop antalet personer 0-19 år med antalet personer 65+ år och dividera med antalet personer 20-64 år.\nEn kvot på 100 innebär att det finns lika många barn, unga och äldre som det finns personer i arbetsför ålder (20-64 år)."
 output_mapp <- "G:/Samhällsanalys/API/Fran_R/Utskrift/"
 visa_dataetiketter <- FALSE
 gg_list <- list()
