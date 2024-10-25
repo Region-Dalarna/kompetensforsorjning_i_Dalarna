@@ -4,6 +4,8 @@ system.time({
 if (!require("pacman")) install.packages("pacman")
 p_load(here)
 
+source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R", encoding = "utf-8", echo = FALSE)
+
 Output_mapp="G:/skript/projekt/data/kompetensforsorjning/"
 Output_mapp_figur <- here("Diagram","/")
 spara_diagram_som_bildfiler <- FALSE
