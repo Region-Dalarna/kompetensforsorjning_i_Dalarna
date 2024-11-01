@@ -6,6 +6,9 @@ p_load(here)
 
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R", encoding = "utf-8", echo = FALSE)
 
+# ska sättas till FALSE när skriptet är i produktion men smidigare att felsöka fel som inte handlar om rcurl om det är TRUE
+hoppa_over_forsok_igen <- FALSE
+
 Output_mapp="G:/skript/projekt/data/kompetensforsorjning/"
 Output_mapp_figur <- here("Diagram","/")
 spara_diagram_som_bildfiler <- FALSE
@@ -22,7 +25,7 @@ gg_demo_forsorjning <- funktion_upprepa_forsok_om_fel( function() {
                                                               tid_koder = "*",			 # "*" = alla år eller månader, "9999" = senaste, finns: "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"
                                                               spara_figur = spara_diagram_som_bildfiler, # Skall diagrammet sparas
                                                               returnera_data = TRUE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 
 # # Diagram  befolkningsförändring
@@ -34,7 +37,7 @@ gg_befolkning <- funktion_upprepa_forsok_om_fel( function() {
                                                  returnera_data = TRUE,
                                                  avrunda_fem = FALSE,
                                                  output_mapp_figur = Output_mapp_figur)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Lediga jobb E1 - NY 7/10
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_lediga_jobb_E1.R")
@@ -48,7 +51,7 @@ gg_lediga_jobb <- funktion_upprepa_forsok_om_fel( function() {
                                                    returnera_data = TRUE,
                                                    tid_koder = "*",
                                                    output_mapp_figur = Output_mapp_figur)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Jobbinflöde - NY 7/10
 source(here("Skript","jobbinflode_procent_region_ny.R"), encoding="UTF-8")
@@ -58,7 +61,7 @@ gg_jobbinflode <- funktion_upprepa_forsok_om_fel( function() {
                                                  returnera_data = TRUE,
                                                  tid_koder = "*",
                                                  output_mapp_figur = Output_mapp_figur)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Arbetskraftsdeltagande - NY 7/10
 source(here("Skript","diagram_arbetskraftsdeltagande.R"), encoding="UTF-8")
@@ -69,7 +72,7 @@ gg_arbetskraftsdeltagande <- funktion_upprepa_forsok_om_fel( function() {
                                                                       tid_koder = "*",
                                                                       kon_klartext = c("kvinnor","män"),
                                                                       output_mapp_figur = Output_mapp_figur)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 
 # Förvärvsarbetande från 1990 till senaste år. Både antal och förändring (från första till sista)
@@ -82,7 +85,7 @@ gg_forv_90 <- funktion_upprepa_forsok_om_fel( function() {
                                            returnera_figur = TRUE,
                                            returnera_data = TRUE,
                                            vald_farg = diagramfarger("rus_sex"))
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Utbildningsnivå från 85 och framåt uppdelat på kön. Data hämtas i detta fall från GGplot-objektet (när data används i markdown) FEL
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_flera_diagram_scb.R")
@@ -95,7 +98,7 @@ gg_utbniva_85 <- funktion_upprepa_forsok_om_fel( function() {
                                                     diag_lagutb_over_tid = TRUE,
                                                     diag_andel_alla_utbnivaer = TRUE,
                                                     vald_utb_niva = "hogutb")
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 
 # Utbildningsnivå senaste år FEL
@@ -110,7 +113,7 @@ gg_utbniva_senastear <- funktion_upprepa_forsok_om_fel( function() {
                                                            diag_andel_alla_utbnivaer = FALSE,
                                                            diag_andel_utbniva_jmfr_lan = TRUE,
                                                            vald_utb_niva = "hogutb")
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Gymnasieantagning, senaste och flera år
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_gymnasiantagning_antal_kon.R")
@@ -120,7 +123,7 @@ gg_gymnasiet <- funktion_upprepa_forsok_om_fel( function() {
                                            spara_figur = spara_diagram_som_bildfiler,
                                           returnera_figur = TRUE,
                                           returnera_data = TRUE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Könsuppdelat
 gg_gymnasiet_kon <- funktion_upprepa_forsok_om_fel( function() {
@@ -130,7 +133,7 @@ gg_gymnasiet_kon <- funktion_upprepa_forsok_om_fel( function() {
                                               returnera_data = FALSE,
                                               konsuppdelat = TRUE,
                                               diag_antal_fleraar = FALSE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Högskoleexamen
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_examen_hogskolan_NMS.R")
@@ -139,7 +142,7 @@ gg_hogskoleexamen <- funktion_upprepa_forsok_om_fel( function() {
                                                    returnera_figur = TRUE,
                                                    returnera_data = TRUE,
                                                    spara_figur = spara_diagram_som_bildfiler)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # YH-utbildning
 source(here("Skript","diagram_examen_yh_NMS.R"), encoding="UTF-8")
@@ -149,7 +152,7 @@ gg_yh <- funktion_upprepa_forsok_om_fel( function() {
                                returnera_figur = TRUE,
                                returnera_data = TRUE,
                                spara_figur = spara_diagram_som_bildfiler)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Yh - Antagna som påbörjat utbildning
 #source(here("Skript","antagna_yh_tid.R"), encoding="UTF-8")
@@ -160,7 +163,7 @@ gg_antagna_yh <- funktion_upprepa_forsok_om_fel( function() {
                                               returnera_data = TRUE,
                                               tid_koder = "*",
                                               output_mapp_figur = Output_mapp_figur)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 
 
@@ -180,7 +183,7 @@ gg_forv_senastear <- funktion_upprepa_forsok_om_fel( function() {
                                             diag_lan = FALSE,
                                             diag_kommun = FALSE,
                                             diag_lan_antal = TRUE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # source(here("Skript","diagram_forvarvsarbetande_90_senastear_SCB.R"), encoding="UTF-8")
 # gg_forv_forandring <- diagram_data_forvarvsarbetande_90(output_mapp_figur = Output_mapp_figur,
@@ -203,7 +206,7 @@ gg_kvalifikation <- funktion_upprepa_forsok_om_fel( function() {
                                                spara_figur = spara_diagram_som_bildfiler,
                                                returnera_figur = TRUE,
                                                returnera_data = TRUE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Utbildningsnivå och ålder för län och bransch. Andel och antal
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_bransch_utb_alder_NMS.R", encoding="UTF-8")
@@ -213,7 +216,7 @@ gg_bransch_utb_alder <- funktion_upprepa_forsok_om_fel( function() {
                                                returnera_figur = TRUE,
                                                returnera_data = TRUE,
                                                andel = TRUE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 gg_bransch_utb_alder_antal <- funktion_upprepa_forsok_om_fel( function() {
   diag_bransch_utb_alder(output_mapp_figur = Output_mapp_figur,
@@ -221,7 +224,7 @@ gg_bransch_utb_alder_antal <- funktion_upprepa_forsok_om_fel( function() {
                                                     returnera_figur = TRUE,
                                                     returnera_data = TRUE,
                                                     andel = FALSE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # skapa df med bransch som har högst andel personer i åldersgruppen 60-74 år
 bransch_aldst_andel <- bransch_alder %>% 
@@ -247,7 +250,7 @@ gg_bef_for <- funktion_upprepa_forsok_om_fel( function() {
                                             spara_figur = spara_diagram_som_bildfiler,
                                             returnera_figur = TRUE,
                                             returnera_data = TRUE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # # Befolkningsförändring uppdelat på komponent (län)
 # source(here("Skript","befolkning_utr_inr.R"), encoding="UTF-8")
@@ -255,7 +258,7 @@ gg_bef_for <- funktion_upprepa_forsok_om_fel( function() {
 #                    output_mapp = Output_mapp)
 
 # Pendling
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_pendlare_over_kommungrans.R", encoding="UTF-8")
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_pendling_over_kommungrans.R", encoding="UTF-8")
 gg_pendling_kommun <- funktion_upprepa_forsok_om_fel( function() {
   diag_pendling_over_kommungrans(output_mapp_figur = Output_mapp_figur,
                                                      enbart_in_ut = TRUE,
@@ -264,7 +267,43 @@ gg_pendling_kommun <- funktion_upprepa_forsok_om_fel( function() {
                                                      skapa_fil = spara_diagram_som_bildfiler,
                                                      returnera_figur = TRUE,
                                                      returnera_data = TRUE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
+
+utpendling_storst_kommun <- andel_pendlare_kommun_df %>% 
+  filter(variabel == "Andel utpendling") %>% 
+  arrange(desc(andel)) %>%
+  slice(1)
+
+inpendling_storst_kommun <- andel_pendlare_kommun_df %>% 
+  filter(variabel == "Andel inpendling") %>% 
+  arrange(desc(andel)) %>%
+  slice(1)
+
+
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_pendling_over_lans_fa_grans.R")
+gg_pendling_lan <- funktion_upprepa_forsok_om_fel( function() {
+  diag_pendling_over_lans_fa_grans(output_mapp_figur = Output_mapp_figur,
+                                                  enbart_in_ut = TRUE,
+                                                  diag_absoluta_tal = FALSE,
+                                                  diagramfarg_vektor = diagramfarger("rus_sex"),
+                                                  skapa_fil = spara_diagram_som_bildfiler,
+                                                  returnera_figur = TRUE,
+                                                  returnera_data = TRUE)
+  }, hoppa_over = hoppa_over_forsok_igen)
+
+utpendling_uppsala <- andel_pendlare_lan_df %>% 
+  filter(regionkod == "03",
+         variabel == "Andel utpendling")
+
+utpendling_halland <- andel_pendlare_lan_df %>% 
+  filter(regionkod == "13",
+         variabel == "Andel utpendling")
+
+inpendling_storst_lan <- andel_pendlare_lan_df %>% 
+  filter(variabel == "Andel inpendling") %>% 
+  arrange(desc(andel)) %>%
+  slice(1)
+  
 
 # Utbildningsnivå (bakgrund och åldersgrupper)
 #source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_utb_bakgr_alder_NMS.R", encoding="UTF-8")
@@ -273,14 +312,14 @@ gg_utbniva_bakgrund <- funktion_upprepa_forsok_om_fel( function() {
   diag_utbniva_inr_utr_fodda_kon_lan(skriv_diagramfil = spara_diagram_som_bildfiler,
                                                                 output_mapp = Output_mapp_figur,
                                                                 returnera_df_rmarkdown = TRUE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_antal_utbniva_alder_kon_scb.R")
 gg_lagutbildade_alder <- funktion_upprepa_forsok_om_fel( function() {
   diag_antal_utbniva_alder_kon(skriv_diagramfil = spara_diagram_som_bildfiler,
                                                       output_mapp = Output_mapp_figur,
                                                       returnera_df_rmarkdown = TRUE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # ta ut alla åldrar som numeriska värden
 alder_num <- str_extract_all(unique(utbniva_kon_alder_df$ålder), "\\d+") %>% 
@@ -341,7 +380,7 @@ gg_matchning <- funktion_upprepa_forsok_om_fel( function() {
                                    spara_figur = spara_diagram_som_bildfiler,
                                    returnera_figur = TRUE,
                                    returnera_data = TRUE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Lediga jobb M1 - NY 7/10
 source(here("Skript","diagram_lediga_jobb_arbetslosa_M1.R"), encoding="UTF-8")
@@ -351,7 +390,7 @@ gg_lediga_jobb_M1 <- funktion_upprepa_forsok_om_fel( function() {
                                                    returnera_data = TRUE,
                                                    tid_koder = "*",
                                                    output_mapp_figur = Output_mapp_figur)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Kompetensbrist
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_kompetensbrist_lan_TVV.R",encoding="UTF-8")
@@ -360,7 +399,7 @@ gg_kompetensbrist <- funktion_upprepa_forsok_om_fel( function() {
                                          skapa_fil = spara_diagram_som_bildfiler,
                                          returnera_figur = TRUE,
                                          returnera_data = TRUE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # # Befolkningsförändring uppdelat på komponent (län)
 # source(here("Skript","pendling_kommun.R"), encoding="UTF-8")
@@ -382,7 +421,7 @@ gg_sysselsattningsgrad_93 <- funktion_upprepa_forsok_om_fel( function() {
                                                           tid_koder = "*",
                                                           kon_klartext = c("kvinnor","män"),
                                                           output_mapp_figur = Output_mapp_figur)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Sysselsättningsgrad, kommun
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_arbetsmarknadsstatus_senastear.R", encoding="UTF-8")
@@ -396,7 +435,7 @@ gg_arbetsmarknadsstatus_kommun <- funktion_upprepa_forsok_om_fel( function() {
                                                                spara_figur = spara_diagram_som_bildfiler,
                                                                returnera_figur = TRUE,
                                                                returnera_data = TRUE)
-  })
+  }, hoppa_over = hoppa_over_forsok_igen)
 
 # Sysselsättningsgrad, län
 gg_arbetsmarknadsstatus_lan <- funktion_upprepa_forsok_om_fel( function() {
@@ -411,12 +450,12 @@ gg_arbetsmarknadsstatus_lan <- funktion_upprepa_forsok_om_fel( function() {
                                                             returnera_figur = TRUE,
                                                             returnera_data = TRUE,
                                                             data_namm = "arbetsmarknadsstatus_lan")
-  }) 
+  }, hoppa_over = hoppa_over_forsok_igen) 
 
 }) # slut system.time för att ladda data
 
 # 2. om man vill knitta rapporten
-source(paste0(here("Skript","/"), "2_knitta_rapport.R"))
+#source(paste0(here("Skript","/"), "2_knitta_rapport.R"))
 
 # 3. om man vill kopiera den till docs, för publicering på webben med Github Pages
 #source(paste0(here("Skript","/"), "3_kopiera_till_docs_for_publicera_pa_webben.R"))

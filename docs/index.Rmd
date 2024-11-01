@@ -420,48 +420,49 @@ Personer som pendlar till arbete är en komponent av arbetskraften som behöver 
 
 För att fördjupa förståelsen för utbudet av arbetskraft bör lokala arbetsmarknadsregioner inkluderas i analysen, utöver kommuner eller län som analysenhet. Lokala arbetsmarknadsregioner skapas utifrån pendlingsrelationer mellan kommuner.  
 
-Det som i första hand påverkar pendlingsmönster är närheten till större städer. Högst andel utpendlare i Sverige har Uppsala län, där närmare var fjärde boende som förvärvsarbetar gör det i ett annat län, Stockholm i stor utsträckning. Även Södermanland och Västmanland, som båda ligger relativt nära Stockholm, har stor utpendling. Hallands närhet till arbetsmarknaden i Göteborg med omnejd bidrar sannolikt till en utpendlingsandel på cirka 23 procent. Störst andel inpendlare har Kronobergs län. I Dalarna är andelen förvärvsarbetande som pendlar över länsgräns relativt liten.
+Det som i första hand påverkar pendlingsmönster är närheten till större städer. Högst andel utpendlare i Sverige har Uppsala län, där `r procent_till_text(utpendling_uppsala$andel)` boende som förvärvsarbetar gör det i ett annat län, Stockholm i stor utsträckning. Även Södermanland och Västmanland, som båda ligger relativt nära Stockholm, har stor utpendling. Hallands närhet till arbetsmarknaden i Göteborg med omnejd bidrar sannolikt till en utpendlingsandel på cirka `r round(utpendling_halland$andel)` procent. Störst andel inpendlare har `r inpendling_storst_lan$region`. I Dalarna är andelen förvärvsarbetande som pendlar över länsgräns relativt liten.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Gäller pendlare över länsgräns."
 
-# Skapar ett dataset som används för att skriva ut
-pendling_lan_df <- pendling_lan_df %>%
-  select(region,år,`Andel.inpendling`,`Andel.utpendling`) %>% 
-    pivot_longer(cols=3:4,names_to = "Typ_pendling") %>% 
-      mutate("Typ_pendling" = ifelse(Typ_pendling == "Andel.inpendling","Andel inpendling", "Andel utpendling"))
-
-diagramtitel <- paste0("Andel av förvärvsarbetande som pendlar över länsgräns år ",unique(pendling_lan_df$år))
-diagram_titel<-str_wrap(diagram_titel,50)
-diagramfilnamn <- paste0("pendling_lan.png")
-
-pendling_lan <- SkapaStapelDiagram(skickad_df =pendling_lan_df,
-                                   skickad_x_var = "region",
-                                   skickad_y_var = "value",
-                                   skickad_x_grupp = "Typ_pendling",
-                                   manual_x_axis_text_vjust=1,
-                                   manual_x_axis_text_hjust=1,
-                                   manual_color = diagramfarger("rus_sex"),
-                                   diagram_titel = diagramtitel,
-                                   diagram_capt =  diagram_capt,
-                                   stodlinjer_avrunda_fem = TRUE,
-                                   x_axis_sort_value = TRUE,
-                                   x_axis_sort_grp = 2,
-                                   vand_sortering = TRUE,
-                                   manual_y_axis_title="procent",
-                                   output_mapp = "",
-                                   filnamn_diagram = diagramfilnamn,
-                                   skriv_till_diagramfil = FALSE)
+# diagram_capt <- "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Gäller pendlare över länsgräns."
+# 
+# # Skapar ett dataset som används för att skriva ut
+# pendling_lan_df <- pendling_lan_df %>%
+#   select(region,år,`Andel.inpendling`,`Andel.utpendling`) %>% 
+#     pivot_longer(cols=3:4,names_to = "Typ_pendling") %>% 
+#       mutate("Typ_pendling" = ifelse(Typ_pendling == "Andel.inpendling","Andel inpendling", "Andel utpendling"))
+# 
+# diagramtitel <- paste0("Andel av förvärvsarbetande som pendlar över länsgräns år ",unique(pendling_lan_df$år))
+# diagram_titel<-str_wrap(diagram_titel,50)
+# diagramfilnamn <- paste0("pendling_lan.png")
+# 
+# pendling_lan <- SkapaStapelDiagram(skickad_df =pendling_lan_df,
+#                                    skickad_x_var = "region",
+#                                    skickad_y_var = "value",
+#                                    skickad_x_grupp = "Typ_pendling",
+#                                    manual_x_axis_text_vjust=1,
+#                                    manual_x_axis_text_hjust=1,
+#                                    manual_color = diagramfarger("rus_sex"),
+#                                    diagram_titel = diagramtitel,
+#                                    diagram_capt =  diagram_capt,
+#                                    stodlinjer_avrunda_fem = TRUE,
+#                                    x_axis_sort_value = TRUE,
+#                                    x_axis_sort_grp = 2,
+#                                    vand_sortering = TRUE,
+#                                    manual_y_axis_title="procent",
+#                                    output_mapp = "",
+#                                    filnamn_diagram = diagramfilnamn,
+#                                    skriv_till_diagramfil = FALSE)
 
 ```
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
-pendling_lan
+gg_pendling_lan$In_och_utpendling_procent
 ```
 
 <br>
-Att flera av kommunerna i Dalarna tillhör större arbetsmarknadsregioner blir tydligt i diagrammet nedan. Störst andel utpendling har `r andel_pendlare %>% filter(pendlingstyp == "Andel utpendling") %>% filter(andel == max(andel)) %>% .$region` där ungefär `r round(andel_pendlare %>% filter(pendlingstyp == "Andel utpendling") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av de boende som förvärvsarbetar gör det i en annan kommun, i stor utsträckning Borlänge. Även Gagnef (pendling till Borlänge), Smedjebacken (pendling till Ludvika) och Orsa (pendling till Mora) är kommuner där många pendlar till sitt arbete. Störst inpendling har `r andel_pendlare %>% filter(pendlingstyp == "Andel inpendling") %>% filter(andel == max(andel)) %>% .$region`, där ungefär `r round(andel_pendlare %>% filter(pendlingstyp == "Andel inpendling") %>% filter(andel == max(andel)) %>% .$andel,0)` procent av de förvärvsarbetande bor i en annan kommun. I norra Dalarna, med flera kommuner som till ytan är stora, exempelvis Malung-Sälen och Älvdalen, är situationen det omvända. Här bor och arbetar de allra flesta i samma kommun.
+Att flera av kommunerna i Dalarna tillhör större arbetsmarknadsregioner blir tydligt i diagrammet nedan. Störst andel utpendling har `r utpendling_storst_kommun$region` där `r procent_till_text(utpendling_storst_kommun$andel)` av de boende som förvärvsarbetar gör det i en annan kommun, i stor utsträckning Borlänge. Även Gagnef (pendling till Borlänge), Smedjebacken (pendling till Ludvika) och Orsa (pendling till Mora) är kommuner där många arbetspendlar till andra kommuner. Störst inpendling har `r inpendling_storst_kommun$region`, där `r round(inpendling_storst_kommun$andel)` procent av de förvärvsarbetande bor i en annan kommun. I norra Dalarna, med flera kommuner som till ytan är stora, exempelvis Malung-Sälen och Älvdalen, är situationen det omvända. Här bor och arbetar de allra flesta i samma kommun.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
