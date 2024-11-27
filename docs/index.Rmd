@@ -42,7 +42,7 @@ forvarvsarbetande_prognos <- read.xlsx("G:/skript/projekt/data/kompetensforsorjn
 #Skriptet som skapar nedanstående data finns på Mona: P1079gem/Jon/kompetensförsörjning/utbildningsniva_bransch_korrekt.R. OBS! Uppdateras inte när skriptet hämta data körs.
 #bransch_utb_alder_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/11_jul_23_utdata_forvarvsarbetande_bransch.xlsx")
 befolkning_flytt_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkningsforandring_20_64.xlsx")
-befolkning_utr_inr_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_utr_inr.xlsx")
+#befolkning_utr_inr_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_utr_inr.xlsx")
 pendling_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_lan.xlsx")
 #pendling_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_kommun.xlsx")
 #Skriptet som skapar nedanstående data finns på Mona: P1079gem/Jon/kompetensförsörjning/utbildningsniva_befolkning_bakgrund_korrekt.R. OBS! Uppdateras inte när skriptet hämta data körs.
