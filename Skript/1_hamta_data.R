@@ -452,6 +452,19 @@ gg_arbetsmarknadsstatus_lan <- funktion_upprepa_forsok_om_fel( function() {
                                                             data_namm = "arbetsmarknadsstatus_lan")
   }, hoppa_over = hoppa_over_forsok_igen) 
 
+
+source("https://raw.githubusercontent.com/Region-Dalarna/hamta_data/main/hamta_bef_region_alder_kon_fodelseregion_tid_InrUtrFoddaRegAlKon_scb.R")
+befolkning_utr_inr_df <- hamta_bef_region_alder_kon_fodelseregion_tid_scb(region_vekt = "20",
+                                                                          alder_koder = c(20:64) %>% as.character()) %>% 
+  group_by(år, regionkod, region, bakgrund = födelseregion) %>% 
+  summarise(antal = sum(Folkmängd, na.rm = TRUE), .groups = "drop") %>% 
+  mutate(aldersgrupp = "20-64 år",
+         bakgrund = ifelse(bakgrund == "Utrikes född", "Utrikes födda", "Inrikes födda"),
+         region = region %>% skapa_kortnamn_lan())
+
+
+
+
 }) # slut system.time för att ladda data
 
 # 2. om man vill knitta rapporten
