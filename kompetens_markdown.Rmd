@@ -203,7 +203,7 @@ gg_lediga_jobb$lediga_jobb_Dalarna_E1_2006_2025_kvartal2
 
 ## Jobbinflöden
 
-Efter nedgången på arbetsmarknaden i samband med finanskrisen 2008, då omsättningen på arbetsmarknaden i termer av jobbinflöde låg på drygt 14 procent, har utvecklingen varit i stort sett positiv fram till pandemin 2020. Då skedde en kraftig, men också tillfällig nedgång. 2021-2022 är jobbinflödesnivån tillbaka på den nivå som rådde 2018-2019, närmare 20 procent. 
+Efter nedgången på arbetsmarknaden i samband med finanskrisen 2008, då omsättningen på arbetsmarknaden i termer av jobbinflöde låg på drygt 14 procent, har utvecklingen varit i stort sett positiv fram till pandemin 2020. Då skedde en kraftig, men också tillfällig nedgång. `r jobbinflode_senaste_ar` var jobbinfödet `r jobbinflode_senaste_ar_varde` procent, vilket var något sämre än perioden innan. 
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}

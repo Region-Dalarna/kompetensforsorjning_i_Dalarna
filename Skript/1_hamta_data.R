@@ -84,6 +84,9 @@ gg_jobbinflode <- funktion_upprepa_forsok_om_fel( function() {
                                                  output_mapp_figur = Output_mapp_figur)
   }, hoppa_over = hoppa_over_forsok_igen)
 
+jobbinflode_senaste_ar <- max(jobbinflode_df$årsintervall)
+jobbinflode_senaste_ar_varde <- sum(jobbinflode_df %>% filter(årsintervall == jobbinflode_senaste_ar) %>% .$varde)
+
 # Arbetskraftsdeltagande - NY 7/10
 source(here("Skript","diagram_arbetskraftsdeltagande.R"), encoding="UTF-8")
 gg_arbetskraftsdeltagande <- funktion_upprepa_forsok_om_fel( function() {
