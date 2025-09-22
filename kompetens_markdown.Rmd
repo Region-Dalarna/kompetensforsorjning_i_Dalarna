@@ -124,40 +124,41 @@ gg_demo_forsorjning$`demografisk_forsorjningskvot_Riket och Dalarna`
 ```
 
 <br>
-I kombination med att försörjningskvoten ökar, minskar även befolkningen i arbetsför ålder över tid. Mellan 2002 och 2022 minskade antalet inrikes födda i arbetsför ålder med cirka 20 000 personer. Samtidigt har antalet utrikes födda ökat under samma period, men inte i lika stor omfattning, vilket leder till att befolkningen i arbetsför ålder som helhet krymper. 
+I kombination med att försörjningskvoten ökar, minskar även befolkningen i arbetsför ålder över tid. Mellan `r antal_utrikes_inrikes_min_ar` och `r antal_utrikes_inrikes_max_ar` minskade antalet inrikes födda i arbetsför ålder med `r utrikes_forandring_antal` personer. Samtidigt har antalet utrikes födda ökat under samma period, men inte i lika stor omfattning (`r inrikes_forandring_antal`), vilket leder till att befolkningen i arbetsför ålder som helhet krymper. 
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: Befolkningsregistret i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
-
-befolkning_utr_inr_df$bakgrund <- factor(befolkning_utr_inr_df$bakgrund, levels = c("Utrikes födda","Inrikes födda"))
-
-diagramtitel <- paste0("Befolkning i arbetsför ålder (20-64 år) i ",unique(befolkning_utr_inr_df$region))
-diagramfilnamn <- paste0("befolkning_utr_inr.png")
-
-bef_inr_utr <- SkapaStapelDiagram(skickad_df = befolkning_utr_inr_df, 
-                             skickad_x_var = "år", 
-                             skickad_y_var = "antal", 
-                             skickad_x_grupp = "bakgrund",
-                             manual_color = diagramfarger("rus_sex"),
-                             diagram_titel = diagramtitel,
-                             diagram_capt = diagram_capt,
-                             x_axis_lutning = 45,
-                             legend_vand_ordning = TRUE,
-                             diagram_liggande = FALSE,
-                             manual_x_axis_text_hjust = 1,
-                             manual_x_axis_text_vjust = 1,
-                             manual_y_axis_title = "",
-                             geom_position_stack = TRUE,
-                             stodlinjer_avrunda_fem = TRUE,
-                             berakna_index = FALSE,
-                             output_mapp = "",
-                             filnamn_diagram = diagramfilnamn,
-                             skriv_till_diagramfil = FALSE)
+# diagram_capt <- "Källa: Befolkningsregistret i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
+# 
+# befolkning_utr_inr_df$bakgrund <- factor(befolkning_utr_inr_df$bakgrund, levels = c("Utrikes födda","Inrikes födda"))
+# 
+# diagramtitel <- paste0("Befolkning i arbetsför ålder (20-64 år) i ",unique(befolkning_utr_inr_df$region))
+# diagramfilnamn <- paste0("befolkning_utr_inr.png")
+# 
+# bef_inr_utr <- SkapaStapelDiagram(skickad_df = befolkning_utr_inr_df, 
+#                              skickad_x_var = "år", 
+#                              skickad_y_var = "antal", 
+#                              skickad_x_grupp = "bakgrund",
+#                              manual_color = diagramfarger("rus_sex"),
+#                              diagram_titel = diagramtitel,
+#                              diagram_capt = diagram_capt,
+#                              x_axis_lutning = 45,
+#                              legend_vand_ordning = TRUE,
+#                              diagram_liggande = FALSE,
+#                              manual_x_axis_text_hjust = 1,
+#                              manual_x_axis_text_vjust = 1,
+#                              manual_y_axis_title = "",
+#                              geom_position_stack = TRUE,
+#                              stodlinjer_avrunda_fem = TRUE,
+#                              berakna_index = FALSE,
+#                              output_mapp = "",
+#                              filnamn_diagram = diagramfilnamn,
+#                              skriv_till_diagramfil = FALSE)
 ```
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
-bef_inr_utr
+#bef_inr_utr
+gg_antal_utrikes_inrikes$befolkning_utr_inr_antal_Dalarna
 ```
 
 <br>
