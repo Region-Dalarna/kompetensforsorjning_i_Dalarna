@@ -162,7 +162,7 @@ gg_antal_utrikes_inrikes$befolkning_utr_inr_antal_Dalarna
 ```
 
 <br>
-Befolkningsutvecklingen i Dalarna har varierat över tid med såväl uppgångar som nedgångar. Den senaste stora nedgången var i samband med den ekonomiska krisen runt millennieskiftet och en uppgång skedde i samband med flyktingkrisen 2016. 2023 observeras en tydlig nedgång i Dalarnas befolkning. För en mer ingående analys av befolkningsutvecklingen, se <a href="https://region-dalarna.github.io/befolkningsutvecklingen_i_Dalarna/" target="_blank">Befolkningsutvecklingen i Dalarna</a>.
+Befolkningsutvecklingen i Dalarna har varierat över tid med såväl uppgångar som nedgångar. Den senaste stora nedgången var i samband med den ekonomiska krisen runt millennieskiftet och en uppgång skedde i samband med flyktingkrisen 2016. Såväl 2023 som `r bef_forandring_max_ar` observerades tydliga nedgångar i Dalarnas befolkning. För en mer ingående analys av befolkningsutvecklingen, se <a href="https://region-dalarna.github.io/befolkningsutvecklingen_i_Dalarna/" target="_blank">Befolkningsutvecklingen i Dalarna</a>.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -192,7 +192,7 @@ I denna rapport får de regionala matchningsindikatorer som togs fram av Reglab 
 
 ## Lediga jobb
 
-Under andra kvartalet 2024 fanns det cirka 3 000 lediga jobb. Två tredjedelar av dessa fanns inom privat sektor. Efterfrågan inom offentlig sektor har ökat markant efter 2017, men är nu nere på samma nivå som innan 2017. 
+Under andra kvartalet `r lediga_jobb_senaste_ar` fanns det cirka `r antal_lediga_jobb` lediga jobb. Ungefär `r andel_privat_lediga_jobb` av dessa fanns inom privat sektor. Efterfrågan inom offentlig sektor minskade markant mellan 2023 och `r lediga_jobb_senaste_ar`, vilket sannolikt har att göra med att många aktörer inom offentlig sektor fått försämrad ekonomin och flera fall infört anställningsstopp.
 
 Över tid har antalet lediga jobb i länet ökat successivt sedan den lägsta noteringen i efterdyningarna av finanskrisen 2008. Privat sektor står för den högsta andelen av efterfrågan, med undantag för några enstaka observationstillfällen.
 

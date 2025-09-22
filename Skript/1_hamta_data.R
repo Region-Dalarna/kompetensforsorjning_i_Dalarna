@@ -29,11 +29,13 @@ gg_demo_forsorjning <- funktion_upprepa_forsok_om_fel( function() {
 
 # Antal utrikes/inrikes födda i arbetsför ålder (20-64 år)
 source("https://raw.githubusercontent.com/Region-Dalarna/integrationen_i_dalarna/refs/heads/master/skript/andel_utrikes_inrikes_tidsserie.R")
-gg_antal_utrikes_inrikes <- diag_bef_inr_utr_tid(output_mapp = "Output_mapp_figur",
+gg_antal_utrikes_inrikes <- funktion_upprepa_forsok_om_fel( function() {
+  diag_bef_inr_utr_tid(output_mapp = "Output_mapp_figur",
                                                  diag_andel = FALSE, # Andel inrikes/utrikes födda i arbetsför ålder
                                                  diag_antal = TRUE, # Antal "-"
-                                                 skriv_diagrambildfil = FALSE,
+                                                 skriv_diagrambildfil = spara_diagram_som_bildfiler,
                                                  returnera_data_rmarkdown= TRUE)
+}, hoppa_over = hoppa_over_forsok_igen)
 
 antal_utrikes_inrikes_min_ar <- min(antal_utrikes_inrikes_bakgr_df$år)
 antal_utrikes_inrikes_max_ar <- max(antal_utrikes_inrikes_bakgr_df$år)
@@ -52,6 +54,8 @@ gg_befolkning <- funktion_upprepa_forsok_om_fel( function() {
                                                  output_mapp_figur = Output_mapp_figur)
   }, hoppa_over = hoppa_over_forsok_igen)
 
+bef_forandring_max_ar <- max(befolkning_df$år)
+
 # Lediga jobb E1 - NY 7/10
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_lediga_jobb_E1.R")
 gg_lediga_jobb <- funktion_upprepa_forsok_om_fel( function() {
@@ -65,6 +69,10 @@ gg_lediga_jobb <- funktion_upprepa_forsok_om_fel( function() {
                                                    tid_koder = "*",
                                                    output_mapp_figur = Output_mapp_figur)
   }, hoppa_over = hoppa_over_forsok_igen)
+
+lediga_jobb_senaste_ar <- max(lediga_jobb_E1_df$ar)
+antal_lediga_jobb <- sum(lediga_jobb_E1_df %>% filter(ar==max(ar)) %>% .$`Lediga jobb`) 
+andel_privat_lediga_jobb <- round((lediga_jobb_E1_df %>% filter(ar==max(ar),sektor == "privat sektor") %>% .$`Lediga jobb`/antal_lediga_jobb)*100,0)
 
 # Jobbinflöde - NY 7/10
 source(here("Skript","jobbinflode_procent_region_ny.R"), encoding="UTF-8")
