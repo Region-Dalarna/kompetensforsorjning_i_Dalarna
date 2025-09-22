@@ -192,13 +192,13 @@ I denna rapport får de regionala matchningsindikatorer som togs fram av Reglab 
 
 ## Lediga jobb
 
-Under andra kvartalet `r lediga_jobb_senaste_ar` fanns det cirka `r antal_lediga_jobb` lediga jobb. Ungefär `r andel_privat_lediga_jobb` av dessa fanns inom privat sektor. Efterfrågan inom offentlig sektor minskade markant mellan 2023 och `r lediga_jobb_senaste_ar`, vilket sannolikt har att göra med att många aktörer inom offentlig sektor fått försämrad ekonomin och flera fall infört anställningsstopp.
+Under andra kvartalet `r lediga_jobb_senaste_ar` fanns det cirka `r antal_lediga_jobb` lediga jobb. Ungefär `r andel_privat_lediga_jobb` av dessa fanns inom privat sektor. Efterfrågan inom offentlig sektor har minskat markant på senare år, vilket sannolikt har att göra med att många aktörer inom offentlig sektor har fått försämrad ekonomin och i flera fall infört anställningsstopp.
 
 Över tid har antalet lediga jobb i länet ökat successivt sedan den lägsta noteringen i efterdyningarna av finanskrisen 2008. Privat sektor står för den högsta andelen av efterfrågan, med undantag för några enstaka observationstillfällen.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
-gg_lediga_jobb$lediga_jobb_Dalarna_E1
+gg_lediga_jobb$lediga_jobb_Dalarna_E1_2006_2025_kvartal2
 ```
 
 ## Jobbinflöden
