@@ -168,6 +168,31 @@ arbetskraftsdeltagande_senaste_ar <- max(arbetskraftsdeltagande_df$år)
 arbetskraftsdeltagande_senaste_ar_man <- round(arbetskraftsdeltagande_df %>% filter(kön=="män",år==max(år)) %>% .$arbetskraftsdeltagande,0)
 arbetskraftsdeltagande_senaste_ar_kvinna <- round(arbetskraftsdeltagande_df %>% filter(kön=="kvinnor",år==max(år)) %>% .$arbetskraftsdeltagande,0)
 
+# Förvärvsarbetande senaste observation (uppdelat på kön) 
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_andel_forvarvsarbetande_bransch.R")
+gg_forv_senastear <- funktion_upprepa_forsok_om_fel( function() {
+  diag_sysselsatta_andel(region_vekt = c("20"),
+                         output_mapp_figur = Output_mapp_figur,
+                         returnera_data = TRUE,
+                         spara_figur = spara_diagram_som_bildfiler,
+                         returnera_figur = TRUE,
+                         diag_lan = FALSE,
+                         diag_kommun = FALSE,
+                         diag_lan_antal = TRUE)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+bransch_flest_anstallda<- antal_forvarvsarbetande_bransch %>%
+  summarise(Antal = sum(Antal, na.rm = TRUE), .by = c(år, bransch)) %>%
+  slice_max(Antal, n = 1, by = år, with_ties = TRUE)
+
+antal_anstallda_tillverkning <- format(plyr::round_any(antal_forvarvsarbetande_bransch %>%
+  summarise(Antal = sum(Antal, na.rm = TRUE), .by = c(år, bransch)) %>% 
+    filter(bransch == "Tillverkning och utvinning") %>% pull(Antal),1000),big.mark = " ")
+
+antal_anstallda_utbildning <- format(plyr::round_any(antal_forvarvsarbetande_bransch %>%
+  summarise(Antal = sum(Antal, na.rm = TRUE), .by = c(år, bransch)) %>% 
+    filter(bransch == "Utbildning") %>% pull(Antal),1000),big.mark = " ")
+
 # Förvärvsarbetande från 1990 till senaste år. Både antal och förändring (från första till sista)
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_forvarvsarbetande_90_senastear_SCB.R")
 gg_forv_90 <- funktion_upprepa_forsok_om_fel( function() {
@@ -179,6 +204,8 @@ gg_forv_90 <- funktion_upprepa_forsok_om_fel( function() {
                                            returnera_data = TRUE,
                                            vald_farg = diagramfarger("rus_sex"))
   }, hoppa_over = hoppa_over_forsok_igen)
+
+bransch_forandring_antal_foretagstjanster <- round((forvarvsarbetande_90_forandring %>% filter(år == max(år),Näringsgren == "Företagstjänster, finans mm") %>% pull(antal)/forvarvsarbetande_90_forandring %>% filter(år == 1990,Näringsgren == "Företagstjänster, finans mm") %>% pull(antal)-1)*100,0)
 
 # Utbildningsnivå från 85 och framåt uppdelat på kön. Data hämtas i detta fall från GGplot-objektet (när data används i markdown) FEL
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_flera_diagram_scb.R")
@@ -265,18 +292,7 @@ gg_antagna_yh <- funktion_upprepa_forsok_om_fel( function() {
 # hamta_data_arbetsloshet(output_mapp = Output_mapp,
 #                         spara_data = TRUE)
 
-# Förvärvsarbetande senaste observation (uppdelat på kön) 
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_andel_forvarvsarbetande_bransch.R")
-gg_forv_senastear <- funktion_upprepa_forsok_om_fel( function() {
-  diag_sysselsatta_andel(region_vekt = c("20"),
-                                            output_mapp_figur = Output_mapp_figur,
-                                            returnera_data = TRUE,
-                                            spara_figur = spara_diagram_som_bildfiler,
-                                            returnera_figur = TRUE,
-                                            diag_lan = FALSE,
-                                            diag_kommun = FALSE,
-                                            diag_lan_antal = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+
 
 # source(here("Skript","diagram_forvarvsarbetande_90_senastear_SCB.R"), encoding="UTF-8")
 # gg_forv_forandring <- diagram_data_forvarvsarbetande_90(output_mapp_figur = Output_mapp_figur,
