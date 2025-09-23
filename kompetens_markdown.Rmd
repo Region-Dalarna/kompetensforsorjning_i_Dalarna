@@ -31,7 +31,7 @@ p_load(here,
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R", encoding = "utf-8", echo = FALSE)
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R", encoding = "utf-8", echo = FALSE)
 
-befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_prognos.xlsx")
+#befolkning_forandring_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_prognos.xlsx")
 #sysselsatta_90_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_90.xlsx")
 #utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_85.xlsx")
 #utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
@@ -360,55 +360,56 @@ gg_bef_for$befolkningsforandring_20_64
 ```
 
 <br>
-Om den arbetsföra befolkningen delas upp i inrikes respektive utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat i antal de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna har antalet inrikes födda invånare i arbetsför ålder minskat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till cirka `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == min(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` personer år `r min(befolkning_utr_inr_df$år)` till cirka `r format(plyr::round_any(befolkning_utr_inr_df %>% filter(år == max(år),bakgrund == "Utrikes födda") %>% .$antal,1000),big.mark = " ")` år  `r max(befolkning_utr_inr_df$år)`.
+Om den arbetsföra befolkningen delas upp i inrikes respektive utrikes födda, framträder en mer nyanserad bild än den i föregående diagram. Tydligt är att Dalarnas arbetsföra befolkning minskat i antal de senaste decennierna och att detta drivs av att den inrikes födda delen av befolkningen minskar. I Dalarna har antalet inrikes födda invånare i arbetsför ålder minskat från ungefär `r inrikes_antal_min_ar` personer år `r antal_utrikes_inrikes_min_ar` till cirka `r inrikes_antal_max_ar` år  `r antal_utrikes_inrikes_max_ar`. Samtidigt har en relativt stor invandring medfört att utrikes födda invånare i arbetsför ålder har ökat från ungefär `r utrikes_antal_min_ar` personer år `r antal_utrikes_inrikes_min_ar` till cirka `r utrikes_antal_max_ar` år  `r antal_utrikes_inrikes_max_ar`.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
-bef_inr_utr
+gg_antal_utrikes_inrikes$befolkning_utr_inr_antal_Dalarna
 ```
 
 <br>
 I figuren nedan blir det tydligt att de unga (0-19 år) och de i arbetsför ålder (20-64 år) har minskat sedan slutet på 1960-talet, medan de äldre (65-79 år och 80+ år) har ökat kraftigt under samma tidsperiod, en utveckling som dessutom prognostiseras fortsätta i framtiden.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE,include=FALSE}
-
-diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2032 är prognos, övriga historisk data."
- # Det första datasettet - innehåller åldersgrupper men inte totalt för alla
- 
-# Summerar på år och aldersgrupper
- befolkning_forandring_df_sum <- befolkning_forandring_df %>%
-   group_by(år,aldersgrupper) %>%
-    summarize(`Folkmängd`=sum(`Folkmängd`))
-
- # Använder en faktorvariabel för att styra ordningen på åldersgrupper
- befolkning_forandring_df_sum$aldersgrupper <- factor(befolkning_forandring_df_sum$aldersgrupper, levels = c("totalt","0-19 år","20-64 år","65-79 år","80+ år"))
- 
-   diagram_titel <- "Dalarnas befolkning uppdelat på åldersgrupper"
-   diagram_typ <- "befolkning_forandring"
-   diagramfil <- "befolkning_forandring.png"
-
-   befolkning_for <- SkapaStapelDiagram(skickad_df = befolkning_forandring_df_sum %>%
-                                          filter(aldersgrupper!="totalt"),
-                                        skickad_x_var = "aldersgrupper",
-                                        skickad_y_var = "Folkmängd",
-                                        skickad_x_grupp = "år",
-                                        manual_x_axis_text_vjust=0.7,
-                                        manual_x_axis_text_hjust=0.3,
-                                        manual_color = diagramfarger("rus_sex"),
-                                        x_axis_lutning = 0,
-                                        diagram_titel = diagram_titel,
-                                        diagram_capt = diagram_capt,
-                                        manual_x_axis_title = "Åldersgrupper",
-                                        stodlinjer_avrunda_fem = TRUE,
-                                        output_mapp = "",
-                                        filnamn_diagram = diagramfil,
-                                        skriv_till_diagramfil = FALSE)
+# 
+# diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: 2032 är prognos, övriga historisk data."
+#  # Det första datasettet - innehåller åldersgrupper men inte totalt för alla
+#  
+# # Summerar på år och aldersgrupper
+#  befolkning_forandring_df_sum <- befolkning_forandring_df %>%
+#    group_by(år,aldersgrupper) %>%
+#     summarize(`Folkmängd`=sum(`Folkmängd`))
+# 
+#  # Använder en faktorvariabel för att styra ordningen på åldersgrupper
+#  befolkning_forandring_df_sum$aldersgrupper <- factor(befolkning_forandring_df_sum$aldersgrupper, levels = c("totalt","0-19 år","20-64 år","65-79 år","80+ år"))
+#  
+#    diagram_titel <- "Dalarnas befolkning uppdelat på åldersgrupper"
+#    diagram_typ <- "befolkning_forandring"
+#    diagramfil <- "befolkning_forandring.png"
+# 
+#    befolkning_for <- SkapaStapelDiagram(skickad_df = befolkning_forandring_df_sum %>%
+#                                           filter(aldersgrupper!="totalt"),
+#                                         skickad_x_var = "aldersgrupper",
+#                                         skickad_y_var = "Folkmängd",
+#                                         skickad_x_grupp = "år",
+#                                         manual_x_axis_text_vjust=0.7,
+#                                         manual_x_axis_text_hjust=0.3,
+#                                         manual_color = diagramfarger("rus_sex"),
+#                                         x_axis_lutning = 0,
+#                                         diagram_titel = diagram_titel,
+#                                         diagram_capt = diagram_capt,
+#                                         manual_x_axis_title = "Åldersgrupper",
+#                                         stodlinjer_avrunda_fem = TRUE,
+#                                         output_mapp = "",
+#                                         filnamn_diagram = diagramfil,
+#                                         skriv_till_diagramfil = FALSE)
 
 ```
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
-befolkning_for
+gg_bef_for_alder$befolkning_forandring_prognos_Dalarna
+#befolkning_for
 ```
 
 ## Pendlare

@@ -50,6 +50,13 @@ antal_utrikes_inrikes_max_ar <- max(antal_utrikes_inrikes_bakgr_df$år)
 inrikes_forandring_antal <- format(abs(antal_utrikes_inrikes_bakgr_df %>% filter(år==max(år),födelseregion == "Inrikes född") %>% .$Antal - antal_utrikes_inrikes_bakgr_df %>% filter(år==min(år),födelseregion == "Inrikes född") %>% .$Antal),big.mark = " ")
 utrikes_forandring_antal <- format(abs(antal_utrikes_inrikes_bakgr_df %>% filter(år==max(år),födelseregion == "Utrikes född") %>% .$Antal - antal_utrikes_inrikes_bakgr_df %>% filter(år==min(år),födelseregion == "Utrikes född") %>% .$Antal),big.mark = " ")
 
+# Nedan är parametrar som hör till diagram under avsnitt 2.3
+inrikes_antal_min_ar <- format(plyr::round_any(antal_utrikes_inrikes_bakgr_df %>% filter(år==min(år),födelseregion == "Inrikes född") %>% .$Antal,1000),big.mark = " ")
+inrikes_antal_max_ar <- format(plyr::round_any(antal_utrikes_inrikes_bakgr_df %>% filter(år==max(år),födelseregion == "Inrikes född") %>% .$Antal,1000),big.mark = " ")
+
+utrikes_antal_min_ar <- format(plyr::round_any(antal_utrikes_inrikes_bakgr_df %>% filter(år==min(år),födelseregion == "Utrikes född") %>% .$Antal,1000),big.mark = " ")
+utrikes_antal_max_ar <- format(plyr::round_any(antal_utrikes_inrikes_bakgr_df %>% filter(år==max(år),födelseregion == "Utrikes född") %>% .$Antal,1000),big.mark = " ")
+
 # # Diagram  befolkningsförändring
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_befolkningsforandring_region_kon_ar_SCB.R", encoding="UTF-8")
 gg_befolkning <- funktion_upprepa_forsok_om_fel( function() {
@@ -207,6 +214,29 @@ gg_forv_90 <- funktion_upprepa_forsok_om_fel( function() {
 
 bransch_forandring_antal_foretagstjanster <- round((forvarvsarbetande_90_forandring %>% filter(år == max(år),Näringsgren == "Företagstjänster, finans mm") %>% pull(antal)/forvarvsarbetande_90_forandring %>% filter(år == 1990,Näringsgren == "Företagstjänster, finans mm") %>% pull(antal)-1)*100,0)
 
+# Befolkningsförändring uppdelat på komponent (län)
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_befolkningsforandring.R", encoding="UTF-8")
+gg_bef_for <- funktion_upprepa_forsok_om_fel( function() {
+  diagram_befolkningsforandring(output_mapp_figur = Output_mapp_figur,
+                                spara_figur = spara_diagram_som_bildfiler,
+                                returnera_figur = TRUE,
+                                returnera_data = TRUE)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+# # Befolkningsförändring uppdelat på komponent (län)
+# source(here("Skript","befolkning_utr_inr.R"), encoding="UTF-8")
+# hamta_data_bef_utr(spara_data = TRUE,
+#                    output_mapp = Output_mapp)
+
+# Befolkningsförändring uppdelat på åldersgrupper inklusive prognos
+source(here("Skript","diagram_befolkningsgrupper_prognos.R"), encoding="UTF-8")
+gg_bef_for_alder <- funktion_upprepa_forsok_om_fel( function() {
+  diag_befolkning_aldersgrupper_prognos(output_mapp_figur = Output_mapp_figur,
+                                        spara_figur = spara_diagram_som_bildfiler,
+                                        returnera_data = TRUE)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+
 # Utbildningsnivå från 85 och framåt uppdelat på kön. Data hämtas i detta fall från GGplot-objektet (när data används i markdown) FEL
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_flera_diagram_scb.R")
 gg_utbniva_85 <- funktion_upprepa_forsok_om_fel( function() {
@@ -343,21 +373,6 @@ bransch_aldst_antal <- bransch_alder %>%
   summarise(antal = sum(antal, na.rm = TRUE), .groups = "drop") %>% 
   arrange(desc(antal)) %>% 
   filter(antal == max(antal)) 
-
-
-# Befolkningsförändring uppdelat på komponent (län)
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_befolkningsforandring.R", encoding="UTF-8")
-gg_bef_for <- funktion_upprepa_forsok_om_fel( function() {
-  diagram_befolkningsforandring(output_mapp_figur = Output_mapp_figur,
-                                            spara_figur = spara_diagram_som_bildfiler,
-                                            returnera_figur = TRUE,
-                                            returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
-
-# # Befolkningsförändring uppdelat på komponent (län)
-# source(here("Skript","befolkning_utr_inr.R"), encoding="UTF-8")
-# hamta_data_bef_utr(spara_data = TRUE,
-#                    output_mapp = Output_mapp)
 
 # Pendling
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_pendling_over_kommungrans.R", encoding="UTF-8")

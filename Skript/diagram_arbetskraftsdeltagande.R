@@ -15,8 +15,6 @@ diagram_arbetskraftsdeltagande_tid_region <- function(region_vekt = c("20"),			#
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_text.R", encoding = "utf-8")
   
   diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarnan\nDiagramförklaring: Andel av befolkningen 20-64 år som antingen är förvärvsarbetande eller inskrivna på arbetsförmedlingen "
-  output_mapp <- "G:/Samhällsanalys/API/Fran_R/Utskrift/"
-  visa_dataetiketter <- FALSE
   gg_list <- list()
   
   arbetskraftsdeltagande_df <- hamta_arbetskraftsdeltagande_region_utbildngrupp_kon_tid_scb(
