@@ -111,6 +111,39 @@ hogskola_yrken_lan_hogst_varde <- round(kvalifikationskrav_jmf %>% filter(kompet
 hogskola_yrken_lan_lagst <- skapa_kortnamn_lan(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$region)
 hogskola_yrken_lan_lagst_varde <- round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)
 
+# Utbildningsnivå och ålder för län och bransch. Andel och antal - NMS: UPPDATATERAS FÖR HAND. EJ GJORT 2025-09-23
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_bransch_utb_alder_NMS.R", encoding="UTF-8")
+gg_bransch_utb_alder <- funktion_upprepa_forsok_om_fel( function() {
+  diag_bransch_utb_alder(output_mapp_figur = Output_mapp_figur,
+                         spara_figur = spara_diagram_som_bildfiler,
+                         returnera_figur = TRUE,
+                         returnera_data = TRUE,
+                         andel = TRUE)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+gg_bransch_utb_alder_antal <- funktion_upprepa_forsok_om_fel( function() {
+  diag_bransch_utb_alder(output_mapp_figur = Output_mapp_figur,
+                         spara_figur = spara_diagram_som_bildfiler,
+                         returnera_figur = TRUE,
+                         returnera_data = TRUE,
+                         andel = FALSE)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+unga_andel_bransch_hogst <- bransch_alder %>% filter(alder == "16-19 år",bransch != "Okänt") %>%filter(andel == max(.$andel)) %>% .$bransch
+unga_andel_bransch_hogst_varde <-round(bransch_alder %>% filter(alder == "16-19 år") %>%filter(andel == max(.$andel)) %>% .$andel,0)
+  
+# skapa df med bransch som har högst andel personer i åldersgruppen 60-74 år
+bransch_aldst_andel <- bransch_alder %>%
+  filter(alder %in% c("60-64 år","65-69 år","70-74 år")) %>%
+  summarise(andel = sum(andel, na.rm = TRUE), .by = c(ar, lan, bransch)) %>%
+  slice_max(andel, n = 1, by = c(ar, lan), with_ties = TRUE)
+
+# skapa df med bransch som har högst antal personer i åldersgruppen 60-74 år
+bransch_aldst_antal <- bransch_alder %>%
+  filter(alder %in% c("60-64 år","65-69 år","70-74 år")) %>%
+  summarise(antal = sum(antal, na.rm = TRUE), .by = c(ar, lan, bransch)) %>%
+  slice_max(antal, n = 1, by = c(ar, lan), with_ties = TRUE)
+
 
 # Arbetskraftsdeltagande - NY 7/10
 source(here("Skript","diagram_arbetskraftsdeltagande.R"), encoding="UTF-8")

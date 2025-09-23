@@ -246,7 +246,7 @@ gg_kvalifikation$`kvalifikationskrav_bransch_Dalarnas län`
 
 ## Åldersstruktur
 
-`r bransch_alder %>% filter(alder == "16-19 år",bransch != "Okänt") %>%filter(andel == max(.$andel)) %>% .$bransch` är den bransch där den klart största andelen yngre arbetar, `r round(bransch_alder %>% filter(alder == "16-19 år") %>%filter(andel == max(.$andel)) %>% .$andel,0)` procent av de förvärvsarbetande är mellan 16 och 19 år gamla. Även inom kultur, fritid och nöje är många av de förvärvsarbetande unga, vilket är ett kvitto på att många unga tar sitt första steg in på arbetsmarknaden inom dessa branscher. 
+`r unga_andel_bransch_hogst` är den bransch där den klart största andelen yngre arbetar, `r unga_andel_bransch_hogst_varde` procent av de förvärvsarbetande är mellan 16 och 19 år gamla. Även inom kultur, fritid och nöje är många av de förvärvsarbetande unga, vilket är ett kvitto på att många unga tar sitt första steg in på arbetsmarknaden inom dessa branscher. 
 
 Det omvända gäller för `r tolower(bransch_aldst_andel$bransch)` där cirka `r round(bransch_aldst_andel$andel,0)` procent av de förvärvsarbetande är äldre än 60 år. Detta kan delvis förklaras med att alla som äger en skogsfastighet räknas som förvärvsarbetande och många av dessa tenderar att vara äldre.
 
