@@ -236,6 +236,57 @@ gg_bef_for_alder <- funktion_upprepa_forsok_om_fel( function() {
                                         returnera_data = TRUE)
 }, hoppa_over = hoppa_over_forsok_igen)
 
+# Pendling
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_pendling_over_kommungrans.R", encoding="UTF-8")
+gg_pendling_kommun <- funktion_upprepa_forsok_om_fel( function() {
+  diag_pendling_over_kommungrans(output_mapp_figur = Output_mapp_figur,
+                                 enbart_in_ut = TRUE,
+                                 diagramfarg_vektor = diagramfarger("rus_sex"),
+                                 diag_absoluta_tal = FALSE,
+                                 skapa_fil = spara_diagram_som_bildfiler,
+                                 returnera_figur = TRUE,
+                                 returnera_data = TRUE)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+utpendling_storst_kommun <- andel_pendlare_kommun_df %>% 
+  filter(variabel == "Andel utpendling") %>% 
+  arrange(desc(andel)) %>%
+  slice(1)
+
+inpendling_storst_kommun <- andel_pendlare_kommun_df %>% 
+  filter(variabel == "Andel inpendling") %>% 
+  arrange(desc(andel)) %>%
+  slice(1)
+
+
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_pendling_over_lans_fa_grans.R")
+gg_pendling_lan <- funktion_upprepa_forsok_om_fel( function() {
+  diag_pendling_over_lans_fa_grans(output_mapp_figur = Output_mapp_figur,
+                                   enbart_in_ut = TRUE,
+                                   diag_absoluta_tal = FALSE,
+                                   diagramfarg_vektor = diagramfarger("rus_sex"),
+                                   skapa_fil = spara_diagram_som_bildfiler,
+                                   returnera_figur = TRUE,
+                                   returnera_data = TRUE)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+# utpendling_uppsala <- andel_pendlare_lan_df %>% 
+#   filter(regionkod == "03",
+#          variabel == "Andel utpendling")
+
+utpendling_halland <- andel_pendlare_lan_df %>% 
+  filter(regionkod == "13",
+         variabel == "Andel utpendling")
+
+inpendling_storst_lan <- andel_pendlare_lan_df %>% 
+  filter(variabel == "Andel inpendling") %>% 
+  arrange(desc(andel)) %>%
+  slice(1)
+
+utpendling_storst_lan <- andel_pendlare_lan_df %>% 
+  filter(variabel == "Andel utpendling") %>% 
+  arrange(desc(andel)) %>%
+  slice(1)
 
 # Utbildningsnivå från 85 och framåt uppdelat på kön. Data hämtas i detta fall från GGplot-objektet (när data används i markdown) FEL
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_flera_diagram_scb.R")
@@ -373,54 +424,6 @@ bransch_aldst_antal <- bransch_alder %>%
   summarise(antal = sum(antal, na.rm = TRUE), .groups = "drop") %>% 
   arrange(desc(antal)) %>% 
   filter(antal == max(antal)) 
-
-# Pendling
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_pendling_over_kommungrans.R", encoding="UTF-8")
-gg_pendling_kommun <- funktion_upprepa_forsok_om_fel( function() {
-  diag_pendling_over_kommungrans(output_mapp_figur = Output_mapp_figur,
-                                                     enbart_in_ut = TRUE,
-                                                     diagramfarg_vektor = diagramfarger("rus_sex"),
-                                                     diag_absoluta_tal = FALSE,
-                                                     skapa_fil = spara_diagram_som_bildfiler,
-                                                     returnera_figur = TRUE,
-                                                     returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
-
-utpendling_storst_kommun <- andel_pendlare_kommun_df %>% 
-  filter(variabel == "Andel utpendling") %>% 
-  arrange(desc(andel)) %>%
-  slice(1)
-
-inpendling_storst_kommun <- andel_pendlare_kommun_df %>% 
-  filter(variabel == "Andel inpendling") %>% 
-  arrange(desc(andel)) %>%
-  slice(1)
-
-
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_pendling_over_lans_fa_grans.R")
-gg_pendling_lan <- funktion_upprepa_forsok_om_fel( function() {
-  diag_pendling_over_lans_fa_grans(output_mapp_figur = Output_mapp_figur,
-                                                  enbart_in_ut = TRUE,
-                                                  diag_absoluta_tal = FALSE,
-                                                  diagramfarg_vektor = diagramfarger("rus_sex"),
-                                                  skapa_fil = spara_diagram_som_bildfiler,
-                                                  returnera_figur = TRUE,
-                                                  returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
-
-utpendling_uppsala <- andel_pendlare_lan_df %>% 
-  filter(regionkod == "03",
-         variabel == "Andel utpendling")
-
-utpendling_halland <- andel_pendlare_lan_df %>% 
-  filter(regionkod == "13",
-         variabel == "Andel utpendling")
-
-inpendling_storst_lan <- andel_pendlare_lan_df %>% 
-  filter(variabel == "Andel inpendling") %>% 
-  arrange(desc(andel)) %>%
-  slice(1)
-  
 
 # Utbildningsnivå (bakgrund och åldersgrupper)
 #source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_utb_bakgr_alder_NMS.R", encoding="UTF-8")
