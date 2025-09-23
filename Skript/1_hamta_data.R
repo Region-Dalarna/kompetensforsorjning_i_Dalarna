@@ -87,6 +87,31 @@ gg_jobbinflode <- funktion_upprepa_forsok_om_fel( function() {
 jobbinflode_senaste_ar <- max(jobbinflode_df$årsintervall)
 jobbinflode_senaste_ar_varde <- sum(jobbinflode_df %>% filter(årsintervall == jobbinflode_senaste_ar) %>% .$varde)
 
+# Kompetensnivå för län och bransch
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_kvalifikationskrav_SCB.R", encoding="UTF-8")
+gg_kvalifikation <- funktion_upprepa_forsok_om_fel( function() {
+  diagram_kvalifikationskrav(output_mapp_figur = Output_mapp_figur,
+                             spara_figur = spara_diagram_som_bildfiler,
+                             returnera_figur = TRUE,
+                             returnera_data = TRUE)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+enkla_yrken_lan_hogst <- skapa_kortnamn_lan(kvalifikationskrav_jmf %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$region)
+enkla_yrken_lan_hogst_andel <- round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)
+
+gymnasie_yrken_lan_hogst <- skapa_kortnamn_lan(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$region)
+gymnasie_yrken_lan_hogst_varde <- round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)
+
+gymnasie_yrken_lan_lagst <- skapa_kortnamn_lan(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$region)
+gymnasie_yrken_lan_lagst_varde <- round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande gymnasial kompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)
+
+hogskola_yrken_lan_hogst <- skapa_kortnamn_lan(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$region)
+hogskola_yrken_lan_hogst_varde <- round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)
+
+hogskola_yrken_lan_lagst <- skapa_kortnamn_lan(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$region)
+hogskola_yrken_lan_lagst_varde <- round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)
+
+
 # Arbetskraftsdeltagande - NY 7/10
 source(here("Skript","diagram_arbetskraftsdeltagande.R"), encoding="UTF-8")
 gg_arbetskraftsdeltagande <- funktion_upprepa_forsok_om_fel( function() {
@@ -223,14 +248,7 @@ gg_forv_senastear <- funktion_upprepa_forsok_om_fel( function() {
 # TP_Prognos_bransch(spara_data = TRUE,
 #                    output_mapp = Output_mapp)
 
-# Kompetensnivå för län och bransch
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_kvalifikationskrav_SCB.R", encoding="UTF-8")
-gg_kvalifikation <- funktion_upprepa_forsok_om_fel( function() {
-  diagram_kvalifikationskrav(output_mapp_figur = Output_mapp_figur,
-                                               spara_figur = spara_diagram_som_bildfiler,
-                                               returnera_figur = TRUE,
-                                               returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+
 
 # Utbildningsnivå och ålder för län och bransch. Andel och antal
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_bransch_utb_alder_NMS.R", encoding="UTF-8")
