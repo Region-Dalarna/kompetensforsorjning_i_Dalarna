@@ -462,11 +462,11 @@ gg_lagutbildade_alder[[names(gg_lagutbildade_alder)]]
 ```
 
 <br>
-I jämförelse med andra län är utbildningsnivån i Dalarna relativt låg, men också med en relativt stor spridning mellan kvinnor och män. År `r max(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data$år)` hade Dalarna näst lägst andel med eftergymnasialt utbildade bland Sveriges län. Ungefär `r round(gg_utbniva_senastear$hogutb_andel_ar_2023$data %>% filter(kön == "kvinnor",region == "Dalarna") %>% .$total,0)` procent av kvinnorna och `r round(gg_utbniva_senastear$hogutb_andel_ar_2023$data %>% filter(kön == "män",region == "Dalarna") %>% .$total,0)` procent av männen i Dalarna har en eftergymnasial utbildning om minst 3 år. Det kan jämföras med `r round(gg_utbniva_senastear$hogutb_andel_ar_2023$data %>% filter(kön == "kvinnor",region == "Stockholm") %>% .$total,0)` procent för kvinnor respektive `r round(gg_utbniva_senastear$hogutb_andel_ar_2023$data %>% filter(kön == "män",region == "Stockholm") %>% .$total,0)` procent för män i Stockholm, det län som har högst utbildningsnivå i Sverige.
+I jämförelse med andra län är utbildningsnivån i Dalarna relativt låg, men också med en relativt stor spridning mellan kvinnor och män. År `r andel_hogutb_sista_ar` hade Dalarna tredje lägst andel med eftergymnasialt utbildade bland Sveriges län. Ungefär `r andel_hogutb_kvinnor_senaste_ar` procent av kvinnorna och `r andel_hogutb_man_senaste_ar` procent av männen i Dalarna har en eftergymnasial utbildning om minst 3 år. Det kan jämföras med `r andel_hogutb_kvinnor_senaste_ar_Stockholm` procent för kvinnor respektive `r andel_hogutb_man_senaste_ar_Stockholm` procent för män i Stockholm, det län som har högst utbildningsnivå i Sverige.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
-gg_utbniva_senastear$hogutb_andel_ar_2023
+gg_utbniva_senastear[[names(gg_utbniva_senastear)]]
 ```
 
 <br>
@@ -508,7 +508,7 @@ Den sista varianten av utbildning är **arbetsmarknadsutbildning** som oftast sk
 
 ## Gymnasiet
 
-Vid antagningen hösten `r max(gymnasieantagning_df$ar)` antogs flest unga i Dalarna till introduktionsprogrammet, ett program dit enbart personer som inte är behöriga till andra program antas. Bland de nationella programmen antogs flest till ekonomiprogrammet, samhällsvetenskapsprogrammet och teknikprogrammet. Högskoleförberedande program är således mest populära bland länets ungdomar. Bland yrkesförberedande program antogs flest till bygg- och anläggningsprogrammet respektive fordons- och transportprogrammet. 
+Vid antagningen hösten `r gymnasieantagning_senaste_ar` antogs flest unga i Dalarna till `r tolower(gymnasieantagning_flest_antagna_totalt)`et, ett program dit enbart personer som inte är behöriga till andra program antas. Bland de nationella programmen antogs flest till `r tolower(glue_collapse(gymnasieantagning_flest_antagna_totalt_ej_intro,sep = ", ", last = " och "))`. Högskoleförberedande program är således mest populära bland länets ungdomar. Bland yrkesförberedande program antogs flest till `r tolower(glue_collapse(gymnasieantagning_flest_antagna_totalt_yrkes,sep = ", ", last = " respektive "))`. 
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -516,7 +516,8 @@ gg_gymnasiet$gymnasieantagning_tot
 ```
 
 <br>
-Det råder stora könsmässiga skillnader mellan antagna till olika program. För högskoleförberedande program är obalansen störst på samhällsvetenskapsprogrammet, dit klart flest flickor antas och teknikprogrammet, dit klart flest pojkar antas. Bland yrkesförberedande program är det en överväldigande majoritet flickor som antas till vård- och omsorgsprogrammet, medan en överväldigande majoritet pojkar antas till bygg- och anläggningsprogrammet och el- och energiprogrammet. Dessa obalanser återspeglas även senare i arbetslivet. Kvinnor är överrepresenterade inom vård och omsorg, och utbildning, medan män är i klar majoritet inom byggsektorn. Om målsättningen är att skapa en mer jämställd fördelning mellan olika branscher i arbetslivet, är det således viktigt att börja arbetet redan i skolan. Det finns uppenbarligen stora skillnader mellan vilka val pojkar och flickor gör redan då.
+
+Det råder stora könsmässiga skillnader mellan antagna till olika program. För högskoleförberedande program är obalansen störst på `r tolower(hogskoleprog_kvinnor)`, dit klart flest flickor antas och `r tolower(hogskoleprog_man)`, dit klart flest pojkar antas. Bland yrkesförberedande program är det en överväldigande majoritet flickor som antas till `r tolower(yrkesprog_kvinnor)`, medan en överväldigande majoritet pojkar antas till `r tolower(glue_collapse(yrkesprog_man,sep = ", ", last = " samt ")) `. Dessa obalanser återspeglas även senare i arbetslivet. Kvinnor är överrepresenterade inom vård och omsorg, och utbildning, medan män är i klar majoritet inom byggsektorn. Om målsättningen är att skapa en mer jämställd fördelning mellan olika branscher i arbetslivet, är det således viktigt att börja arbetet redan i skolan. Det finns uppenbarligen stora skillnader mellan vilka val pojkar och flickor gör redan då.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -524,7 +525,7 @@ gg_gymnasiet_kon$gymnasieantagning_kon_tot
 ```
 
 <br>
-Det program som ökat klart mest i antalet antagna är introduktionsprogrammet. År `r min(gymnasieantagning_df$ar)` antogs `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == min(.$ar)) %>% .$Antagna)` personer till programmet, en siffra som ökat till `r sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == max(.$ar)) %>% .$Antagna)` år `r max(gymnasieantagning_df$ar)`. Bland studieförberedande program är ökningen störst på ekonomiprogrammet, dit mer än dubbelt så många antas idag som `r min(gymnasieantagning_df$ar)`. Bland program som i första hand kan ses som yrkesförberedande har antalet antagna till naturbruksprogrammet ökat avsevärt sedan `r min(gymnasieantagning_df$ar)`, medan antalet antagna till restaurang- och livsmedelsprogrammet samt hotell- och turismprogrammet har minskat tydligt.
+Det program som ökat klart mest i antalet antagna är introduktionsprogrammet. År `r gymnasieantagning_forsta_ar` antogs `r gymnasieantagning_forsta_ar_intro` personer till programmet, en siffra som ökat till `r gymnasieantagning_senaste_ar_intro` år `r gymnasieantagning_senaste_ar`. Bland studieförberedande program är ökningen störst på ekonomiprogrammet, dit mer än dubbelt så många antas idag som `r min(gymnasieantagning_df$ar)`. Bland program som i första hand kan ses som yrkesförberedande har antalet antagna till naturbruksprogrammet ökat avsevärt sedan `r gymnasieantagning_forsta_ar`, medan antalet antagna till restaurang- och livsmedelsprogrammet har minskat tydligt.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -561,6 +562,8 @@ gym_prognos_fig <- SkapaStapelDiagram(skickad_df = gymnasium_prognos_df %>%
                                      filnamn_diagram = diagramfil,
                                      skriv_till_diagramfil = FALSE)
 ```
+
+<span class = "kommentar">Oklart om detta diagram skall behållas. Väl gammal prognos. Relevant?</span>
 
 Prognosen för den kommande tioårsperioden pekar inte på några dramatiska förändringar i nuvarande antagningsmönster. Introduktionsprogrammet förväntas även framöver vara det största programmet, följt av samhällsvetenskap, ekonomi och naturvetenskap. 
 

@@ -356,6 +356,29 @@ kv_utr_forgymn_andel <- utbniva_bakgr_kon_df %>%
          kön == "kvinnor") %>% 
   dplyr::pull(varde) %>% round()
 
+# Utbildningsnivå senaste år FEL - oklart om FEL är något som borde tagits bort (Jon 2025-09-24)
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_flera_diagram_scb.R")
+gg_utbniva_senastear <- funktion_upprepa_forsok_om_fel( function() {
+  diag_utbniva_tidserie_och_lansjmfr(region_vekt = c("20"),
+                                     output_mapp = Output_mapp_figur,
+                                     diagram_capt = "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna",
+                                     skapa_fil = spara_diagram_som_bildfiler,
+                                     diag_hogutb_over_tid = FALSE,
+                                     diag_lagutb_over_tid = FALSE,
+                                     diag_andel_alla_utbnivaer = FALSE,
+                                     diag_andel_utbniva_jmfr_lan = TRUE,
+                                     vald_utb_niva = "hogutb")
+}, hoppa_over = hoppa_over_forsok_igen)
+
+# Notera att variabler för år tas från diagrammet under
+
+andel_hogutb_kvinnor_senaste_ar <- round(gg_utbniva_senastear[[names(gg_utbniva_senastear)]]$data %>% filter(kön == "kvinnor",region == "Dalarna") %>% .$total,0)
+andel_hogutb_man_senaste_ar <- round(gg_utbniva_senastear[[names(gg_utbniva_senastear)]]$data %>% filter(kön == "män",region == "Dalarna") %>% .$total,0)
+
+andel_hogutb_kvinnor_senaste_ar_Stockholm <- round(gg_utbniva_senastear[[names(gg_utbniva_senastear)]]$data %>% filter(kön == "kvinnor",region == "Stockholm") %>% .$total,0)
+andel_hogutb_man_senaste_ar_Stockholm <- round(gg_utbniva_senastear[[names(gg_utbniva_senastear)]]$data %>% filter(kön == "män",region == "Stockholm") %>% .$total,0)
+
+
 # Utbildningsnivå från 85 och framåt uppdelat på kön. Data hämtas i detta fall från GGplot-objektet (när data används i markdown) FEL
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_flera_diagram_scb.R")
 gg_utbniva_85 <- funktion_upprepa_forsok_om_fel( function() {
@@ -378,21 +401,6 @@ andel_hogutb_kvinnor_max_ar <- round(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$da
 andel_hogutb_man_min_ar <- round(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$data %>% filter(år == min(år),kön == "män") %>% .$total,0)
 andel_hogutb_man_max_ar <- round(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$data %>% filter(år == max(år),kön == "män") %>% .$total,0)
 
-
-# Utbildningsnivå senaste år FEL
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_flera_diagram_scb.R")
-gg_utbniva_senastear <- funktion_upprepa_forsok_om_fel( function() {
-  diag_utbniva_tidserie_och_lansjmfr(region_vekt = c("20"),
-                                                           output_mapp = Output_mapp_figur,
-                                                           diagram_capt = "Källa: SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna",
-                                                           skapa_fil = spara_diagram_som_bildfiler,
-                                                           diag_hogutb_over_tid = FALSE,
-                                                           diag_lagutb_over_tid = FALSE,
-                                                           diag_andel_alla_utbnivaer = FALSE,
-                                                           diag_andel_utbniva_jmfr_lan = TRUE,
-                                                           vald_utb_niva = "hogutb")
-  }, hoppa_over = hoppa_over_forsok_igen)
-
 # Gymnasieantagning, senaste och flera år
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_gymnasiantagning_antal_kon.R")
 # Inte könsuppdelat
@@ -412,6 +420,103 @@ gg_gymnasiet_kon <- funktion_upprepa_forsok_om_fel( function() {
                                               konsuppdelat = TRUE,
                                               diag_antal_fleraar = FALSE)
   }, hoppa_over = hoppa_over_forsok_igen)
+
+# Uppdelning i yrkesförberedande och högskoleförberedande program
+yrkesprog <- c(
+  "Barn- och fritidsprogrammet",
+  "Bygg- och anläggningsprogrammet",
+  "El- och energiprogrammet",
+  "Fordons- och transportprogrammet",
+  "Försäljnings- och serviceprogrammet",
+  "Hotell- och turismprogrammet",
+  "Industritekniska programmet",
+  "Naturbruksprogrammet",
+  "Restaurang- och livsmedelsprogrammet",
+  "VVS- och fastighetsprogrammet",
+  "Vård- och omsorgsprogrammet"
+)
+
+# Högskoleförberedande
+hogskoleprog <- c(
+  "Ekonomiprogrammet",
+  "Estetiska programmet",
+  "Humanistiska programmet",
+  "Naturvetenskapsprogrammet",
+  "Samhällsvetenskapsprogrammet",
+  "Teknikprogrammet",
+  "International Baccalaurate"  # exakt som i din lista
+)
+
+# Dataframe är grupperad när den returneras, fixas här (annars funkar inte kod nedan)
+gymnasieantagning_df <- gymnasieantagning_df %>%  ungroup()  
+
+gymnasieantagning_forsta_ar <- min(gymnasieantagning_df$ar)
+gymnasieantagning_senaste_ar <- max(gymnasieantagning_df$ar)
+
+# Ej könsuppdelat
+gymnasieantagning_flest_antagna_totalt <- gymnasieantagning_df %>%
+  filter(ar == max(ar)) %>%
+  summarise(Antagna = sum(Antagna, na.rm = TRUE), .by = c(program)) %>%
+  slice_max(Antagna, n = 1, with_ties = TRUE) %>% 
+  pull(program)
+
+gymnasieantagning_flest_antagna_totalt_ej_intro <- gymnasieantagning_df %>%
+  filter(ar == max(gymnasieantagning_df$ar),program != gymnasieantagning_flest_antagna_totalt) %>%
+  summarise(Antagna = sum(Antagna, na.rm = TRUE), .by = c(program)) %>%
+  slice_max(Antagna, n = 3, with_ties = TRUE) %>% 
+  pull(program)
+
+gymnasieantagning_flest_antagna_totalt_yrkes <- gymnasieantagning_df %>%
+  filter(ar == max(gymnasieantagning_df$ar),
+         program %in% yrkesprog) %>%
+  summarise(Antagna = sum(Antagna, na.rm = TRUE), .by = c(program)) %>%
+  slice_max(Antagna, n = 2, with_ties = TRUE) %>% 
+  pull(program)
+
+# Könsuppdelat
+# Används enbart i texten
+# Beräknar andelar
+andel_kon_per_program <- gymnasieantagning_df %>%
+  summarise(Antagna = sum(Antagna, na.rm = TRUE), .by = c(ar, program, Kon)) %>%
+    mutate(Andel = (Antagna / sum(Antagna))*100, .by = c(ar, program))
+
+# Högskoleförberedande program med störst andel kvinnor
+hogskoleprog_kvinnor <- andel_kon_per_program %>%
+  filter(ar == max(ar),
+         program %in% hogskoleprog,
+         Kon == "Kvinnor") %>%
+  slice_max(Andel, n = 1, with_ties = TRUE) %>%
+  pull(program)
+
+# Högskoleförberedande program med störst andel män
+hogskoleprog_man <- andel_kon_per_program %>%
+  filter(ar == max(ar),
+         program %in% hogskoleprog,
+         Kon == "Män") %>%
+  slice_max(Andel, n = 1, with_ties = TRUE) %>%
+  pull(program)
+
+# Yrkesförberedande program med störst andel kvinnor
+yrkesprog_kvinnor <- andel_kon_per_program %>%
+  filter(ar == max(ar),
+         program %in% yrkesprog,
+         Kon == "Kvinnor") %>%
+  slice_max(Andel, n = 1, with_ties = TRUE) %>%
+  pull(program)
+
+# Yrkesförberedande program med störst andel män
+yrkesprog_man <- andel_kon_per_program %>%
+  filter(ar == max(ar),
+         program %in% yrkesprog,
+         Kon == "Män") %>%
+  slice_max(Andel, n = 2, with_ties = TRUE) %>%
+  pull(program)
+
+# Flera år
+gymnasieantagning_forsta_ar_intro <- sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == min(ar)) %>% .$Antagna)
+gymnasieantagning_senaste_ar_intro <- sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == max(ar)) %>% .$Antagna)
+
+
 
 # Högskoleexamen
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_examen_hogskolan_NMS.R")
