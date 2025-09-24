@@ -551,7 +551,7 @@ hogskola_flest_examinerade_antal <- hogskola_flest_examinerade_totalt_df %>%
 hogskola_examinerade_foretagsekonomi <- hogskoleexamen_df %>% filter(Lar==max(.$Lar),SUN2020Inr_2siffer_namn == "Företagsekonomi, handel och administration") %>% .$antal
 
 
-# YH-utbildning
+# YH-utbildning - NMS - uppdateras inte automatiskt
 source(here("Skript","diagram_examen_yh_NMS.R"), encoding="UTF-8")
 #source("C:/Users/frkjon/Projekt/kompetensforsorjning_i_Dalarna/Skript/diagram_examen_yh_NMS.R")
 gg_yh <- funktion_upprepa_forsok_om_fel( function() {
@@ -560,6 +560,15 @@ gg_yh <- funktion_upprepa_forsok_om_fel( function() {
                                returnera_data = TRUE,
                                spara_figur = spara_diagram_som_bildfiler)
   }, hoppa_over = hoppa_over_forsok_igen)
+
+# Bransch
+folkhogskola_senaste_ar <- max(folkhogskola_inriktning_df$Ar)
+folkhogskola_flest_antagna_program <- tolower(folkhogskola_bransch_df %>% filter(antal == max(antal)) %>% .$AstSNI2007_namn)
+folkhogskola_flest_antagna_antal <- folkhogskola_bransch_df %>% filter(antal == max(antal)) %>% .$antal
+
+# Inriktning
+folkhogskola_inriktning_flest_arbetar <- tolower(folkhogskola_inriktning_df %>% filter(antal == max(antal)) %>% .$Sun2000Inr_namn)
+folkhogskola_inriktning_flest_arbetar_antal <- folkhogskola_inriktning_df %>% filter(antal == max(antal)) %>% .$antal
 
 # Yh - Antagna som påbörjat utbildning
 #source(here("Skript","antagna_yh_tid.R"), encoding="UTF-8")

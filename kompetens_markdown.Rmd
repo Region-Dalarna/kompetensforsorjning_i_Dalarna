@@ -596,7 +596,7 @@ gg_hogskoleexamen$hogskoleexamen
 
 </details>
 
-Yrkeshögskolan i Dalarna är i första hand inriktad på utbildningar inom vård och omsorg, vilket återspeglar sig på länets arbetsmarknad. Den vanligaste branschen för examinerade från yrkeshögskolan var år `r max(folkhogskola_bransch_df$Ar)` `r tolower(folkhogskola_bransch_df %>% filter(antal == max(antal)) %>% .$AstSNI2007_namn)`, med `r folkhogskola_bransch_df %>% filter(antal == max(antal)) %>% .$antal` förvärvsarbetande i Dalarna. Det finns dock även utbildningar inom tillverkning och utvinning, då specifikt utvinning av annan malm. 
+Yrkeshögskolan i Dalarna är i första hand inriktad på utbildningar inom vård och omsorg, vilket återspeglar sig på länets arbetsmarknad. Den vanligaste branschen för examinerade från yrkeshögskolan var år `r folkhogskola_senaste_ar` `r folkhogskola_flest_antagna_program`, med `r folkhogskola_flest_antagna_antal` förvärvsarbetande i Dalarna. Det finns dock även utbildningar inom tillverkning och utvinning, då specifikt utvinning av annan malm. 
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -604,7 +604,7 @@ gg_yh$yh_bransch
 ```
 
 <br>
-Det vanligaste inriktningen för personer som tagit en examen för yrkeshögskolan och förvärvsarbetar i Dalarna var år `r max(folkhogskola_inriktning_df$Ar)` `r tolower(folkhogskola_inriktning_df %>% filter(antal == max(antal)) %>% .$Sun2000Inr_namn)`, med `r folkhogskola_inriktning_df %>% filter(antal == max(antal)) %>% .$antal` förvärvsarbetande. Även relativt många med inriktningar mot psykiatrisk vård och tandsköterska förvärvsarbetar i Dalarna.
+Det vanligaste inriktningen för personer som tagit en examen för yrkeshögskolan och förvärvsarbetar i Dalarna var år `r folkhogskola_inriktning_flest_arbetar`, med `r folkhogskola_inriktning_flest_arbetar_antal` förvärvsarbetande. Även relativt många med inriktningar mot psykiatrisk vård och tandsköterska förvärvsarbetar i Dalarna.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -612,7 +612,7 @@ gg_yh$yh_inriktning
 ```
 
 <br>
-2018 påbörjade drygt 190 personer en YH-utbildning i Dalarna. De efterföljande tre åren ökade antalet till cirka 250 för att därefter minska till knappt 160 personer under 2022 och 2023. Då utbudet fastställs över en treårsperiod kommer även 2024 att ligga på samma nivå som de två föregående åren. Utbudet från 2025-2027 fastställs i nästa ansökningsperiod.
+2018 påbörjade drygt 190 personer en YH-utbildning i Dalarna. De efterföljande tre åren ökade antalet till cirka 250 för att därefter minska till knappt 160 personer under 2022-2024 (utbudet fastställs över en treårsperiod). Utbudet från 2025-2027 fastställs i nästa ansökningsperiod.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}

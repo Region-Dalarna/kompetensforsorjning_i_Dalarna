@@ -42,6 +42,10 @@ diagram_antagna_yh_tid_region <- function(region_vekt = c("20"),			# Val av regi
     
   )
   
+  if(returnera_data == TRUE){
+    assign("antagna_yh_df", antagna_yh_df, envir = .GlobalEnv)
+  }
+  
   # om regioner är alla kommuner i ett län eller alla län i Sverige görs revidering, annars inte
   region_start <- unique(antagna_yh_df$region) %>% skapa_kortnamn_lan() %>% list_komma_och()
   region_txt <- ar_alla_kommuner_i_ett_lan(unique(antagna_yh_df$regionkod), returnera_text = TRUE, returtext = region_start)
