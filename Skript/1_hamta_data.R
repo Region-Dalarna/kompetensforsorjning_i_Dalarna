@@ -517,8 +517,7 @@ gymnasieantagning_forsta_ar_intro <- sum(gymnasieantagning_df %>% filter(program
 gymnasieantagning_senaste_ar_intro <- sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == max(ar)) %>% .$Antagna)
 
 
-
-# Högskoleexamen
+# Högskoleexamen - NMS - uppdateras inte automatiskt
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_examen_hogskolan_NMS.R")
 gg_hogskoleexamen <- funktion_upprepa_forsok_om_fel( function() {
   diagram_examen_hogskolan_NMS (output_mapp_figur = Output_mapp_figur,
@@ -526,6 +525,31 @@ gg_hogskoleexamen <- funktion_upprepa_forsok_om_fel( function() {
                                                    returnera_data = TRUE,
                                                    spara_figur = spara_diagram_som_bildfiler)
   }, hoppa_over = hoppa_over_forsok_igen)
+
+senaste_ar_hogskola <- max(hogskoleexamen_df$Lar)
+
+hogskoleexamen_df <- hogskoleexamen_df %>% ungroup()
+
+# De två utbildningar med flest examinerade
+hogskola_flest_examinerade_totalt_df <- hogskoleexamen_df %>%
+  filter(Lar == max(Lar)) %>%
+  slice_max(antal, n = 2, with_ties = TRUE) 
+
+# Program
+hogskola_flest_examinerade_program <- tolower(glue_collapse(hogskola_flest_examinerade_totalt %>% pull(SUN2020Inr_2siffer_namn),sep = ", ", last = " samt "))
+
+# Antal, specialfall om flera utbildningar har samma antal
+hogskola_flest_examinerade_antal <- hogskola_flest_examinerade_totalt_df %>%
+  summarise(
+    antal_text = {
+      v <- sort(unique(na.omit(antal)))     # or `antal` if that’s your col
+      if (length(v) <= 1) as.character(v)
+      else glue_collapse(v, sep = ", ", last = " och ")
+    }) %>% pull()
+
+# Antal examinerade i företagsekonomi mm
+hogskola_examinerade_foretagsekonomi <- hogskoleexamen_df %>% filter(Lar==max(.$Lar),SUN2020Inr_2siffer_namn == "Företagsekonomi, handel och administration") %>% .$antal
+
 
 # YH-utbildning
 source(here("Skript","diagram_examen_yh_NMS.R"), encoding="UTF-8")

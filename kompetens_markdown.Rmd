@@ -574,9 +574,9 @@ gym_prognos_fig
 
 ## Högskolan
 
-De som tog examen från Högskolan Dalarna läsåret `r max(hogskoleexamen_df$Lar)` gjorde det i stor utsträckning från två program, hälso- och sjukvård samt pedagogik och lärarutbildning med närmare 400 examinerade vardera. Efter en nedgång 2015, är antalet examinerade från dessa program idag på ungefär samma nivå som de var runt 2010. 
+De som tog examen från Högskolan Dalarna läsåret `r senaste_ar_hogskola` gjorde det i stor utsträckning från två program, `r hogskola_flest_examinerade_program` med `r hogskola_flest_examinerade_antal` examinerade vardera. Efter en nedgång 2015, är antalet examinerade från dessa program idag på ungefär samma nivå som de var runt 2010. 
 
-Ett annat populärt program är företagsekonomi, handel och administration med `r hogskoleexamen_df %>% filter(Lar==max(.$Lar),SUN2020Inr_2siffer_namn == "Företagsekonomi, handel och administration") %>% .$antal` examinerade. Från detta program examineras fler idag än 2010, men det har varit en tydlig nedgång sedan 2015. Ett program som minskat avsevärt sedan 2010 är teknik och teknisk industri, där antalet examinerade `r max(hogskoleexamen_df$Lar)` är ungefär en tredjedel av jämfört med 2010.
+Ett annat populärt program är företagsekonomi, handel och administration med `r hogskola_examinerade_foretagsekonomi` examinerade. Från detta program examineras fler idag än 2010, men det har varit en viss nedgång sedan 2015. Ett program som minskat avsevärt sedan 2010 är teknik och teknisk industri, där antalet examinerade `r senaste_ar_hogskola` är ungefär en tredjedel av jämfört med 2010.
 
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
 gg_hogskoleexamen$hogskoleexamen
