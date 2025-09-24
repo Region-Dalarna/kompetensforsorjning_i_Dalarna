@@ -630,8 +630,8 @@ Sysselsättningsgraden, det vill säga i vilken utsträckning människor i arbet
 
 För inrikes födda, det vänstra diagrammet i figur 32 nedan, är sysselsättningsgraden för båda könen ungefär lika hög. Variationen i sysselsättningsgrad mellan länen är även den ganska liten, vilket ger små skillnader mot riksgenomsnittet. 
 
-För utrikes födda, det högra diagrammet i figur 32 nedan, är bilden annorlunda. Utrikes födda män har en högre sysselsättningsgrad än utrikes födda kvinnor i samtliga län förutom Norrbotten. I Dalarna var sysselsättningsgraden bland utrikes födda män ungefär `r round(arbetsmarknadsstatus_lan %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0)` procent, vilket
-är cirka `r round(arbetsmarknadsstatus_lan %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde-arbetsmarknadsstatus_lan %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0) ` procentenheter mer än för utrikes födda kvinnor.
+För utrikes födda, det högra diagrammet i figur 32 nedan, är bilden annorlunda. Utrikes födda män har en högre sysselsättningsgrad än utrikes födda kvinnor i samtliga län. I Dalarna var sysselsättningsgraden bland utrikes födda män ungefär `r syss_grad_Dalarna_senaste_utrikes_man` procent, vilket
+är cirka `r syssgrad_Dalarna_senaste_utrikes_skillnad_kon ` procentenheter mer än för utrikes födda kvinnor.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -639,17 +639,15 @@ gg_arbetsmarknadsstatus_lan$sysselsattningsgrad_senastear
 ```
 
 <br>
-Något som behöver tas hänsyn till vid en analys av sysselsättningsgraden bland utrikes födda är hur lång tid personerna har varit i Sverige, samt vilken utbildningsnivå de har. För en djupare diskussion runt detta, se Region Dalarnas rapport <a href="https://region-dalarna.github.io/kvinnor_man_i_Dalarna/">"Kvinnor och män i Dalarna"</a>.
+Något som behöver tas hänsyn till vid en analys av sysselsättningsgraden bland utrikes födda är hur lång tid personerna har varit i Sverige, samt vilken utbildningsnivå de har. För en djupare diskussion runt detta, se Region Dalarnas rapport <a href="https://samhallsanalys.regiondalarna.se/kvinnor_man">"Kvinnor och män i Dalarna"</a>.
 
 Vad gäller sysselsättningsgrad uppvisar kommunerna i Dalarna ett liknande mönster som länen på nationell nivå. Gruppen inrikes födda har en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med utrikes födda. Även här är sysselsättningsgraden för inrikes födda kvinnor och män ungefär lika hög. För utrikes födda är det däremot stora
 skillnader mellan kvinnor och män, men också mellan olika kommuner. I linje med den nationella bilden är sysselsättningsgraden högre för gruppen utrikes födda män än för utrikes födda kvinnor.
 
-Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan kommuner där den högsta sysselsättningsgraden finns i `r first(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$region)` (cirka `r first(round(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$varde,0))` procent) och den lägsta i `r first(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$region)` (cirka `r first(round(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$varde,0))`
+Sysselsättningsgraden för utrikes födda män skiljer sig dock åt mellan kommuner där den högsta sysselsättningsgraden finns i `r syssgrad_kommun_hogst_man_utrikes` (cirka `r syssgrad_kommun_hogst_man_utrikes_varde` procent) och den lägsta i `r syssgrad_kommun_lagst_man_utrikes` (cirka `r syssgrad_kommun_lagst_man_utrikes_varde`
 procent).
 
-Skillnaderna mellan utrikes födda kvinnor och män är mer synliga mellan kommuner i Dalarna än när länen som helhet jämförs. `r first(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$region)` har den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor, cirka `r first(round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$varde,0))`
-procent, och ligger klart över genomsnittet för Dalarnas län (knappt `r round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0)`
-procent). Samtidigt är sysselsättningsgraden bland utrikes födda kvinnor i  `r first(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde == min(varde)) %>% .$region)` kommun bara `r first(round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde == min(varde)) %>% .$varde,0))` procent. 
+Skillnaderna mellan utrikes födda kvinnor och män är mer synliga mellan kommuner i Dalarna än när länen som helhet jämförs. `r syssgrad_kommun_hogst_kvinnor_utrikes` har den högsta sysselsättningsgraden för gruppen utrikes födda kvinnor, cirka `r syssgrad_kommun_hogst_kvinnor_utrikes_varde` procent, och ligger klart över genomsnittet för Dalarnas län (ungefär `r syssgrad_dalarna_utrikes_kvinnor` procent). Samtidigt är sysselsättningsgraden bland utrikes födda kvinnor i  `r syssgrad_kommun_lagst_kvinnor_utrikes` kommun bara `r syssgrad_kommun_lagst_kvinnor_utrikes_varde` procent. 
 
 Värt att notera är att en del av skillnaden i utrikes föddas sysselsättningsgrad mellan kommunerna i Dalarna sannolikt kan förklaras av skillnader i antalet personer som invandrade under åren runt flyktingkrisen 2015. Exempelvis var Avesta, Ludvika och Hedemora de tre kommuner som hade högst invandring i förhållande till folkmängd under 2015, 2016 och 2017.
 
@@ -659,7 +657,7 @@ gg_arbetsmarknadsstatus_kommun$sysselsattningsgrad_senastear
 ```
 
 <br>
-Över tid har sysselsättningsgraden för personer i arbetsför ålder i Dalarna ökat bland både kvinnor och män. Sedan 1993 har andelen ökat från cirka 70 procent till drygt 80 procent för kvinnor och 84 procent för män.
+Över tid har sysselsättningsgraden för personer i arbetsför ålder i Dalarna ökat bland både kvinnor och män. Mellan `r syssgrad_93_forsta_ar` och `r syssgrad_93_senaste_ar` ökade sysselsättningsgraden från ungefär 70 procent för båda könen till cirka `r syssgrad_93_senaste_ar_kvinna_varde` procent för kvinnor och `r syssgrad_93_senaste_ar_man_varde` procent för män.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -667,6 +665,10 @@ gg_sysselsattningsgrad_93$sysselsattningsgrad_93_Dalarna
 ```
 
 <br>
+
+
+<span class= "kommentar">Ta bort? Data uppdateras inte längre. Alternativet är data från AKU som används i integrationsrapporten bland annat</span>
+
 Grafen nedan visar arbetslösheten i Sverige och Dalarna under perioden 2008 till 2023. Andelen arbetslösa i Dalarna (de mörkgröna staplarna) har konsekvent varit lägre än andelen arbetslösa i Sverige (de ljusgröna staplarna). Sedan pandemin har andelen arbetslösa i både Sverige och Dalarna sjunkit, och 2023 var arbetslösheten i genomsnitt 6,4 respektive 5,8 procent. Under andra kvartalet 2024 var arbetslösheten i Dalarna 5,3 procent, att jämföra med 6,5 procent för riket som helhet (<a href="https://mb.cision.com/Public/1326/4016890/945db14fdac19df6.pdf">Arbetsförmedlingen, 2024</a>).
 
 Dalarnas låga arbetslöshet beror till viss del på att: 

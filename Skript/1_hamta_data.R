@@ -581,7 +581,68 @@ gg_antagna_yh <- funktion_upprepa_forsok_om_fel( function() {
                                               output_mapp_figur = Output_mapp_figur)
   }, hoppa_over = hoppa_over_forsok_igen)
 
+# Sysselsättningsgrad, län
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_arbetsmarknadsstatus_senastear.R", encoding="UTF-8")
+gg_arbetsmarknadsstatus_lan <- funktion_upprepa_forsok_om_fel( function() {
+  diagram_arbetsmarknadsstatus(region_vekt = hamtaAllaLan(),
+                               output_mapp_figur = Output_mapp_figur,
+                               diag_arbetskraftsdeltagande = FALSE,
+                               diag_arbetslosthet = FALSE,
+                               valda_farger = diagramfarger("kon"),
+                               kon_klartext = c("kvinnor","män"),
+                               fodelseregion_klartext_vekt =  c("inrikes född", "utrikes född"),
+                               spara_figur = spara_diagram_som_bildfiler,
+                               returnera_figur = TRUE,
+                               returnera_data = TRUE,
+                               data_namm = "arbetsmarknadsstatus_lan")
+}, hoppa_over = hoppa_over_forsok_igen) 
 
+syss_grad_Dalarna_senaste_utrikes_man <- round(arbetsmarknadsstatus_lan %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0)
+syssgrad_Dalarna_senaste_utrikes_skillnad_kon <- round(arbetsmarknadsstatus_lan %>% filter(kön == "män",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde-arbetsmarknadsstatus_lan %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0)
+
+# Sysselsättningsgrad, kommun
+gg_arbetsmarknadsstatus_kommun <- funktion_upprepa_forsok_om_fel( function() {
+  diagram_arbetsmarknadsstatus(output_mapp_figur = Output_mapp_figur,
+                               diag_arbetskraftsdeltagande = FALSE,
+                               diag_arbetslosthet = FALSE,
+                               valda_farger = diagramfarger("kon"),
+                               kon_klartext = c("kvinnor","män"),
+                               fodelseregion_klartext_vekt =  c("inrikes född", "utrikes född"),
+                               spara_figur = spara_diagram_som_bildfiler,
+                               returnera_figur = TRUE,
+                               returnera_data = TRUE)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+syssgrad_kommun_hogst_man_utrikes <- first(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$region)
+syssgrad_kommun_hogst_man_utrikes_varde <- first(round(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$varde,0))
+
+syssgrad_kommun_lagst_man_utrikes <- first(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$region)
+syssgrad_kommun_lagst_man_utrikes_varde <- first(round(arbetsmarknadsstatus %>% filter(kön == "män",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$varde,0))
+
+syssgrad_kommun_hogst_kvinnor_utrikes <- first(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$region)
+syssgrad_kommun_hogst_kvinnor_utrikes_varde <- first(round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==max(varde)) %>% .$varde,0))
+
+syssgrad_kommun_lagst_kvinnor_utrikes <- first(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$region)
+syssgrad_kommun_lagst_kvinnor_utrikes_varde <- first(round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",variabel == "sysselsättningsgrad") %>% filter(varde ==min(varde)) %>% .$varde,0))
+
+syssgrad_dalarna_utrikes_kvinnor <- round(arbetsmarknadsstatus %>% filter(kön == "kvinnor",födelseregion == "utrikes född",region == "Dalarna",variabel == "sysselsättningsgrad") %>% .$varde,0)
+
+# Sysselsättningsgrad, tidserie
+source(here("Skript","diagram_sysselsattningsgrad_93.R"), encoding="UTF-8")
+gg_sysselsattningsgrad_93 <- funktion_upprepa_forsok_om_fel( function() {
+  diagram_sysselsattningsgrad_93(region_vekt = "20",
+                                 spara_figur = spara_diagram_som_bildfiler,
+                                 returnera_data = TRUE,
+                                 tid_koder = "*",
+                                 kon_klartext = c("kvinnor","män"),
+                                 output_mapp_figur = Output_mapp_figur)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+syssgrad_93_forsta_ar <- min(forvarvsintensitet_93_df$år)
+syssgrad_93_senaste_ar <- max(forvarvsintensitet_93_df$år)
+
+syssgrad_93_senaste_ar_man_varde <- round(forvarvsintensitet_93_df %>% filter(år == max(år),kön == "män") %>% pull(sysselsättningsgrad),0)
+syssgrad_93_senaste_ar_kvinna_varde <- round(forvarvsintensitet_93_df %>% filter(år == max(år),kön == "kvinnor") %>% pull(sysselsättningsgrad),0)
 
 # Arbetslöshet 08-senaste år. Excel, Arbetsförmedlingen - KVAR
 # source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
@@ -606,39 +667,39 @@ gg_antagna_yh <- funktion_upprepa_forsok_om_fel( function() {
 
 
 
-# Utbildningsnivå och ålder för län och bransch. Andel och antal
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_bransch_utb_alder_NMS.R", encoding="UTF-8")
-gg_bransch_utb_alder <- funktion_upprepa_forsok_om_fel( function() {
-  diag_bransch_utb_alder(output_mapp_figur = Output_mapp_figur,
-                                               spara_figur = spara_diagram_som_bildfiler,
-                                               returnera_figur = TRUE,
-                                               returnera_data = TRUE,
-                                               andel = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
-
-gg_bransch_utb_alder_antal <- funktion_upprepa_forsok_om_fel( function() {
-  diag_bransch_utb_alder(output_mapp_figur = Output_mapp_figur,
-                                                    spara_figur = spara_diagram_som_bildfiler,
-                                                    returnera_figur = TRUE,
-                                                    returnera_data = TRUE,
-                                                    andel = FALSE)
-  }, hoppa_over = hoppa_over_forsok_igen)
-
-# skapa df med bransch som har högst andel personer i åldersgruppen 60-74 år
-bransch_aldst_andel <- bransch_alder %>% 
-  filter(alder %in% c("60-64 år","65-69 år","70-74 år")) %>% 
-  group_by(ar, lan, bransch) %>% 
-  summarise(andel = sum(andel, na.rm = TRUE), .groups = "drop") %>% 
-  arrange(desc(andel)) %>% 
-  filter(andel == max(andel)) 
-
-# skapa df med bransch som har högst antal personer i åldersgruppen 60-74 år
-bransch_aldst_antal <- bransch_alder %>% 
-  filter(alder %in% c("60-64 år","65-69 år","70-74 år")) %>% 
-  group_by(ar, lan, bransch) %>% 
-  summarise(antal = sum(antal, na.rm = TRUE), .groups = "drop") %>% 
-  arrange(desc(antal)) %>% 
-  filter(antal == max(antal)) 
+# Utbildningsnivå och ålder för län och bransch. Andel och antal - Har sannolikt bara kopierat, ta bort om de används två gånger /Jon
+# source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_bransch_utb_alder_NMS.R", encoding="UTF-8")
+# gg_bransch_utb_alder <- funktion_upprepa_forsok_om_fel( function() {
+#   diag_bransch_utb_alder(output_mapp_figur = Output_mapp_figur,
+#                                                spara_figur = spara_diagram_som_bildfiler,
+#                                                returnera_figur = TRUE,
+#                                                returnera_data = TRUE,
+#                                                andel = TRUE)
+#   }, hoppa_over = hoppa_over_forsok_igen)
+# 
+# gg_bransch_utb_alder_antal <- funktion_upprepa_forsok_om_fel( function() {
+#   diag_bransch_utb_alder(output_mapp_figur = Output_mapp_figur,
+#                                                     spara_figur = spara_diagram_som_bildfiler,
+#                                                     returnera_figur = TRUE,
+#                                                     returnera_data = TRUE,
+#                                                     andel = FALSE)
+#   }, hoppa_over = hoppa_over_forsok_igen)
+# 
+# # skapa df med bransch som har högst andel personer i åldersgruppen 60-74 år
+# bransch_aldst_andel <- bransch_alder %>% 
+#   filter(alder %in% c("60-64 år","65-69 år","70-74 år")) %>% 
+#   group_by(ar, lan, bransch) %>% 
+#   summarise(andel = sum(andel, na.rm = TRUE), .groups = "drop") %>% 
+#   arrange(desc(andel)) %>% 
+#   filter(andel == max(andel)) 
+# 
+# # skapa df med bransch som har högst antal personer i åldersgruppen 60-74 år
+# bransch_aldst_antal <- bransch_alder %>% 
+#   filter(alder %in% c("60-64 år","65-69 år","70-74 år")) %>% 
+#   group_by(ar, lan, bransch) %>% 
+#   summarise(antal = sum(antal, na.rm = TRUE), .groups = "drop") %>% 
+#   arrange(desc(antal)) %>% 
+#   filter(antal == max(antal)) 
 
 
 
@@ -680,46 +741,6 @@ gg_kompetensbrist <- funktion_upprepa_forsok_om_fel( function() {
 # source(here("Skript","hogskoleexamen.R"), encoding="UTF-8")
 # diag_hogskoleexamen(spara_data = TRUE,
 #                     output_mapp = Output_mapp)
-
-# Sysselsättningsgrad, tidserie
-source(here("Skript","diagram_sysselsattningsgrad_93.R"), encoding="UTF-8")
-gg_sysselsattningsgrad_93 <- funktion_upprepa_forsok_om_fel( function() {
-  diagram_sysselsattningsgrad_93(region_vekt = "20",
-                                                          spara_figur = spara_diagram_som_bildfiler,
-                                                          returnera_data = TRUE,
-                                                          tid_koder = "*",
-                                                          kon_klartext = c("kvinnor","män"),
-                                                          output_mapp_figur = Output_mapp_figur)
-  }, hoppa_over = hoppa_over_forsok_igen)
-
-# Sysselsättningsgrad, kommun
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_arbetsmarknadsstatus_senastear.R", encoding="UTF-8")
-gg_arbetsmarknadsstatus_kommun <- funktion_upprepa_forsok_om_fel( function() {
-  diagram_arbetsmarknadsstatus(output_mapp_figur = Output_mapp_figur,
-                                                               diag_arbetskraftsdeltagande = FALSE,
-                                                               diag_arbetslosthet = FALSE,
-                                                               valda_farger = diagramfarger("kon"),
-                                                               kon_klartext = c("kvinnor","män"),
-                                                               fodelseregion_klartext_vekt =  c("inrikes född", "utrikes född"),
-                                                               spara_figur = spara_diagram_som_bildfiler,
-                                                               returnera_figur = TRUE,
-                                                               returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
-
-# Sysselsättningsgrad, län
-gg_arbetsmarknadsstatus_lan <- funktion_upprepa_forsok_om_fel( function() {
-  diagram_arbetsmarknadsstatus(region_vekt = hamtaAllaLan(),
-                                                            output_mapp_figur = Output_mapp_figur,
-                                                            diag_arbetskraftsdeltagande = FALSE,
-                                                            diag_arbetslosthet = FALSE,
-                                                            valda_farger = diagramfarger("kon"),
-                                                            kon_klartext = c("kvinnor","män"),
-                                                            fodelseregion_klartext_vekt =  c("inrikes född", "utrikes född"),
-                                                            spara_figur = spara_diagram_som_bildfiler,
-                                                            returnera_figur = TRUE,
-                                                            returnera_data = TRUE,
-                                                            data_namm = "arbetsmarknadsstatus_lan")
-  }, hoppa_over = hoppa_over_forsok_igen) 
 
 
 source("https://raw.githubusercontent.com/Region-Dalarna/hamta_data/main/hamta_bef_region_alder_kon_fodelseregion_tid_InrUtrFoddaRegAlKon_scb.R")
