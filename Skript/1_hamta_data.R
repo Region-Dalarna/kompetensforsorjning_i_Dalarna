@@ -288,6 +288,74 @@ utpendling_storst_lan <- andel_pendlare_lan_df %>%
   arrange(desc(andel)) %>%
   slice(1)
 
+# Utbildningsnivå (bakgrund och åldersgrupper)
+#source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_utb_bakgr_alder_NMS.R", encoding="UTF-8")
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_inr_utr_fodda_lan_scb.R")
+gg_utbniva_bakgrund <- funktion_upprepa_forsok_om_fel( function() {
+  diag_utbniva_inr_utr_fodda_kon_lan(skriv_diagramfil = spara_diagram_som_bildfiler,
+                                     output_mapp = Output_mapp_figur,
+                                     returnera_df_rmarkdown = TRUE)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_antal_utbniva_alder_kon_scb.R")
+gg_lagutbildade_alder <- funktion_upprepa_forsok_om_fel( function() {
+  diag_antal_utbniva_alder_kon(skriv_diagramfil = spara_diagram_som_bildfiler,
+                               output_mapp = Output_mapp_figur,
+                               returnera_df_rmarkdown = TRUE)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+# ta ut alla åldrar som numeriska värden
+alder_num <- str_extract_all(unique(utbniva_kon_alder_df$ålder), "\\d+") %>% 
+  unlist() %>% 
+  as.numeric() 
+
+# skapa en textsträng med minsta och största ålder i datasetet som vi lägger 
+alder_txt <- paste0(min(alder_num), "-", max(alder_num), " år")
+
+# skapa en dataframe med andelar för utbildningsnivåer för åldersgruppen 20-64 år
+utb_niva_20_64_ar <- utbniva_kon_alder_df %>% 
+  mutate(ålder = alder_txt) %>% 
+  group_by(år, regionkod, region, ålder, kön, utbildningsnivå) %>% 
+  summarise(varde = sum(varde, na.rm = TRUE)) %>% 
+  mutate(andel = varde / sum(varde, na.rm = TRUE) * 100) %>% 
+  ungroup()
+
+# skapa en variabel för andelen kvinnor som är eftergymnasialt utbildade
+kv_eftergymn_andel <- utb_niva_20_64_ar %>% 
+  filter(utbildningsnivå == "eftergymnasial utbildning",
+         kön == "kvinnor") %>% 
+  dplyr::pull(andel) %>% round()
+
+# skapa en variabel för andelen män som är eftergymnasialt utbildade
+man_eftergymn_andel <- utb_niva_20_64_ar %>% 
+  filter(utbildningsnivå == "eftergymnasial utbildning",
+         kön == "män") %>% 
+  dplyr::pull(andel) %>% round()
+
+man_inr_forgymn_andel <- utbniva_bakgr_kon_df %>% 
+  filter(utbildning == "förgymnasial utbildning",
+         bakgrund == "Födda i Sverige",
+         kön == "män") %>% 
+  dplyr::pull(varde) %>% round()
+
+kv_inr_forgymn_andel <- utbniva_bakgr_kon_df %>% 
+  filter(utbildning == "förgymnasial utbildning",
+         bakgrund == "Födda i Sverige",
+         kön == "kvinnor") %>% 
+  dplyr::pull(varde) %>% round()
+
+man_utr_forgymn_andel <- utbniva_bakgr_kon_df %>% 
+  filter(utbildning == "förgymnasial utbildning",
+         bakgrund == "Utrikes födda",
+         kön == "män") %>% 
+  dplyr::pull(varde) %>% round()
+
+kv_utr_forgymn_andel <- utbniva_bakgr_kon_df %>% 
+  filter(utbildning == "förgymnasial utbildning",
+         bakgrund == "Utrikes födda",
+         kön == "kvinnor") %>% 
+  dplyr::pull(varde) %>% round()
+
 # Utbildningsnivå från 85 och framåt uppdelat på kön. Data hämtas i detta fall från GGplot-objektet (när data används i markdown) FEL
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_flera_diagram_scb.R")
 gg_utbniva_85 <- funktion_upprepa_forsok_om_fel( function() {
@@ -300,6 +368,15 @@ gg_utbniva_85 <- funktion_upprepa_forsok_om_fel( function() {
                                                     diag_andel_alla_utbnivaer = TRUE,
                                                     vald_utb_niva = "hogutb")
   }, hoppa_over = hoppa_over_forsok_igen)
+
+andel_hogutb_forsta_ar <- min(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$data$år)
+andel_hogutb_sista_ar <- max(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$data$år)
+
+andel_hogutb_kvinnor_min_ar <- round(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$data %>% filter(år == min(år),kön == "kvinnor") %>% .$total,0)
+andel_hogutb_kvinnor_max_ar <- round(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$data %>% filter(år == max(år),kön == "kvinnor") %>% .$total,0)
+
+andel_hogutb_man_min_ar <- round(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$data %>% filter(år == min(år),kön == "män") %>% .$total,0)
+andel_hogutb_man_max_ar <- round(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$data %>% filter(år == max(år),kön == "män") %>% .$total,0)
 
 
 # Utbildningsnivå senaste år FEL
@@ -425,73 +502,7 @@ bransch_aldst_antal <- bransch_alder %>%
   arrange(desc(antal)) %>% 
   filter(antal == max(antal)) 
 
-# Utbildningsnivå (bakgrund och åldersgrupper)
-#source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_utb_bakgr_alder_NMS.R", encoding="UTF-8")
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_inr_utr_fodda_lan_scb.R")
-gg_utbniva_bakgrund <- funktion_upprepa_forsok_om_fel( function() {
-  diag_utbniva_inr_utr_fodda_kon_lan(skriv_diagramfil = spara_diagram_som_bildfiler,
-                                                                output_mapp = Output_mapp_figur,
-                                                                returnera_df_rmarkdown = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
 
-source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_antal_utbniva_alder_kon_scb.R")
-gg_lagutbildade_alder <- funktion_upprepa_forsok_om_fel( function() {
-  diag_antal_utbniva_alder_kon(skriv_diagramfil = spara_diagram_som_bildfiler,
-                                                      output_mapp = Output_mapp_figur,
-                                                      returnera_df_rmarkdown = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
-
-# ta ut alla åldrar som numeriska värden
-alder_num <- str_extract_all(unique(utbniva_kon_alder_df$ålder), "\\d+") %>% 
-  unlist() %>% 
-  as.numeric() 
-
-# skapa en textsträng med minsta och största ålder i datasetet som vi lägger 
-alder_txt <- paste0(min(alder_num), "-", max(alder_num), " år")
-
-# skapa en dataframe med andelar för utbildningsnivåer för åldersgruppen 20-64 år
-utb_niva_20_64_ar <- utbniva_kon_alder_df %>% 
-  mutate(ålder = alder_txt) %>% 
-  group_by(år, regionkod, region, ålder, kön, utbildningsnivå) %>% 
-  summarise(varde = sum(varde, na.rm = TRUE)) %>% 
-  mutate(andel = varde / sum(varde, na.rm = TRUE) * 100) %>% 
-  ungroup()
-
-# skapa en variabel för andelen kvinnor som är eftergymnasialt utbildade
-kv_eftergymn_andel <- utb_niva_20_64_ar %>% 
-  filter(utbildningsnivå == "eftergymnasial utbildning",
-         kön == "kvinnor") %>% 
-  dplyr::pull(andel) %>% round()
-
-# skapa en variabel för andelen män som är eftergymnasialt utbildade
-man_eftergymn_andel <- utb_niva_20_64_ar %>% 
-  filter(utbildningsnivå == "eftergymnasial utbildning",
-         kön == "män") %>% 
-  dplyr::pull(andel) %>% round()
-
-man_inr_forgymn_andel <- utbniva_bakgr_kon_df %>% 
-  filter(utbildning == "förgymnasial utbildning",
-         bakgrund == "Födda i Sverige",
-         kön == "män") %>% 
-  dplyr::pull(varde) %>% round()
-
-kv_inr_forgymn_andel <- utbniva_bakgr_kon_df %>% 
-  filter(utbildning == "förgymnasial utbildning",
-         bakgrund == "Födda i Sverige",
-         kön == "kvinnor") %>% 
-  dplyr::pull(varde) %>% round()
-
-man_utr_forgymn_andel <- utbniva_bakgr_kon_df %>% 
-  filter(utbildning == "förgymnasial utbildning",
-         bakgrund == "Utrikes födda",
-         kön == "män") %>% 
-  dplyr::pull(varde) %>% round()
-
-kv_utr_forgymn_andel <- utbniva_bakgr_kon_df %>% 
-  filter(utbildning == "förgymnasial utbildning",
-         bakgrund == "Utrikes födda",
-         kön == "kvinnor") %>% 
-  dplyr::pull(varde) %>% round()
 
 # Matchning (län och bakgrund)
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_matchning_lan_bakgrund.R", encoding="UTF-8")

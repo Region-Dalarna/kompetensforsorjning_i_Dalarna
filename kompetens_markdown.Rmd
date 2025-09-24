@@ -470,13 +470,13 @@ gg_utbniva_senastear$hogutb_andel_ar_2023
 ```
 
 <br>
-Utbildningsnivån i samhället har dock ökat avsevärt över tid, vilket vi har berört tidigare. Andelen kvinnor som har minst tre års eftergymnasial utbildning i Dalarna har ökat från ungefär `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data %>% filter(år == min(år),kön == "kvinnor") %>% .$total,0)` procent till cirka `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data %>% filter(år == max(år),kön == "kvinnor") %>% .$total,0)` procent mellan `r min(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data$år)` till `r max(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data$år)`. Andelen män med motsvarande utbildningsnivå har ökat från ungefär `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data %>% filter(år == min(år),kön == "män") %>% .$total,0)` procent till cirka `r round(gg_utbniva_85$hogutb_andel_ar20_1985_2023$data %>% filter(år == max(år),kön == "män") %>% .$total,0)` procent under samma tidsperiod. 
+Utbildningsnivån i samhället har dock ökat avsevärt över tid, vilket vi har berört tidigare. Andelen kvinnor som har minst tre års eftergymnasial utbildning i Dalarna har ökat från ungefär `r andel_hogutb_kvinnor_min_ar` procent till cirka `r andel_hogutb_kvinnor_max_ar` procent mellan `r andel_hogutb_forsta_ar` och `r andel_hogutb_sista_ar`. Andelen män med motsvarande utbildningsnivå har ökat från ungefär `r andel_hogutb_man_min_ar` procent till cirka `r andel_hogutb_man_max_ar` procent under samma tidsperiod. 
 
 Det finns flera möjliga förklaringar till att fler kvinnor än män är högt utbildade. En orsak är att kvinnor i högre utsträckning jobbar inom vård och omsorg samt utbildning, där de flesta yrkesgrupper kräver eftergymnasial utbildning på minst tre år. En annan förklaring är att kvinnor generellt sätt, oavsett utbildning, påbörjar eftergymnasiala studier i högre utsträckning än män (<a href="https://www.scb.se/hitta-statistik/statistik-efter-amne/utbildning-och-forskning/befolkningens-utbildning/analyser-och-statistik-om-befolkningens-utbildning/pong/statistiknyhet/konsskillnader-i-utbildnkonsskillnader-i-utbildningsvalen-efter-gymnasieskolan/" target="_blank">SCB, 2019</a>)
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
-gg_utbniva_85$hogutb_andel_ar20_1985_2023
+gg_utbniva_85[[names(gg_utbniva_85)[1]]]
 ```
 
 # Gymnasiet, högskolan och yrkeshögskolan
