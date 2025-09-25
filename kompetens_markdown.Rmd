@@ -298,7 +298,7 @@ Arbetskraftsdeltagandet i Dalarna under `r arbetskraftsdeltagande_senaste_ar` ä
 <div title="Källa: SCB">Förvärvsarbetande omfattar både anställda och företagare. Har personen fått en lön i november som överstiger 99 kronor klassificeras personen som förvärvsarbetande. För egenföretagare gäller, liksom tidigare, att de personer som under referensåret har deklarerat för aktiv näringsverksamhet klassificeras som förvärvsarbetande. </div>
  
 </details>
-I Dalarna är den klart största branschen, sett till antalet förvärvsarbetande, `r tolower(bransch_flest_anstallda %>% pull(bransch))` med ungefär `r format(plyr::round_any(bransch_flest_anstallda %>% pull(Antal),1000),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas. SCB bedömer att behovet av arbetskraft inom vård och omsorg kommer att öka i takt med en åldrande befolkning, särskilt inom äldreomsorgen (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>).
+I Dalarna är den klart största branschen, sett till antalet förvärvsarbetande, `r tolower(bransch_flest_anstallda %>% dplyr::pull(bransch))` med ungefär `r format(plyr::round_any(bransch_flest_anstallda %>% dplyr::pull(Antal),1000),big.mark = " ")` anställda. Detta kan delvis förklaras med att befolkningen i Dalarna, precis som många andra glesbefolkade län, har en relativt hög medelålder, något som medför att mer vård och omsorg efterfrågas. SCB bedömer att behovet av arbetskraft inom vård och omsorg kommer att öka i takt med en åldrande befolkning, särskilt inom äldreomsorgen (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>).
 
 Andra branscher med många anställda i Dalarna är tillverkning och utvinning samt utbildning, med cirka `r antal_anstallda_tillverkning` respektive `r antal_anstallda_utbildning` anställda. Inom vård och omsorg samt utbildning är en övervägande majoritet av de sysselsatta kvinnor, medan det omvända gäller för tillverkning och utvinning, bygg samt transport.
 
@@ -785,6 +785,8 @@ En central utmaning är matchningen mellan utbud och efterfrågan på arbetskraf
 * **Avslutande kommentar**
 <br>
 Avslutningsvis är kompetensförsörjningen i Dalarna en av de största utmaningarna för länets framtida utveckling. Med rätt strategiska insatser och samarbete mellan offentlig sektor, näringsliv och utbildningsinstitutioner kan dock dessa utmaningar mötas på ett hållbart sätt. Det finns ett tydligt behov av att hitta nya lösningar för att hantera kompetensförsörjningsutmaningarna. Teknologisk utveckling, förändrade arbetsmarknadsstrukturer och en åldrande befolkning ställer höga krav på utbildningssystemet och arbetsmarknadsinsatser. För att uppnå långsiktig hållbarhet och uppfylla målen i Dalastrategin 2030, måste aktörer inom Dalarna satsa på att förbättra matchningen mellan utbildning och arbetsmarknadsbehov, samt underlätta för unga och utrikes födda att integreras på arbetsmarknaden.
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 200px;"></div>
 
 ```{r, results='asis', echo=FALSE}
 cat('

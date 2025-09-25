@@ -1,8 +1,24 @@
-# Uppdaterar data som används i rapporten "Läget i Dalarna"
+# Skript som hämtar data och skapar figurer/variabler som används för att skapa markdown-rapporten. Det finns två alternativ för skriptet:
 
-system.time({
+# 1: Kör skriptet utan att uppdatera data - sätt variabeln uppdatera_data till FALSE. Då läses den senast sparade versionen av R-studio global environment in.
+# Detta är ett bra alternativ om man enbart vill ändra text eller liknande, men inte uppdatera data.
+
+# 2: Uppdatera data - sätt variabeln uppdatera_data till FALSE. Då uppdateras data, alla figurer skapas på nytt och en ny enviroment sparas.
+# Tar längre tid (ett par minuter) och medför en risk att text inte längre är aktuell då figurer har ändrats.
+
+
 if (!require("pacman")) install.packages("pacman")
-p_load(here)
+p_load(tidyverse,
+       here)
+
+# Skall data uppdateras? Annars läses data in från en sparad global environment-fil.
+uppdatera_data = FALSE
+
+if(uppdatera_data == TRUE){
+  
+  cat("Hämtning av data påbörjad")
+  start_time <- Sys.time()
+
 
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_API.R", encoding = "utf-8", echo = FALSE)
 
@@ -85,8 +101,9 @@ gg_lediga_jobb <- funktion_upprepa_forsok_om_fel( function() {
   }, hoppa_over = hoppa_over_forsok_igen)
 
 lediga_jobb_senaste_ar <- max(lediga_jobb_E1_df$ar)
-antal_lediga_jobb <- format(sum(lediga_jobb_E1_df %>% filter(ar==max(ar)) %>% .$`Lediga jobb`),big.mark = " ")
+antal_lediga_jobb <- sum(lediga_jobb_E1_df %>% filter(ar==max(ar)) %>% .$`Lediga jobb`)
 andel_privat_lediga_jobb <- round((lediga_jobb_E1_df %>% filter(ar==max(ar),sektor == "privat sektor") %>% .$`Lediga jobb`/antal_lediga_jobb)*100,0)
+antal_lediga_jobb <- format(antal_lediga_jobb,big.mark = " ")
 
 # Jobbinflöde - NY 7/10
 source(here("Skript","jobbinflode_procent_region_ny.R"), encoding="UTF-8")
@@ -188,17 +205,21 @@ gg_forv_senastear <- funktion_upprepa_forsok_om_fel( function() {
                          diag_lan_antal = TRUE)
 }, hoppa_over = hoppa_over_forsok_igen)
 
-bransch_flest_anstallda<- antal_forvarvsarbetande_bransch %>%
+bransch_flest_anstallda <- antal_forvarvsarbetande_bransch %>%
   summarise(Antal = sum(Antal, na.rm = TRUE), .by = c(år, bransch)) %>%
   slice_max(Antal, n = 1, by = år, with_ties = TRUE)
 
-antal_anstallda_tillverkning <- format(plyr::round_any(antal_forvarvsarbetande_bransch %>%
+antal_anstallda_tillverkning <- antal_forvarvsarbetande_bransch %>%
   summarise(Antal = sum(Antal, na.rm = TRUE), .by = c(år, bransch)) %>% 
-    filter(bransch == "Tillverkning och utvinning") %>% pull(Antal),1000),big.mark = " ")
+    filter(bransch == "Tillverkning och utvinning") %>% .$Antal %>% 
+      round(-3) %>%  
+        base::format(big.mark = " ", trim = TRUE)
 
-antal_anstallda_utbildning <- format(plyr::round_any(antal_forvarvsarbetande_bransch %>%
+antal_anstallda_utbildning <- antal_forvarvsarbetande_bransch %>%
   summarise(Antal = sum(Antal, na.rm = TRUE), .by = c(år, bransch)) %>% 
-    filter(bransch == "Utbildning") %>% pull(Antal),1000),big.mark = " ")
+    filter(bransch == "Utbildning") %>% .$Antal %>% 
+      round(-3) %>%  
+        base::format(big.mark = " ", trim = TRUE)
 
 # Förvärvsarbetande från 1990 till senaste år. Både antal och förändring (från första till sista)
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_forvarvsarbetande_90_senastear_SCB.R")
@@ -212,7 +233,7 @@ gg_forv_90 <- funktion_upprepa_forsok_om_fel( function() {
                                            vald_farg = diagramfarger("rus_sex"))
   }, hoppa_over = hoppa_over_forsok_igen)
 
-bransch_forandring_antal_foretagstjanster <- round((forvarvsarbetande_90_forandring %>% filter(år == max(år),Näringsgren == "Företagstjänster, finans mm") %>% pull(antal)/forvarvsarbetande_90_forandring %>% filter(år == 1990,Näringsgren == "Företagstjänster, finans mm") %>% pull(antal)-1)*100,0)
+bransch_forandring_antal_foretagstjanster <- round((forvarvsarbetande_90_forandring %>% filter(år == max(år),Näringsgren == "Företagstjänster, finans mm") %>% dplyr::pull(antal)/forvarvsarbetande_90_forandring %>% filter(år == 1990,Näringsgren == "Företagstjänster, finans mm") %>% dplyr::pull(antal)-1)*100,0)
 
 # Befolkningsförändring uppdelat på komponent (län)
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_befolkningsforandring.R", encoding="UTF-8")
@@ -458,20 +479,20 @@ gymnasieantagning_flest_antagna_totalt <- gymnasieantagning_df %>%
   filter(ar == max(ar)) %>%
   summarise(Antagna = sum(Antagna, na.rm = TRUE), .by = c(program)) %>%
   slice_max(Antagna, n = 1, with_ties = TRUE) %>% 
-  pull(program)
+  dplyr::pull(program)
 
 gymnasieantagning_flest_antagna_totalt_ej_intro <- gymnasieantagning_df %>%
   filter(ar == max(gymnasieantagning_df$ar),program != gymnasieantagning_flest_antagna_totalt) %>%
   summarise(Antagna = sum(Antagna, na.rm = TRUE), .by = c(program)) %>%
   slice_max(Antagna, n = 3, with_ties = TRUE) %>% 
-  pull(program)
+  dplyr::pull(program)
 
 gymnasieantagning_flest_antagna_totalt_yrkes <- gymnasieantagning_df %>%
   filter(ar == max(gymnasieantagning_df$ar),
          program %in% yrkesprog) %>%
   summarise(Antagna = sum(Antagna, na.rm = TRUE), .by = c(program)) %>%
   slice_max(Antagna, n = 2, with_ties = TRUE) %>% 
-  pull(program)
+  dplyr::pull(program)
 
 # Könsuppdelat
 # Används enbart i texten
@@ -486,7 +507,7 @@ hogskoleprog_kvinnor <- andel_kon_per_program %>%
          program %in% hogskoleprog,
          Kon == "Kvinnor") %>%
   slice_max(Andel, n = 1, with_ties = TRUE) %>%
-  pull(program)
+  dplyr::pull(program)
 
 # Högskoleförberedande program med störst andel män
 hogskoleprog_man <- andel_kon_per_program %>%
@@ -494,7 +515,7 @@ hogskoleprog_man <- andel_kon_per_program %>%
          program %in% hogskoleprog,
          Kon == "Män") %>%
   slice_max(Andel, n = 1, with_ties = TRUE) %>%
-  pull(program)
+  dplyr::pull(program)
 
 # Yrkesförberedande program med störst andel kvinnor
 yrkesprog_kvinnor <- andel_kon_per_program %>%
@@ -502,7 +523,7 @@ yrkesprog_kvinnor <- andel_kon_per_program %>%
          program %in% yrkesprog,
          Kon == "Kvinnor") %>%
   slice_max(Andel, n = 1, with_ties = TRUE) %>%
-  pull(program)
+  dplyr::pull(program)
 
 # Yrkesförberedande program med störst andel män
 yrkesprog_man <- andel_kon_per_program %>%
@@ -510,7 +531,7 @@ yrkesprog_man <- andel_kon_per_program %>%
          program %in% yrkesprog,
          Kon == "Män") %>%
   slice_max(Andel, n = 2, with_ties = TRUE) %>%
-  pull(program)
+  dplyr::pull(program)
 
 # Flera år
 gymnasieantagning_forsta_ar_intro <- sum(gymnasieantagning_df %>% filter(program == "Introduktionsprogram",ar == min(ar)) %>% .$Antagna)
@@ -536,7 +557,7 @@ hogskola_flest_examinerade_totalt_df <- hogskoleexamen_df %>%
   slice_max(antal, n = 2, with_ties = TRUE) 
 
 # Program
-hogskola_flest_examinerade_program <- tolower(glue_collapse(hogskola_flest_examinerade_totalt_df %>% pull(SUN2020Inr_2siffer_namn),sep = ", ", last = " samt "))
+hogskola_flest_examinerade_program <- tolower(glue_collapse(hogskola_flest_examinerade_totalt_df %>% dplyr::pull(SUN2020Inr_2siffer_namn),sep = ", ", last = " samt "))
 
 # Antal, specialfall om flera utbildningar har samma antal
 hogskola_flest_examinerade_antal <- hogskola_flest_examinerade_totalt_df %>%
@@ -545,7 +566,7 @@ hogskola_flest_examinerade_antal <- hogskola_flest_examinerade_totalt_df %>%
       v <- sort(unique(na.omit(antal)))     # or `antal` if that’s your col
       if (length(v) <= 1) as.character(v)
       else glue_collapse(v, sep = ", ", last = " och ")
-    }) %>% pull()
+    }) %>% dplyr::pull()
 
 # Antal examinerade i företagsekonomi mm
 hogskola_examinerade_foretagsekonomi <- hogskoleexamen_df %>% filter(Lar==max(.$Lar),SUN2020Inr_2siffer_namn == "Företagsekonomi, handel och administration") %>% .$antal
@@ -641,8 +662,8 @@ gg_sysselsattningsgrad_93 <- funktion_upprepa_forsok_om_fel( function() {
 syssgrad_93_forsta_ar <- min(forvarvsintensitet_93_df$år)
 syssgrad_93_senaste_ar <- max(forvarvsintensitet_93_df$år)
 
-syssgrad_93_senaste_ar_man_varde <- round(forvarvsintensitet_93_df %>% filter(år == max(år),kön == "män") %>% pull(sysselsättningsgrad),0)
-syssgrad_93_senaste_ar_kvinna_varde <- round(forvarvsintensitet_93_df %>% filter(år == max(år),kön == "kvinnor") %>% pull(sysselsättningsgrad),0)
+syssgrad_93_senaste_ar_man_varde <- round(forvarvsintensitet_93_df %>% filter(år == max(år),kön == "män") %>% .$sysselsättningsgrad,0)
+syssgrad_93_senaste_ar_kvinna_varde <- round(forvarvsintensitet_93_df %>% filter(år == max(år),kön == "kvinnor") %>% .$sysselsättningsgrad,0)
 
 # Arbetslöshet 08-senaste år. Excel, Arbetsförmedlingen - KVAR
 # source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
@@ -788,10 +809,17 @@ kompetensbrist_Dalarna_forandring_2020 <- round(kompetensbrist %>% filter(År ==
 #          bakgrund = ifelse(bakgrund == "Utrikes född", "Utrikes födda", "Inrikes födda"),
 #          region = region %>% skapa_kortnamn_lan())
 
+save.image(file = "G:/skript/projekt/environments/kompetensforsorjning_i_Dalarna.RData")
+
+end_time <- Sys.time()
+elapsed_time <- as.numeric(difftime(end_time, start_time, units = "secs"))
+cat(sprintf("Hämtning av data klar: Det tog %.2f sekunder.", elapsed_time))
+cat("\n\n")
 
 
-
-}) # slut system.time för att ladda data
+}else{
+  load("G:/skript/projekt/environments/kompetensforsorjning_i_Dalarna.RData")
+} 
 
 # 2. om man vill knitta rapporten
 #source(paste0(here("Skript","/"), "2_knitta_rapport.R"))
