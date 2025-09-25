@@ -7,8 +7,11 @@ output:
     fig_caption: yes          # Aktiverar bildtexter
     number_sections: true     # Behåll avsnittsnumreringen
     global_numbering: true    # Global numrering av figurer och tabeller
+    self_contained: true
     includes:
-      in_header: hero_image.html
+      in_header: 
+      - favicon.html
+      - hero_image.html
     toc: yes
     toc_float: yes
     toc_depth: 6
@@ -116,7 +119,7 @@ Genom att klicka på blå text går det att följa länkarna som öppnas i en ny
 
 # Inledning {-}
 
-Sverige och Dalarna har en åldrande befolkning och aktuella prognoser från SCB (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>) pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler unga och gamla. Den demografiska försörjningskvoten mäter förhållandet mellan individer i arbetsför ålder, och unga och gamla. Mellan `r forsorjningskov_min_ar` och `r forsorjningskov_max_ar`  har försörjningskvoten i Dalarna ökat från `r forsorjningskov_min_ar_dalarna_varde` till `r forsorjningskov_max_ar_dalarna_varde`. Det innebär att 100 personer i arbetsför ålder ska försörja ungefär `r round(forsorjningskov_max_ar_dalarna_varde,0)` personer utanför arbetsför ålder. Redan idag är försörjningskvoten i Dalarna den högsta i landet och förväntas öka över tid. Det kommer att förstärka den brist på arbetskraft som råder redan i dag och påverka näringslivets och offentlig sektors möjlighet att rekrytera personal.
+Sverige och Dalarna har en åldrande befolkning och aktuella prognoser från SCB (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>) pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler unga och gamla. Den demografiska försörjningskvoten mäter förhållandet mellan individer i arbetsför ålder, och unga och gamla. Mellan `r forsorjningskov_min_ar` och `r forsorjningskov_max_ar`  har försörjningskvoten i Dalarna ökat från ungefär `r round(forsorjningskov_min_ar_dalarna_varde,0)` till `r forsorjningskov_max_ar_dalarna_varde`. Det innebär att 100 personer i arbetsför ålder ska försörja ungefär `r round(forsorjningskov_max_ar_dalarna_varde,0)` personer utanför arbetsför ålder. Redan idag är försörjningskvoten i Dalarna den högsta i landet och förväntas öka över tid. Det kommer att förstärka den brist på arbetskraft som råder redan i dag och påverka näringslivets och offentlig sektors möjlighet att rekrytera personal.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -170,7 +173,7 @@ gg_befolkning$Befolkningsutveckling_Dalarna
 ```
 
 <br>
-En utveckling mot en allt äldre befolkning leder till arbetskraftsbrist, vilket är en trend som kan observeras på många håll i landet. Därutöver kan även kompetensbrist uppstå, om de som står till arbetsmarknadens förfogande inte har de kompetenser som efterfrågas (<a href="https://www.tillvaxtanalys.se/publikationer/rapport/rapportserien/2024-02-29-arbetskrafts--och-kompetensbrist.html/" target="_blank">Tillväxtanalys, 2024</a>).
+En utveckling mot en allt äldre befolkning leder till arbetskraftsbrist, vilket är en trend som kan observeras på många håll i landet. Därutöver kan även kompetensbrist uppstå, om de som står till arbetsmarknadens förfogande inte har de kompetenser som efterfrågas (<a href="https://www.tillvaxtanalys.se/publikationer/rapport/rapportserien/arbetskraftsochkompetensbrist.126683.html" target="_blank">Tillväxtanalys, 2024</a>).
 
 Att hitta lösningar på kompetensförsörjningsutmaningen blir avgörande för att skapa en hållbar regional utveckling. Den regionala utvecklingsstrategin, <a href="https://www.regiondalarna.se/globalassets/regional-utveckling/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf/" target="_blank">Dalastrategin 2030</a>, pekar även ut en väl fungerande kompetensförsörjning som ett område där nya lösningar måste hittas i perspektivet av en åldrande befolkning. 
 
@@ -192,7 +195,7 @@ I denna rapport får de regionala matchningsindikatorer som togs fram av Reglab 
 
 ## Lediga jobb
 
-Under andra kvartalet `r lediga_jobb_senaste_ar` fanns det cirka `r antal_lediga_jobb` lediga jobb. Ungefär `r andel_privat_lediga_jobb` av dessa fanns inom privat sektor. Efterfrågan inom offentlig sektor har minskat markant på senare år, vilket sannolikt har att göra med att många aktörer inom offentlig sektor har fått försämrad ekonomin och i flera fall infört anställningsstopp.
+Under andra kvartalet `r lediga_jobb_senaste_ar` fanns det cirka `r antal_lediga_jobb` lediga jobb. Ungefär `r andel_privat_lediga_jobb` procent av dessa fanns inom privat sektor. Efterfrågan inom offentlig sektor har minskat markant på senare år, vilket sannolikt har att göra med att många aktörer inom offentlig sektor har fått sämre ekonomin på senare år och i flera fall infört anställningsstopp.
 
 Över tid har antalet lediga jobb i länet ökat successivt sedan den lägsta noteringen i efterdyningarna av finanskrisen 2008. Privat sektor står för den högsta andelen av efterfrågan, med undantag för några enstaka observationstillfällen.
 
@@ -326,12 +329,15 @@ gg_forv_90$forvarvsarbetande_90_forandring_Dalarna
 ```
 
 <br>
+
+<span class = "kommentar">Går figuren nedan att uppdatera? Ändrade dessutom från figuren som heter _transparent till _vit då den förstnämnda såg märklig ut. Oklar skillnad i övrigt</span>
+
 Olika kommuner i Dalarna har olika branschstrukturer, vilket åskådliggörs i figuren nedan. I södra delarna av länet, exempelvis Avesta och Ludvika, är tillverkningsindustrin fortfarande en av de största arbetsgivarna, med företag såsom Outokumpu (Avesta) och Hitachi (Ludvika). I de kommuner som har ett akutsjukhus, Falun och Mora, är vård och omsorg den viktigaste branschen, vilket även gäller för Säter och Rättvik. I Leksand spelar handel en stor roll, då kommunen är säte för bland annat Clas Ohlson.
 
 I de nordligaste kommunerna (Malung-Sälen, Orsa och Älvdalen) är byggindustrin en av de största arbetsgivarna, vilket delvis kan förklaras av den byggboom som skett i Dalarnas fjällvärld. Det är även tydligt att näringslivet i länets två största orter (Borlänge och Falun) domineras av tjänstesektorn (handel, företagstjänster, och offentlig förvaltning) samt utbildning.
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
-knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2023/dagbef_dalarnas_kommuner_aug_2023_transparent.png")
+knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2023/dagbef_dalarnas_kommuner_aug_2023_vit.png")
 ```
 
 ```{r, echo=FALSE,message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center',,fig.cap="Figur 4",include=FALSE}
@@ -368,7 +374,7 @@ gg_antal_utrikes_inrikes$befolkning_utr_inr_antal_Dalarna
 ```
 
 <br>
-I figuren nedan blir det tydligt att de unga (0-19 år) och de i arbetsför ålder (20-64 år) har minskat sedan slutet på 1960-talet, medan de äldre (65-79 år och 80+ år) har ökat kraftigt under samma tidsperiod, en utveckling som dessutom prognostiseras fortsätta i framtiden.
+I figuren nedan blir det tydligt att de unga (0-19 år) och de i arbetsför ålder (20-64 år) har minskat sedan slutet på 1960-talet, medan de äldre (65-79 år och 80+ år) har ökat kraftigt under samma tidsperiod, en utveckling som dessutom prognostiseras fortsätta i framtiden för de allra äldsta (80+ år).
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE,include=FALSE}
 # 
@@ -472,7 +478,7 @@ gg_utbniva_senastear[[names(gg_utbniva_senastear)]]
 <br>
 Utbildningsnivån i samhället har dock ökat avsevärt över tid, vilket vi har berört tidigare. Andelen kvinnor som har minst tre års eftergymnasial utbildning i Dalarna har ökat från ungefär `r andel_hogutb_kvinnor_min_ar` procent till cirka `r andel_hogutb_kvinnor_max_ar` procent mellan `r andel_hogutb_forsta_ar` och `r andel_hogutb_sista_ar`. Andelen män med motsvarande utbildningsnivå har ökat från ungefär `r andel_hogutb_man_min_ar` procent till cirka `r andel_hogutb_man_max_ar` procent under samma tidsperiod. 
 
-Det finns flera möjliga förklaringar till att fler kvinnor än män är högt utbildade. En orsak är att kvinnor i högre utsträckning jobbar inom vård och omsorg samt utbildning, där de flesta yrkesgrupper kräver eftergymnasial utbildning på minst tre år. En annan förklaring är att kvinnor generellt sätt, oavsett utbildning, påbörjar eftergymnasiala studier i högre utsträckning än män (<a href="https://www.scb.se/hitta-statistik/statistik-efter-amne/utbildning-och-forskning/befolkningens-utbildning/analyser-och-statistik-om-befolkningens-utbildning/pong/statistiknyhet/konsskillnader-i-utbildnkonsskillnader-i-utbildningsvalen-efter-gymnasieskolan/" target="_blank">SCB, 2019</a>)
+Det finns flera möjliga förklaringar till att fler kvinnor än män är högt utbildade. En orsak är att kvinnor i högre utsträckning jobbar inom vård och omsorg samt utbildning, där de flesta yrkesgrupper kräver eftergymnasial utbildning på minst tre år. En annan förklaring är att kvinnor generellt sätt, oavsett utbildning, påbörjar eftergymnasiala studier i högre utsträckning än män (<a href="https://www.scb.se/contentassets/0c78685c9da142eb921b46f0e2caf4d2/uf0549_2019a01_sm_a40br1903.pdf" target="_blank">SCB, 2019</a>)
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -525,7 +531,7 @@ gg_gymnasiet_kon$gymnasieantagning_kon_tot
 ```
 
 <br>
-Det program som ökat klart mest i antalet antagna är introduktionsprogrammet. År `r gymnasieantagning_forsta_ar` antogs `r gymnasieantagning_forsta_ar_intro` personer till programmet, en siffra som ökat till `r gymnasieantagning_senaste_ar_intro` år `r gymnasieantagning_senaste_ar`. Bland studieförberedande program är ökningen störst på ekonomiprogrammet, dit mer än dubbelt så många antas idag som `r min(gymnasieantagning_df$ar)`. Bland program som i första hand kan ses som yrkesförberedande har antalet antagna till naturbruksprogrammet ökat avsevärt sedan `r gymnasieantagning_forsta_ar`, medan antalet antagna till restaurang- och livsmedelsprogrammet har minskat tydligt.
+Det program som ökat klart mest i antalet antagna är introduktionsprogrammet. År `r gymnasieantagning_forsta_ar` antogs `r gymnasieantagning_forsta_ar_intro` personer till programmet, en siffra som ökat till `r gymnasieantagning_senaste_ar_intro` personer år `r gymnasieantagning_senaste_ar`. Bland studieförberedande program är ökningen störst på ekonomiprogrammet, dit mer än dubbelt så många antas idag som `r min(gymnasieantagning_df$ar)`. Bland program som i första hand kan ses som yrkesförberedande har antalet antagna till naturbruksprogrammet ökat avsevärt sedan `r gymnasieantagning_forsta_ar`, medan antalet antagna till restaurang- och livsmedelsprogrammet har minskat tydligt.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -576,7 +582,7 @@ gym_prognos_fig
 
 De som tog examen från Högskolan Dalarna läsåret `r senaste_ar_hogskola` gjorde det i stor utsträckning från två program, `r hogskola_flest_examinerade_program` med `r hogskola_flest_examinerade_antal` examinerade vardera. Efter en nedgång 2015, är antalet examinerade från dessa program idag på ungefär samma nivå som de var runt 2010. 
 
-Ett annat populärt program är företagsekonomi, handel och administration med `r hogskola_examinerade_foretagsekonomi` examinerade. Från detta program examineras fler idag än 2010, men det har varit en viss nedgång sedan 2015. Ett program som minskat avsevärt sedan 2010 är teknik och teknisk industri, där antalet examinerade `r senaste_ar_hogskola` är ungefär en tredjedel av jämfört med 2010.
+Ett annat populärt program är företagsekonomi, handel och administration med `r hogskola_examinerade_foretagsekonomi` examinerade. Från detta program examineras fler idag än 2010, men det har varit en viss nedgång sedan 2015. Ett program som minskat avsevärt sedan 2010 är teknik och teknisk industri, där antalet examinerade `r senaste_ar_hogskola` var ungefär en tredjedel så många som 2010.
 
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
 gg_hogskoleexamen$hogskoleexamen
@@ -639,7 +645,7 @@ gg_arbetsmarknadsstatus_lan$sysselsattningsgrad_senastear
 ```
 
 <br>
-Något som behöver tas hänsyn till vid en analys av sysselsättningsgraden bland utrikes födda är hur lång tid personerna har varit i Sverige, samt vilken utbildningsnivå de har. För en djupare diskussion runt detta, se Region Dalarnas rapport <a href="https://samhallsanalys.regiondalarna.se/kvinnor_man">"Kvinnor och män i Dalarna"</a>.
+Något som behöver tas hänsyn till vid en analys av sysselsättningsgraden bland utrikes födda är hur lång tid personerna har varit i Sverige, samt vilken utbildningsnivå de har. För en djupare diskussion runt detta, se Region Dalarnas rapport <a href="https://samhallsanalys.regiondalarna.se/kvinnor_man"  target="_blank">"Kvinnor och män i Dalarna"</a>.
 
 Vad gäller sysselsättningsgrad uppvisar kommunerna i Dalarna ett liknande mönster som länen på nationell nivå. Gruppen inrikes födda har en högre sysselsättningsgrad i samtliga kommuner i Dalarna jämfört med utrikes födda. Även här är sysselsättningsgraden för inrikes födda kvinnor och män ungefär lika hög. För utrikes födda är det däremot stora
 skillnader mellan kvinnor och män, men också mellan olika kommuner. I linje med den nationella bilden är sysselsättningsgraden högre för gruppen utrikes födda män än för utrikes födda kvinnor.
@@ -668,6 +674,7 @@ gg_sysselsattningsgrad_93$sysselsattningsgrad_93_Dalarna
 
 
 <span class= "kommentar">Ta bort? Data uppdateras inte längre. Alternativet är data från AKU som används i integrationsrapporten bland annat</span>
+<span class= "kommentar">Även lite oklart varför arbetslöshet diskuteras i ett avsnitt om sysselsättningsgrad? Motivera varför det är intressant?</span>
 
 Grafen nedan visar arbetslösheten i Sverige och Dalarna under perioden 2008 till 2023. Andelen arbetslösa i Dalarna (de mörkgröna staplarna) har konsekvent varit lägre än andelen arbetslösa i Sverige (de ljusgröna staplarna). Sedan pandemin har andelen arbetslösa i både Sverige och Dalarna sjunkit, och 2023 var arbetslösheten i genomsnitt 6,4 respektive 5,8 procent. Under andra kvartalet 2024 var arbetslösheten i Dalarna 5,3 procent, att jämföra med 6,5 procent för riket som helhet (<a href="https://mb.cision.com/Public/1326/4016890/945db14fdac19df6.pdf">Arbetsförmedlingen, 2024</a>).
 
@@ -712,7 +719,7 @@ arb_08_fig
 
 Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning människor jobbar med vad de är utbildade till. Generellt tenderar olika typer av specialiserade eftergymnasiala utbildningar, exempelvis läkare och psykologer, ha hög matchning. Utbildar man sig till läkare är det väldigt hög sannolikhet att man även har det som yrke (över 90 procent). På andra sidan av spektrumet finns dels olika former av gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis humaniora och konst, där runt hälften jobbar med vad de är utbildade till. 
 
-I stora drag ligger matchninggraden på runt `r matchningsgrad_sverige_kvinnor` procent för kvinnor och `r matchningsgrad_sverige_man` procent för män i Sverige. Det finns vissa skillnader mellan länen, men dessa är relativt små. I Dalarna är matchningsgraden cirka `r matchningsgrad_dalarna_kvinnor` procent för kvinnor och `r matchningsgrad_dalarna_man` för män , vilket alltså är marginellt lägre än riket som helhet.
+I stora drag ligger matchninggraden på runt `r matchningsgrad_sverige_kvinnor` procent för kvinnor och `r matchningsgrad_sverige_man` procent för män i Sverige. Det finns vissa skillnader mellan länen, men dessa är relativt små. I Dalarna är matchningsgraden cirka `r matchningsgrad_dalarna_kvinnor` procent för kvinnor och `r matchningsgrad_dalarna_man` procent för män , vilket alltså är marginellt lägre än riket som helhet.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -720,7 +727,7 @@ gg_matchning$matchning_jmf
 ```
 
 <br>
-Matchningen på arbetsmarknaden tenderar att variera beroende på var man är född. I Dalarna har inrikes födda högst matchning med `r matchning_inrikes_kvinnor_dalarna` procent för kvinnor och `r matchning_inrikes_man_dalarna` procent för män. Lägst matchningsgrad för män har personer `r matchning_lagst_man_fodelseland` (cirka `r matchning_lagst_man_varde` procent), medan personer `r matchning_lagst_kvinnor_fodelseland` länder har lägst matchningsgrad för kvinnor (cirka `r matchning_lagst_kvinnor_varde` procent). Högst matchningsgrad har `r matchning_hogst_kon` `r matchning_hogst_fodelseland` med ungefär `r matchning_hogst_varde` procent.
+Matchningen på arbetsmarknaden tenderar att variera beroende på var man är född. I Dalarna har inrikes födda högst matchning med `r matchning_inrikes_kvinnor_dalarna` procent för kvinnor och `r matchning_inrikes_man_dalarna` procent för män. Lägst matchningsgrad för män har personer `r matchning_lagst_man_fodelseland` (cirka `r matchning_lagst_man_varde` procent), medan personer födda i områden som saknas i diagrammet nedan (`r matchning_lagst_kvinnor_fodelseland`) har lägst matchningsgrad för kvinnor (cirka `r matchning_lagst_kvinnor_varde` procent). Högst matchningsgrad har `r matchning_hogst_kon` `r matchning_hogst_fodelseland` med ungefär `r matchning_hogst_varde` procent.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}

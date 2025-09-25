@@ -30,8 +30,8 @@ gg_demo_forsorjning <- funktion_upprepa_forsok_om_fel( function() {
 forsorjningskov_min_ar <- min(demografisk_forsorjningskvot_df$år)
 forsorjningskov_max_ar <- max(demografisk_forsorjningskvot_df$år)
 
-forsorjningskov_min_ar_dalarna_varde <- gsub(".", ",", demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(år == min(år)) %>% .$varde, fixed = TRUE)
-forsorjningskov_max_ar_dalarna_varde <- gsub(".", ",", demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(år == max(år)) %>% .$varde, fixed = TRUE)
+forsorjningskov_min_ar_dalarna_varde <- demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(år == min(år)) %>% .$varde
+forsorjningskov_max_ar_dalarna_varde <- demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(år == max(år)) %>% .$varde
 
 
 # Antal utrikes/inrikes födda i arbetsför ålder (20-64 år)
@@ -85,7 +85,7 @@ gg_lediga_jobb <- funktion_upprepa_forsok_om_fel( function() {
   }, hoppa_over = hoppa_over_forsok_igen)
 
 lediga_jobb_senaste_ar <- max(lediga_jobb_E1_df$ar)
-antal_lediga_jobb <- sum(lediga_jobb_E1_df %>% filter(ar==max(ar)) %>% .$`Lediga jobb`) 
+antal_lediga_jobb <- format(sum(lediga_jobb_E1_df %>% filter(ar==max(ar)) %>% .$`Lediga jobb`),big.mark = " ")
 andel_privat_lediga_jobb <- round((lediga_jobb_E1_df %>% filter(ar==max(ar),sektor == "privat sektor") %>% .$`Lediga jobb`/antal_lediga_jobb)*100,0)
 
 # Jobbinflöde - NY 7/10
@@ -746,10 +746,10 @@ gg_kompetensbrist <- funktion_upprepa_forsok_om_fel( function() {
 kompetensbrist_senaste_ar <- max(kompetensbrist$År)
 
 kompetensbrist_lagst_region <- kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Region
-kompetensbirst_lagst_varde <- kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel
+kompetensbirst_lagst_varde <- round(kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel,0)
 
 kompetensbrist_hogst_region <- kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Region
-kompetensbirst_hogst_varde <- kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel
+kompetensbirst_hogst_varde <- round(kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel,0)
 
 kompetensbrist_Dalarna <- round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel,0)
 kompetensbrist_Dalarna_forandring_2020 <- round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel - kompetensbrist %>% filter(År == "2020") %>% filter(Region == "Dalarna") %>% .$Andel ,0)
