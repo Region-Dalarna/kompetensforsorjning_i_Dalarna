@@ -324,4 +324,21 @@ blockquote {
 
 }
 
+@media(min-width: 767px){
+html[data-scroll="top"] .tocify {
+  top: 150px;
+}
+
+html[data-scroll="scrolled"] .tocify {
+  top: 5px;
+}
+
+.tocify {
+  position: fixed;
+  top: 150px;
+  transition: top 0.4s ease;
+  z-index: 10;
+}
+}
+
 

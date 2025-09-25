@@ -785,3 +785,28 @@ En central utmaning är matchningen mellan utbud och efterfrågan på arbetskraf
 * **Avslutande kommentar**
 <br>
 Avslutningsvis är kompetensförsörjningen i Dalarna en av de största utmaningarna för länets framtida utveckling. Med rätt strategiska insatser och samarbete mellan offentlig sektor, näringsliv och utbildningsinstitutioner kan dock dessa utmaningar mötas på ett hållbart sätt. Det finns ett tydligt behov av att hitta nya lösningar för att hantera kompetensförsörjningsutmaningarna. Teknologisk utveckling, förändrade arbetsmarknadsstrukturer och en åldrande befolkning ställer höga krav på utbildningssystemet och arbetsmarknadsinsatser. För att uppnå långsiktig hållbarhet och uppfylla målen i Dalastrategin 2030, måste aktörer inom Dalarna satsa på att förbättra matchningen mellan utbildning och arbetsmarknadsbehov, samt underlätta för unga och utrikes födda att integreras på arbetsmarknaden.
+
+```{r, results='asis', echo=FALSE}
+cat('
+<script>
+
+const debounce = (fn) => {
+  let frame;
+  return (...params) => {
+    if (frame) cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => fn(...params));
+  };
+};
+
+const storeScroll = () => {
+  const threshold = 150;
+  const scrolled = window.scrollY > threshold;
+  document.documentElement.dataset.scroll = scrolled ? "scrolled" : "top";
+};
+
+document.addEventListener("scroll", debounce(storeScroll), { passive: true });
+storeScroll();
+</script>
+')
+
+```
