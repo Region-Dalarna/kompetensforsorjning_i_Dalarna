@@ -6,7 +6,7 @@ senaste_rmd_filen <- list.files(here(), pattern = "\\.Rmd$") %>%
   .[which.max(file.info(.)$mtime)]
 
 renderad_html_fil <- senaste_rmd_filen %>% 
-  str_replace(".Rmd", ".html")
+  str_replace("_markdown.Rmd", "forsorjning.html")
 
 rmarkdown::render(
     input = senaste_rmd_filen,
