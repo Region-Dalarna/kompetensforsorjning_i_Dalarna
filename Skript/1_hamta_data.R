@@ -30,8 +30,8 @@ gg_demo_forsorjning <- funktion_upprepa_forsok_om_fel( function() {
 forsorjningskov_min_ar <- min(demografisk_forsorjningskvot_df$år)
 forsorjningskov_max_ar <- max(demografisk_forsorjningskvot_df$år)
 
-forsorjningskov_min_ar_dalarna_varde <- demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(år == min(år)) %>% .$varde
-forsorjningskov_max_ar_dalarna_varde <- demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(år == max(år)) %>% .$varde
+forsorjningskov_min_ar_dalarna_varde <- gsub(".", ",", demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(år == min(år)) %>% .$varde, fixed = TRUE)
+forsorjningskov_max_ar_dalarna_varde <- gsub(".", ",", demografisk_forsorjningskvot_df %>% filter(region=="Dalarnas län") %>% filter(år == max(år)) %>% .$varde, fixed = TRUE)
 
 
 # Antal utrikes/inrikes födda i arbetsför ålder (20-64 år)
@@ -536,7 +536,7 @@ hogskola_flest_examinerade_totalt_df <- hogskoleexamen_df %>%
   slice_max(antal, n = 2, with_ties = TRUE) 
 
 # Program
-hogskola_flest_examinerade_program <- tolower(glue_collapse(hogskola_flest_examinerade_totalt %>% pull(SUN2020Inr_2siffer_namn),sep = ", ", last = " samt "))
+hogskola_flest_examinerade_program <- tolower(glue_collapse(hogskola_flest_examinerade_totalt_df %>% pull(SUN2020Inr_2siffer_namn),sep = ", ", last = " samt "))
 
 # Antal, specialfall om flera utbildningar har samma antal
 hogskola_flest_examinerade_antal <- hogskola_flest_examinerade_totalt_df %>%
@@ -712,24 +712,60 @@ gg_matchning <- funktion_upprepa_forsok_om_fel( function() {
                                    returnera_data = TRUE)
   }, hoppa_over = hoppa_over_forsok_igen)
 
-# Lediga jobb M1 - NY 7/10
-source(here("Skript","diagram_lediga_jobb_arbetslosa_M1.R"), encoding="UTF-8")
-gg_lediga_jobb_M1 <- funktion_upprepa_forsok_om_fel( function() {
-  diagram_lediga_jobb_arbetslosa_M1(region_vekt = "20",
-                                                   spara_figur = spara_diagram_som_bildfiler,
-                                                   returnera_data = TRUE,
-                                                   tid_koder = "*",
-                                                   output_mapp_figur = Output_mapp_figur)
-  }, hoppa_over = hoppa_over_forsok_igen)
+# Jmf län (diagram 1)
+matchningsgrad_sverige_kvinnor <- round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)
+matchningsgrad_sverige_man <- round(matchning_df %>% filter(kön == "män",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)
+
+matchningsgrad_dalarna_kvinnor <- round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)
+matchningsgrad_dalarna_man <- round(matchning_df %>% filter(kön == "män",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)
+
+# Dalarna (diagram 2)
+
+matchning_inrikes_kvinnor_dalarna <- round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)
+matchning_inrikes_man_dalarna <- round(matchning_df %>% filter(kön == "män",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)
+
+matchning_lagst_man_fodelseland <- matchning_df %>% filter(kön == "män",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland
+matchning_lagst_man_varde <- round(matchning_df %>% filter(kön == "män",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)
+
+matchning_lagst_kvinnor_fodelseland <- matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland
+matchning_lagst_kvinnor_varde <- round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)
+
+matchning_hogst_fodelseland <- matchning_df %>% filter(region == "Dalarna") %>% filter(matchningsgrad == max(matchningsgrad)) %>% .$fodelseland
+matchning_hogst_kon <- matchning_df %>% filter(region == "Dalarna") %>% filter(matchningsgrad == max(matchningsgrad)) %>% .$kön
+matchning_hogst_varde <- round(matchning_df %>% filter(region == "Dalarna") %>% filter(matchningsgrad == max(matchningsgrad)) %>% .$matchningsgrad,0)
 
 # Kompetensbrist
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_kompetensbrist_lan_TVV.R",encoding="UTF-8")
 gg_kompetensbrist <- funktion_upprepa_forsok_om_fel( function() {
   diag_kompetensbrist(output_mapp_figur = Output_mapp_figur,
-                                         skapa_fil = spara_diagram_som_bildfiler,
-                                         returnera_figur = TRUE,
-                                         returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+                      skapa_fil = spara_diagram_som_bildfiler,
+                      returnera_figur = TRUE,
+                      returnera_data = TRUE)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+kompetensbrist_senaste_ar <- max(kompetensbrist$År)
+
+kompetensbrist_lagst_region <- kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Region
+kompetensbirst_lagst_varde <- kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel
+
+kompetensbrist_hogst_region <- kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Region
+kompetensbirst_hogst_varde <- kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel
+
+kompetensbrist_Dalarna <- round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel,0)
+kompetensbrist_Dalarna_forandring_2020 <- round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel - kompetensbrist %>% filter(År == "2020") %>% filter(Region == "Dalarna") %>% .$Andel ,0)
+
+
+# Lediga jobb M1 - NY 7/10 - verkar inte användas
+# source(here("Skript","diagram_lediga_jobb_arbetslosa_M1.R"), encoding="UTF-8")
+# gg_lediga_jobb_M1 <- funktion_upprepa_forsok_om_fel( function() {
+#   diagram_lediga_jobb_arbetslosa_M1(region_vekt = "20",
+#                                                    spara_figur = spara_diagram_som_bildfiler,
+#                                                    returnera_data = TRUE,
+#                                                    tid_koder = "*",
+#                                                    output_mapp_figur = Output_mapp_figur)
+#   }, hoppa_over = hoppa_over_forsok_igen)
+
+
 
 # # Befolkningsförändring uppdelat på komponent (län)
 # source(here("Skript","pendling_kommun.R"), encoding="UTF-8")
@@ -743,14 +779,14 @@ gg_kompetensbrist <- funktion_upprepa_forsok_om_fel( function() {
 #                     output_mapp = Output_mapp)
 
 
-source("https://raw.githubusercontent.com/Region-Dalarna/hamta_data/main/hamta_bef_region_alder_kon_fodelseregion_tid_InrUtrFoddaRegAlKon_scb.R")
-befolkning_utr_inr_df <- hamta_bef_region_alder_kon_fodelseregion_tid_scb(region_vekt = "20",
-                                                                          alder_koder = c(20:64) %>% as.character()) %>% 
-  group_by(år, regionkod, region, bakgrund = födelseregion) %>% 
-  summarise(antal = sum(Folkmängd, na.rm = TRUE), .groups = "drop") %>% 
-  mutate(aldersgrupp = "20-64 år",
-         bakgrund = ifelse(bakgrund == "Utrikes född", "Utrikes födda", "Inrikes födda"),
-         region = region %>% skapa_kortnamn_lan())
+# source("https://raw.githubusercontent.com/Region-Dalarna/hamta_data/main/hamta_bef_region_alder_kon_fodelseregion_tid_InrUtrFoddaRegAlKon_scb.R")
+# befolkning_utr_inr_df <- hamta_bef_region_alder_kon_fodelseregion_tid_scb(region_vekt = "20",
+#                                                                           alder_koder = c(20:64) %>% as.character()) %>% 
+#   group_by(år, regionkod, region, bakgrund = födelseregion) %>% 
+#   summarise(antal = sum(Folkmängd, na.rm = TRUE), .groups = "drop") %>% 
+#   mutate(aldersgrupp = "20-64 år",
+#          bakgrund = ifelse(bakgrund == "Utrikes född", "Utrikes födda", "Inrikes födda"),
+#          region = region %>% skapa_kortnamn_lan())
 
 
 

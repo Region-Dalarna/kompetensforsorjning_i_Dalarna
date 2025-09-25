@@ -37,13 +37,13 @@ source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_Sk
 #utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
 arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx")
 #forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_bransch.xlsx")
-forvarvsarbetande_prognos <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_prognos.xlsx")
+#forvarvsarbetande_prognos <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_prognos.xlsx")
 #kompetens_yrke_lan <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/kompetens_lan_bransch.xlsx")
 #Skriptet som skapar nedanstående data finns på Mona: P1079gem/Jon/kompetensförsörjning/utbildningsniva_bransch_korrekt.R. OBS! Uppdateras inte när skriptet hämta data körs.
 #bransch_utb_alder_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/11_jul_23_utdata_forvarvsarbetande_bransch.xlsx")
-befolkning_flytt_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkningsforandring_20_64.xlsx")
+#befolkning_flytt_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkningsforandring_20_64.xlsx")
 #befolkning_utr_inr_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/befolkning_utr_inr.xlsx")
-pendling_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_lan.xlsx")
+#pendling_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_lan.xlsx")
 #pendling_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/pendling_kommun.xlsx")
 #Skriptet som skapar nedanstående data finns på Mona: P1079gem/Jon/kompetensförsörjning/utbildningsniva_befolkning_bakgrund_korrekt.R. OBS! Uppdateras inte när skriptet hämta data körs.
 #befolkning_utb_alder_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/9_feb_24_utdata_utbildningsniva_befolkning_bakgrund.xlsx")
@@ -61,19 +61,19 @@ gymnasium_prognos_df <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompet
       summarize(antal=sum(ak1)) 
 #hogskoleexamen_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/hogskoleexamen.xlsx")
 # Data från Trender och prognoser. Måste sannolikt ändras om det kommer en ny leverans från SCB.
-prognos_df_hogskola <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1k_20.csv",sep='\t',encoding="latin1")%>% 
-    group_by(Kortnamn_modell_alt,ar) %>% 
-      summarize(antal=sum(exgen))
+# prognos_df_hogskola <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1k_20.csv",sep='\t',encoding="latin1")%>% 
+#     group_by(Kortnamn_modell_alt,ar) %>% 
+#       summarize(antal=sum(exgen))
 # Skriptet som skapar nedanstående data finns på Mona: P1079gem/peter/YH_uppfoljning_bransch_yrke
 #folkhogskola_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/8_mar_24_Dalarna_yrkeshogskoleexamen.xlsx", sheet =1)
 # Skriptet som skapar nedanstående data finns på Mona: P1079gem/peter/YH_uppfoljning_bransch_yrke
-prognos_df_yh <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1g_20.csv",sep='\t',encoding="latin1") %>% 
-  filter(!(is.na(ex))) %>% 
-      group_by(Kortnamn_modell_alt,ar) %>% 
-        summarize(antal=sum(ex))
-arbetsmarknadsstatus_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 1)
-arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 2)
-#matchning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/matchning.xlsx")
+# prognos_df_yh <- read.csv2("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Trender och prognoser/02_Tabeller/CSV_filer/Tab1g_20.csv",sep='\t',encoding="latin1") %>% 
+#   filter(!(is.na(ex))) %>% 
+#       group_by(Kortnamn_modell_alt,ar) %>% 
+#         summarize(antal=sum(ex))
+# arbetsmarknadsstatus_lan_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 1)
+# arbetsmarknadsstatus_kommun_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetsmarknadsstatus_senastear.xlsx",sheet = 2)
+# #matchning_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/matchning.xlsx")
 # Data nedan laddas hem från: https://tillvaxtverket.se/tillvaxtverket/statistikochanalys/statistikomforetag/foretagande/hinderfortillvaxt.1718.html
 # Välj ladda ner Excel-fil strax under figuren
 # kompetensbrist_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/Tillgång till lämplig arbetskraft.xlsx",sheet=4) %>%
@@ -124,7 +124,7 @@ gg_demo_forsorjning$`demografisk_forsorjningskvot_Riket och Dalarna`
 ```
 
 <br>
-I kombination med att försörjningskvoten ökar, minskar även befolkningen i arbetsför ålder över tid. Mellan `r antal_utrikes_inrikes_min_ar` och `r antal_utrikes_inrikes_max_ar` minskade antalet inrikes födda i arbetsför ålder med `r utrikes_forandring_antal` personer. Samtidigt har antalet utrikes födda ökat under samma period, men inte i lika stor omfattning (`r inrikes_forandring_antal`), vilket leder till att befolkningen i arbetsför ålder som helhet krymper. 
+I kombination med att försörjningskvoten ökar, minskar även befolkningen i arbetsför ålder över tid. Mellan `r antal_utrikes_inrikes_min_ar` och `r antal_utrikes_inrikes_max_ar` minskade antalet inrikes födda i arbetsför ålder med `r utrikes_forandring_antal` personer. Samtidigt har antalet utrikes födda ökat under samma period, men inte i lika stor omfattning (`r inrikes_forandring_antal` personer), vilket leder till att befolkningen i arbetsför ålder som helhet krymper. 
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 # diagram_capt <- "Källa: Befolkningsregistret i SCB:s öppna statistikdatabas.\nBearbetning: Samhällsanalys, Region Dalarna."
@@ -162,7 +162,7 @@ gg_antal_utrikes_inrikes$befolkning_utr_inr_antal_Dalarna
 ```
 
 <br>
-Befolkningsutvecklingen i Dalarna har varierat över tid med såväl uppgångar som nedgångar. Den senaste stora nedgången var i samband med den ekonomiska krisen runt millennieskiftet och en uppgång skedde i samband med flyktingkrisen 2016. Såväl 2023 som `r bef_forandring_max_ar` observerades tydliga nedgångar i Dalarnas befolkning. För en mer ingående analys av befolkningsutvecklingen, se <a href="https://region-dalarna.github.io/befolkningsutvecklingen_i_Dalarna/" target="_blank">Befolkningsutvecklingen i Dalarna</a>.
+Befolkningsutvecklingen i Dalarna har varierat över tid med såväl uppgångar som nedgångar. Den senaste stora nedgången var i samband med den ekonomiska krisen runt millennieskiftet och en uppgång skedde i samband med flyktingkrisen 2016. Såväl 2023 som `r bef_forandring_max_ar` observerades tydliga nedgångar i Dalarnas befolkning. För en mer ingående analys av befolkningsutvecklingen, se <a href="https://samhallsanalys.regiondalarna.se/befolkningsutveckling" target="_blank">Befolkningsutvecklingen i Dalarna</a>.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -710,12 +710,9 @@ arb_08_fig
 
 ## Matchning på arbetsmarknaden
 
-Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning människor jobbar med vad de är utbildade till. Generellt tenderar olika typer av specialiserade eftergymnasiala utbildningar, exempelvis läkare
-och psykologer, ha hög matchning. Utbildar man sig till läkare är det väldigt hög sannolikhet att man även har det som yrke (över 90 procent). På andra sidan av spektrumet finns dels olika former av gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis humaniora och konst, där runt hälften jobbar med vad de är utbildade till. 
+Nivån av matchning på arbetsmarknaden mäter i hur stor utsträckning människor jobbar med vad de är utbildade till. Generellt tenderar olika typer av specialiserade eftergymnasiala utbildningar, exempelvis läkare och psykologer, ha hög matchning. Utbildar man sig till läkare är det väldigt hög sannolikhet att man även har det som yrke (över 90 procent). På andra sidan av spektrumet finns dels olika former av gymnasieutbildningar, dels eftergymnasiala utbildningar inom exempelvis humaniora och konst, där runt hälften jobbar med vad de är utbildade till. 
 
-I stora drag ligger matchninggraden på runt `r round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent för kvinnor och `r round(matchning_df %>% filter(kön == "män",fodelseland == "totalt",region == "Sverige") %>% .$matchningsgrad,0)` procent för män i
-Sverige. Det finns vissa skillnader mellan länen, men dessa är relativt små. I Dalarna är matchningsgraden cirka
-`r round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` procent för kvinnor och `r round(matchning_df %>% filter(kön == "män",fodelseland == "totalt",region == "Dalarna") %>% .$matchningsgrad,0)` för män , vilket alltså är marginellt lägre än riket som helhet.
+I stora drag ligger matchninggraden på runt `r matchningsgrad_sverige_kvinnor` procent för kvinnor och `r matchningsgrad_sverige_man` procent för män i Sverige. Det finns vissa skillnader mellan länen, men dessa är relativt små. I Dalarna är matchningsgraden cirka `r matchningsgrad_dalarna_kvinnor` procent för kvinnor och `r matchningsgrad_dalarna_man` för män , vilket alltså är marginellt lägre än riket som helhet.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -723,7 +720,7 @@ gg_matchning$matchning_jmf
 ```
 
 <br>
-Matchningen på arbetsmarknaden tenderar att variera beroende på var man är född. I Dalarna har inrikes födda högst matchning med `r round(matchning_df %>% filter(kön == "kvinnor",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent för kvinnor och `r round(matchning_df %>% filter(kön == "män",fodelseland == "födda i Sverige",region == "Dalarna") %>% .$matchningsgrad,0)` procent för män. Lägst matchningsgrad för män har personer `r matchning_df %>% filter(kön == "män",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` (cirka `r round(matchning_df %>% filter(kön == "män",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)`  procent), medan personer `r matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$fodelseland` har lägst matchningsgrad för kvinnor (cirka `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == min(matchningsgrad)) %>% .$matchningsgrad,0)` procent). Kvinnor födda i Afrika är dock den kategori i diagrammet nedan som har högst matchningsgrad med knappt `r round(matchning_df %>% filter(kön == "kvinnor",region == "Dalarna") %>% filter(matchningsgrad == max(matchningsgrad)) %>% .$matchningsgrad,0)` procent.
+Matchningen på arbetsmarknaden tenderar att variera beroende på var man är född. I Dalarna har inrikes födda högst matchning med `r matchning_inrikes_kvinnor_dalarna` procent för kvinnor och `r matchning_inrikes_man_dalarna` procent för män. Lägst matchningsgrad för män har personer `r matchning_lagst_man_fodelseland` (cirka `r matchning_lagst_man_varde` procent), medan personer `r matchning_lagst_kvinnor_fodelseland` länder har lägst matchningsgrad för kvinnor (cirka `r matchning_lagst_kvinnor_varde` procent). Högst matchningsgrad har `r matchning_hogst_kon` `r matchning_hogst_fodelseland` med ungefär `r matchning_hogst_varde` procent.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -732,7 +729,7 @@ gg_matchning$matchning_bakgrund
 
 ## Brist på arbetskraft och kompetens
 
-Ytterligare en viktig aspekt av arbetsmarknaden är hur lätt det är för arbetsgivare att hitta arbetskraft med rätt kompetens. Bland Sveriges län varierar den upplevda bristen på arbetskraft relativt mycket. Lättast att hitta kompetens år `r max(kompetensbrist$År)` har småföretag i `r kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Region`, där ungefär `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == min(Andel)) %>% .$Andel,0)` procent av småföretagen uppger att de har brist på kompetens, att jämföra med `r kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Region`, där ungefär `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Andel == max(Andel)) %>% .$Andel,0)` procent av småföretagen uppger att de har samma brist. I Dalarna upplever ungefär `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel,0)` procent av småföretagarna att de har svårt att hitta arbetskraft, vilket är en ökning med `r round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel - kompetensbrist %>% filter(År == "2020") %>% filter(Region == "Dalarna") %>% .$Andel ,0)` procentenheter sedan undersökningen som gjordes 2020.
+Ytterligare en viktig aspekt av arbetsmarknaden är hur lätt det är för arbetsgivare att hitta arbetskraft med rätt kompetens. Bland Sveriges län varierar den upplevda bristen på arbetskraft relativt mycket. Lättast att hitta kompetens år `r kompetensbrist_senaste_ar` har småföretag i `r kompetensbrist_lagst_region`, där ungefär `r kompetensbirst_lagst_varde` procent av småföretagen uppger att de har brist på kompetens, att jämföra med `r kompetensbrist_hogst_region`, där ungefär `r kompetensbirst_hogst_varde` procent av småföretagen uppger att de har samma brist. I Dalarna upplever ungefär `r kompetensbrist_Dalarna` procent av småföretagarna att de har svårt att hitta arbetskraft, vilket är en ökning med `r kompetensbrist_Dalarna_forandring_2020` procentenheter sedan undersökningen som gjordes 2020.
 
 <br>
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -740,7 +737,7 @@ gg_kompetensbrist$kompetensbrist
 ```
 
 <br>
-Det finns en underliggande svårighet i att separera bristen på arbetskraft från bristen på kompetens. En situation med allt färre i arbetsför ålder skapar en generell brist på arbetskraft, men den förstärker sannolikt även bristen på kompetens då arbetskraftsreserven minskar. Arbetsgivarna behöver därför anställa individer som står längre från de kompetenskrav som ställs, vilket ökar behovet av vidareutbildning efter anställning. För ett djupare resonemang om dessa två brister och potentiella lösningar hänvisas till <a href="https://www.tillvaxtanalys.se/publikationer/rapport/rapportserien/2024-02-29-arbetskrafts--och-kompetensbrist.html/" target="_blank">Tillväxtanalys, 2024</a>.
+Det finns en underliggande svårighet i att separera bristen på arbetskraft från bristen på kompetens. En situation med allt färre i arbetsför ålder skapar en generell brist på arbetskraft, men den förstärker sannolikt även bristen på kompetens då arbetskraftsreserven minskar. Arbetsgivarna behöver därför anställa individer som står längre från de kompetenskrav som ställs, vilket ökar behovet av vidareutbildning efter anställning. För ett djupare resonemang om dessa två brister och potentiella lösningar hänvisas till <a href="https://www.tillvaxtanalys.se/publikationer/rapport/rapportserien/arbetskraftsochkompetensbrist.126683.html" target="_blank">Tillväxtanalys, 2024</a>.
 
 # Sammanfattande diskussion
 Arbetsmarknaden och kompetensförsörjningen i Dalarna är komplex med flera utmaningar som samspelar. Dessa utmaningar inkluderar en åldrande befolkning, minskat arbetskraftsutbud, ökande kompetenskrav och svårigheter att matcha arbetskraftens kvalifikationer med efterfrågan från arbetsgivare.
