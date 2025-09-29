@@ -38,7 +38,7 @@ source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_Sk
 #sysselsatta_90_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_90.xlsx")
 #utbildning_85_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_85.xlsx")
 #utbildning_senastear_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/utbildningsniva_senastear.xlsx")
-arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx")
+#arbetslosa_08_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/arbetslöshet_08_senastear_bearbetad.xlsx")
 #forvarvsarbetande_bransch <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_bransch.xlsx")
 #forvarvsarbetande_prognos <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/forvarvsarbetande_prognos.xlsx")
 #kompetens_yrke_lan <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/kompetens_lan_bransch.xlsx")
@@ -672,47 +672,44 @@ gg_sysselsattningsgrad_93$sysselsattningsgrad_93_Dalarna
 
 <br>
 
-
-<span class= "kommentar">Ta bort? Data uppdateras inte längre. Alternativet är data från AKU som används i integrationsrapporten bland annat</span>
-<span class= "kommentar">Även lite oklart varför arbetslöshet diskuteras i ett avsnitt om sysselsättningsgrad? Motivera varför det är intressant?</span>
-
-Grafen nedan visar arbetslösheten i Sverige och Dalarna under perioden 2008 till 2023. Andelen arbetslösa i Dalarna (de mörkgröna staplarna) har konsekvent varit lägre än andelen arbetslösa i Sverige (de ljusgröna staplarna). Sedan pandemin har andelen arbetslösa i både Sverige och Dalarna sjunkit, och 2023 var arbetslösheten i genomsnitt 6,4 respektive 5,8 procent. Under andra kvartalet 2024 var arbetslösheten i Dalarna 5,3 procent, att jämföra med 6,5 procent för riket som helhet (<a href="https://mb.cision.com/Public/1326/4016890/945db14fdac19df6.pdf">Arbetsförmedlingen, 2024</a>).
+Grafen nedan visar arbetslösheten i Sverige och Dalarna under perioden `r arbetsloshet_08_min_ar` till `r arbetsloshet_08_max_ar`. Andelen arbetslösa i Dalarna (de mörkgröna staplarna) har konsekvent varit lägre än andelen arbetslösa i Sverige (de ljusgröna staplarna). Sedan pandemin har andelen arbetslösa i både Sverige och Dalarna sjunkit, och hittills under `r arbetsloshet_08_max_ar` har arbetslösheten i genomsnitt varit `r arbetslosa_08_sverige_senaste_varde` respektive `r arbetslosa_08_dalarna_senaste_varde` procent.
 
 Dalarnas låga arbetslöshet beror till viss del på att: 
 
-*	Dalarna har en mångsidig ekonomi med olika industrier och sektorer, vilket kan minska sårbarheten för arbetslöshet. Om en sektor drabbas av nedgång kan andra sektorer fortfarande erbjuda möjligheter till sysselsättning (<a href="https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/socioekonomisk-analys-2022-nms.pdf">Region Dalarna, 2022</a>; <a href="https://www.teknikforetagen.se/globalassets/rapporter--publikationer/ekonomisk-analys/hjartat-i-svensk-ekonomi/hjartat-i-svensk-ekonomi---industrins-betydelse-och-villkor-i-dalarnas-lan.pdf"> Teknikföretagen, 2019</a>). 
+*	Dalarna har en mångsidig ekonomi med olika industrier och sektorer, vilket kan minska sårbarheten för arbetslöshet. Om en sektor drabbas av nedgång kan andra sektorer fortfarande erbjuda möjligheter till sysselsättning (<a href="https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/socioekonomisk-analys-2022-nms.pdf"  target="_blank">Region Dalarna, 2022</a>; <a href="https://www.teknikforetagen.se/globalassets/rapporter--publikationer/ekonomisk-analys/hjartat-i-svensk-ekonomi/hjartat-i-svensk-ekonomi---industrins-betydelse-och-villkor-i-dalarnas-lan.pdf"  target="_blank"> Teknikföretagen, 2019</a>). 
 
-*	En aktiv och stark arbetsmarknad, med företag som skapar nya arbetstillfällen och expansion av befintliga företag, kan bidra till att minska arbetslösheten (<a href="https://arbetsformedlingen.se/download/18.210b3bc318fa36ad8ec193e/1718203233372/regionala-utsikter-varen-2024.pdf">Arbetsförmedlingen, 2024</a>).
+*	En aktiv och stark arbetsmarknad, med företag som skapar nya arbetstillfällen och expansion av befintliga företag, kan bidra till att minska arbetslösheten (<a href="https://arbetsformedlingen.se/download/18.210b3bc318fa36ad8ec193e/1718203233372/regionala-utsikter-varen-2024.pdf"  target="_blank">Arbetsförmedlingen, 2024</a>).
 
-*	Dalarna har goda kommunikationsmöjligheter och närhet till städer med hög ekonomisk aktivitet, vilket kan öka möjligheterna till arbete och affärsmöjligheter (<a href="https://www.regiondalarna.se/globalassets/regional-utveckling/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf/">Region Dalarna, 2021</a>).
+*	Dalarna har goda kommunikationsmöjligheter och närhet till städer med hög ekonomisk aktivitet, vilket kan öka möjligheterna till arbete och affärsmöjligheter (<a href="https://www.regiondalarna.se/globalassets/regional-utveckling/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf/"  target="_blank">Region Dalarna, 2021</a>).
 
-*	Det finns stöd för lokala företag, vilket stimulerar ekonomin och skapar fler arbetstillfällen (Se <a href="https://www.regiondalarna.se/verksamhet/regional-utveckling/projektmedel-stod-och-bidrag/foretagsstod/">Region Dalarna, Företagsstöd</a>).
+*	Det finns stöd för lokala företag, vilket stimulerar ekonomin och skapar fler arbetstillfällen (Se <a href="https://www.regiondalarna.se/verksamhet/regional-utveckling/projektmedel-stod-och-bidrag/foretagsstod/"  target="_blank">Region Dalarna, Företagsstöd</a>).
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-diagram_capt <- "Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året"
-
-diagramtitel <- paste0("Arbetslöshet i Dalarna och Sverige")
-diagramfilnamn <- paste0("arbetsloshet_08_senastear.png")
-
-arb_08_fig <- SkapaStapelDiagram(skickad_df =arbetslosa_08_df ,
-                                 skickad_x_var = "Ar",
-                                 skickad_y_var = "Arbetslöshet",
-                                 skickad_x_grupp = "Region",
-                                 manual_x_axis_text_vjust=1,
-                                 manual_x_axis_text_hjust=1,
-                                 manual_color = diagramfarger("rus_sex"),
-                                 diagram_titel = diagramtitel,
-                                 diagram_capt =  diagram_capt,
-                                 x_axis_lutning = 45,
-                                 manual_y_axis_title = "procent",
-                                 stodlinjer_avrunda_fem = TRUE,
-                                 output_mapp = "",
-                                 filnamn_diagram = diagramfilnamn,
-                                 skriv_till_diagramfil = FALSE)
+# diagram_capt <- "Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året"
+# 
+# diagramtitel <- paste0("Arbetslöshet i Dalarna och Sverige")
+# diagramfilnamn <- paste0("arbetsloshet_08_senastear.png")
+# 
+# arb_08_fig <- SkapaStapelDiagram(skickad_df =arbetslosa_08_df ,
+#                                  skickad_x_var = "Ar",
+#                                  skickad_y_var = "Arbetslöshet",
+#                                  skickad_x_grupp = "Region",
+#                                  manual_x_axis_text_vjust=1,
+#                                  manual_x_axis_text_hjust=1,
+#                                  manual_color = diagramfarger("rus_sex"),
+#                                  diagram_titel = diagramtitel,
+#                                  diagram_capt =  diagram_capt,
+#                                  x_axis_lutning = 45,
+#                                  manual_y_axis_title = "procent",
+#                                  stodlinjer_avrunda_fem = TRUE,
+#                                  output_mapp = "",
+#                                  filnamn_diagram = diagramfilnamn,
+#                                  skriv_till_diagramfil = FALSE)
 ```
 
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
-arb_08_fig
+#arb_08_fig
+gg_arbetsloshet_08$arbetsloshet_08_senastear
 ```
 
 ## Matchning på arbetsmarknaden

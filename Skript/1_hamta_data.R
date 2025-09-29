@@ -667,6 +667,20 @@ syssgrad_93_senaste_ar <- max(forvarvsintensitet_93_df$år)
 syssgrad_93_senaste_ar_man_varde <- round(forvarvsintensitet_93_df %>% filter(år == max(år),kön == "män") %>% .$sysselsättningsgrad,0)
 syssgrad_93_senaste_ar_kvinna_varde <- round(forvarvsintensitet_93_df %>% filter(år == max(år),kön == "kvinnor") %>% .$sysselsättningsgrad,0)
 
+# Arbetslöshet tidsserie
+source(here("Skript","diagram_arbetsloshet_08_AF.R"), encoding="UTF-8")
+gg_arbetsloshet_08 <- funktion_upprepa_forsok_om_fel( function() {
+  diag_arbetsloshet_08(output_mapp_figur = Output_mapp_figur,
+                       returnera_data = TRUE,
+                       spara_figur = spara_diagram_som_bildfiler)
+}, hoppa_over = hoppa_over_forsok_igen)
+
+arbetsloshet_08_min_ar <- min(arbetslosa_utskrift_df$Ar)
+arbetsloshet_08_max_ar <- max(arbetslosa_utskrift_df$Ar)
+
+arbetslosa_08_dalarna_senaste_varde <- round(arbetslosa_utskrift_df %>% filter(Ar == max(Ar),Region == "Dalarna") %>% dplyr::pull(Arbetslöshet),1) %>% format(decimal.mark = ",")
+arbetslosa_08_sverige_senaste_varde <- round(arbetslosa_utskrift_df %>% filter(Ar == max(Ar),Region == "Sverige") %>% dplyr::pull(Arbetslöshet),1)
+
 # Arbetslöshet 08-senaste år. Excel, Arbetsförmedlingen - KVAR
 # source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
 # hamta_data_arbetsloshet(output_mapp = Output_mapp,
