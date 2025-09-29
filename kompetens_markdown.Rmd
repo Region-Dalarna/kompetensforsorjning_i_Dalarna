@@ -238,7 +238,7 @@ gg_kvalifikation$kvalifikationskrav_jmf_lan
 ```
 
 <br>
-Även mellan branscher varierar kvalifikationskraven. Högst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där mer än var fjärde arbetar inom den typen av yrke. Detta kan delvis förklaras av att hotell och restaurang också är den bransch i Dalarna med högst andel utrikes födda anställda. Personer som tillhör denna grupp tenderar även att ha förgymnasiala utbildningar i större utsträckning än inrikes födda. 
+Även mellan branscher varierar kvalifikationskraven. Högst andel som arbetar inom yrken av enklare karaktär återfinns i Dalarna inom hotell och restaurang, där ungefär `r enklare_yrken_hotell_andel` procent jobbar inom den typen av yrke. Detta kan delvis förklaras av att hotell och restaurang också är den bransch i Dalarna med högst andel utrikes födda anställda. Personer som tillhör denna grupp tenderar även att ha förgymnasiala utbildningar i större utsträckning än inrikes födda. 
 
 Även inom företagstjänster är många yrken av enklare karaktär, medan det omvända gäller inom exempelvis utbildning, offentlig förvaltning samt IT och kommunikation. Där arbetar omkring hälften av de anställda inom yrken som med kvalifikationskrav motsvarande fördjupad högskolekompetens.
 

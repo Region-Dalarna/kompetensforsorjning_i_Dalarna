@@ -142,6 +142,8 @@ hogskola_yrken_lan_hogst_varde <- round(kvalifikationskrav_jmf %>% filter(kompet
 hogskola_yrken_lan_lagst <- skapa_kortnamn_lan(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$region)
 hogskola_yrken_lan_lagst_varde <- round(kvalifikationskrav_jmf %>% filter(kompetensniva=="Motsvarande fördjupad högskolekompetens") %>% filter(Andel == min(.$Andel)) %>% .$Andel,0)
 
+enklare_yrken_hotell_andel <- round(kvalifikationskrav_jmf_bransch %>%  filter(kompetensniva == "Enklare yrken") %>% filter(Andel == max(.$Andel)) %>% .$Andel,0)
+
 # Utbildningsnivå och ålder för län och bransch. Andel och antal - NMS: UPPDATATERAS FÖR HAND. EJ GJORT 2025-09-23
 source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_bransch_utb_alder_NMS.R", encoding="UTF-8")
 gg_bransch_utb_alder <- funktion_upprepa_forsok_om_fel( function() {
