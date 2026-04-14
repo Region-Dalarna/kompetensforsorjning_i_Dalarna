@@ -195,13 +195,13 @@ I denna rapport får de regionala matchningsindikatorer som togs fram av Reglab 
 
 ## Lediga jobb
 
-Under andra kvartalet `r lediga_jobb_senaste_ar` fanns det cirka `r antal_lediga_jobb` lediga jobb. Ungefär `r andel_privat_lediga_jobb` procent av dessa fanns inom privat sektor. Efterfrågan inom offentlig sektor har minskat markant på senare år, vilket sannolikt har att göra med att många aktörer inom offentlig sektor har fått sämre ekonomin på senare år och i flera fall infört anställningsstopp.
+Under andra kvartalet `r lediga_jobb_senaste_ar` fanns det cirka `r antal_lediga_jobb` lediga jobb. Ungefär `r andel_privat_lediga_jobb` procent av dessa fanns inom privat sektor. Efterfrågan inom offentlig sektor har minskat markant på senare år, vilket sannolikt har att göra med att många aktörer inom offentlig sektor har fått sämre ekonomi på senare år och i flera fall infört anställningsstopp.
 
 Över tid har antalet lediga jobb i länet ökat successivt sedan den lägsta noteringen i efterdyningarna av finanskrisen 2008. Privat sektor står för den högsta andelen av efterfrågan, med undantag för några enstaka observationstillfällen.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
-gg_lediga_jobb$lediga_jobb_Dalarna_E1_2006_2025_kvartal2
+gg_lediga_jobb[[1]]
 ```
 
 ## Jobbinflöden
@@ -569,8 +569,7 @@ gym_prognos_fig <- SkapaStapelDiagram(skickad_df = gymnasium_prognos_df %>%
                                      skriv_till_diagramfil = FALSE)
 ```
 
-<span class = "kommentar">Oklart om detta diagram skall behållas. Väl gammal prognos. Relevant?</span>
-
+<br>
 Prognosen för den kommande tioårsperioden pekar inte på några dramatiska förändringar i nuvarande antagningsmönster. Introduktionsprogrammet förväntas även framöver vara det största programmet, följt av samhällsvetenskap, ekonomi och naturvetenskap. 
 
 <br>

@@ -106,7 +106,7 @@ diag_befolkning_aldersgrupper_prognos <-function(region_vekt = "20",
     assign("folkmangd_aldersgrupper_df", px_df_folkmangd_utskrift, envir = .GlobalEnv)
   }
   
-  diagram_capt <- glue("Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: {max(px_df_folkmangd_utskrift$år)} är prognos, övriga historisk data.")
+  diagram_capt <- glue("Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: {max(px_df_folkmangd_utskrift$år)} är från SCB:s befolkningsprognos från sommaren 2024, övriga historisk data.")
   diagram_titel <- glue("Befolkningen i {unique(px_df_folkmangd_utskrift$region)}  uppdelat på åldersgrupper")
   diagramfil <- paste0("befolkning_forandring_prognos_",unique(px_df_folkmangd_utskrift$region),".png")
   

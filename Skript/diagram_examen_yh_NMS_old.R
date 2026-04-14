@@ -1,3 +1,4 @@
+test <- diagram_examen_yh_NMS(spara_figur = FALSE)
 diagram_examen_yh_NMS <- function(output_mapp_figur = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/", # Här hamnar sparad figur
                                   valda_farger = diagramfarger("rus_sex"), # Vilka färger skall användas i diagram
                                   caption = "Källa: NMS-databasen (SCB), utbildningsregistret\nBearbetning:Samhällsanalys, Region Dalarna\nDiagramförklaring: Examensår efter 2011, samtliga förvärvsarbetande 16-74 år.",
@@ -30,30 +31,10 @@ diagram_examen_yh_NMS <- function(output_mapp_figur = "G:/Samhällsanalys/Statis
   
   # =============================================== Hämta data ===============================================
   
-  # Läs in datafil med YH
-  
-  folder_path <- "G:/skript/projekt/data/kompetensforsorjning/"
-  
-  # List all files (recursively) and drop directories
-  files <- list.files(folder_path, full.names = TRUE, recursive = TRUE)
-  files <- files[!file.info(files)$isdir]
-  
-  # Dalarna
-  # Keep files whose *names* contain both words (case-insensitive)
-  nm <- basename(files)
-  keep <- grepl("Dalarna_yrkeshogskoleexamen", nm, ignore.case = TRUE)
-  candidates <- files[keep]
-  
-  if (!length(candidates)) stop("Hittade inga filer med Dalarna_hogskoleexamen i namnet.")
-  
-  # Pick the most recently modified among the matches
-  latest_file <- candidates[which.max(file.info(candidates)$mtime)]
-  print(latest_file) 
-  
   
   # Läs in datafil med högskoleexamen
-  #folkhogskola_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/10_apr_26_Dalarna_yrkeshogskoleexamen.xlsx", sheet =1)
-  folkhogskola_df <- read.xlsx(latest_file, sheet =1)
+  #folkhogskola_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/8_mar_24_Dalarna_yrkeshogskoleexamen.xlsx", sheet =1)
+  folkhogskola_df <- read.xlsx("G:/skript/projekt/data/kompetensforsorjning/1_okt_25_Dalarna_yrkeshogskoleexamen.xlsx", sheet =1)
   
   # =============================================== Diagram ===============================================
   
@@ -99,7 +80,7 @@ diagram_examen_yh_NMS <- function(output_mapp_figur = "G:/Samhällsanalys/Statis
   
   if(diag_inriktning == TRUE){
     
-    variabler = c("Ar",Inriktning = "Sun_inriktning_namn")
+    variabler = c("Ar",Inriktning = "Sun2000Inr_namn", Inriktning= "Sun2020Inr_namn")
     
     folkhogskola_inriktning <- folkhogskola_df %>% 
       group_by(across(any_of(variabler))) %>% 

@@ -12,7 +12,7 @@ p_load(tidyverse,
        here)
 
 # Skall data uppdateras? Annars läses data in från en sparad global environment-fil.
-uppdatera_data = FALSE
+uppdatera_data = TRUE
 
 if(uppdatera_data == TRUE){
   
@@ -56,6 +56,7 @@ gg_antal_utrikes_inrikes <- funktion_upprepa_forsok_om_fel( function() {
   diag_bef_inr_utr_tid(output_mapp = "Output_mapp_figur",
                                                  diag_andel = FALSE, # Andel inrikes/utrikes födda i arbetsför ålder
                                                  diag_antal = TRUE, # Antal "-"
+                                                 stodlinjer_avrunda_fem = FALSE,
                                                  skriv_diagrambildfil = spara_diagram_som_bildfiler,
                                                  returnera_data_rmarkdown= TRUE)
 }, hoppa_over = hoppa_over_forsok_igen)
@@ -123,6 +124,7 @@ source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_kv
 gg_kvalifikation <- funktion_upprepa_forsok_om_fel( function() {
   diagram_kvalifikationskrav(output_mapp_figur = Output_mapp_figur,
                              spara_figur = spara_diagram_som_bildfiler,
+                             stodlinjer_avrunda_fem = FALSE,
                              returnera_figur = TRUE,
                              returnera_data = TRUE)
 }, hoppa_over = hoppa_over_forsok_igen)
@@ -242,6 +244,7 @@ source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_be
 gg_bef_for <- funktion_upprepa_forsok_om_fel( function() {
   diagram_befolkningsforandring(output_mapp_figur = Output_mapp_figur,
                                 spara_figur = spara_diagram_som_bildfiler,
+                                tid = c("2010":"2024"),
                                 returnera_figur = TRUE,
                                 returnera_data = TRUE)
 }, hoppa_over = hoppa_over_forsok_igen)
@@ -549,13 +552,13 @@ gg_hogskoleexamen <- funktion_upprepa_forsok_om_fel( function() {
                                                    spara_figur = spara_diagram_som_bildfiler)
   }, hoppa_over = hoppa_over_forsok_igen)
 
-senaste_ar_hogskola <- max(hogskoleexamen_df$Lar)
+senaste_ar_hogskola <- max(hogskoleexamen_df$LAr)
 
 hogskoleexamen_df <- hogskoleexamen_df %>% ungroup()
 
 # De två utbildningar med flest examinerade
 hogskola_flest_examinerade_totalt_df <- hogskoleexamen_df %>%
-  filter(Lar == max(Lar)) %>%
+  filter(LAr == max(LAr)) %>%
   slice_max(antal, n = 2, with_ties = TRUE) 
 
 # Program
@@ -571,7 +574,7 @@ hogskola_flest_examinerade_antal <- hogskola_flest_examinerade_totalt_df %>%
     }) %>% dplyr::pull()
 
 # Antal examinerade i företagsekonomi mm
-hogskola_examinerade_foretagsekonomi <- hogskoleexamen_df %>% filter(Lar==max(.$Lar),SUN2020Inr_2siffer_namn == "Företagsekonomi, handel och administration") %>% .$antal
+hogskola_examinerade_foretagsekonomi <- hogskoleexamen_df %>% filter(LAr==max(.$LAr),SUN2020Inr_2siffer_namn == "Företagsekonomi, handel och administration") %>% .$antal
 
 
 # YH-utbildning - NMS - uppdateras inte automatiskt
