@@ -12,7 +12,7 @@ p_load(tidyverse,
        here)
 
 # Skall data uppdateras? Annars läses data in från en sparad global environment-fil.
-uppdatera_data = TRUE
+uppdatera_data = FALSE
 
 if(uppdatera_data == TRUE){
   
