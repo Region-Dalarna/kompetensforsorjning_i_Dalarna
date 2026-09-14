@@ -119,7 +119,7 @@ Genom att klicka på blå text går det att följa länkarna som öppnas i en ny
 
 # Inledning {-}
 
-Sverige och Dalarna har en åldrande befolkning och aktuella prognoser från SCB (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>) pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler unga och gamla. Den demografiska försörjningskvoten mäter förhållandet mellan individer i arbetsför ålder, och unga och gamla. Mellan `r forsorjningskov_min_ar` och `r forsorjningskov_max_ar`  har försörjningskvoten i Dalarna ökat från ungefär `r round(forsorjningskov_min_ar_dalarna_varde,0)` till `r forsorjningskov_max_ar_dalarna_varde`. Det innebär att 100 personer i arbetsför ålder ska försörja ungefär `r round(forsorjningskov_max_ar_dalarna_varde,0)` personer utanför arbetsför ålder. Redan idag är försörjningskvoten i Dalarna den högsta i landet och förväntas öka över tid. Det kommer att förstärka den brist på arbetskraft som råder redan i dag och påverka näringslivets och offentlig sektors möjlighet att rekrytera personal.
+Sverige och Dalarna har en åldrande befolkning och aktuella prognoser från SCB (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>) pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler unga och gamla. Den demografiska försörjningskvoten mäter förhållandet mellan individer i arbetsför ålder, och unga och gamla. Mellan `r forsorjningskov_min_ar` och `r forsorjningskov_max_ar`  har försörjningskvoten i Dalarna ökat från ungefär `r round(forsorjningskov_min_ar_dalarna_varde,0)` till ca `r round(forsorjningskov_max_ar_dalarna_varde,0)`. Det innebär att 100 personer i arbetsför ålder ska försörja ungefär `r round(forsorjningskov_max_ar_dalarna_varde,0)` personer utanför arbetsför ålder. Redan idag är försörjningskvoten i Dalarna den högsta i landet och förväntas öka över tid. Det kommer att förstärka den brist på arbetskraft som råder redan i dag och påverka näringslivets och offentlig sektors möjlighet att rekrytera personal.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -195,7 +195,7 @@ I denna rapport får de regionala matchningsindikatorer som togs fram av Reglab 
 
 ## Lediga jobb
 
-Under andra kvartalet `r lediga_jobb_senaste_ar` fanns det cirka `r antal_lediga_jobb` lediga jobb. Ungefär `r andel_privat_lediga_jobb` procent av dessa fanns inom privat sektor. Efterfrågan inom offentlig sektor har minskat markant på senare år, vilket sannolikt har att göra med att många aktörer inom offentlig sektor har fått sämre ekonomi på senare år och i flera fall infört anställningsstopp.
+Under fjärde kvartalet `r lediga_jobb_senaste_ar` fanns det cirka `r antal_lediga_jobb` lediga jobb. Ungefär `r andel_privat_lediga_jobb` procent av dessa fanns inom privat sektor. Efterfrågan inom offentlig sektor har minskat markant på senare år, vilket sannolikt har att göra med att många aktörer inom offentlig sektor har fått sämre ekonomi på senare år och i flera fall infört anställningsstopp.
 
 Över tid har antalet lediga jobb i länet ökat successivt sedan den lägsta noteringen i efterdyningarna av finanskrisen 2008. Privat sektor står för den högsta andelen av efterfrågan, med undantag för några enstaka observationstillfällen.
 
