@@ -1,6 +1,6 @@
 diagram_arbetskraftsdeltagande_tid_region <- function(region_vekt = c("20"),			# Val av region. Finns: "00", "FA00"-"FA60", samtliga län (denna tabell saknar kommuner)
                                                       output_mapp_figur = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/", # Här hamnar sparad figur
-                                                      tid_koder = "*",			 # "*" = alla år, "9999" = senaste, finns 2019-2024 (se kommentar i hamta_data-funktionen - äldre år är inte längre tillgängliga hos SCB)
+                                                      tid_koder = "*",			 # "*" = alla år, "9999" = senaste, finns 2006-2024
                                                       kon_klartext = "totalt", # Finns: "män", "kvinnor", "totalt"
                                                       spara_figur = TRUE, # Skall diagrammet sparas
                                                       returnera_data = FALSE, # Skall data returneras
@@ -9,8 +9,8 @@ diagram_arbetskraftsdeltagande_tid_region <- function(region_vekt = c("20"),			#
   # Bara paket, ingen source() mot funktioner-repot och inget p_load(tidyverse). Anropas med fullt
   # namespace (dplyr::filter() osv.) i stället för library(). hamta_data-funktionen sourcas
   # fortfarande direkt (samma mönster som övriga migrerade skript) - den är själv omskriven till
-  # pxweb2r (v1-tabellen AM9906O/RegionInd19U1b som tidigare kombinerades med denna är helt borttagen
-  # ur SCB:s API, se kommentar i den filen).
+  # pxweb2r (v1-tabellen AM9906O/RegionInd19U1b, med data 2006-2018, finns kvar som en egen v2-tabell,
+  # TAB5433 - se kommentar i den filen för detaljer).
   if (!requireNamespace("rddiagram", quietly = TRUE)) {
     remotes::install_github("Region-Dalarna/rdpaket", subdir = "packages/rddiagram")
   }
