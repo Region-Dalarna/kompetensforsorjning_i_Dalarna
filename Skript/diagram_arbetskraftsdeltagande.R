@@ -1,62 +1,74 @@
-diagram_arbetskraftsdeltagande_tid_region <- function(region_vekt = c("20"),			# Val av region. Finns: "00", "FA00", "FA01", "FA02", "FA03", "FA04", "FA05", "FA06", "FA07", "FA08", "FA09", "FA10", "0114", "0115", "0117", "FA11", "0120", "0123", "0125", "0126", "0127", "0128", "FA12", "0136", "0138", "0139", "FA13", "0140", "FA14", "FA15", "0160", "0162", "0163", "FA16", "FA17", "0180", "0181", "0182", "0183", "0184", "0186", "0187", "0188", "FA18", "0191", "0192", "FA19", "FA20", "FA21", "FA22", "FA23", "FA24", "FA25", "FA26", "FA27", "FA28", "FA29", "0305", "FA30", "0319", "FA31", "FA32", "0330", "0331", "FA33", "FA34", "FA35", "0360", "FA36", "FA37", "0380", "0381", "0382", "FA38", "FA39", "FA40", "FA41", "0428", "FA42", "FA43", "FA44", "FA45", "0461", "FA46", "FA47", "0480", "0481", "0482", "0483", "0484", "0486", "0488", "FA48", "FA49", "0509", "FA50", "0512", "0513", "FA51", "FA52", "FA53", "FA54", "FA55", "0560", "0561", "0562", "0563", "FA56", "FA57", "0580", "0581", "0582", "0583", "0584", "0586", "FA58", "FA59", "0604", "FA60", "0617", "01", "03", "0642", "0643", "04", "05", "0662", "0665", "06", "07", "0680", "0682", "0683", "0684", "0685", "0686", "0687", "08", "09", "10", "12", "13", "14", "17", "18", "0760", "0761", "0763", "0764", "0765", "0767", "19", "20", "0780", "0781", "21", "22", "23", "24", "0821", "25", "0834", "0840", "0860", "0861", "0862", "0880", "0881", "0882", "0883", "0884", "0885", "0980", "1060", "1080", "1081", "1082", "1083", "1214", "1230", "1231", "1233", "1256", "1257", "1260", "1261", "1262", "1263", "1264", "1265", "1266", "1267", "1270", "1272", "1273", "1275", "1276", "1277", "1278", "1280", "1281", "1282", "1283", "1284", "1285", "1286", "1287", "1290", "1291", "1292", "1293", "1315", "1380", "1381", "1382", "1383", "1384", "1401", "1402", "1407", "1415", "1419", "1421", "1427", "1430", "1435", "1438", "1439", "1440", "1441", "1442", "1443", "1444", "1445", "1446", "1447", "1452", "1460", "1461", "1462", "1463", "1465", "1466", "1470", "1471", "1472", "1473", "1480", "1481", "1482", "1484", "1485", "1486", "1487", "1488", "1489", "1490", "1491", "1492", "1493", "1494", "1495", "1496", "1497", "1498", "1499", "1715", "1730", "1737", "1760", "1761", "1762", "1763", "1764", "1765", "1766", "1780", "1781", "1782", "1783", "1784", "1785", "1814", "1860", "1861", "1862", "1863", "1864", "1880", "1881", "1882", "1883", "1884", "1885", "1904", "1907", "1960", "1961", "1962", "1980", "1981", "1982", "1983", "1984", "2021", "2023", "2026", "2029", "2031", "2034", "2039", "2061", "2062", "2080", "2081", "2082", "2083", "2084", "2085", "2101", "2104", "2121", "2132", "2161", "2180", "2181", "2182", "2183", "2184", "2260", "2262", "2280", "2281", "2282", "2283", "2284", "2303", "2305", "2309", "2313", "2321", "2326", "2361", "2380", "2401", "2403", "2404", "2409", "2417", "2418", "2421", "2422", "2425", "2460", "2462", "2463", "2480", "2481", "2482", "2505", "2506", "2510", "2513", "2514", "2518", "2521", "2523", "2560", "2580", "2581", "2582", "2583", "2584" 
+diagram_arbetskraftsdeltagande_tid_region <- function(region_vekt = c("20"),			# Val av region. Finns: "00", "FA00"-"FA60", samtliga län (denna tabell saknar kommuner)
                                                       output_mapp_figur = "G:/Samhällsanalys/Statistik/Näringsliv/basfakta/", # Här hamnar sparad figur
-                                                      tid_koder = "*",			 # "*" = alla år eller månader, "9999" = senaste, finns: "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"
+                                                      tid_koder = "*",			 # "*" = alla år, "9999" = senaste, finns 2019-2024 (se kommentar i hamta_data-funktionen - äldre år är inte längre tillgängliga hos SCB)
                                                       kon_klartext = "totalt", # Finns: "män", "kvinnor", "totalt"
                                                       spara_figur = TRUE, # Skall diagrammet sparas
                                                       returnera_data = FALSE, # Skall data returneras
                                                       returnera_figur = TRUE){
-  
-  if (!require("pacman")) install.packages("pacman")
-  p_load(tidyverse,
-         glue)
-  
-  source("https://raw.githubusercontent.com/Region-Dalarna/hamta_data/refs/heads/main/hamta_arbetskraftsdeltagande_region_utbildngrupp_kon_tid_RegionInd19U1b_19U1bN1_scb.R")
-  source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R", encoding = "utf-8")
-  source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_text.R", encoding = "utf-8")
-  
-  diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarnan\nDiagramförklaring: Andel av befolkningen 20-64 år som antingen är förvärvsarbetande eller inskrivna på arbetsförmedlingen "
+
+  # Bara paket, ingen source() mot funktioner-repot och inget p_load(tidyverse). Anropas med fullt
+  # namespace (dplyr::filter() osv.) i stället för library(). hamta_data-funktionen sourcas
+  # fortfarande direkt (samma mönster som övriga migrerade skript) - den är själv omskriven till
+  # pxweb2r (v1-tabellen AM9906O/RegionInd19U1b som tidigare kombinerades med denna är helt borttagen
+  # ur SCB:s API, se kommentar i den filen).
+  if (!requireNamespace("rddiagram", quietly = TRUE)) {
+    remotes::install_github("Region-Dalarna/rdpaket", subdir = "packages/rddiagram")
+  }
+  if (!requireNamespace("rdverktyg", quietly = TRUE)) {
+    remotes::install_github("Region-Dalarna/rdpaket", subdir = "packages/rdverktyg")
+  }
+  if (!requireNamespace("glue", quietly = TRUE)) install.packages("glue")
+  # dplyr/purrr/stringr följer med som beroenden till rddiagram/rdverktyg.
+
+  source("https://raw.githubusercontent.com/Region-Dalarna/hamta_data/main/hamta_arbetskraftsdeltagande_region_utbildngrupp_kon_tid_RegionInd19U1b_19U1bN1_scb.R")
+
+  diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Andel av befolkningen 20-64 år som antingen är förvärvsarbetande eller inskrivna på arbetsförmedlingen "
   gg_list <- list()
-  
+
+  # Bugfix (confirmed genom kodgranskning): region_vekt hämtades tidigare aldrig från funktionens egen
+  # parameter (som dokumentationen och anropssignaturen lovar) - "20" stod hårdkodat direkt i anropet
+  # nedan, så funktionens region_vekt-argument gjorde ingenting alls oavsett vad man skickade med.
+  #
+  # Bugfix-konsekvens av att hamta_data-funktionen migrerats till pxweb2r (se den filens egen
+  # kommentar): cont_klartext = "*" ger numera korrekt long-format (en rad per innehållsvariabel) i
+  # stället för att - som i den gamla v1-baserade versionen - råka bli wide-format på grund av en
+  # egenhet i hur SCB:s v1-API hanterade den bokstavliga strängen "*". Ber därför uttryckligen om
+  # long_format = FALSE för att få den wide-form (en kolumn per innehållsvariabel: "I arbetskraften"/
+  # "Inte i arbetskraften"/"Totalt antal personer") som beräkningen några rader ned förutsätter.
   arbetskraftsdeltagande_df <- hamta_arbetskraftsdeltagande_region_utbildngrupp_kon_tid_scb(
-    region_vekt = "20",			# Val av region. Finns: "00", "FA00", "FA01", "FA02", "FA03", "FA04", "FA05", "FA06", "FA07", "FA08", "FA09", "FA10", "FA11", "FA12", "FA13", "FA14", "FA15", "FA16", "FA17", "FA18", "FA19", "FA20", "FA21", "FA22", "FA23", "FA24", "FA25", "FA26", "FA27", "FA28", "FA29", "FA30", "FA31", "FA32", "FA33", "FA34", "FA35", "FA36", "FA37", "FA38", "FA39", "FA40", "FA41", "FA42", "FA43", "FA44", "FA45", "FA46", "FA47", "FA48", "FA49", "FA50", "FA51", "FA52", "FA53", "FA54", "FA55", "FA56", "FA57", "FA58", "FA59", "FA60", "01", "03", "04", "05", "06", "07", "08", "09", "10", "12", "13", "14", "17", "18", "19", "20", "21", "22", "23", "24", "25"
-    utbildngrupp_klartext = "samtliga utbildningsnivåer",			 #  NA = tas inte med i uttaget,  Finns: "samtliga utbildningsnivåer", "samtliga utbildningsinriktningar", "allmän utbildning", "samtliga utbildningsgrupper", "folkskoleutbildning och motsvarande utbildning", "grundskoleutbildning och motsvarande utbildning", "samhällsvetenskaplig el. humanistisk utbildning, gymnasial", "naturvetenskaplig utbildning, gymnasial nivå ", "teknisk utbildning, gymnasial nivå", "pedagogisk utbildning, gymnasial nivå ", "minst 30 hp inom pedagogik och lärarutbildning, ej examen ", "förskollärarutbildning ", "fritidspedagogutbildning ", "lärarutbildning för grundskolans tidigare år ", "lärarutbildning grsk senare år och gymn., allmänna + praktiskt-estet.", "speciallärar- och specialpedagogutbildning ", "yrkeslärarutbildning ", "övrig utbildning inom pedagogik / lärarutbildning, eftergymnasial", "estetisk utbildning, gymnasial nivå ", "utbildning inom humaniora och konst, gymnasial nivå ", "minst 30 hp inom humaniora och konst, ej examen ", "humanistisk utbildning, eftergymnasial nivå (minst 3 år) ", "konstnärlig utbildning, eftergymnasial nivå ", "utbildning inom medieproduktion, eftergymnasial nivå ", "teologisk utbildning, eftergymnasial nivå (minst 3 år) ", "övrig utbildning inom humaniora och konst, eftergymnasial nivå ", "ekonomisk utbildning, gymnasial nivå ", "handel- och administrationsutbildning, gymnasial nivå ", "minst 30 hp i samhällsvetenskap, juridik, handel, admin., ej examen ", "biblioteks- och informationsvetensk. högskoleutbildning (minst 3 år) ", "ekonomutbildning, högskoleutbildning (minst 3 år) ", "personal- och beteendevetarutbildning, högskoleutb. (minst 3 år) ", "juristutbildning ", "journalistik och medievetenskaplig utbildning, eftergymnasial nivå ", "psykologutbildning ", "samhällsvetar- och förvaltningsutb. högskoleutbildning (minst 3 år) ", "övrig utb. i samhällsvetenskap, juridik, handel, admin., eftergymnasial", "yrkesinriktad utb. inom naturvetenskap, matematik, data, gymnasial nivå ", "minst 30 hp inom naturvetenskap, matematik, data, ej examen ", "biologutbildning, högskoleutbildning (minst 3 år) ", "datautbildning, eftergymnasial nivå ", "fysikerutbildning, högskoleutbildning (minst 3 år) ", "geovetenskaplig utbildning, högskoleutbildning (minst 3 år) ", "kemistutbildning, högskoleutbildning (minst 3 år) ", "matematiker-, statistiker-, datavetenskaplig högskoleutb. (minst 3 år) ", "övrig naturvetenskaplig högskoleutbildning (minst 3 år) ", "övrig utbildning inom naturvetenskap, matematik, data, eftergymnasial", "gymnasieingenjörsutbildning", "byggutbildning, gymnasial nivå ", "data-, el- och energiteknisk utbildning, gymnasial nivå ", "fordonsutbildning, gymnasial nivå ", "industriutbildning, gymnasial nivå ", "vvs- och fastighetsutbildning, gymnasial nivå ", "övrig utbildning inom teknik och tillverkning, gymnasial nivå ", "minst 180 högskolepoäng inom teknik och tillverkning, ej examen", "30-179 högskolepoäng inom teknik och tillverkning, ej examen", "arkitektutbildning ", "civilingenjörsutbildning; industriell ekonomi", "civilingenjörsutbildning; väg- och vatten, byggnadsteknik, lantmäteri", "civilingenjörsutbildning; maskinteknik, fordons- och farkostteknik", "civilingenjörsutbildning; teknisk fysik, elektro- och datateknik", "civilingenjörsutbildning; kemi- och bioteknik, material- och geoteknik", "civilingenjörsutbildning; övrig/okänd inriktning", "högskoleingenjörsutb.; väg- och vatten, byggnadsteknik, lantmäteri", "högsk.ing.utb; maskinteknik, fordons- farkostteknik, industriell ekon.", "högskoleingenjörsutbildning; teknisk fysik, elektro- och datateknik", "högskoleingenjörsutb.; kemi- och bioteknik, material- och geoteknik", "högskoleingenjörsutbildning; övrig/okänd inriktning", "teknikutbildning, yrkeshögskolan", "övrig utbildning inom teknik och tillverkning, eftergymnasial nivå ", "naturbruksutbildning, gymnasial nivå ", "minst 30 hp inom lant- och skogsbruk, djursjukvård, ej examen ", "agronom- och hortonomutbildning ", "skogsvetenskaplig utbildning, högskoleutbildning (minst 3 år) ", "veterinärutbildning ", "övrig utb. inom lant- och skogsbruk, djursjukvård, eftergymnasial", "barn- och fritidsutbildning, gymnasial nivå ", "vård- och omsorgsutb.; övrig gymn. utb. i hälso- och sjukvård", "tandsköterskeutbildning ", "minst 30 hp inom hälso- och sjukvård, social omsorg, ej examen ", "apotekarutbildning ", "arbetsterapeututbildning ", "biomedicinsk analytikerutbildning ", "fritidsledarutbildning, eftergymnasial nivå ", "läkarutbildning (exkl. disputerade som saknar läkarexamen) ", "receptarieutbildning ", "sjukgymnast-/fysioterapeututbildning ", "barnmorskeutbildning ", "sjuksköterskeutbildning, grundutbildning ", "social omsorgsutbildning, eftergymnasial nivå ", "socionomutbildning ", "specialistsjuksköterskeutbildning", "tandhygienistutbildning ", "tandläkarutbildning ", "övrig utb. inom hälso- och sjukvård, social omsorg, eftergymnasial", "restaurang- och livsmedelsutbildning, gymnasial nivå ", "transportutbildning, gymnasial nivå ", "övrig utbildning inom tjänsteområdet, gymnasial nivå ", "minst 30 hp inom tjänsteområdet, ej examen ", "polisutbildning ", "transportutbildning, eftergymnasial nivå ", "övrig utbildning inom tjänsteområdet, eftergymnasial nivå ", "gymnasial utbildning, ospecificerad ", "eftergymnasial utbildning, ospecificerad ", "okänd utbildning ", "pedagogik och lärarutbildning", "förgymnasial utbildning", "humaniora och konst", "gymnasial utbildning", "samhällsvetenskap, juridik, handel, administration", "eftergymnasial utbildning, mindre än 3 år", "naturvetenskap, matematik och data", "teknik och tillverkning", "eftergymnasial utbildning, 3 år eller mer", "lant- och skogsbruk samt djursjukvård", "okänd utbildningsnivå", "hälso- och sjukvård samt social omsorg", "tjänster", "okänd utbildningsinriktning", "medicinsk sekreterarutbildning", "YH-utbildning i företagsekonomi, handel, administration", "data och IT-utbildning, eftergymnasial (minst 3 år)", "data och IT utbildning, eftergymnasial (kortare än 3år)", "fysik- och  matematikutbildning, eftergymnasial nivå (minst 3år)", "läkarutbildning, med specialistkompetens", "röntgensjuksköterskeutbildning", "specialistsjuksköterskeutbildning; anestesi-, intensiv-, operations- och ambulanssjukvård", "specialistsjuksköterskeutbildning; barn och ungdom", "specialistsjuksköterskeutbildning; distriktssköterska", "specialistsjuksköterskeutbildning; psykiatrisk vård", "specialistsjuksköterskeutbildning; övriga inriktningar", "hotell- och turismutbildning, gymnasial"
-    kon_klartext = kon_klartext,			 #  NA = tas inte med i uttaget,  Finns: "män", "kvinnor", "totalt"
-    cont_klartext = "*",			 #  Finns: "I arbetskraften", "Inte i arbetskraften", "Totalt antal personer"
-    tid_koder = tid_koder,			 # "*" = alla år eller månader, "9999" = senaste, finns: "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"
-    long_format = TRUE,			# TRUE = konvertera innehållsvariablerna i datasetet till long-format 
-    wide_om_en_contvar = TRUE,			# TRUE = om man vill behålla wide-format om det bara finns en innehållsvariabel, FALSE om man vill konvertera till long-format även om det bara finns en innehållsvariabel
-    output_mapp = NA,			# anges om man vill exportera en excelfil med uttaget, den mapp man vill spara excelfilen till
-    excel_filnamn = "arbetskraftsdeltagande.xlsx",			# filnamn för excelfil som exporteras om excel_filnamn och output_mapp anges
-    returnera_df = TRUE			# TRUE om man vill ha en dataframe i retur från funktionen
-    
+    region_vekt = region_vekt,
+    utbildngrupp_klartext = "samtliga utbildningsnivåer",
+    kon_klartext = kon_klartext,
+    cont_klartext = "*",
+    tid_koder = tid_koder,
+    long_format = FALSE,
+    output_mapp = NA,
+    returnera_df = TRUE
   )
-  # Calculate the percentage of the population in the labor force using pivots
-  #arbetskraftsdeltagande_andel <- arbetskraftsdeltagande_df %>% pivot_wider(names_from = variabel, values_from = varde) %>% mutate(arbetskraftsdeltagande = `I arbetskraften` / `Totalt antal personer` * 100) %>% select(-`I arbetskraften`, -`Inte i arbetskraften`, -`Totalt antal personer`) %>% pivot_longer(cols = starts_with("arbetskraftsdeltagande"), names_to = "variabel", values_to = "andel")
-  arbetskraftsdeltagande_df$arbetskraftsdeltagande <- arbetskraftsdeltagande_df$`I arbetskraften` / arbetskraftsdeltagande_df$`Totalt antal personer`*100
-  
-  if(returnera_data == TRUE){
+  # Beräkna andelen av befolkningen som är i arbetskraften
+  arbetskraftsdeltagande_df$arbetskraftsdeltagande <- arbetskraftsdeltagande_df$`I arbetskraften` / arbetskraftsdeltagande_df$`Totalt antal personer` * 100
+
+  if (returnera_data == TRUE) {
     assign("arbetskraftsdeltagande_df", arbetskraftsdeltagande_df, envir = .GlobalEnv)
   }
-  
+
   # om regioner är alla kommuner i ett län eller alla län i Sverige görs revidering, annars inte
-  region_start <- unique(arbetskraftsdeltagande_df$region) %>% skapa_kortnamn_lan() %>% list_komma_och()
-  region_txt <- ar_alla_kommuner_i_ett_lan(unique(arbetskraftsdeltagande_df$regionkod), returnera_text = TRUE, returtext = region_start)
-  region_txt <- ar_alla_lan_i_sverige(unique(arbetskraftsdeltagande_df$regionkod), returnera_text = TRUE, returtext = region_txt)
+  region_start <- rdverktyg::list_komma_och(rdverktyg::skapa_kortnamn_lan(unique(arbetskraftsdeltagande_df$region)))
+  region_txt <- rdverktyg::ar_alla_kommuner_i_ett_lan(unique(arbetskraftsdeltagande_df$regionkod), returnera_text = TRUE, returtext = region_start)
+  region_txt <- rdverktyg::ar_alla_lan_i_sverige(unique(arbetskraftsdeltagande_df$regionkod), returnera_text = TRUE, returtext = region_txt)
   regionfil_txt <- region_txt
   region_txt <- paste0(" i ", region_txt)
-  regionkod_txt <- if (region_start == region_txt) unique(arbetskraftsdeltagande_df$regionkod) %>% paste0(collapse = "_") else region_txt
-  
-  diagramtitel <- glue("Arbetskraftsdeltagande hos befolkningen 20-64 år{region_txt}")
-  diagramfil <- glue("arbetskraftsdeltagande_{regionfil_txt}.png") %>% str_replace_all("__", "_")
-  
-  # if ("variabel" %in% names(arbetskraftsdeltagande_df)) {
-  #    if (length(unique(arbetskraftsdeltagande_df$variabel)) > 6) chart_df <- arbetskraftsdeltagande_df %>% filter(variabel == unique(arbetskraftsdeltagande_df$variabel)[1]) else chart_df <- arbetskraftsdeltagande_df
-  # } else chart_df <- arbetskraftsdeltagande_df
-  
-  gg_obj <- SkapaStapelDiagram(skickad_df = arbetskraftsdeltagande_df,
+  regionkod_txt <- if (region_start == region_txt) paste0(unique(arbetskraftsdeltagande_df$regionkod), collapse = "_") else region_txt
+
+  diagramtitel <- glue::glue("Arbetskraftsdeltagande hos befolkningen 20-64 år{region_txt}")
+  diagramfil <- stringr::str_replace_all(glue::glue("arbetskraftsdeltagande_{regionfil_txt}.png"), "__", "_")
+
+  har_konsuppdelning <- "kön" %in% names(arbetskraftsdeltagande_df) && length(unique(arbetskraftsdeltagande_df$kön)) > 1
+
+  gg_obj <- rddiagram::SkapaStapelDiagram(skickad_df = arbetskraftsdeltagande_df,
                                skickad_x_var = "år",
                                skickad_y_var = "arbetskraftsdeltagande",
-                               skickad_x_grupp = if ("kön" %in% names(arbetskraftsdeltagande_df) & length(unique(arbetskraftsdeltagande_df$kön)) > 1) "kön" else NA,
+                               skickad_x_grupp = if (har_konsuppdelning) "kön" else NA,
                                x_axis_sort_value = FALSE,
                                diagram_titel = diagramtitel,
                                skriv_till_diagramfil = spara_figur,
@@ -67,14 +79,13 @@ diagram_arbetskraftsdeltagande_tid_region <- function(region_vekt = c("20"),			#
                                manual_y_axis_title = "procent",
                                manual_x_axis_text_vjust = 1,
                                manual_x_axis_text_hjust = 1,
-                               manual_color = if ("kön" %in% names(arbetskraftsdeltagande_df) & length(unique(arbetskraftsdeltagande_df$kön)) > 1) diagramfarger("kon") else diagramfarger("rus_sex")[1],
+                               manual_color = if (har_konsuppdelning) rddiagram::diagramfarger("kon") else rddiagram::diagramfarger("rus_sex")[1],
                                output_mapp = output_mapp_figur,
-                               diagram_facet = FALSE,
-                               facet_grp = NA,
-                               facet_scale = "free",
+                               facet_grp = NULL,
+                               facet_scale = "free"
   )
-  
+
   gg_list <- c(gg_list, list(gg_obj))
-  names(gg_list)[[length(gg_list)]] <- diagramfil %>% str_remove(".png")
+  names(gg_list)[[length(gg_list)]] <- stringr::str_remove(diagramfil, ".png")
   return(gg_list)
 }
