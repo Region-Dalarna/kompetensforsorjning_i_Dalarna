@@ -89,7 +89,7 @@ För att förstora diagrammen i rapporten, högerklicka på ett diagram och väl
 
 # Inledning {-}
 
-Sverige och Dalarna har en åldrande befolkning. Aktuella prognoser från SCB (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>) pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler unga och gamla. Mellan `r forsorjningskov_min_ar` och `r forsorjningskov_max_ar` har den demografiska försörjningskvoten i Dalarna ökat från ungefär `r round(forsorjningskov_min_ar_dalarna_varde,0)` till `r forsorjningskov_max_ar_dalarna_varde` - redan idag den högsta i landet, och den väntas fortsätta öka. Det förstärker den brist på arbetskraft som redan finns.
+Sverige och Dalarna har en åldrande befolkning. Aktuella prognoser från SCB (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>) pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler unga och gamla. Mellan `r forsorjningskov_min_ar` och `r forsorjningskov_max_ar` har den demografiska försörjningskvoten i Dalarna ökat från ungefär `r round(forsorjningskov_min_ar_dalarna_varde,0)` till ungefär `r round(forsorjningskov_max_ar_dalarna_varde,0)` - redan idag den högsta i landet, och den väntas fortsätta öka. Det förstärker den brist på arbetskraft som redan finns.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
