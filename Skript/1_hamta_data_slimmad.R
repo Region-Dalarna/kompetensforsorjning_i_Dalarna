@@ -232,7 +232,7 @@ if(uppdatera_data == TRUE){
   syssgrad_93_senaste_ar_kvinna_varde <- round(forvarvsintensitet_93_df %>% filter(år == max(år),kön == "kvinnor") %>% .$sysselsättningsgrad,0)
   
   # Arbetslöshet tidsserie
-  source(here("Skript","diagram_arbetsloshet_08_AF.R"), encoding="UTF-8")
+  source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
   gg_arbetsloshet_08 <- funktion_upprepa_forsok_om_fel( function() {
     diag_arbetsloshet_08(output_mapp_figur = Output_mapp_figur,
                          returnera_data = TRUE,
