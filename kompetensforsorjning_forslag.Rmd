@@ -68,14 +68,14 @@ Senast uppdaterad: `r Sys.Date()`</i>
 
 # Sammanfattning {-}
 
-Dalarna står inför en tydlig kompetensförsörjningsutmaning: befolkningen åldras snabbare än i riket, den arbetsföra befolkningen krymper, och samtidigt ökar efterfrågan på arbetskraft. Resultatet är en arbetsmarknad där allt fler arbetsgivare - särskilt småföretag - har svårt att hitta rätt kompetens.
+Dalarna står inför en tydlig kompetensförsörjningsutmaning: befolkningen åldras snabbare än i riket, den arbetsföra befolkningen krymper, och samtidigt ökar efterfrågan på arbetskraft. Resultatet är en arbetsmarknad där allt fler arbetsgivare, särskilt små och medelstora företag, har svårt att hitta rätt kompetens.
 
 * **Efterfrågan ökar.** Antalet lediga jobb i Dalarna har ökat påtagligt de senaste decennierna, framför allt inom privat sektor.
 * **Utbudet minskar.** Den inrikes födda befolkningen i arbetsför ålder blir färre. Att fler utrikes födda bor i länet dämpar minskningen, men kompenserar inte fullt ut.
 * **Utbildningsnivån är en svaghet.** Dalarna har en av landets lägsta andelar eftergymnasialt utbildade, vilket gör det svårare att möta arbetsgivarnas kompetenskrav inom flera växande yrkesområden.
 * **Åldersstrukturen förstärker problemet.** Stora delar av arbetskraften inom bland annat vård och omsorg samt tillverkning går i pension inom 15-20 år.
 * **Matchningen brister särskilt för utrikes födda**, som i lägre grad än inrikes födda arbetar med det de är utbildade till, samt har en lägre sysselsättningsgrad.
-* **Konsekvensen syns redan idag:** drygt fyra av tio småföretag i Dalarna uppger att de har svårt att hitta rätt kompetens - en ökning sedan 2020.
+* **Konsekvensen syns redan idag:** knappt fyra av tio mindre företag i Dalarna uppger att de har svårt att hitta rätt kompetens för att utveckla verksamheten.
 
 <details>
   <summary>Mer om rapportformatet</summary>
@@ -89,7 +89,7 @@ För att förstora diagrammen i rapporten, högerklicka på ett diagram och väl
 
 # Inledning {-}
 
-Sverige och Dalarna har en åldrande befolkning. Aktuella prognoser från SCB (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>) pekar på en utveckling där allt färre i arbetsför ålder ska försörja allt fler unga och gamla. Mellan `r forsorjningskov_min_ar` och `r forsorjningskov_max_ar` har den demografiska försörjningskvoten i Dalarna ökat från ungefär `r round(forsorjningskov_min_ar_dalarna_varde,0)` till ungefär `r round(forsorjningskov_max_ar_dalarna_varde,0)` - redan idag den högsta i landet, och den väntas fortsätta öka. Det förstärker den brist på arbetskraft som redan finns.
+Sverige och Dalarna har en åldrande befolkning. Aktuella prognoser från SCB (<a href="https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning-och-levnadsforhallanden/befolkningens-sammansattning-och-utveckling/befolkningsframskrivningar/produktrelaterat/rapporter/sveriges-framtida-befolkning-2026-2070/" target="_blank">SCB, 2026</a>) pekar på en utveckling där allt färre i arbetsför ålder ska försörja i synnerhet allt fler gamla. Mellan `r forsorjningskov_min_ar` och `r forsorjningskov_max_ar` har den demografiska försörjningskvoten i Dalarna ökat från ungefär `r round(forsorjningskov_min_ar_dalarna_varde,0)` till ungefär `r round(forsorjningskov_max_ar_dalarna_varde,0)`, redan idag den högsta i landet, och den väntas fortsätta öka. Det förstärker den brist på arbetskraft som redan finns.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -113,9 +113,9 @@ befolkningsutvecklingsrapporten. Återanvänd gärna kod/data därifrån.
 # karta_bef_forandring_kommun
 ```
 
-Att hitta lösningar på kompetensförsörjningsutmaningen är avgörande för en hållbar regional utveckling. Den regionala utvecklingsstrategin, <a href="https://www.regiondalarna.se/globalassets/regional-utveckling/dalastrategin-2030-tillsammans-for-ett-hallbart-dalarna-dec.pdf/" target="_blank">Dalastrategin 2030</a>, pekar ut en väl fungerande kompetensförsörjning som ett område där nya lösningar måste hittas.
+Att hitta lösningar på kompetensförsörjningsutmaningen är avgörande för en hållbar regional utveckling. Den regionala utvecklingsstrategin, <a href="https://www.regiondalarna.se/contentassets/0e5aa308f6be448a85e9818fbeb0a919/dalastrategin_uppl2026.pdf" target="_blank">Dalastrategin 2030</a>, pekar ut en väl fungerande kompetensförsörjning som ett område där nya lösningar måste hittas.
 
-Rapporten är strukturerad kring hur kompetensförsörjningssystemet hänger ihop: efterfrågan på arbetskraft möter ett utbud som formas av demografi, utbildningsnivå och pendling; utbildningssystemet ska i sin tur förse arbetsmarknaden med rätt kompetens över tid. När delarna inte möts uppstår den brist som många arbetsgivare i Dalarna redan upplever idag.
+Rapporten är strukturerad kring hur kompetensförsörjningssystemet hänger ihop: efterfrågan på arbetskraft möter ett utbud som formas av demografi, utbildningsnivå och pendling; utbildningssystemet ska i sin tur förse arbetsmarknaden med rätt kompetens över tid. När delarna inte möts uppstår en brist som många arbetsgivare i Dalarna redan upplever idag.
 
 # Efterfrågan på arbetskraft
 
@@ -131,7 +131,7 @@ gg_lediga_jobb[[1]]
 ```
 
 <br>
-Majoriteten av lediga tjänster tillsätts av personer som redan är aktiva i yrkeslivet ("jobbytare"), inte av nyinträdda på arbetsmarknaden - de nyinträdda står bara för 5-6 procent av tillsättningarna. Det förhållandet har varit stabilt över tid.
+Majoriteten av lediga tjänster tillsätts av personer som redan är aktiva i yrkeslivet ("jobbytare"), inte av nyinträdda på arbetsmarknaden. De nyinträdda står bara för 5-6 procent av tillsättningarna. Det förhållandet har varit stabilt över tid.
 
 ## Kompetenskrav
 
@@ -140,9 +140,9 @@ Majoriteten av lediga tjänster tillsätts av personer som redan är aktiva i yr
 <div>För att beskriva kompetens- och kvalifikationskrav har denna rapport utgått ifrån yrkesregistret i SCB:s öppna statistikdatabas, som delar in yrken i nio grupper. Läs mer på <a href="https://www.scb.se/dokumentation/klassifikationer-och-standarder/standard-for-svensk-yrkesklassificering-ssyk/" target="_blank">SCB:s hemsida</a>.</div>
 </details>
 
-Vilken typ av kompetens arbetsgivare efterfrågar varierar stort mellan branscher. I Dalarna finns den enklaste typen av yrken framför allt inom hotell och restaurang, vilket delvis hänger ihop med att branschen även har flest utrikes födda anställda. Motsatsen gäller inom utbildning, offentlig förvaltning samt IT och kommunikation, där omkring hälften av de anställda arbetar inom yrken som kräver fördjupad högskolekompetens.
+Vilken typ av kompetens arbetsgivare efterfrågar varierar stort mellan branscher. I Dalarna finns den enklaste typen av yrken framför allt inom hotell och restaurang. Här finns också finns även flest utrikes födda anställda. Motsatsen gäller inom utbildning, offentlig förvaltning samt IT och kommunikation, där omkring hälften av de anställda arbetar inom yrken som kräver högskolekompetens.
 
-Hur Dalarna ligger till jämfört med andra län varierar också, men skillnaderna mellan länen är förhållandevis små - den variationen finns istället att utforska i Shiny-rapporten.
+Hur Dalarna ligger till jämfört med andra län varierar också, men skillnaderna mellan länen är förhållandevis små. Den variationen finns istället att utforska i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -151,7 +151,10 @@ gg_kvalifikation$`kvalifikationskrav_bransch_Dalarnas län`
 
 ## Åldersstruktur i branscherna
 
-Åldersstrukturen inom en bransch säger något om det kommande rekryteringsbehovet. Störst antal personer över 60 år arbetar i Dalarna inom `r tolower(bransch_aldst_antal$bransch)` - omkring `r format(plyr::round_any(as.numeric(bransch_aldst_antal$antal),100),big.mark = " ")` personer, som väntas gå i pension inom 5-10 år. Tillsammans med en åldrande befolkning som efterfrågar mer vård skapar det ett stort rekryteringsbehov inom vård och omsorg, redan idag och framöver.
+Åldersstrukturen inom en bransch säger något om det kommande rekryteringsbehovet. Störst antal personer över 60 år arbetar i Dalarna inom `r tolower(bransch_aldst_antal$bransch)`, omkring `r format(plyr::round_any(as.numeric(bransch_aldst_antal$antal),100),big.mark = " ")` personer, som väntas gå i pension inom 5-10 år. Tillsammans med en åldrande befolkning med behov av mer vård och omsorg skapar det ett stort rekryteringsbehov inom branschen, redan idag och framöver.
+
+<br>
+*Finns mer aktuell data? Diagrammet är från 2022.*
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -164,7 +167,7 @@ Utbudet av arbetskraft i Dalarna formas på kort sikt av vilka som redan bor, ka
 
 ## En förändrad demografisk struktur
 
-Till skillnad från Sveriges befolkningsmässigt största regioner, som har ett positivt inrikes flyttnetto, gäller det omvända för Dalarna: fler flyttar härifrån till andra delar av landet än tvärtom. I hela landet har invandringen (det utrikes flyttnettot) haft en positiv effekt på den arbetsföra befolkningen - men i Dalarna räcker det inte för att väga upp det negativa inrikes flyttnettot, vilket sammantaget ger en minskande arbetsför befolkning.
+Till skillnad från Sveriges befolkningsmässigt största regioner, som har ett positivt inrikes flyttnetto, gäller det omvända för Dalarna. Fler flyttar härifrån till andra delar av landet än tvärtom. I hela landet har invandringen (utrikes flyttnetto) haft en positiv effekt på den arbetsföra befolkningen, men i Dalarna räcker det inte för att väga upp det negativa inrikes flyttnettot. Sammantaget ger det en minskande befolkning i arbetsför ålder.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -172,7 +175,7 @@ gg_bef_for$befolkningsforandring_20_64
 ```
 
 <br>
-Delar man upp den arbetsföra befolkningen i inrikes och utrikes födda blir bilden tydligare: det är den inrikes födda delen som minskar, medan invandring gjort att antalet utrikes födda i arbetsför ålder ökat - dock inte tillräckligt för att kompensera fullt ut. I Dalarna har antalet inrikes födda invånare i arbetsför ålder minskat från ungefär `r inrikes_antal_min_ar` personer år `r antal_utrikes_inrikes_min_ar` till cirka `r inrikes_antal_max_ar` år `r antal_utrikes_inrikes_max_ar`.
+Delar man upp den arbetsföra befolkningen i inrikes och utrikes födda blir bilden tydligare att det är den inrikes födda delen som minskar, medan invandring gjort att antalet utrikes födda i arbetsför ålder ökat, dock inte tillräckligt för att kompensera fullt ut. I Dalarna har antalet inrikes födda invånare i arbetsför ålder minskat från ungefär `r inrikes_antal_min_ar` personer år `r antal_utrikes_inrikes_min_ar` till cirka `r inrikes_antal_max_ar` år `r antal_utrikes_inrikes_max_ar`.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -180,7 +183,7 @@ gg_antal_utrikes_inrikes$befolkning_utr_inr_antal_Dalarna
 ```
 
 <br>
-Samma mönster syns när befolkningen delas upp i åldersgrupper: de unga (0-19 år) och de i arbetsför ålder (20-64 år) har minskat sedan slutet på 1960-talet, medan de äldre - särskilt 80+ år - har ökat kraftigt, en utveckling som väntas fortsätta.
+Samma mönster syns när befolkningen delas upp i åldersgrupper. De unga (0-19 år) och de i arbetsför ålder (20-64 år) har minskat sedan slutet på 1960-talet, medan de äldre, särskilt 80+ år, har ökat kraftigt. Det är en utveckling som förväntas fortsätta kommande år.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -189,7 +192,7 @@ gg_bef_for_alder$befolkning_forandring_prognos_Dalarna
 
 ## Arbetskraftsdeltagande
 
-Sedan 2006 har arbetskraftsdeltagandet ökat för både kvinnor och män i arbetsför ålder, och skillnaden mellan könen har minskat över tid. Under `r arbetskraftsdeltagande_senaste_ar` var andelen ungefär `r arbetskraftsdeltagande_senaste_ar_man` procent för män och `r arbetskraftsdeltagande_senaste_ar_kvinna` procent för kvinnor - båda högre än riksgenomsnittet.
+Sedan 2006 har arbetskraftsdeltagandet ökat för både kvinnor och män i arbetsför ålder, och skillnaden mellan könen har minskat över tid. Under `r arbetskraftsdeltagande_senaste_ar` var andelen ungefär `r arbetskraftsdeltagande_senaste_ar_man` procent för män och `r arbetskraftsdeltagande_senaste_ar_kvinna` procent för kvinnor, båda högre än riksgenomsnittet.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -198,7 +201,7 @@ gg_arbetskraftsdeltagande$arbetskraftsdeltagande_Dalarna
 
 ## Förvärvsarbetande - vilka branscher bär arbetsmarknaden
 
-Vård och omsorg är idag Dalarnas klart största bransch räknat i antal anställda, en följd av en relativt hög medelålder i länet. SCB bedömer att behovet av arbetskraft inom vård och omsorg kommer att fortsätta öka i takt med den åldrande befolkningen (<a href="https://www.scb.se/contentassets/3c424ebe4366403da0d30dfba52fba87/uf0515_2023a01_br_am85br2401.pdf/" target="_blank">SCB, 2024</a>).
+Vård och omsorg är idag Dalarnas klart största bransch räknat i antal anställda, en följd av en relativt hög medelålder i länet. SCB bedömer att behovet av arbetskraft inom vård och omsorg kommer att fortsätta öka i takt med den åldrande befolkningen (<a href="https://www.scb.se/contentassets/04cf1ee0f04b4c06a6e62d22d78e8d4c/dalarnas-lan-20251215.pdf" target="_blank">SCB, 2025</a>).
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -214,7 +217,10 @@ gg_forv_90$forvarvsarbetande_90_forandring_Dalarna
 ```
 
 <br>
-Näringslivets sammansättning skiljer sig tydligt åt mellan Dalarnas kommuner - tillverkningsindustrin dominerar fortfarande i söder (Avesta, Ludvika), vård och omsorg är viktigast där det finns akutsjukhus (Falun, Mora) samt i Säter och Rättvik, handel är stort i Leksand, och byggindustrin är en av de största arbetsgivarna i fjällkommunerna i norr.
+Näringslivets sammansättning skiljer sig tydligt åt mellan Dalarnas kommuner. Tillverkningsindustrin dominerar fortfarande i söder (Avesta, Ludvika), vård och omsorg är viktigast där det finns akutsjukhus (Falun, Mora) samt i Säter och Rättvik, handel är stort i Leksand, och byggindustrin är en av de största branscherna i fjällkommunerna i norr.
+
+<br>
+*Finns mer aktuell data? Diagram från augusti 2023.*
 
 <br>
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -232,9 +238,9 @@ Om den flyttas till Shiny helt, ersätt med en kort textmening + länk här.
 
 ## Pendling
 
-Pendling kan stärka en svag lokal arbetsmarknad genom att öppna upp fler möjligheter till jobb. I Dalarna är andelen som pendlar över länsgräns relativt liten, men flera kommuner tillhör större lokala arbetsmarknadsregioner - till exempel pendlar många från Gagnef till Borlänge, från Smedjebacken till Ludvika och från Orsa till Mora. I de till ytan stora kommunerna i norra Dalarna (Malung-Sälen, Älvdalen) bor och arbetar däremot de allra flesta i samma kommun.
+Pendling kan stärka en svag lokal arbetsmarknad genom att öppna upp fler möjligheter till jobb. I Dalarna är andelen som pendlar över länsgräns relativt liten, men flera kommuner tillhör större lokala arbetsmarknadsregioner. Till exempel pendlar många från Gagnef till Borlänge, från Smedjebacken till Ludvika och från Orsa till Mora. I de till ytan stora kommunerna i norra Dalarna (Malung-Sälen, Älvdalen) bor och arbetar däremot de allra flesta i samma kommun.
 
-Skillnaderna mellan Dalarnas kommuner - och mellan Dalarna och andra län - går att utforska i Shiny-rapporten.
+Skillnaderna mellan Dalarnas kommuner, och mellan Dalarna och andra län, går att utforska i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>.
 
 <!-- 
 FÖRSLAG PÅ NY FIGUR: Om pendlingsavsnittet ska ha kvar en visuell komponent 
@@ -248,7 +254,7 @@ flytta till Shiny.
 
 ## Utbildningsnivå
 
-Utbildningsnivån i Dalarna har ökat påtagligt över tid - andelen kvinnor med minst tre års eftergymnasial utbildning har gått från ungefär `r andel_hogutb_kvinnor_min_ar` till `r andel_hogutb_kvinnor_max_ar` procent mellan `r andel_hogutb_forsta_ar` och `r andel_hogutb_sista_ar`, och andelen män från `r andel_hogutb_man_min_ar` till `r andel_hogutb_man_max_ar` procent. Trots ökningen har Dalarna en av landets lägsta andelar högutbildade - år `r andel_hogutb_sista_ar` tredje lägst av alla län.
+Utbildningsnivån i Dalarna har ökat påtagligt över tid. Andelen kvinnor med minst tre års eftergymnasial utbildning har gått från ungefär `r andel_hogutb_kvinnor_min_ar` till `r andel_hogutb_kvinnor_max_ar` procent mellan `r andel_hogutb_forsta_ar` och `r andel_hogutb_sista_ar`, och andelen män från `r andel_hogutb_man_min_ar` till `r andel_hogutb_man_max_ar` procent. Trots ökningen har Dalarna en av landets lägsta andelar högutbildade. År `r andel_hogutb_sista_ar` var andelen tredje lägst av alla län i Sverige.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -256,7 +262,10 @@ gg_utbniva_85[[names(gg_utbniva_85)[1]]]
 ```
 
 <br>
-Utbildningsnivån skiljer sig även mellan kön och mellan inrikes och utrikes födda. Kvinnor har generellt högre utbildningsnivå än män, delvis för att kvinnor oftare arbetar inom vård, omsorg och utbildning där eftergymnasial utbildning är vanligare. Störst skillnad mellan inrikes och utrikes födda finns i den lägsta utbildningsnivån: var fjärde utrikes född har högst en grundskoleutbildning, jämfört med knappt var tionde inrikes född. Lägre utbildningsnivå är en viktig förklaring till att utrikes födda har lägre sysselsättningsgrad än inrikes födda - ett samband vi återkommer till längre fram i rapporten.
+Utbildningsnivån skiljer sig även mellan kön och mellan inrikes och utrikes födda. Kvinnor har generellt en högre utbildningsnivå än män, delvis för att kvinnor oftare arbetar inom vård, omsorg och utbildning där krav på eftergymnasial utbildning är vanligare. Störst skillnad mellan inrikes och utrikes födda finns i den lägsta utbildningsnivån. Var fjärde utrikes född har högst en grundskoleutbildning, jämfört med knappt var tionde inrikes född. Lägre utbildningsnivå är en viktig förklaring till att utrikes födda har lägre sysselsättningsgrad än inrikes födda, ett samband som berörs längre fram i rapporten.
+
+<br>
+*Finns mer aktuell data? Här visas nivån för 2023.*
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -265,7 +274,7 @@ gg_utbniva_bakgrund[[names(gg_utbniva_bakgrund)]]
 
 # Utbildningssystemets roll
 
-En väl fungerande kompetensförsörjning kräver att utbildningssystemet är anpassat till arbetsmarknadens behov - från gymnasiet, via Komvux och yrkeshögskola, till högskolan.
+En väl fungerande kompetensförsörjning kräver att utbildningssystemet är anpassat till arbetsmarknadens behov, från gymnasiet, via vuxenutbildning och yrkeshögskola, till högskola och universitet.
 
 <details>
   <summary>En kort introduktion till utbildningssystemet i Dalarna</summary>
@@ -282,7 +291,7 @@ Efter grundskolan kan eleverna fortsätta till **gymnasieskolan** (tre år), som
 </div>
 </details>
 
-De tydligaste könsskillnaderna i utbildningsval syns redan vid gymnasievalet, och de återspeglas senare i arbetslivet: kvinnor är överrepresenterade inom vård, omsorg och utbildning, medan män dominerar byggsektorn. Ska fördelningen mellan branscher bli mer jämställd på sikt behöver arbetet börja redan i skolan.
+De tydligaste könsskillnaderna i utbildningsval syns redan vid gymnasievalet, och de återspeglas senare i arbetslivet där kvinnor är överrepresenterade inom vård, omsorg och utbildning, medan män dominerar byggsektorn. Ska fördelningen mellan branscher bli mer jämställd på sikt behöver arbetet börja redan i skolan.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -290,7 +299,7 @@ gg_gymnasiet_kon$gymnasieantagning_kon_tot
 ```
 
 <br>
-Statistik om antagning per gymnasieprogram, examina från Högskolan Dalarna och yrkeshögskolan går att följa i detalj i Shiny-rapporten, inklusive utveckling år för år och per inriktning.
+Statistik om antagning per gymnasieprogram, examina från Högskolan Dalarna och yrkeshögskolan går att följa i detalj i <a href="https://shiny.regiondalarna.se/utbildning/" target="_blank">Shiny-rapporten</a>, inklusive utveckling år för år och per inriktning.
 
 <!-- 
 FLYTTAT TILL SHINY (fanns i original, ta bort härifrån):
@@ -312,7 +321,7 @@ En väl fungerande arbetsmarknad kännetecknas av att många arbetar, att de arb
 
 ## Sysselsättningsgrad
 
-Sysselsättningsgraden har ökat över tid för både kvinnor och män i Dalarna - från omkring 70 procent för båda könen `r syssgrad_93_forsta_ar`, till `r syssgrad_93_senaste_ar_kvinna_varde` respektive `r syssgrad_93_senaste_ar_man_varde` procent `r syssgrad_93_senaste_ar`.
+Sysselsättningsgraden har ökat över tid för både kvinnor och män i Dalarna, från omkring 70 procent för båda könen `r syssgrad_93_forsta_ar`, till `r syssgrad_93_senaste_ar_kvinna_varde` respektive `r syssgrad_93_senaste_ar_man_varde` procent `r syssgrad_93_senaste_ar`.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -320,11 +329,11 @@ gg_sysselsattningsgrad_93$sysselsattningsgrad_93_Dalarna
 ```
 
 <br>
-Den stora skillnaden i sysselsättningsgrad finns inte mellan kvinnor och män, utan mellan inrikes och utrikes födda - ett mönster som gäller i hela landet, och som till stor del hänger ihop med den lägre utbildningsnivån bland utrikes födda som beskrevs tidigare i rapporten. Skillnaden mellan Dalarnas kommuner går att utforska i Shiny-rapporten.
+Den stora skillnaden i sysselsättningsgrad finns inte mellan kvinnor och män, utan mellan inrikes och utrikes födda. Det är ett mönster som gäller i hela landet, och som till stor del hänger ihop med den lägre utbildningsnivån bland utrikes födda som beskrevs tidigare i rapporten. Skillnaden mellan Dalarnas kommuner går att utforska i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>.
 
 ## Arbetslöshet
 
-Arbetslösheten i Dalarna har konsekvent varit lägre än i riket, och har liksom i övriga landet sjunkit sedan pandemin. Det förklaras sannolikt av en kombination av en diversifierad ekonomi, goda kommunikationer och närhet till städer med hög ekonomisk aktivitet, samt en aktiv arbetsmarknad med expanderande företag (<a href="https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/socioekonomisk-analys-2022-nms.pdf" target="_blank">Region Dalarna, 2022</a>; <a href="https://arbetsformedlingen.se/download/18.210b3bc318fa36ad8ec193e/1718203233372/regionala-utsikter-varen-2024.pdf" target="_blank">Arbetsförmedlingen, 2024</a>).
+Arbetslösheten i Dalarna har konsekvent varit lägre än i riket, och har liksom i övriga landet sjunkit sedan pandemin. Det förklaras sannolikt av en kombination av en diversifierad ekonomi, goda kommunikationer och närhet till städer med hög ekonomisk aktivitet, samt en aktiv arbetsmarknad med expanderande företag (<a href="https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/januari-2025-socioekonomisk-analys-norra-mellansverige-pdf-52-sid.pdf" target="_blank">Region Dalarna, 2025</a>; <a href="https://arbetsformedlingen.se/download/18.16244a19ece6ad0cfac9/1782137329379/regionala-utsikter-varen-2026.pdf">Arbetsförmedlingen, 2026</a>).
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -335,7 +344,7 @@ gg_arbetsloshet_08$arbetsloshet_08_senastear
 
 Matchning mäter i hur stor utsträckning människor arbetar med det de är utbildade till. Generellt har specialiserade eftergymnasiala utbildningar (till exempel läkare och psykologer) hög matchning, medan gymnasieutbildningar och vissa eftergymnasiala inriktningar (till exempel humaniora och konst) har lägre.
 
-I Dalarna, liksom i riket, varierar matchningsgraden tydligt beroende på var man är född - inrikes födda har högst matchning, medan matchningen är lägre bland utrikes födda. Skillnaden mellan länen är däremot liten.
+I Dalarna, liksom i riket, varierar matchningsgraden tydligt beroende på var man är född. Inrikes födda har högst matchning, medan matchningen är lägre bland utrikes födda. Skillnaden mellan länen är däremot liten.
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -344,7 +353,10 @@ gg_matchning$matchning_bakgrund
 
 ## Brist på arbetskraft och kompetens
 
-Bland Sveriges län varierar den upplevda bristen på arbetskraft en hel del. I Dalarna upplever ungefär `r kompetensbrist_Dalarna` procent av småföretagen att de har svårt att hitta rätt kompetens - en ökning med `r kompetensbrist_Dalarna_forandring_2020` procentenheter sedan 2020.
+Bland Sveriges län varierar den upplevda bristen på arbetskraft en hel del. I Dalarna upplever ungefär `r kompetensbrist_Dalarna` procent av små och medelstora företag att de har svårt att hitta rätt kompetens - en ökning med `r kompetensbrist_Dalarna_forandring_2020` procentenheter sedan 2020.
+
+<br>
+*Det finns en ny rapport från Tillväxtverket från våren 2026. Där ligger nivån på 38 %, d v s en liten minskning från 2023. Data behöver uppdateras i stycket ovan och i diagrammet nedan.* 
 
 <br>
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
@@ -352,17 +364,17 @@ gg_kompetensbrist$kompetensbrist
 ```
 
 <br>
-Det är svårt att skilja brist på arbetskraft från brist på kompetens. En krympande arbetsför befolkning ger en generell brist på arbetskraft, men förstärker sannolikt även kompetensbristen eftersom arbetskraftsreserven minskar - arbetsgivare tvingas anställa personer som står längre från kompetenskraven, vilket ökar behovet av vidareutbildning efter anställning. För ett djupare resonemang, se <a href="https://www.tillvaxtanalys.se/publikationer/rapport/rapportserien/arbetskraftsochkompetensbrist.126683.html" target="_blank">Tillväxtanalys, 2024</a>.
+Det är svårt att skilja brist på arbetskraft från brist på kompetens. En krympande arbetsför befolkning ger en generell brist på arbetskraft, men förstärker sannolikt även kompetensbristen eftersom arbetskraftsreserven minskar. Arbetsgivare tvingas anställa personer som står längre från kompetenskraven, vilket ökar behovet av vidareutbildning efter anställning. För ett djupare resonemang, se <a href="https://www.tillvaxtanalys.se/publikationer/rapport/rapportserien/arbetskraftsochkompetensbrist.126683.html" target="_blank">Tillväxtanalys, 2024</a>.
 
 # Sammanfattande diskussion
 
-Kompetensförsörjningen i Dalarna handlar i grunden om att ekvationen mellan efterfrågan och utbud på arbetskraft blir allt svårare att få ihop. Efterfrågan på arbetskraft fortsätter att öka, driven framför allt av privat sektor och av en åldrande befolkning som kräver mer vård och omsorg. Samtidigt krymper utbudet: den inrikes födda befolkningen i arbetsför ålder minskar, och även om utrikes födda delvis kompenserar för det, räcker det inte fullt ut.
+Kompetensförsörjningen i Dalarna handlar i grunden om att ekvationen mellan efterfrågan och utbud på arbetskraft blir allt svårare att få ihop. Efterfrågan på arbetskraft fortsätter att öka, driven framför allt av privat sektor och av en åldrande befolkning som kräver mer vård och omsorg. Samtidigt krymper utbudet när den inrikes födda befolkningen i arbetsför ålder minskar. Även om utrikes födda delvis kompenserar för det, räcker det inte fullt ut.
 
-Två strukturella svagheter förstärker obalansen. Dels har Dalarna en relativt låg utbildningsnivå jämfört med andra län, vilket gör det svårare att möta de kompetenskrav som växer inom flera sektorer. Dels är arbetskraften inom flera nyckelbranscher - särskilt vård och omsorg samt tillverkning - åldrande, vilket innebär stora pensionsavgångar och rekryteringsbehov inom en snar framtid.
+Två strukturella svagheter förstärker obalansen. Dels har Dalarna en relativt låg utbildningsnivå jämfört med andra län, vilket gör det svårare att möta de kompetenskrav som växer inom flera sektorer. Dels är arbetskraften inom flera nyckelbranscher, särskilt vård och omsorg samt tillverkning, åldrande, vilket innebär stora pensionsavgångar och rekryteringsbehov inom en snar framtid.
 
-Konsekvensen syns redan idag genom en utbredd upplevd kompetensbrist bland Dalarnas småföretag, och genom att utrikes födda - en växande del av den arbetsföra befolkningen - i lägre grad än inrikes födda har jobb som matchar deras utbildning eller ens deltar i arbetskraften i samma utsträckning.
+Konsekvensen syns redan idag genom en utbredd upplevd kompetensbrist bland Dalarnas små och medelstora företag, och genom att utrikes födda, en växande del av den arbetsföra befolkningen, i lägre grad än inrikes födda har jobb som matchar deras utbildning eller ens deltar i arbetskraften i samma utsträckning.
 
-Ska Dalastrategins målbild för 2030 om en väl fungerande kompetensförsörjning nås, pekar utvecklingen mot tre områden där aktörer i länet - offentlig sektor, näringsliv och utbildningsväsende tillsammans - behöver agera:
+Ska Dalastrategins målbild för 2030 om en väl fungerande kompetensförsörjning nås, pekar utvecklingen mot tre områden där aktörer i länet, offentlig sektor, näringsliv och utbildningsväsende tillsammans, behöver agera:
 
 * **Bättre matchning mellan utbildning och arbetsmarknad**, så att fler av de utbildningsplatser som finns i länet leder till de jobb som efterfrågas.
 * **Snabbare integration av utrikes födda på arbetsmarknaden**, både genom höjd utbildningsnivå och genom att sänka trösklarna in på arbetsmarknaden för grupper som idag har svårt att komma in.
