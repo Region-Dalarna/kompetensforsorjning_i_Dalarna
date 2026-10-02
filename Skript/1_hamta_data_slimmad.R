@@ -52,21 +52,38 @@ if(uppdatera_data == TRUE){
   
   
   # Antal utrikes/inrikes födda i arbetsför ålder (20-64 år)
-  source("https://raw.githubusercontent.com/Region-Dalarna/integrationen_i_dalarna/refs/heads/master/skript/andel_utrikes_inrikes_tidsserie.R")
+  
+  # Tidigare
+  # source("https://raw.githubusercontent.com/Region-Dalarna/integrationen_i_dalarna/refs/heads/master/skript/andel_utrikes_inrikes_tidsserie.R")
+  # gg_antal_utrikes_inrikes <- funktion_upprepa_forsok_om_fel( function() {
+  #   diag_bef_inr_utr_tid(output_mapp = "Output_mapp_figur",
+  #                        diag_andel = FALSE, # Andel inrikes/utrikes födda i arbetsför ålder
+  #                        diag_antal = TRUE, # Antal "-"
+  #                        stodlinjer_avrunda_fem = FALSE,
+  #                        skriv_diagrambildfil = spara_diagram_som_bildfiler,
+  #                        returnera_data_rmarkdown= TRUE)
+  # }, hoppa_over = hoppa_over_forsok_igen)
+  # 
+  # antal_utrikes_inrikes_min_ar <- min(antal_utrikes_inrikes_bakgr_df$år)
+  # antal_utrikes_inrikes_max_ar <- max(antal_utrikes_inrikes_bakgr_df$år)
+  # 
+  # inrikes_antal_min_ar <- format(plyr::round_any(antal_utrikes_inrikes_bakgr_df %>% filter(år==min(år),födelseregion == "Inrikes född") %>% .$Antal,1000),big.mark = " ")
+  # inrikes_antal_max_ar <- format(plyr::round_any(antal_utrikes_inrikes_bakgr_df %>% filter(år==max(år),födelseregion == "Inrikes född") %>% .$Antal,1000),big.mark = " ")
+  
+  # Diagramskript istället
+  source("https://raw.githubusercontent.com/Region-Dalarna/diagram/refs/heads/main/diag_bef_inr_utr_en_aldersgrupp_scb.R")
   gg_antal_utrikes_inrikes <- funktion_upprepa_forsok_om_fel( function() {
-    diag_bef_inr_utr_tid(output_mapp = "Output_mapp_figur",
-                         diag_andel = FALSE, # Andel inrikes/utrikes födda i arbetsför ålder
-                         diag_antal = TRUE, # Antal "-"
-                         stodlinjer_avrunda_fem = FALSE,
-                         skriv_diagrambildfil = spara_diagram_som_bildfiler,
-                         returnera_data_rmarkdown= TRUE)
+    diag_bef_inr_utr_en_aldersgrupp(output_mapp = Output_mapp_figur,
+                                    aldersintervall = c(20, 64),
+                                    skriv_till_diagramfil = spara_diagram_som_bildfiler,
+                                    returnera_dataframe_global_environment = TRUE)
   }, hoppa_over = hoppa_over_forsok_igen)
   
-  antal_utrikes_inrikes_min_ar <- min(antal_utrikes_inrikes_bakgr_df$år)
-  antal_utrikes_inrikes_max_ar <- max(antal_utrikes_inrikes_bakgr_df$år)
+  antal_utrikes_inrikes_min_ar <- min(bef_inr_utr_en_aldersgrupp$år)
+  antal_utrikes_inrikes_max_ar <- max(bef_inr_utr_en_aldersgrupp$år)
   
-  inrikes_antal_min_ar <- format(plyr::round_any(antal_utrikes_inrikes_bakgr_df %>% filter(år==min(år),födelseregion == "Inrikes född") %>% .$Antal,1000),big.mark = " ")
-  inrikes_antal_max_ar <- format(plyr::round_any(antal_utrikes_inrikes_bakgr_df %>% filter(år==max(år),födelseregion == "Inrikes född") %>% .$Antal,1000),big.mark = " ")
+  inrikes_antal_min_ar <- format(plyr::round_any(bef_inr_utr_en_aldersgrupp %>% filter(år==min(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")
+  inrikes_antal_max_ar <- format(plyr::round_any(bef_inr_utr_en_aldersgrupp %>% filter(år==max(år),bakgrund == "Inrikes födda") %>% .$antal,1000),big.mark = " ")
   
   # Lediga jobb E1 - NY 7/10
   source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_lediga_jobb_E1.R")
@@ -137,6 +154,7 @@ if(uppdatera_data == TRUE){
                            output_mapp_figur = Output_mapp_figur,
                            returnera_data = TRUE,
                            spara_figur = spara_diagram_som_bildfiler,
+                           caption = "Källa: BAS i SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna.",
                            returnera_figur = TRUE,
                            diag_lan = FALSE,
                            diag_kommun = FALSE,
@@ -160,7 +178,7 @@ if(uppdatera_data == TRUE){
   gg_bef_for <- funktion_upprepa_forsok_om_fel( function() {
     diagram_befolkningsforandring(output_mapp_figur = Output_mapp_figur,
                                   spara_figur = spara_diagram_som_bildfiler,
-                                  tid = c("2010":"2024"),
+                                  tid = c("2010":"2025"),
                                   returnera_figur = TRUE,
                                   returnera_data = TRUE)
   }, hoppa_over = hoppa_over_forsok_igen)
@@ -173,8 +191,16 @@ if(uppdatera_data == TRUE){
                                           returnera_data = TRUE)
   }, hoppa_over = hoppa_over_forsok_igen)
   
-  # Utbildningsnivå (bakgrund)
-  source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_inr_utr_fodda_lan_scb.R")
+  # Utbildningsnivå (bakgrund) - Äldre skript
+  
+  # source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_inr_utr_fodda_lan_scb.R")
+  # gg_utbniva_bakgrund <- funktion_upprepa_forsok_om_fel( function() {
+  #   diag_utbniva_inr_utr_fodda_kon_lan(skriv_diagramfil = spara_diagram_som_bildfiler,
+  #                                      output_mapp = Output_mapp_figur,
+  #                                      returnera_df_rmarkdown = TRUE)
+  # }, hoppa_over = hoppa_over_forsok_igen)
+  
+  source("https://raw.githubusercontent.com/Region-Dalarna/integrationen_i_dalarna/refs/heads/master/skript/diag_utbildingsniva_bakgrund_ny_API.R")
   gg_utbniva_bakgrund <- funktion_upprepa_forsok_om_fel( function() {
     diag_utbniva_inr_utr_fodda_kon_lan(skriv_diagramfil = spara_diagram_som_bildfiler,
                                        output_mapp = Output_mapp_figur,

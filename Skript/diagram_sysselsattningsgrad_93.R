@@ -15,7 +15,7 @@ diagram_sysselsattningsgrad_93 <- function(region_vekt = c("20"),			# Val av reg
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_SkapaDiagram.R", encoding = "utf-8")
   source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_text.R", encoding = "utf-8")
   
-  diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nAndel av de i åldern 20-64 år som är sysselsatta."
+  diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nAndel av de i åldern 20-64 år som är sysselsatta.\nTidsseriebrott, fr.o.m. referensår 2019 används en ny datakälla och metod för att ta fram statistiken.\nJämförelser av statistik avseende 2019 och tidigare referensår måste därför göras med försiktighet."
   output_mapp <- "G:/Samhällsanalys/API/Fran_R/Utskrift/"
   visa_dataetiketter <- FALSE
   gg_list <- list()
