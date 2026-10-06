@@ -115,7 +115,7 @@ befolkningsutvecklingsrapporten. Återanvänd gärna kod/data därifrån.
 
 Att hitta lösningar på kompetensförsörjningsutmaningen är avgörande för en hållbar regional utveckling. Den regionala utvecklingsstrategin, <a href="https://www.regiondalarna.se/contentassets/0e5aa308f6be448a85e9818fbeb0a919/dalastrategin_uppl2026.pdf" target="_blank">Dalastrategin 2030</a>, pekar ut en väl fungerande kompetensförsörjning som ett område där nya lösningar måste hittas.
 
-Rapporten är strukturerad kring hur kompetensförsörjningssystemet hänger ihop: efterfrågan på arbetskraft möter ett utbud som formas av demografi, utbildningsnivå och pendling; utbildningssystemet ska i sin tur förse arbetsmarknaden med rätt kompetens över tid. När delarna inte möts uppstår en brist som många arbetsgivare i Dalarna redan upplever idag.
+Rapporten är strukturerad kring hur kompetensförsörjningssystemet hänger ihop: efterfrågan på arbetskraft möter ett utbud som formas av demografi, utbildningsnivå och pendling. Utbildningssystemet ska i sin tur förse arbetsmarknaden med rätt kompetens över tid. När delarna inte möts uppstår en brist som många arbetsgivare i Dalarna redan upplever idag.
 
 # Efterfrågan på arbetskraft
 
@@ -144,7 +144,7 @@ Vilken typ av kompetens arbetsgivare efterfrågar varierar stort mellan bransche
 
 Hur Dalarna ligger till jämfört med andra län varierar också, men skillnaderna mellan länen är förhållandevis små. Den variationen finns istället att utforska i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>.
 
-<span class = "kommentar">Hittar inte något sådant diagram i Shiny-rapporten. Enkelt att lägga tillbaka tidigare diagram vid behov. Dock rätt små skillnader.</span>
+<span class = "kommentar">Hittar inte något sådant diagram i Shiny-rapporten. Enkelt att lägga tillbaka tidigare diagram vid behov. Dock rätt små skillnader. - *Vi får kolla med Peter. /M*</span>
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=10, fig.align='center', fig.cap="."}
@@ -153,12 +153,11 @@ gg_kvalifikation$`kvalifikationskrav_bransch_Dalarnas län`
 
 ## Åldersstruktur i branscherna
 
-Åldersstrukturen inom en bransch säger något om det kommande rekryteringsbehovet. Störst antal personer över 60 år arbetar i Dalarna inom `r tolower(bransch_aldst_antal$bransch)`, omkring `r format(plyr::round_any(as.numeric(bransch_aldst_antal$antal),100),big.mark = " ")` personer, som väntas gå i pension inom 5-10 år. Tillsammans med en åldrande befolkning med behov av mer vård och omsorg skapar det ett stort rekryteringsbehov inom branschen, redan idag och framöver.
+Åldersstrukturen inom en bransch säger något om det kommande rekryteringsbehovet. Störst antal personer över 60 år arbetar i Dalarna inom `r tolower(bransch_aldst_antal$bransch)`, omkring `r format(plyr::round_any(as.numeric(bransch_aldst_antal$antal),100),big.mark = " ")` personer, som väntas gå i pension inom 5-10 år. Tillsammans med en åldrande befolkning med behov av mer vård och omsorg skapar det ett stort rekryteringsbehov inom branschen, redan idag och framöver. <span class = "kommentar">*Vad jag kan se i shiny-appen är det lite högre andel inom Fastighet i gruppen 60-67 år. /M*</span>
 
 <br>
-*Finns mer aktuell data? Diagrammet är från 2022.*
 
-<span class = "kommentar">Under fliken demografi i Shiny-rapporten finns motsvarande tabell i andelar, hänvisa dit istället?</span>
+<span class = "kommentar">Under fliken demografi i Shiny-rapporten finns motsvarande tabell i andelar, hänvisa dit istället? - Ja. /M</span>
 Se fliken demografi i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>
 
 <br>
@@ -189,7 +188,7 @@ gg_antal_utrikes_inrikes[[1]]
 
 <br>
 
-<span class = "kommentar">Daterad figur. Finns det något alternativ i PPT:erna?</span>
+<span class = "kommentar">Daterad figur nedan. Finns det något alternativ i PPT:erna? - Inte vad jag kan se, men vi borde väl kunna köra om den här med vår prognos för 2026? Peter? /M</span>
 
 Samma mönster syns när befolkningen delas upp i åldersgrupper. De unga (0-19 år) och de i arbetsför ålder (20-64 år) har minskat sedan slutet på 1960-talet, medan de äldre, särskilt 80+ år, har ökat kraftigt. Det är en utveckling som förväntas fortsätta kommande år.
 
@@ -252,7 +251,7 @@ Pendling kan stärka en svag lokal arbetsmarknad genom att öppna upp fler möjl
 
 Skillnaderna mellan Dalarnas kommuner, och mellan Dalarna och andra län, går att utforska i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>.
 
-<span class = "kommentar">Jag hittar ingen sådan figur i Shiny-rapporten</span>
+<span class = "kommentar">Jag hittar ingen sådan figur i Shiny-rapporten. - Jag tror att det ska komma under fliken Rörlighet och hälsa. /M</span>
 
 <!-- 
 FÖRSLAG PÅ NY FIGUR: Om pendlingsavsnittet ska ha kvar en visuell komponent 
@@ -310,7 +309,7 @@ gg_gymnasiet_kon$gymnasieantagning_kon_tot
 <br>
 Statistik om antagning per gymnasieprogram, examina från Högskolan Dalarna och yrkeshögskolan går att följa i detalj i <a href="https://shiny.regiondalarna.se/utbildning/" target="_blank">Shiny-rapporten</a>, inklusive utveckling år för år och per inriktning.
 
-<span class = "kommentar">Även figuren med gymnasieantagning uppdelat på kön ovan finns i Shiny-rapporten. Behöver den vara med?</span>
+<span class = "kommentar">Även figuren med gymnasieantagning uppdelat på kön ovan finns i Shiny-rapporten. Behöver den vara med? - Det kan ändå vara en poäng att den syns här i anslutning till stycket om könsskillnader. Vi borde dock lyfta fram den inbäddade introduktionen till utbildningssystemet och länka till utbildningsdelen i shiny. /M</span>
 
 <!-- 
 FLYTTAT TILL SHINY (fanns i original, ta bort härifrån):
@@ -362,15 +361,17 @@ I Dalarna, liksom i riket, varierar matchningsgraden tydligt beroende på var ma
 gg_matchning$matchning_bakgrund
 ```
 
-<span class = "kommentar">I Shiny-rapporten finns en flik matchning där diskussionen rör matchning på branschnivå? Hänvisa dit?</span> Se fliken matchning i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>
-
+<span class = "kommentar">I Shiny-rapporten finns en flik matchning där diskussionen rör matchning på branschnivå? Hänvisa dit? - Ja, det är en bra idé.</span> Se fliken matchning i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>
 
 
 ## Brist på arbetskraft och kompetens
 
-<span class = "kommentar">Behövs det en kort introduktion och kanske en länk till TVV:s senaste rapport?</span>
+Tillväxtverket undersöker företagens villkor och verklighet vart tredje år och den senaste undersökningen visar att den den upplevda bristen på arbetskraft varierar en hel del bland Sveriges län (<a href="https://tillvaxtverket.se/tillvaxtverket/publikationer/publikationer2026/foretagensvillkorochverklighet2026.12421.html" target="_blank">Tillväxtverket, 2026</a>).
 
-Bland Sveriges län varierar den upplevda bristen på arbetskraft en hel del. I Dalarna upplever ungefär `r kompetensbrist_Dalarna` procent av små och medelstora företag att de har svårt att hitta rätt kompetens - en ökning med `r kompetensbrist_Dalarna_forandring_2020` procentenheter sedan 2020.
+I Dalarna upplever ungefär `r kompetensbrist_Dalarna` procent av små och medelstora företag att de har svårt att hitta rätt kompetens - en ökning med `r kompetensbrist_Dalarna_forandring_2020` procentenheter sedan 2020, och relativt lika utfallet vid undersökningen 2023.
+
+<br>
+*Borde det stå län i rubriken?*
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_kompetensbrist$kompetensbrist
