@@ -175,7 +175,7 @@ Utbudet av arbetskraft i Dalarna formas på kort sikt av vilka som redan bor, ka
 Till skillnad från Sveriges befolkningsmässigt största regioner, som har ett positivt inrikes flyttnetto, gäller det omvända för Dalarna. Fler flyttar härifrån till andra delar av landet än tvärtom. I hela landet har invandringen (utrikes flyttnetto) haft en positiv effekt på den arbetsföra befolkningen, men i Dalarna räcker det inte för att väga upp det negativa inrikes flyttnettot. Sammantaget ger det en minskande befolkning i arbetsför ålder.
 
 <br>
-```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_bef_for$befolkningsforandring_20_64
 ```
 
@@ -183,15 +183,18 @@ gg_bef_for$befolkningsforandring_20_64
 Delar man upp den arbetsföra befolkningen i inrikes och utrikes födda blir bilden tydligare att det är den inrikes födda delen som minskar, medan invandring gjort att antalet utrikes födda i arbetsför ålder ökat, dock inte tillräckligt för att kompensera fullt ut. I Dalarna har antalet inrikes födda invånare i arbetsför ålder minskat från ungefär `r inrikes_antal_min_ar` personer år `r antal_utrikes_inrikes_min_ar` till knappt `r inrikes_antal_max_ar` år `r antal_utrikes_inrikes_max_ar`.
 
 <br>
-```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_antal_utrikes_inrikes[[1]]
 ```
 
 <br>
+
+<span class = "kommentar">Daterad figur. Finns det något alternativ i PPT:erna?</span>
+
 Samma mönster syns när befolkningen delas upp i åldersgrupper. De unga (0-19 år) och de i arbetsför ålder (20-64 år) har minskat sedan slutet på 1960-talet, medan de äldre, särskilt 80+ år, har ökat kraftigt. Det är en utveckling som förväntas fortsätta kommande år.
 
 <br>
-```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_bef_for_alder$befolkning_forandring_prognos_Dalarna
 ```
 
@@ -209,7 +212,7 @@ gg_arbetskraftsdeltagande$arbetskraftsdeltagande_Dalarna
 Vård och omsorg är idag Dalarnas klart största bransch räknat i antal anställda, en följd av en relativt hög medelålder i länet. SCB bedömer att behovet av arbetskraft inom vård och omsorg kommer att fortsätta öka i takt med den åldrande befolkningen (<a href="https://www.scb.se/contentassets/04cf1ee0f04b4c06a6e62d22d78e8d4c/dalarnas-lan-20251215.pdf" target="_blank">SCB, 2025</a>).
 
 <br>
-```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_forv_senastear$antal_per_bransch
 ```
 
@@ -217,7 +220,7 @@ gg_forv_senastear$antal_per_bransch
 Historiskt var tillverkning och utvinning Dalarnas största bransch, men den har minskat sedan 1990 i takt med en mer automatiserad produktion och en generell förskjutning mot tjänstesektorn. Företagstjänster och finans har istället vuxit kraftigt, delvis för att verksamhet som tidigare skedde i egen regi (till exempel lokalvård) numera ofta upphandlas och därmed räknas till en annan bransch.
 
 <br>
-```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_forv_90$forvarvsarbetande_90_forandring_Dalarna
 ```
 
@@ -227,8 +230,10 @@ Näringslivets sammansättning skiljer sig tydligt åt mellan Dalarnas kommuner.
 <br>
 *Finns mer aktuell data? Diagram från augusti 2023.*
 
+<span class = "kommentar">Finns ett diagramskript men jag förstår inte riktigt hur det funkar (är inte en funktion). Peter kanske kan köra det?</span>
+
 <br>
-```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 knitr::include_graphics("G:/Samhällsanalys/Projekt och uppdrag/Kompetensförsörjning/Branschindelning/Visualisering/Dagbefolkning/2023/dagbef_dalarnas_kommuner_aug_2023_vit.png")
 ```
 
@@ -264,7 +269,7 @@ flytta till Shiny.
 Utbildningsnivån i Dalarna har ökat påtagligt över tid. Andelen kvinnor med minst tre års eftergymnasial utbildning har gått från ungefär `r andel_hogutb_kvinnor_min_ar` till `r andel_hogutb_kvinnor_max_ar` procent mellan `r andel_hogutb_forsta_ar` och `r andel_hogutb_sista_ar`, och andelen män från `r andel_hogutb_man_min_ar` till `r andel_hogutb_man_max_ar` procent. Trots ökningen har Dalarna en av landets lägsta andelar högutbildade. År `r andel_hogutb_sista_ar` var andelen tredje lägst av alla län i Sverige.
 
 <br>
-```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_utbniva_85[[names(gg_utbniva_85)[1]]]
 ```
 
@@ -298,7 +303,7 @@ Efter grundskolan kan eleverna fortsätta till **gymnasieskolan** (tre år), som
 De tydligaste könsskillnaderna i utbildningsval syns redan vid gymnasievalet, och de återspeglas senare i arbetslivet där kvinnor är överrepresenterade inom vård, omsorg och utbildning, medan män dominerar byggsektorn. Ska fördelningen mellan branscher bli mer jämställd på sikt behöver arbetet börja redan i skolan.
 
 <br>
-```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_gymnasiet_kon$gymnasieantagning_kon_tot
 ```
 
@@ -330,7 +335,7 @@ En väl fungerande arbetsmarknad kännetecknas av att många arbetar, att de arb
 Sysselsättningsgraden har ökat över tid för både kvinnor och män i Dalarna, från omkring 70 procent för båda könen `r syssgrad_93_forsta_ar`, till `r syssgrad_93_senaste_ar_kvinna_varde` respektive `r syssgrad_93_senaste_ar_man_varde` procent `r syssgrad_93_senaste_ar`.
 
 <br>
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_sysselsattningsgrad_93$sysselsattningsgrad_93_Dalarna
 ```
 
@@ -342,7 +347,7 @@ Den stora skillnaden i sysselsättningsgrad finns inte mellan kvinnor och män, 
 Arbetslösheten i Dalarna har konsekvent varit lägre än i riket, och har liksom i övriga landet sjunkit sedan pandemin. Det förklaras sannolikt av en kombination av en diversifierad ekonomi, goda kommunikationer och närhet till städer med hög ekonomisk aktivitet, samt en aktiv arbetsmarknad med expanderande företag (<a href="https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/januari-2025-socioekonomisk-analys-norra-mellansverige-pdf-52-sid.pdf" target="_blank">Region Dalarna, 2025</a>; <a href="https://arbetsformedlingen.se/download/18.16244a19ece6ad0cfac9/1782137329379/regionala-utsikter-varen-2026.pdf" target="_blank">Arbetsförmedlingen, 2026</a>).
 
 <br>
-```{r, echo=FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_arbetsloshet_08$arbetsloshet_08_senastear
 ```
 
@@ -353,7 +358,7 @@ Matchning mäter i hur stor utsträckning människor arbetar med det de är utbi
 I Dalarna, liksom i riket, varierar matchningsgraden tydligt beroende på var man är född. Inrikes födda har högst matchning, medan matchningen är lägre bland utrikes födda. Skillnaden mellan länen är däremot liten.
 
 <br>
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_matchning$matchning_bakgrund
 ```
 
@@ -367,7 +372,7 @@ gg_matchning$matchning_bakgrund
 
 Bland Sveriges län varierar den upplevda bristen på arbetskraft en hel del. I Dalarna upplever ungefär `r kompetensbrist_Dalarna` procent av små och medelstora företag att de har svårt att hitta rätt kompetens - en ökning med `r kompetensbrist_Dalarna_forandring_2020` procentenheter sedan 2020.
 
-```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=9, fig.align='center', fig.cap="."}
+```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_kompetensbrist$kompetensbrist
 ```
 
