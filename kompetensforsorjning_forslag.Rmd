@@ -279,7 +279,7 @@ gg_utbniva_bakgrund[[names(gg_utbniva_bakgrund)]]
 
 # Utbildningssystemets roll
 
-<span class = "kommentar">Jag lyfte fram texten från informationsrutan och bad Claude formulera om en aning (så att det passar i löpande text). Läs gärna igenom. Hänvisning till Shiny-app finns efter figuren, men kanske behövs tidigare också? /Jon</span>
+<span class = "kommentar">Jag lyfte fram texten från informationsrutan och bad Claude anpassa så att det passar i löpande text. Läs gärna och ändra om något blivit galet. Hänvisning till Shiny-app finns efter figuren, men kanske behövs tidigare också? /Jon</span>
 
 En väl fungerande kompetensförsörjning kräver att utbildningssystemet är anpassat till arbetsmarknadens behov, från gymnasiet, via vuxenutbildning och yrkeshögskola, till högskola och universitet.
 
