@@ -105,13 +105,15 @@ diag_arbetsloshet_08 <- function(output_mapp_figur = "G:/Samhällsanalys/Statist
     assign("arbetslosa_utskrift_df", arbetslosa_utskrift_df, envir = .GlobalEnv)
   }
   
-  diagram_capt <- paste(c(
-    "Källa: Arbetsförmedlingen.",
-    "Bearbetning: Samhällsanalys, Region Dalarna.",
-    "Diagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året.",
-    alder_capt,
-    glue("Data för {senaste_ar} till och med {senaste_manad_namn}")
-  ), collapse = "\n")
+  # diagram_capt <- paste(c(
+  #   "Källa: Arbetsförmedlingen.",
+  #   "Bearbetning: Samhällsanalys, Region Dalarna.",
+  #   "Diagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året.",
+  #   alder_capt,
+  #   glue("Data för {senaste_ar} till och med {senaste_manad_namn}")
+  # ), collapse = "\n")
+  
+  diagram_capt <- glue("Källa: Arbetsförmedlingen.\nBearbetning: Samhällsanalys, Region Dalarna.\nDiagramförklaring: Månadsdata. Diagrammet visar medelvärdet för året. {alder_capt} Data för {senaste_ar} till och med {senaste_manad_namn}.")
   
   diagramtitel <- paste0("Arbetslöshet i Dalarna och Sverige")
   diagramfilnamn <- paste0("arbetsloshet_08_senastear.png")

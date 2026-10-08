@@ -332,7 +332,7 @@ if(uppdatera_data == TRUE){
     diag_arbetsloshet_08(output_mapp_figur = Output_mapp_figur,
                          returnera_data = TRUE,
                          spara_figur = spara_diagram_som_bildfiler)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   # Matchning (län och bakgrund)
   source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_matchning_lan_bakgrund.R", encoding="UTF-8")

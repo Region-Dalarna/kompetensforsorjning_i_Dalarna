@@ -279,22 +279,13 @@ gg_utbniva_bakgrund[[names(gg_utbniva_bakgrund)]]
 
 # Utbildningssystemets roll
 
+<span class = "kommentar">Jag lyfte fram texten från informationsrutan och bad Claude formulera om en aning (så att det passar i löpande text). Läs gärna igenom. Hänvisning till Shiny-app finns efter figuren, men kanske behövs tidigare också? /Jon</span>
+
 En väl fungerande kompetensförsörjning kräver att utbildningssystemet är anpassat till arbetsmarknadens behov, från gymnasiet, via vuxenutbildning och yrkeshögskola, till högskola och universitet.
 
-<details>
-  <summary>En kort introduktion till utbildningssystemet i Dalarna</summary>
-<div>
-Efter grundskolan kan eleverna fortsätta till **gymnasieskolan** (tre år), som förbereder för högre utbildning eller arbetsmarknaden via högskoleförberedande eller yrkesinriktade program. Några mindre kommuner i Dalarna saknar egen gymnasieutbildning och samverkar istället med andra kommuner.
+Efter grundskolan kan eleverna fortsätta till **gymnasieskolan**, som är tre år och förbereder för högre utbildning eller för arbetsmarknaden, via högskoleförberedande eller yrkesinriktade program. Några mindre kommuner i Dalarna saknar egen gymnasieutbildning och samverkar i stället med andra kommuner.
 
-**Komvux/DalaWux** är kommunal vuxenutbildning som ger möjlighet att komplettera grundskole- eller gymnasieutbildning, inklusive vissa yrkesutbildningar.
-
-**YH-utbildning** (yrkeshögskola) sker i samarbete med näringslivet och syftar till jobb direkt efter examen. Ungefär en tredjedel av utbildningen sker som praktik (LIA). De flesta utbildningarna är 1-2 år långa.
-
-**Folkhögskolor** erbjuder vuxenutbildning på informell nivå, öppen för alla oavsett tidigare utbildning, med fokus på personlig utveckling snarare än formella examina.
-
-**Arbetsmarknadsutbildning** är kortare, yrkesinriktad utbildning i Arbetsförmedlingens regi, riktad mot bristyrken och personer som har svårt att hitta jobb.
-</div>
-</details>
+För vuxna finns flera vägar att utbilda sig. **Komvux/DalaWux** är kommunal vuxenutbildning där man kan komplettera grundskole- eller gymnasieutbildning, och även läsa vissa yrkesutbildningar. **Yrkeshögskolan (YH)** bedrivs i samarbete med näringslivet och syftar till jobb direkt efter examen. Ungefär en tredjedel av utbildningen sker som praktik (LIA), och de flesta utbildningarna är 1–2 år långa. **Folkhögskolorna** erbjuder utbildning på informell nivå, öppen för alla oavsett tidigare utbildning, med fokus på personlig utveckling snarare än formella examina. **Arbetsmarknadsutbildning** är slutligen kortare, yrkesinriktad utbildning i Arbetsförmedlingens regi, riktad mot bristyrken och mot personer som har svårt att hitta jobb.
 
 De tydligaste könsskillnaderna i utbildningsval syns redan vid gymnasievalet, och de återspeglas senare i arbetslivet där kvinnor är överrepresenterade inom vård, omsorg och utbildning, medan män dominerar byggsektorn. Ska fördelningen mellan branscher bli mer jämställd på sikt behöver arbetet börja redan i skolan.
 
@@ -306,7 +297,7 @@ gg_gymnasiet_kon$gymnasieantagning_kon_tot
 <br>
 Statistik om antagning per gymnasieprogram, examina från Högskolan Dalarna och yrkeshögskolan går att följa i detalj i <a href="https://shiny.regiondalarna.se/utbildning/" target="_blank">Shiny-rapporten</a>, inklusive utveckling år för år och per inriktning.
 
-<span class = "kommentar">Även figuren med gymnasieantagning uppdelat på kön ovan finns i Shiny-rapporten. Behöver den vara med? - Det kan ändå vara en poäng att den syns här i anslutning till stycket om könsskillnader. Vi borde dock lyfta fram den inbäddade introduktionen till utbildningssystemet och länka till utbildningsdelen i shiny. /M</span>
+
 
 <!-- 
 FLYTTAT TILL SHINY (fanns i original, ta bort härifrån):
@@ -358,8 +349,7 @@ I Dalarna, liksom i riket, varierar matchningsgraden tydligt beroende på var ma
 gg_matchning$matchning_bakgrund
 ```
 
-<span class = "kommentar">I Shiny-rapporten finns en flik matchning där diskussionen rör matchning på branschnivå? Hänvisa dit? - Ja, det är en bra idé.</span> Se fliken matchning i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>
-
+Matchningsgraden varierar även tydligt beroende exempelvis vilket yrke man har, se fliken matchning i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>.
 
 ## Brist på arbetskraft och kompetens
 
@@ -368,8 +358,6 @@ Tillväxtverket undersöker företagens villkor och verklighet vart tredje år o
 I Dalarna upplever ungefär `r kompetensbrist_Dalarna` procent av små och medelstora företag att de har svårt att hitta rätt kompetens - en ökning med `r kompetensbrist_Dalarna_forandring_2020` procentenheter sedan 2020, och relativt lika utfallet vid undersökningen 2023.
 
 <br>
-*Borde det stå län i rubriken?*
-
 ```{r, echo=FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_kompetensbrist$kompetensbrist
 ```
