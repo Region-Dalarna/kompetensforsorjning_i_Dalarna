@@ -22,7 +22,7 @@ diagram_arbetskraftsdeltagande_tid_region <- function(region_vekt = c("20"),			#
 
   source("https://raw.githubusercontent.com/Region-Dalarna/hamta_data/main/hamta_arbetskraftsdeltagande_region_utbildngrupp_kon_tid_RegionInd19U1b_19U1bN1_scb.R")
 
-  diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Andel av befolkningen 20-64 år som antingen är förvärvsarbetande eller inskrivna på arbetsförmedlingen.\nTidsseriebrott, fr.o.m. referensår 2019 används en ny datakälla och metod för att ta fram statistiken.\nJämförelser av statistik avseende 2019 och tidigare referensår måste därför göras med försiktighet."
+  diagram_capt <- "Källa: SCB:s öppna statistikdatabas\nBearbetning: Samhällsanalys, Region Dalarna\nDiagramförklaring: Andel av befolkningen 20-64 år som antingen är förvärvsarbetande eller inskrivna på arbetsförmedlingen. Tidsseriebrott, fr.o.m. referensår 2019 används en ny datakälla och metod för att ta fram statistiken. Jämförelser av statistik avseende 2019 och tidigare referensår måste därför göras med försiktighet."
   gg_list <- list()
 
   # Bugfix (confirmed genom kodgranskning): region_vekt hämtades tidigare aldrig från funktionens egen

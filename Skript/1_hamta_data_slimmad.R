@@ -13,6 +13,48 @@
 # originalfilen om de behöver återinföras.
 # ====================================================================
 
+# Funktion som används för att anpassa bredden på caption. Om det förklarande texten är för bred så skärs den av i markdown-rapporten.
+
+anpassa_caption <- function(p, bredd = 100, storlek = NULL,
+                            behall_radbrytningar = FALSE, balansera = FALSE) {
+  
+  if (is.null(p)) return(p)
+  
+  if (is.list(p) && !inherits(p, "ggplot")) {
+    return(lapply(p, anpassa_caption, bredd = bredd, storlek = storlek,
+                  behall_radbrytningar = behall_radbrytningar, balansera = balansera))
+  }
+  
+  if (!inherits(p, "ggplot")) return(p)
+  
+  cap <- p$labels$caption
+  if (is.null(cap) || !is.character(cap)) return(p)
+  
+  if (!behall_radbrytningar) {
+    cap <- gsub("(?<![.!?])[ \t]*\n[ \t]*(?![A-ZÅÄÖ][^:\n]{0,30}:)", " ", cap, perl = TRUE)
+  }
+  
+  bryt <- function(r) {
+    b <- bredd
+    if (balansera) {
+      n <- ceiling(nchar(r) / bredd)              # antal rader som behövs
+      if (n > 1) b <- min(bredd, ceiling(nchar(r) / n) + 10)   # jämnare radlängd
+    }
+    paste(strwrap(r, width = b), collapse = "\n")
+  }
+  
+  rader <- unlist(strsplit(cap, "\n", fixed = TRUE))
+  rader <- vapply(rader, bryt, character(1), USE.NAMES = FALSE)
+  
+  p <- p + ggplot2::labs(caption = paste(rader, collapse = "\n"))
+  
+  if (!is.null(storlek)) {
+    p <- p + ggplot2::theme(plot.caption = ggplot2::element_text(size = storlek))
+  }
+  p
+}
+
+
 if (!require("pacman")) install.packages("pacman")
 p_load(tidyverse,
        here)
@@ -42,7 +84,7 @@ if(uppdatera_data == TRUE){
                                             tid_koder = "*",
                                             spara_figur = spara_diagram_som_bildfiler,
                                             returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen)  |> anpassa_caption(bredd = 110)
   
   forsorjningskov_min_ar <- min(demografisk_forsorjningskvot_df$år)
   forsorjningskov_max_ar <- max(demografisk_forsorjningskvot_df$år)
@@ -77,7 +119,7 @@ if(uppdatera_data == TRUE){
                                     aldersintervall = c(20, 64),
                                     skriv_till_diagramfil = spara_diagram_som_bildfiler,
                                     returnera_dataframe_global_environment = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   antal_utrikes_inrikes_min_ar <- min(bef_inr_utr_en_aldersgrupp$år)
   antal_utrikes_inrikes_max_ar <- max(bef_inr_utr_en_aldersgrupp$år)
@@ -97,7 +139,7 @@ if(uppdatera_data == TRUE){
                                       returnera_data = TRUE,
                                       tid_koder = "*",
                                       output_mapp_figur = Output_mapp_figur)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   lediga_jobb_senaste_ar <- max(lediga_jobb_E1_df$ar)
   antal_lediga_jobb <- sum(lediga_jobb_E1_df %>% filter(ar==max(ar)) %>% .$varde)
@@ -112,7 +154,7 @@ if(uppdatera_data == TRUE){
                                stodlinjer_avrunda_fem = FALSE,
                                returnera_figur = TRUE,
                                returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   # Utbildningsnivå och ålder för län och bransch (antal) - NMS: UPPDATATERAS FÖR HAND. EJ GJORT 2025-09-23
   source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_bransch_utb_alder_NMS.R", encoding="UTF-8")
@@ -122,7 +164,7 @@ if(uppdatera_data == TRUE){
                            returnera_figur = TRUE,
                            returnera_data = TRUE,
                            andel = FALSE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   # skapa df med bransch som har högst antal personer i åldersgruppen 60-74 år
   bransch_aldst_antal <- bransch_alder %>%
@@ -140,7 +182,7 @@ if(uppdatera_data == TRUE){
                                               tid_koder = "*",
                                               kon_klartext = c("kvinnor","män"),
                                               output_mapp_figur = Output_mapp_figur)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   
   arbetskraftsdeltagande_senaste_ar <- max(arbetskraftsdeltagande_df$år)
@@ -159,7 +201,7 @@ if(uppdatera_data == TRUE){
                            diag_lan = FALSE,
                            diag_kommun = FALSE,
                            diag_lan_antal = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   # Förvärvsarbetande från 1990 till senaste år. Både antal och förändring (från första till sista)
   source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_forvarvsarbetande_90_senastear_SCB.R")
@@ -171,7 +213,33 @@ if(uppdatera_data == TRUE){
                                  returnera_figur = TRUE,
                                  returnera_data = TRUE,
                                  vald_farg = diagramfarger("rus_sex"))
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
+  
+  # Funktion som Claude har skapat för att hantera problem med att legend överlappar bubblor. Används i diagrammet nedan
+  flytta_skala <- function(p, dy_andel = 0, dx_andel = 0) {
+    lim <- p$coordinates$limits                 # axelgränserna som funktionen satt med coord_equal()
+    dy <- dy_andel * diff(lim$y)                # andel av diagrammets höjd/bredd
+    dx <- dx_andel * diff(lim$x)
+    for (i in seq_along(p$layers)) {
+      d <- p$layers[[i]]$data
+      if (is.data.frame(d) && all(c("x", "y", "lbl") %in% names(d))) {
+        d$x <- d$x + dx
+        d$y <- d$y + dy
+        p$layers[[i]]$data <- d
+      }
+    }
+    p
+  }
+  
+  # Antal sysselsatta per bransch (bubbeldiagrammet)
+  source(here::here("Skript","diagram_sysselsatta_bransch_bubblor.R"), encoding="UTF-8")
+  gg_syss_bubblor <- diag_sysselsatta_bransch_bubblor(output_mapp_figur = Output_mapp_figur,
+                                                      spara_figur = spara_diagram_som_bildfiler,
+                                                      storlek_caption = 3.3,
+                                                      returnera_data = TRUE)
+  
+  gg_syss_bubblor[[1]] <-
+    flytta_skala(gg_syss_bubblor[[1]], dy_andel = -0.10)
   
   # Befolkningsförändring uppdelat på komponent (län)
   source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_befolkningsforandring.R", encoding="UTF-8")
@@ -181,7 +249,8 @@ if(uppdatera_data == TRUE){
                                   tid = c("2010":"2025"),
                                   returnera_figur = TRUE,
                                   returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
+
   
   # Befolkningsförändring uppdelat på åldersgrupper inklusive prognos
   source(here("Skript","diagram_befolkningsgrupper_prognos.R"), encoding="UTF-8")
@@ -189,7 +258,7 @@ if(uppdatera_data == TRUE){
     diag_befolkning_aldersgrupper_prognos(output_mapp_figur = Output_mapp_figur,
                                           spara_figur = spara_diagram_som_bildfiler,
                                           returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   # Utbildningsnivå (bakgrund) - Äldre skript
   
@@ -205,7 +274,7 @@ if(uppdatera_data == TRUE){
     diag_utbniva_inr_utr_fodda_kon_lan(skriv_diagramfil = spara_diagram_som_bildfiler,
                                        output_mapp = Output_mapp_figur,
                                        returnera_df_rmarkdown = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   # Utbildningsnivå från 85 och framåt uppdelat på kön.
   source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_flera_diagram_scb.R")
@@ -218,7 +287,7 @@ if(uppdatera_data == TRUE){
                                        diag_lagutb_over_tid = TRUE,
                                        diag_andel_alla_utbnivaer = TRUE,
                                        vald_utb_niva = "hogutb")
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   andel_hogutb_forsta_ar <- min(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$data$år)
   andel_hogutb_sista_ar <- max(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$data$år)
@@ -238,7 +307,7 @@ if(uppdatera_data == TRUE){
                                returnera_data = FALSE,
                                konsuppdelat = TRUE,
                                diag_antal_fleraar = FALSE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   # Sysselsättningsgrad, tidserie
   source(here("Skript","diagram_sysselsattningsgrad_93.R"), encoding="UTF-8")
@@ -249,7 +318,7 @@ if(uppdatera_data == TRUE){
                                    tid_koder = "*",
                                    kon_klartext = c("kvinnor","män"),
                                    output_mapp_figur = Output_mapp_figur)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   syssgrad_93_forsta_ar <- min(forvarvsintensitet_93_df$år)
   syssgrad_93_senaste_ar <- max(forvarvsintensitet_93_df$år)
@@ -272,7 +341,7 @@ if(uppdatera_data == TRUE){
                        spara_figur = spara_diagram_som_bildfiler,
                        returnera_figur = TRUE,
                        returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   # Kompetensbrist
   source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_kompetensbrist_lan_TVV.R",encoding="UTF-8")
@@ -281,7 +350,7 @@ if(uppdatera_data == TRUE){
                         skapa_fil = spara_diagram_som_bildfiler,
                         returnera_figur = TRUE,
                         returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
   kompetensbrist_Dalarna <- round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel,0)
   kompetensbrist_Dalarna_forandring_2020 <- round(kompetensbrist %>% filter(År == max(År)) %>% filter(Region == "Dalarna") %>% .$Andel - kompetensbrist %>% filter(År == "2020") %>% filter(Region == "Dalarna") %>% .$Andel ,0)
