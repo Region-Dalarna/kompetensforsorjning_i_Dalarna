@@ -156,21 +156,21 @@ if(uppdatera_data == TRUE){
                                returnera_data = TRUE)
   }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
-  # Utbildningsnivå och ålder för län och bransch (antal) - NMS: UPPDATATERAS FÖR HAND. EJ GJORT 2025-09-23
-  source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_bransch_utb_alder_NMS.R", encoding="UTF-8")
-  gg_bransch_utb_alder_antal <- funktion_upprepa_forsok_om_fel( function() {
-    diag_bransch_utb_alder(output_mapp_figur = Output_mapp_figur,
-                           spara_figur = spara_diagram_som_bildfiler,
-                           returnera_figur = TRUE,
-                           returnera_data = TRUE,
-                           andel = FALSE)
-  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
-  
-  # skapa df med bransch som har högst antal personer i åldersgruppen 60-74 år
-  bransch_aldst_antal <- bransch_alder %>%
-    filter(alder %in% c("60-64 år","65-69 år","70-74 år")) %>%
-    summarise(antal = sum(antal, na.rm = TRUE), .by = c(ar, lan, bransch)) %>%
-    slice_max(antal, n = 1, by = c(ar, lan), with_ties = TRUE)
+  # Utbildningsnivå och ålder för län och bransch (antal) - NMS: UPPDATATERAS FÖR HAND. Används inte längre. Hänvisning till Shiny-rapport.
+  # source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_bransch_utb_alder_NMS.R", encoding="UTF-8")
+  # gg_bransch_utb_alder_antal <- funktion_upprepa_forsok_om_fel( function() {
+  #   diag_bransch_utb_alder(output_mapp_figur = Output_mapp_figur,
+  #                          spara_figur = spara_diagram_som_bildfiler,
+  #                          returnera_figur = TRUE,
+  #                          returnera_data = TRUE,
+  #                          andel = FALSE)
+  # }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
+  # 
+  # # skapa df med bransch som har högst antal personer i åldersgruppen 60-74 år
+  # bransch_aldst_antal <- bransch_alder %>%
+  #   filter(alder %in% c("60-64 år","65-69 år","70-74 år")) %>%
+  #   summarise(antal = sum(antal, na.rm = TRUE), .by = c(ar, lan, bransch)) %>%
+  #   slice_max(antal, n = 1, by = c(ar, lan), with_ties = TRUE)
   
   
   # Arbetskraftsdeltagande - NY 7/10
@@ -252,14 +252,23 @@ if(uppdatera_data == TRUE){
   }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
 
   
-  # Befolkningsförändring uppdelat på åldersgrupper inklusive prognos
-  source(here("Skript","diagram_befolkningsgrupper_prognos.R"), encoding="UTF-8")
-  gg_bef_for_alder <- funktion_upprepa_forsok_om_fel( function() {
-    diag_befolkning_aldersgrupper_prognos(output_mapp_figur = Output_mapp_figur,
-                                          spara_figur = spara_diagram_som_bildfiler,
-                                          returnera_data = TRUE)
-  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
+  # Befolkningsförändring uppdelat på åldersgrupper inklusive prognos - Tidigare
+  # source(here("Skript","diagram_befolkningsgrupper_prognos.R"), encoding="UTF-8")
+  # gg_bef_for_alder <- funktion_upprepa_forsok_om_fel( function() {
+  #   diag_befolkning_aldersgrupper_prognos(output_mapp_figur = Output_mapp_figur,
+  #                                         spara_figur = spara_diagram_som_bildfiler,
+  #                                         returnera_data = TRUE)
+  # }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
+  # Befolkningsförändring uppdelat på åldersgrupper inklusive prognos
+  source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_bef_utfall_prognos_per_aldersgrupp_scb.R")
+  gg_bef_for_alder <- funktion_upprepa_forsok_om_fel( function() {
+    diag_bef_utfall_prognos_per_aldersgrupp(output_mapp = Output_mapp_figur,
+                                            skriv_till_diagramfil = spara_diagram_som_bildfiler,
+                                            aldersindelning = c(20, 65, 80),
+                                            returnera_dataframe_global_environment = TRUE)
+  }, hoppa_over = hoppa_over_forsok_igen) 
+
   # Utbildningsnivå (bakgrund) - Äldre skript
   
   # source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diag_utbniva_inr_utr_fodda_lan_scb.R")
