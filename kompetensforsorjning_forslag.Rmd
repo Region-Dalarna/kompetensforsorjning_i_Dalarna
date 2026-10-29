@@ -72,18 +72,23 @@ Dalarna står inför en tydlig kompetensförsörjningsutmaning: befolkningen ål
 
 * **Efterfrågan ökar.** Antalet lediga jobb i Dalarna har ökat påtagligt de senaste decennierna, framför allt inom privat sektor.
 * **Utbudet minskar.** Den inrikes födda befolkningen i arbetsför ålder blir färre. Att fler utrikes födda bor i länet dämpar minskningen, men kompenserar inte fullt ut.
-* **Utbildningsnivån är en svaghet.** Dalarna har en av landets lägsta andelar eftergymnasialt utbildade, vilket gör det svårare att möta arbetsgivarnas kompetenskrav inom flera växande yrkesområden.
+* **Utbildningsnivån är låg.** Dalarna har en av landets lägsta andelar eftergymnasialt utbildade, vilket gör det svårare att möta arbetsgivarnas kompetenskrav inom flera växande yrkesområden.
 * **Åldersstrukturen förstärker problemet.** Stora delar av arbetskraften inom bland annat vård och omsorg samt tillverkning går i pension inom 15-20 år.
-* **Matchningen brister särskilt för utrikes födda**, som i lägre grad än inrikes födda arbetar med det de är utbildade till, samt har en lägre sysselsättningsgrad.
 * **Konsekvensen syns redan idag:** knappt fyra av tio mindre företag i Dalarna uppger att de har svårt att hitta rätt kompetens för att utveckla verksamheten.
 
 <details>
-  <summary>Mer om rapportformatet</summary>
-<div>Webbrapportformatet ger möjligheter att enkelt automatisera uppdateringar när ny statistik finns tillgänglig. Publiceringsdatum visas längst upp på sidan. 
+  <summary>Mer om rapporten och statistiken</summary>
+<div>Webbrapportformatet ger möjligheter att enkelt automatisera uppdateringar när ny statistik finns tillgänglig. Publiceringsdatum visas längst upp på sidan.
 
-Vill du utforska statistiken närmare - jämföra kommuner, län eller titta på fler år - hittar du det i vår <a href="#" target="_blank">Shiny-rapport om kompetensförsörjning</a> (länk läggs till).
+Vill du utforska statistiken närmare - jämföra kommuner, län eller titta på fler år - hittar du det i våra Shiny-rapporter om kompetensförsörjning med fokus på <a href="https://shiny.regiondalarna.se/utbildning/" target="_blank">utbildning</a> respektive <a href="https://shiny.regiondalarna.se/branscher/" target="_blank">branscher</a>.
 
 För att förstora diagrammen i rapporten, högerklicka på ett diagram och välj alternativet "Öppna bild i ny flik".
+
+I rapporten används både sysselsättningsgrad och arbetslöshet som begrepp. Sysselsättningsgraden mäter andelen sysselsatta i förhållande till hela befolkningen i en viss åldersgrupp (här 20–64 år). Arbetslösheten mäts som andelen arbetslösa i förhållande till den totala arbetskraften. För att räknas som arbetslös behöver en individ arbetskraften. De som står utanför arbetskraften, t ex studerande, räknas m a o inte som arbetslösa.  
+
+Från och med referensåret 2025 och framåt har SCB infört en liten kontrollerad slumpmässig osäkerhet (CKM) i befolkningsstatistiken. Osäkerheten har tillförts för att skydda enskilda personer så att ingen riskerar att röjas i statistiken. Till följd av detta så är inte alltid de redovisade totalerna lika med summan av deras redovisade delar. Läs mer om det på <a href="https://www.scb.se/nyhet/ny-metod-for-integritetsskydd-i-befolkningsstatistiken/" target="_blank">SCB:s hemsida</a>.
+
+
 </div>
 </details>
 
@@ -142,23 +147,18 @@ Majoriteten av lediga tjänster tillsätts av personer som redan är aktiva i yr
 
 Vilken typ av kompetens arbetsgivare efterfrågar varierar stort mellan branscher. I Dalarna finns den enklaste typen av yrken framför allt inom hotell och restaurang. Här finns också finns även flest utrikes födda anställda. Motsatsen gäller inom utbildning, offentlig förvaltning samt IT och kommunikation, där omkring hälften av de anställda arbetar inom yrken som kräver motsvarande fördjupad högskolekompetens.
 
-Hur Dalarna ligger till jämfört med andra län varierar också, men skillnaderna mellan länen är förhållandevis små. Den variationen finns istället att utforska i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>.
-
-<span class = "kommentar">Hittar inte något sådant diagram i Shiny-rapporten. Enkelt att lägga tillbaka tidigare diagram vid behov. Dock rätt små skillnader. - *Vi får kolla med Peter. /M*</span>
-
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_kvalifikation$`kvalifikationskrav_bransch_Dalarnas län`
 ```
 
-## Åldersstruktur i branscherna
+## Demografisk struktur per bransch
 
 ```{r, include = FALSE, eval = FALSE}
 Åldersstrukturen inom en bransch säger något om det kommande rekryteringsbehovet. Störst antal personer över 60 år arbetar i Dalarna inom `r tolower(bransch_aldst_antal$bransch)`, omkring `r format(plyr::round_any(as.numeric(bransch_aldst_antal$antal),100),big.mark = " ")` personer, som väntas gå i pension inom 5-10 år. Tillsammans med en åldrande befolkning med behov av mer vård och omsorg skapar det ett stort rekryteringsbehov inom branschen, redan idag och framöver. <span class = "kommentar">*Vad jag kan se i shiny-appen är det lite högre andel inom Fastighet i gruppen 60-67 år. /M*</span>
 ```
 
-<span class = "kommentar">Har tagit bort figur och text. Bör ersättas med text som relaterar till Shiny-appen, alternativt så har man ingen text alls. /J</span>
-Se fliken demografi i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>
+Det finns ett omfattande material att utforska när det gäller ålder, kön och bakgrund ur ett branschperspektiv. Den som är intresserad av att fördjupa sig inom en viss bransch eller ett visst perspektiv, t ex förväntade pensionsavgångar i närtid utifrån nuvarande ålderssammansättning, hänvisas till fliken Demografi i <a href="https://shiny.regiondalarna.se/branscher/" target="_blank">Shiny-rapporten</a>.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
@@ -188,8 +188,6 @@ gg_antal_utrikes_inrikes[[1]]
 
 <br>
 
-<span class = "kommentar">Det var möjligt att ändra åldersgrupperna i ett av diagrammen från PPT:erna, så körde på det./J</span>
-
 Samma mönster syns när befolkningen delas upp i åldersgrupper. De unga (0-19 år) och de i arbetsför ålder (20-64 år) har minskat sedan slutet på 1960-talet, medan de äldre, särskilt 80+ år, har ökat kraftigt. Det är en utveckling som förväntas fortsätta kommande år.
 
 <br>
@@ -206,7 +204,7 @@ Sedan 2006 har arbetskraftsdeltagandet ökat för både kvinnor och män i arbet
 gg_arbetskraftsdeltagande$arbetskraftsdeltagande_Dalarna
 ```
 
-## Förvärvsarbetande - vilka branscher bär arbetsmarknaden
+## Förvärvsarbetande
 
 Vård och omsorg är idag Dalarnas klart största bransch räknat i antal anställda, en följd av en relativt hög medelålder i länet. SCB bedömer att behovet av arbetskraft inom vård och omsorg kommer att fortsätta öka i takt med den åldrande befolkningen (<a href="https://www.scb.se/contentassets/04cf1ee0f04b4c06a6e62d22d78e8d4c/dalarnas-lan-20251215.pdf" target="_blank">SCB, 2025</a>).
 
@@ -216,7 +214,7 @@ gg_forv_senastear$antal_per_bransch
 ```
 
 <br>
-Historiskt var tillverkning och utvinning Dalarnas största bransch, men den har minskat sedan 1990 i takt med en mer automatiserad produktion och en generell förskjutning mot tjänstesektorn. Företagstjänster och finans har istället vuxit kraftigt, delvis för att verksamhet som tidigare skedde i egen regi (till exempel lokalvård) numera ofta upphandlas och därmed räknas till en annan bransch.
+Historiskt var tillverkning och utvinning Dalarnas största bransch, men den har minskat sedan 1990 i takt med en mer automatiserad produktion och en generell förskjutning mot tjänstesektorn. Företagstjänster och finans har istället vuxit kraftigt, delvis för att verksamhet som tidigare skedde i egen regi (till exempel lokalvård) numera ofta upphandlas och därmed räknas till en annan bransch. Noterbart är att branschen tillverkning och utvinning under senare år återigen ökar i antalet förvärvsarbetande i takt med Hitachi Energys expansion i Ludvika. Effekten på lång sikt är trots det en minskning med drygt 12 000 förvärvsarbetande sedan 1990.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
@@ -248,9 +246,8 @@ Om den flyttas till Shiny helt, ersätt med en kort textmening + länk här.
 
 Pendling kan stärka en svag lokal arbetsmarknad genom att öppna upp fler möjligheter till jobb. I Dalarna är andelen som pendlar över länsgräns relativt liten, men flera kommuner tillhör större lokala arbetsmarknadsregioner. Till exempel pendlar många från Gagnef till Borlänge, från Smedjebacken till Ludvika och från Orsa till Mora. I de till ytan stora kommunerna i norra Dalarna (Malung-Sälen, Älvdalen) bor och arbetar däremot de allra flesta i samma kommun.
 
-Skillnaderna mellan Dalarnas kommuner, och mellan Dalarna och andra län går att utforska i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>, fliken rörlighet och hälsa.
+Skillnaderna mellan Dalarnas kommuner, och mellan Dalarna och andra län kommer att kunna utforskas i <a href="https://shiny.regiondalarna.se/branscher/" target="_blank">Shiny-rapporten</a>, fliken Rörlighet och hälsa (under arbete).
 
-<span class = "kommentar">Jag hittar ingen sådan figur i Shiny-rapporten. - Jag tror att det ska komma under fliken Rörlighet och hälsa. /M</span>
 
 <!-- 
 FÖRSLAG PÅ NY FIGUR: Om pendlingsavsnittet ska ha kvar en visuell komponent 
@@ -280,9 +277,6 @@ gg_utbniva_bakgrund[[names(gg_utbniva_bakgrund)]]
 ```
 
 # Utbildningssystemets roll
-
-<span class = "kommentar">Jag lyfte fram texten från informationsrutan och bad Claude anpassa så att det passar i löpande text. Läs gärna och ändra om något blivit galet. Hänvisning till Shiny-app finns efter figuren, men kanske behövs tidigare också? /Jon</span>
-
 En väl fungerande kompetensförsörjning kräver att utbildningssystemet är anpassat till arbetsmarknadens behov, från gymnasiet, via vuxenutbildning och yrkeshögskola, till högskola och universitet.
 
 Efter grundskolan kan eleverna fortsätta till **gymnasieskolan**, som är tre år och förbereder för högre utbildning eller för arbetsmarknaden, via högskoleförberedande eller yrkesinriktade program. Några mindre kommuner i Dalarna saknar egen gymnasieutbildning och samverkar i stället med andra kommuner.
@@ -329,7 +323,7 @@ gg_sysselsattningsgrad_93$sysselsattningsgrad_93_Dalarna
 ```
 
 <br>
-Den stora skillnaden i sysselsättningsgrad finns inte mellan kvinnor och män, utan mellan inrikes och utrikes födda. Det är ett mönster som gäller i hela landet, och som till stor del hänger ihop med den lägre utbildningsnivån bland utrikes födda som beskrevs tidigare i rapporten. Skillnaden mellan Dalarnas kommuner går att utforska i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>.
+Den stora skillnaden i sysselsättningsgrad finns inte mellan kvinnor och män, utan mellan inrikes och utrikes födda. Det är ett mönster som gäller i hela landet, och som till stor del hänger ihop med den lägre utbildningsnivån bland utrikes födda som beskrevs tidigare i rapporten. Skillnaden mellan Dalarnas kommuner ur ett utbildningsperspektiv går att utforska i <a href="https://shiny.regiondalarna.se/branscher/" target="_blank">Shiny-rapporten</a> under fliken Utbildning & yrken.
 
 ## Arbetslöshet
 
@@ -351,7 +345,7 @@ I Dalarna, liksom i riket, varierar matchningsgraden tydligt beroende på var ma
 gg_matchning$matchning_bakgrund
 ```
 
-Matchningsgraden varierar även tydligt beroende exempelvis vilket yrke man har, se fliken matchning i <a href="https://shiny.ltdalarna.se/branscher/" target="_blank">Shiny-rapporten</a>.
+Matchningsgraden varierar även tydligt beroende exempelvis vilket yrke man har, se fliken matchning i <a href="https://shiny.regiondalarna.se/branscher/" target="_blank">Shiny-rapporten</a>.
 
 ## Brist på arbetskraft och kompetens
 
@@ -378,8 +372,9 @@ Konsekvensen syns redan idag genom en utbredd upplevd kompetensbrist bland Dalar
 Ska Dalastrategins målbild för 2030 om en väl fungerande kompetensförsörjning nås, pekar utvecklingen mot tre områden där aktörer i länet, offentlig sektor, näringsliv och utbildningsväsende tillsammans, behöver agera:
 
 * **Bättre matchning mellan utbildning och arbetsmarknad**, så att fler av de utbildningsplatser som finns i länet leder till de jobb som efterfrågas.
-* **Snabbare integration av utrikes födda på arbetsmarknaden**, både genom höjd utbildningsnivå och genom att sänka trösklarna in på arbetsmarknaden för grupper som idag har svårt att komma in.
+* **En fortsatt snabb integration av utrikes födda på arbetsmarknaden**, både genom höjd utbildningsnivå och genom att sänka trösklarna in på arbetsmarknaden för grupper som idag har svårt att komma in.
 * **Nya sätt att möta bristen där den redan är akut**, till exempel genom automatisering, vidareutbildning av redan anställda och strukturella förändringar i hur verksamheter bemannas.
+
 
 <div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 200px;"></div>
 
