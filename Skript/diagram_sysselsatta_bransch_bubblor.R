@@ -97,11 +97,11 @@ diag_sysselsatta_bransch_bubblor <- function(region_vekt = "20",                
                          "Diagramförklaring: Cirklarnas storlek visar antal sysselsatta (efter arbetsställets belägenhet) i respektive bransch.")
   diagramfil <- "sysselsatta_bransch_bubblor.png"
   
-  diagram_capt <-rddiagram::lagg_till_ckm_notering(diagram_capt = diagram_capt,
-                                                  har_ckm_data = TRUE,
-                                                  fran_ar = NULL,
-                                                  ckm_text = NULL
-                                                )
+  # diagram_capt <-rddiagram::lagg_till_ckm_notering(diagram_capt = diagram_capt,
+  #                                                 har_ckm_data = TRUE,
+  #                                                 fran_ar = NULL,
+  #                                                 ckm_text = NULL
+  #                                               )
   
   gg_obj <- rddiagram::skapa_packed_circles(
     data = df,

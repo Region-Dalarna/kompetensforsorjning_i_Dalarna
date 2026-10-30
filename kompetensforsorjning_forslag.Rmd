@@ -287,7 +287,7 @@ De tydligaste könsskillnaderna i utbildningsval syns redan vid gymnasievalet, o
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
-gg_gymnasiet_kon$gymnasieantagning_kon_tot
+gg_gymnasiet_kon$gymnasieantagning_alla
 ```
 
 <br>
@@ -319,7 +319,7 @@ Sysselsättningsgraden har ökat över tid för både kvinnor och män i Dalarna
 
 <br>
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
-gg_sysselsattningsgrad_93$sysselsattningsgrad_93_Dalarna
+gg_sysselsattningsgrad_93$sysselsattningsgrad_93_linje_Dalarna
 ```
 
 <br>
@@ -327,12 +327,20 @@ Den stora skillnaden i sysselsättningsgrad finns inte mellan kvinnor och män, 
 
 ## Arbetslöshet
 
-Arbetslösheten i Dalarna har konsekvent varit lägre än i riket, och har liksom i övriga landet sjunkit sedan pandemin. Det förklaras sannolikt av en kombination av en diversifierad ekonomi, goda kommunikationer och närhet till städer med hög ekonomisk aktivitet, samt en aktiv arbetsmarknad med expanderande företag (<a href="https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/januari-2025-socioekonomisk-analys-norra-mellansverige-pdf-52-sid.pdf" target="_blank">Region Dalarna, 2025</a>; <a href="https://arbetsformedlingen.se/download/18.16244a19ece6ad0cfac9/1782137329379/regionala-utsikter-varen-2026.pdf" target="_blank">Arbetsförmedlingen, 2026</a>).
+Arbetslösheten i Dalarna har konsekvent varit lägre än i Sverige, och har liksom i övriga landet sjunkit sedan pandemin. Det förklaras sannolikt av en kombination av en diversifierad ekonomi, goda kommunikationer och närhet till städer med hög ekonomisk aktivitet, samt en aktiv arbetsmarknad med expanderande företag (<a href="https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/januari-2025-socioekonomisk-analys-norra-mellansverige-pdf-52-sid.pdf" target="_blank">Region Dalarna, 2025</a>; <a href="https://arbetsformedlingen.se/download/18.16244a19ece6ad0cfac9/1782137329379/regionala-utsikter-varen-2026.pdf" target="_blank">Arbetsförmedlingen, 2026</a>). På senare år har arbetslösheten i Sverige ökat, medan den i Dalarna istället har minskat. 
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
-gg_arbetsloshet_08$arbetsloshet_08_senastear
+gg_arbetsloshet_bas_jmf_riket$`andel_arbetslosa_tid_20–64ar`
 ```
+
+Text behövs....
+
+<br>
+```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
+gg_arbetsloshet_bas$`andel_arbetslosa_bakgr_tid_20–64ar_Dalarna`
+```
+
 
 ## Matchning på arbetsmarknaden
 

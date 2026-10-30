@@ -307,17 +307,27 @@ if(uppdatera_data == TRUE){
   andel_hogutb_man_min_ar <- round(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$data %>% filter(år == min(år),kön == "män") %>% .$total,0)
   andel_hogutb_man_max_ar <- round(gg_utbniva_85[[names(gg_utbniva_85)[1]]]$data %>% filter(år == max(år),kön == "män") %>% .$total,0)
   
-  # Gymnasieantagning, könsuppdelat
-  source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_gymnasiantagning_antal_kon.R")
-  gg_gymnasiet_kon <- funktion_upprepa_forsok_om_fel( function() {
-    diag_gymnasieantagna_antal(output_mapp_figur = Output_mapp_figur,
-                               spara_figur = spara_diagram_som_bildfiler,
-                               returnera_figur = TRUE,
-                               returnera_data = FALSE,
-                               konsuppdelat = TRUE,
-                               diag_antal_fleraar = FALSE)
-  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
+  # Gymnasieantagning, könsuppdelat - Antal tidigare
+  #source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_gymnasiantagning_antal_kon.R")
+  # gg_gymnasiet_kon <- funktion_upprepa_forsok_om_fel( function() {
+  #   diag_gymnasieantagna_antal(output_mapp_figur = Output_mapp_figur,
+  #                              spara_figur = spara_diagram_som_bildfiler,
+  #                              returnera_figur = TRUE,
+  #                              returnera_data = FALSE,
+  #                              konsuppdelat = TRUE,
+  #                              diag_antal_fleraar = FALSE)
+  # }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
+  source("https://raw.githubusercontent.com/Region-Dalarna/kvinnor_man_i_Dalarna/refs/heads/main/Skript/diagram_gymnasiet_genom_antag.R")
+  gg_gymnasiet_kon <- funktion_upprepa_forsok_om_fel( function() {
+    diag_gymn_genomstromning_antagning(region_vekt = "20", 
+                                       outputmapp = Output_mapp_figur,
+                                       spara_figur = spara_diagram_som_bildfiler,
+                                       diag_genomstromning = FALSE,
+                                       diag_gymantagning = TRUE,
+                                       returnera_data = FALSE)
+  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
+
   # Sysselsättningsgrad, tidserie
   source(here("Skript","diagram_sysselsattningsgrad_93.R"), encoding="UTF-8")
   gg_sysselsattningsgrad_93 <- funktion_upprepa_forsok_om_fel( function() {
@@ -325,7 +335,8 @@ if(uppdatera_data == TRUE){
                                    spara_figur = spara_diagram_som_bildfiler,
                                    returnera_data = TRUE,
                                    tid_koder = "*",
-                                   kon_klartext = c("kvinnor","män"),
+                                   diag_stapel = FALSE,
+                                   diag_linje = TRUE,
                                    output_mapp_figur = Output_mapp_figur)
   }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
   
@@ -335,13 +346,32 @@ if(uppdatera_data == TRUE){
   syssgrad_93_senaste_ar_man_varde <- round(forvarvsintensitet_93_df %>% filter(år == max(år),kön == "män") %>% .$sysselsättningsgrad,0)
   syssgrad_93_senaste_ar_kvinna_varde <- round(forvarvsintensitet_93_df %>% filter(år == max(år),kön == "kvinnor") %>% .$sysselsättningsgrad,0)
   
-  # Arbetslöshet tidsserie
-  source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
-  gg_arbetsloshet_08 <- funktion_upprepa_forsok_om_fel( function() {
-    diag_arbetsloshet_08(output_mapp_figur = Output_mapp_figur,
-                         returnera_data = TRUE,
-                         spara_figur = spara_diagram_som_bildfiler)
-  }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
+  # Arbetslöshet tidsserie - tidigare
+  # source(here("Skript","arbetsloshet_08_senastear.R"), encoding="UTF-8")
+  # gg_arbetsloshet_08 <- funktion_upprepa_forsok_om_fel( function() {
+  #   diag_arbetsloshet_08(output_mapp_figur = Output_mapp_figur,
+  #                        returnera_data = TRUE,
+  #                        spara_figur = spara_diagram_som_bildfiler)
+  # }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
+  
+  # skriv ut diagram där först inrikes och utrikes födda jämförs, därefter Dalarna och riket
+  source("G:/skript/diagram/diag_bas_syss_arblosa_inr_utr_fodda_manad.R")
+  gg_arbetsloshet_bas <- funktion_upprepa_forsok_om_fel(function(){
+    diag_bas_arblosa_inr_utr_fodda_manad(vald_region = "20",
+                                         dataetiketter = FALSE,
+                                         x_axis_visa_var_xe_etikett = 12,
+                                         diag_lan_aktuell_manad = FALSE,
+                                         skriv_diagram = spara_diagram_som_bildfiler,
+                                         output_mapp = Output_mapp_figur)
+  },  hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
+  
+  source(here("Skript","diagram_bas_jmf_lan.R"), encoding="UTF-8")
+  gg_arbetsloshet_bas_jmf_riket <- funktion_upprepa_forsok_om_fel(function(){
+    diag_bas_arblosa_jmf_lan_manad(x_axis_visa_var_xe_etikett = 12,
+                                   skriv_diagram = spara_diagram_som_bildfiler,
+                                   output_mapp = Output_mapp_figur)
+  },  hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
+  
   
   # Matchning (län och bakgrund)
   source("https://raw.githubusercontent.com/Region-Dalarna/diagram/main/diagram_matchning_lan_bakgrund.R", encoding="UTF-8")
