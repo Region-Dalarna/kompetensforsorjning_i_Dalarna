@@ -41,7 +41,7 @@ diagram_sysselsattningsgrad_93 <- function(region_vekt = "20",			# Val av region
   region_txt <- paste0(" i ", region_txt)
   regionkod_txt <- if (region_start == region_txt) unique(forvarvsintensitet_df$regionkod) %>% paste0(collapse = "_") else region_txt
   
-  diagramtitel <- glue("Sysselsättningsgrad i åldersgruppen 20-64 år{region_txt}")
+  diagramtitel <- glue("Sysselsättningsgrad (20-64 år){region_txt}")
 
   if(diag_stapel == TRUE){
 

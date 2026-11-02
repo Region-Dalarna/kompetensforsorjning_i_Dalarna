@@ -201,7 +201,7 @@ Sedan 2006 har arbetskraftsdeltagandet ökat för både kvinnor och män i arbet
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
-gg_arbetskraftsdeltagande$arbetskraftsdeltagande_Dalarna
+gg_arbetskraftsdeltagande$arbetskraftsdeltagande_linje_Dalarna
 ```
 
 ## Förvärvsarbetande

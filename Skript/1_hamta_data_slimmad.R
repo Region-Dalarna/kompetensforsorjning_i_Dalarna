@@ -180,6 +180,8 @@ if(uppdatera_data == TRUE){
                                               spara_figur=spara_diagram_som_bildfiler,
                                               returnera_data = TRUE,
                                               tid_koder = "*",
+                                              diag_stapel = FALSE,
+                                              diag_linje = TRUE,
                                               kon_klartext = c("kvinnor","män"),
                                               output_mapp_figur = Output_mapp_figur)
   }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)

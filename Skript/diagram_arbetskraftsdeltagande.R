@@ -3,6 +3,8 @@ diagram_arbetskraftsdeltagande_tid_region <- function(region_vekt = c("20"),			#
                                                       tid_koder = "*",			 # "*" = alla år, "9999" = senaste, finns 2006-2024
                                                       kon_klartext = "totalt", # Finns: "män", "kvinnor", "totalt"
                                                       spara_figur = TRUE, # Skall diagrammet sparas
+                                                      diag_stapel = TRUE,
+                                                      diag_linje = FALSE,
                                                       returnera_data = FALSE, # Skall data returneras
                                                       returnera_figur = TRUE){
 
@@ -59,33 +61,58 @@ diagram_arbetskraftsdeltagande_tid_region <- function(region_vekt = c("20"),			#
   regionfil_txt <- region_txt
   region_txt <- paste0(" i ", region_txt)
   regionkod_txt <- if (region_start == region_txt) paste0(unique(arbetskraftsdeltagande_df$regionkod), collapse = "_") else region_txt
-
-  diagramtitel <- glue::glue("Arbetskraftsdeltagande hos befolkningen 20-64 år{region_txt}")
-  diagramfil <- stringr::str_replace_all(glue::glue("arbetskraftsdeltagande_{regionfil_txt}.png"), "__", "_")
-
+  
   har_konsuppdelning <- "kön" %in% names(arbetskraftsdeltagande_df) && length(unique(arbetskraftsdeltagande_df$kön)) > 1
-
-  gg_obj <- rddiagram::SkapaStapelDiagram(skickad_df = arbetskraftsdeltagande_df,
-                               skickad_x_var = "år",
-                               skickad_y_var = "arbetskraftsdeltagande",
-                               skickad_x_grupp = if (har_konsuppdelning) "kön" else NA,
-                               x_axis_sort_value = FALSE,
-                               diagram_titel = diagramtitel,
-                               skriv_till_diagramfil = spara_figur,
-                               diagram_capt = diagram_capt,
-                               procent_0_100_10intervaller = TRUE,
-                               stodlinjer_avrunda_fem = TRUE,
-                               filnamn_diagram = diagramfil,
-                               manual_y_axis_title = "procent",
-                               manual_x_axis_text_vjust = 1,
-                               manual_x_axis_text_hjust = 1,
-                               manual_color = if (har_konsuppdelning) rddiagram::diagramfarger("kon") else rddiagram::diagramfarger("rus_sex")[1],
-                               output_mapp = output_mapp_figur,
-                               facet_grp = NULL,
-                               facet_scale = "free"
-  )
-
-  gg_list <- c(gg_list, list(gg_obj))
-  names(gg_list)[[length(gg_list)]] <- stringr::str_remove(diagramfil, ".png")
+  
+  diagramtitel <- glue::glue("Arbetskraftsdeltagande (20-64 år){region_txt}")
+  
+  if(diag_stapel == TRUE){
+    
+    diagramfil <- stringr::str_replace_all(glue::glue("arbetskraftsdeltagande_{regionfil_txt}.png"), "__", "_")
+  
+    gg_obj <- rddiagram::SkapaStapelDiagram(skickad_df = arbetskraftsdeltagande_df,
+                                 skickad_x_var = "år",
+                                 skickad_y_var = "arbetskraftsdeltagande",
+                                 skickad_x_grupp = if (har_konsuppdelning) "kön" else NA,
+                                 diagram_titel = diagramtitel,
+                                 skriv_till_diagramfil = spara_figur,
+                                 diagram_capt = diagram_capt,
+                                 procent_0_100_10intervaller = TRUE,
+                                 stodlinjer_avrunda_fem = TRUE,
+                                 filnamn_diagram = diagramfil,
+                                 manual_y_axis_title = "procent",
+                                 manual_x_axis_text_vjust = 1,
+                                 manual_x_axis_text_hjust = 1,
+                                 manual_color = if (har_konsuppdelning) rddiagram::diagramfarger("kon") else rddiagram::diagramfarger("rus_sex")[1],
+                                 output_mapp = output_mapp_figur,
+    )
+  
+    gg_list <- c(gg_list, list(gg_obj))
+    names(gg_list)[[length(gg_list)]] <- stringr::str_remove(diagramfil, ".png")
+  }
+  
+  if(diag_linje == TRUE){
+    
+    diagramfil <- stringr::str_replace_all(glue::glue("arbetskraftsdeltagande_linje_{regionfil_txt}.png"), "__", "_")
+    
+    gg_obj <- rddiagram::SkapaLinjeDiagram(skickad_df = arbetskraftsdeltagande_df,
+                                            skickad_x_var = "år",
+                                            skickad_y_var = "arbetskraftsdeltagande",
+                                            skickad_x_grupp = if (har_konsuppdelning) "kön" else NA,
+                                            diagram_titel = diagramtitel,
+                                            skriv_till_diagramfil = spara_figur,
+                                            diagram_capt = diagram_capt,
+                                            procent_0_100_10intervaller = TRUE,
+                                            stodlinjer_avrunda_fem = FALSE,
+                                            filnamn_diagram = diagramfil,
+                                            manual_y_axis_title = "procent",
+                                            manual_color = if (har_konsuppdelning) rddiagram::diagramfarger("kon") else rddiagram::diagramfarger("rus_sex")[1],
+                                            output_mapp = output_mapp_figur,
+    )
+    
+    gg_list <- c(gg_list, list(gg_obj))
+    names(gg_list)[[length(gg_list)]] <- stringr::str_remove(diagramfil, ".png")
+  }
+  
   return(gg_list)
 }
