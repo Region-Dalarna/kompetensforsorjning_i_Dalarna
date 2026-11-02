@@ -210,7 +210,7 @@ if(uppdatera_data == TRUE){
   gg_forv_90 <- funktion_upprepa_forsok_om_fel( function() {
     diagram_forvarvsarbetande_90(output_mapp_figur = Output_mapp_figur,
                                  spara_figur = spara_diagram_som_bildfiler,
-                                 diag_antal = TRUE,
+                                 diag_antal = FALSE,
                                  diag_forandring = TRUE,
                                  returnera_figur = TRUE,
                                  returnera_data = TRUE,
@@ -249,6 +249,7 @@ if(uppdatera_data == TRUE){
     diagram_befolkningsforandring(output_mapp_figur = Output_mapp_figur,
                                   spara_figur = spara_diagram_som_bildfiler,
                                   tid = c("2010":"2025"),
+                                  info_CKM_caption = FALSE,
                                   returnera_figur = TRUE,
                                   returnera_data = TRUE)
   }, hoppa_over = hoppa_over_forsok_igen) |> anpassa_caption(bredd = 110)
