@@ -283,9 +283,8 @@ Efter grundskolan kan eleverna fortsätta till **gymnasieskolan**, som är tre �
 
 För vuxna finns flera vägar att utbilda sig. **Komvux/DalaWux** är kommunal vuxenutbildning där man kan komplettera grundskole- eller gymnasieutbildning, och även läsa vissa yrkesutbildningar. **Yrkeshögskolan (YH)** bedrivs i samarbete med näringslivet och syftar till jobb direkt efter examen. Ungefär en tredjedel av utbildningen sker som praktik (LIA), och de flesta utbildningarna är 1–2 år långa. **Folkhögskolorna** erbjuder utbildning på informell nivå, öppen för alla oavsett tidigare utbildning, med fokus på personlig utveckling snarare än formella examina. **Arbetsmarknadsutbildning** är slutligen kortare, yrkesinriktad utbildning i Arbetsförmedlingens regi, riktad mot bristyrken och mot personer som har svårt att hitta jobb.
 
-De tydligaste könsskillnaderna i utbildningsval syns redan vid gymnasievalet, och de återspeglas senare i arbetslivet där kvinnor är överrepresenterade inom vård, omsorg och utbildning, medan män dominerar byggsektorn. Ska fördelningen mellan branscher bli mer jämställd på sikt behöver arbetet börja redan i skolan.
+De tydligaste könsskillnaderna i utbildningsval syns redan vid gymnasievalet, och de återspeglas senare i arbetslivet där kvinnor är överrepresenterade inom vård, omsorg och utbildning, medan män dominerar byggsektorn. En jämn könsfördelning ligger mellan 40 och 60 procent. Ska fördelningen mellan branscher bli mer jämställd på sikt behöver arbetet börja redan i skolan där det för närvarande är få program som uppvisar en jämn könsfördelning.
 
-<span class = "kommentar">Behöver man nämna något om den skuggade sektionen?</span>
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
@@ -329,14 +328,14 @@ Den stora skillnaden i sysselsättningsgrad finns inte mellan kvinnor och män, 
 
 ## Arbetslöshet
 
-Arbetslösheten i Dalarna har konsekvent varit lägre än i Sverige, och har liksom i övriga landet sjunkit sedan pandemin. Det förklaras sannolikt av en kombination av en diversifierad ekonomi, goda kommunikationer och närhet till städer med hög ekonomisk aktivitet, samt en aktiv arbetsmarknad med expanderande företag (<a href="https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/januari-2025-socioekonomisk-analys-norra-mellansverige-pdf-52-sid.pdf" target="_blank">Region Dalarna, 2025</a>; <a href="https://arbetsformedlingen.se/download/18.16244a19ece6ad0cfac9/1782137329379/regionala-utsikter-varen-2026.pdf" target="_blank">Arbetsförmedlingen, 2026</a>). På senare år har arbetslösheten i Sverige ökat, medan den i Dalarna istället har minskat något. 
+Arbetslösheten i Dalarna har under många år konsekvent varit lägre än i Sverige, och har liksom i övriga landet sjunkit sedan pandemin. Det förklaras sannolikt av en kombination av en diversifierad ekonomi, goda kommunikationer och närhet till städer med hög ekonomisk aktivitet, samt en aktiv arbetsmarknad med expanderande företag (<a href="https://www.regiondalarna.se/contentassets/d845727dbc9f49c3b7b09a2c60456497/januari-2025-socioekonomisk-analys-norra-mellansverige-pdf-52-sid.pdf" target="_blank">Region Dalarna, 2025</a>; <a href="https://arbetsformedlingen.se/download/18.16244a19ece6ad0cfac9/1782137329379/regionala-utsikter-varen-2026.pdf" target="_blank">Arbetsförmedlingen, 2026</a>). På senare år har arbetslösheten i Sverige ökat, medan den i Dalarna istället har minskat något. 
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
 gg_arbetsloshet_bas_jmf_riket$`andel_arbetslosa_tid_20–64ar`
 ```
 
-<span class = "kommentar">Kort text behövs</span>
+Arbetslöshetens utveckling för inrikes respektive utrikes födda visar en kraftig förbättring för utrikes födda under de senaste åren. Sedan mitten av 2020 har arbetslöshetsnivån mer än halverats för gruppen, vilket har varit en viktig utveckling för att kompetensförsörja näringsliv och offentlig sektor i länet. Parallellt med denna mycket positiva utveckling för utrikes födda ligger arbetslösheten för inrikes födda fortsatt kvar på en mycket låg nivå.
 
 <br>
 ```{r, echo=FALSE, fig.height=5, fig.width=8, fig.align='center', fig.cap="."}
