@@ -60,7 +60,7 @@ p_load(tidyverse,
        here)
 
 # Skall data uppdateras? Annars läses data in från en sparad global environment-fil.
-uppdatera_data = FALSE
+uppdatera_data = TRUE
 
 if(uppdatera_data == TRUE){
   
@@ -82,6 +82,7 @@ if(uppdatera_data == TRUE){
     diagram_demo_forsorjningkvot_tid_region(region_vekt = c("20","00"),
                                             output_mapp_figur = Output_mapp_figur,
                                             tid_koder = "*",
+                                            stodlinjer_avrunda_fem = FALSE,
                                             spara_figur = spara_diagram_som_bildfiler,
                                             returnera_data = TRUE)
   }, hoppa_over = hoppa_over_forsok_igen)  |> anpassa_caption(bredd = 110)
